@@ -7,6 +7,27 @@ ui.page_title("Geospatial", "Ingest & CRS Validation",
               "Build spatial points from the coordinates, validate them, and "
               "reproject to a metric CRS — the foundation for every geo step.")
 
+ui.learn(
+    "CRS validation & reprojection (Lab 1)",
+    "This lab turns longitude/latitude into trustworthy spatial data. First, coordinate "
+    "values are coerced to numbers and invalid or missing pairs are removed. The initial "
+    "layer is **WGS84 / EPSG:4326**, which is appropriate for web maps but uses degrees. "
+    "Distances and areas must instead be calculated in a projected, meter-based CRS, so "
+    "the app selects a UTM zone from the data location.\n\n"
+    "Do not confuse `set_crs` with `to_crs`: the first declares what coordinates already "
+    "mean; the second transforms them. Use the nearest-neighbor check as a sanity test. "
+    "Unexpectedly tiny distances may indicate duplicate points; huge distances may reveal "
+    "bad coordinates. Raw locations and text can identify people, so do not share them "
+    "until the later aggregation steps are appropriate.",
+    code=(
+        "import geopandas as gpd\n"
+        "gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.lon, df.lat),\n"
+        "                       crs='EPSG:4326')          # declare WGS84\n"
+        "zone = int((gdf.geometry.x.median() + 180)//6) + 1\n"
+        "gdf_m = gdf.to_crs(epsg=32600 + zone)            # transform to UTM metres"
+    ),
+)
+
 if not dl.has_geo():
     st.warning("The active dataset has no longitude/latitude columns. Set them on "
                "**Text Analytics → Data & Preprocessing**.", icon="⚠️")
@@ -62,20 +83,3 @@ for _, r in sample.iterrows():
 st_folium(m, use_container_width=True, height=520, returned_objects=[])
 
 st.success("Points ready. Continue to **Geospatial → Clustering (DBSCAN)**.", icon="➡️")
-
-ui.learn(
-    "CRS validation & reprojection (Lab 1)",
-    "Raw coordinates are dirty: some are null, some out of the valid lon/lat range. "
-    "We coerce to numeric, drop bad rows, and build a **WGS84 (EPSG:4326)** "
-    "`GeoDataFrame`. Because distances in degrees are meaningless, we reproject to a "
-    "**metric UTM** CRS (auto-picked from the median longitude) whenever we need "
-    "meters — e.g. DBSCAN's `eps`. This is the classic `set_crs` (declare) vs "
-    "`to_crs` (transform) distinction.",
-    code=(
-        "import geopandas as gpd\n"
-        "gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.lon, df.lat),\n"
-        "                       crs='EPSG:4326')          # declare WGS84\n"
-        "zone = int((gdf.geometry.x.median() + 180)//6) + 1\n"
-        "gdf_m = gdf.to_crs(epsg=32600 + zone)            # transform to UTM metres"
-    ),
-)

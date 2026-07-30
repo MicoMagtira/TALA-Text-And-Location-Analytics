@@ -103,13 +103,30 @@ def stopwords() -> set:
 
 def learn(title: str, body_md: str, code: str | None = None,
           lang: str = "python") -> None:
-    """Render a collapsible teaching panel (only when teach mode is on)."""
+    """Render a lesson-first teaching guide (only when teach mode is on)."""
     if not st.session_state.get(SS_TEACH, True):
         return
-    with st.expander(f"📘 Learn — {title}"):
+    with st.expander(f"📘 Learn before you try — {title}", expanded=True):
+        st.markdown(
+            "> **Learning routine:** read the idea, make one deliberate change, "
+            "then explain what changed using examples from the current data."
+        )
+        st.markdown("#### Understand the method")
         st.markdown(body_md)
+        st.markdown(
+            "#### Try it deliberately\n"
+            "Start with the default settings. Change **one** control at a time, "
+            "compare the output, and record what changed and what stayed stable. "
+            "Use the displayed examples or downloadable output to check whether the "
+            "pattern answers your actual question.\n\n"
+            "#### Discuss before you conclude\n"
+            "Ask: *What does this output support? What does it not prove? Which data, "
+            "language, sampling, or privacy choices could change the result?* Treat "
+            "every chart as evidence to investigate—not an automatic finding."
+        )
         if code:
-            st.code(code, language=lang)
+            with st.expander("See the underlying method", expanded=False):
+                st.code(code, language=lang)
 
 
 def page_title(pill: str, title: str, blurb: str | None = None) -> None:

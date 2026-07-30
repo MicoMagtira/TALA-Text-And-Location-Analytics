@@ -9,6 +9,26 @@ ui.page_title("Text Analytics", "Themes (TF-IDF K-Means)",
               "Group comments into themes with TF-IDF + K-Means, view them in 2-D "
               "(PCA), read the top terms per theme, and cross-tab against sentiment.")
 
+ui.learn(
+    "TF-IDF + K-Means themes (from NLP.ipynb)",
+    "**TF-IDF** gives more weight to terms that distinguish one comment from the rest; "
+    "**K-Means** then groups comments that are similar in that weighted space. The top "
+    "terms are clues for naming each cluster, while the PCA map is only a two-dimensional "
+    "projection for exploration—not proof that themes are cleanly separated.\n\n"
+    "Try several values of K. A useful solution has readable top terms, enough examples "
+    "to inspect, and a purpose that fits the research question. Name themes after reading "
+    "sample comments, not from keywords alone. The sentiment cross-tab is descriptive: it "
+    "can guide follow-up questions but cannot establish why a theme has a given tone.",
+    code=(
+        "from sklearn.feature_extraction.text import TfidfVectorizer\n"
+        "from sklearn.cluster import KMeans\n\n"
+        "X = TfidfVectorizer(ngram_range=(1,2), max_df=0.9, min_df=3,\n"
+        "                    max_features=1200).fit_transform(cleaned_docs)\n"
+        "km = KMeans(n_clusters=4, n_init=10, random_state=42).fit(X)\n"
+        "order = km.cluster_centers_.argsort()[:, ::-1]  # top terms per cluster"
+    ),
+)
+
 texts = dl.text_series().tolist()
 sw = ui.stopwords()
 corpus = tuple(preprocess.clean_corpus(texts, sw))
@@ -72,20 +92,3 @@ fig = px.bar(cross.reset_index().melt(id_vars="theme", var_name="sentiment",
 fig.update_layout(**viz.plotly_template(ui.palette())["layout"], height=90 + 55 * k,
                   barmode="stack", yaxis_title="", xaxis_title="comments")
 st.plotly_chart(fig, width="stretch")
-
-ui.learn(
-    "TF-IDF + K-Means themes (from NLP.ipynb)",
-    "**TF-IDF** weights each term by how distinctive it is to a document. **K-Means** "
-    "then groups documents into K clusters in that weighted space; the terms closest "
-    "to each cluster **centroid** summarize the theme. **PCA** reduces the space to "
-    "2-D just for plotting. Crossing themes with VADER sentiment shows which themes "
-    "carry positive vs. negative feeling.",
-    code=(
-        "from sklearn.feature_extraction.text import TfidfVectorizer\n"
-        "from sklearn.cluster import KMeans\n\n"
-        "X = TfidfVectorizer(ngram_range=(1,2), max_df=0.9, min_df=3,\n"
-        "                    max_features=1200).fit_transform(cleaned_docs)\n"
-        "km = KMeans(n_clusters=4, n_init=10, random_state=42).fit(X)\n"
-        "order = km.cluster_centers_.argsort()[:, ::-1]  # top terms per cluster"
-    ),
-)

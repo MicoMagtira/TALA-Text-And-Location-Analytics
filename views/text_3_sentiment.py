@@ -8,6 +8,25 @@ ui.page_title("Text Analytics", "Sentiment & Emotion",
               "VADER polarity per comment (positive / neutral / negative) and the "
               "NRC emotion profile of the corpus.")
 
+ui.learn(
+    "How VADER scores sentiment",
+    "**Sentiment analysis estimates tone; it does not read intent.** VADER is a "
+    "rule-and-lexicon model that produces a compound score from -1 to +1. This page "
+    "uses the selected threshold to label comments positive, neutral, or negative, and "
+    "uses NRC to count emotion-word signals. VADER examines raw text, so capitalization, "
+    "punctuation, and emojis can affect its score.\n\n"
+    "Use the examples to audit the labels before reporting a percentage. Sarcasm, polite "
+    "complaints, health terminology, Filipino, and Taglish can all be misread. Treat the "
+    "distribution as a triage tool: find patterns, then validate them by reading comments "
+    "and explaining the model's limitations.",
+    code=(
+        "from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer\n"
+        "sia = SentimentIntensityAnalyzer()\n"
+        "c = sia.polarity_scores(text)['compound']\n"
+        "label = 'positive' if c >= 0.05 else 'negative' if c <= -0.05 else 'neutral'"
+    ),
+)
+
 texts = dl.text_series().tolist()
 thr = st.slider("VADER neutral threshold (±)", 0.0, 0.2, 0.05, 0.01)
 
@@ -66,18 +85,3 @@ st.warning("**Teaching note:** VADER and the NRC lexicon are English-tuned. On "
            "Filipino/Taglish text they still give a useful signal but will miss "
            "or misread native-language emotion — a great point to discuss with "
            "participants and to motivate multilingual models.", icon="⚠️")
-
-ui.learn(
-    "How VADER scores sentiment",
-    "VADER (Valence Aware Dictionary and sEntiment Reasoner) is a rule + lexicon "
-    "model. Its **compound** score is normalized to [-1, 1]; the common convention "
-    "labels ≥ +0.05 positive, ≤ -0.05 negative, and the band between as neutral. "
-    "Unlike the bag-of-words steps, VADER runs on the **raw** text so punctuation, "
-    "capitalization and emojis contribute.",
-    code=(
-        "from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer\n"
-        "sia = SentimentIntensityAnalyzer()\n"
-        "c = sia.polarity_scores(text)['compound']\n"
-        "label = 'positive' if c >= 0.05 else 'negative' if c <= -0.05 else 'neutral'"
-    ),
-)

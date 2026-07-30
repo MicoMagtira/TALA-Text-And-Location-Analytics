@@ -5,6 +5,20 @@ from core import ui
 
 ui.page_title("Overview", "Welcome to TALA")
 
+ui.learn(
+    "How the two tracks connect",
+    "TALA follows one question through two complementary lenses: **what people are "
+    "saying** (text analytics) and **where patterns occur** (geospatial analytics). "
+    "Start by checking the data and preprocessing choices, then use text outputs to "
+    "generate and test interpretations rather than treating a chart as an answer.\n\n"
+    "The geospatial pages form a sequence: \n\n"
+    "`CSV → Ingest (points) → DBSCAN (clusters) → Generalization / NLP per cluster → Map & exports`\n\n"
+    "Each step changes what can be safely claimed and shared. The integration page joins "
+    "cluster-level keywords and sentiment to place while preserving privacy by showing "
+    "aggregates, not individual comments. Keep your research question, data limitations, "
+    "and audience in view as you move through the workflow.",
+)
+
 st.markdown(
     """
 **TALA — Text And Location Analytics** is a hands-on training app that pairs
@@ -57,16 +71,4 @@ st.info(
     "sidebar. Use the sidebar toggles to change the palette, add Filipino "
     "stopwords, or hide the Learn panels during assessments.",
     icon="👉",
-)
-
-ui.learn(
-    "How the two tracks connect",
-    "The same dataset drives both tracks. In the geospatial track the pages "
-    "**chain** just like the original Colab labs — each step reads the previous "
-    "step's output from the session:\n\n"
-    "`CSV → Ingest (points) → DBSCAN (clusters) → Generalization / NLP-per-cluster → Map & Exports`\n\n"
-    "The **NLP per Cluster** page is the integration point: it profiles each "
-    "spatial cluster with TF-IDF keywords + VADER sentiment, but only ever shows "
-    "**aggregated** results — never raw comments — which is the privacy-safe "
-    "principle from Lab 5.",
 )
