@@ -111,6 +111,16 @@ def test_downstream_stages_leave_the_base_dataset_untouched():
     assert _fingerprint(df) == before, "the geo walkthrough mutated shared data"
 
 
+def test_grid_cell_size_is_preserved_for_sparse_extents():
+    """A requested grid size must not be silently replaced to cap empty cells."""
+    fine = geo.grid_for(*KEY, 5_000.0)
+    coarse = geo.grid_for(*KEY, 100_000.0)
+    assert len(fine) > len(coarse), "grid cell size does not change occupied cells"
+    assert fine["n_points"].sum() == coarse["n_points"].sum(), (
+        "grid aggregation lost points while changing cell size"
+    )
+
+
 # ---------------------------------------------------------------------------
 # 3. Session state stays small
 # ---------------------------------------------------------------------------
