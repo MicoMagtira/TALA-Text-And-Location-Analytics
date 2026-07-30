@@ -28,13 +28,13 @@ from core import splash  # noqa: E402  (after set_page_config, per Streamlit rul
 
 boot = splash.boot()
 if boot:
-    boot.update(8, "Booting TALA core")
+    boot.update(6, "Booting TALA core")
 
 from core import data_loader as dl  # noqa: E402
 from core import ui  # noqa: E402
 
 if boot:
-    boot.update(26, "Loading theme and palettes")
+    boot.update(18, "Loading theme and palettes")
 
 ui.inject_css()
 ui.header()
@@ -42,11 +42,11 @@ ui.header()
 # Pull the dataset in explicitly rather than letting the first page trigger it,
 # so the read happens while the splash is still up and reports honest progress.
 if boot:
-    boot.update(48, "Reading dataset (Parquet)")
+    boot.update(32, "Reading dataset (Parquet)")
 dl.ensure_loaded()
 
 if boot:
-    boot.update(70, "Indexing text and coordinates")
+    boot.update(44, "Indexing text and coordinates")
 ui.sidebar_controls()
 
 # --- Navigation ---------------------------------------------------------------
@@ -78,7 +78,7 @@ nav = st.navigation({
 })
 
 if boot:
-    boot.update(88, "Rendering view")
+    boot.update(55, "Rendering view")
 
 # The splash must come down even if a page raises, otherwise the overlay would
 # sit on top of the traceback.

@@ -21,3 +21,4 @@ Thumbs.db
 # Notebook / data scratch (keep the bundled example in data/)
 *.ipynb_checkpoints/
 outputs/
+refs/

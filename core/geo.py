@@ -7,6 +7,27 @@ outputs/*.geojson hand-off.
 
 Heavy geo deps (geopandas/shapely/pyproj/folium) import lazily, so the text
 pages never pay for them.
+
+Concurrency model
+-----------------
+An 11,715-point GeoDataFrame is ~14 MB live, and the walkthrough produces two of
+them (points, clusters) plus the generalized layer. Parking those in
+``st.session_state`` cost every trainee ~30 MB of private memory for results that
+are, in fact, a pure function of (dataset, columns, parameters) — thirty trainees
+running the lab defaults built thirty identical copies.
+
+So the ``*_for()`` helpers below are the pipeline's public entry points. They are
+``cache_resource``-backed and keyed on those parameters, which means a cohort all
+running the Lab defaults shares exactly one copy of each layer. Session state
+keeps only which parameters the trainee chose (see ``data_loader.SS_*``).
+
+Caches are bounded: trainees sweep ``eps``/``min_samples`` while exploring, and an
+unbounded cache of 14 MB layers would fill the container. Entries also expire, so
+an abandoned parameter set does not hold memory for the rest of the day.
+
+Everything returned here is **read-only and shared**. The transforms already
+respect that (``build_points`` and ``run_dbscan`` copy before writing), and
+``tests/test_concurrency.py`` enforces it.
 """
 from __future__ import annotations
 
@@ -15,6 +36,11 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import streamlit as st
+
+# Cache sizing. points_for varies only with the dataset + column choice, so one
+# entry serves a whole cohort; the parameterised stages get a little more room.
+_POINTS_MAX, _POINTS_TTL = 4, 3600
+_DERIVED_MAX, _DERIVED_TTL = 6, 1800
 
 
 # ---------------------------------------------------------------------------
@@ -279,3 +305,88 @@ def cluster_marker_map(gdf, palette_hexes: list[str], max_points: int = 4000):
             tooltip=f"Cluster {cid}" if cid != -1 else "Noise",
         ).add_to(mc)
     return m
+
+
+# ---------------------------------------------------------------------------
+# Shared pipeline entry points
+# ---------------------------------------------------------------------------
+# The pages call these rather than the raw transforms above. Each is a pure
+# function of its arguments, so identical parameters resolve to one shared layer
+# no matter how many sessions ask for it. See the module docstring.
+
+@st.cache_resource(show_spinner="Validating coordinates and building points…",
+                   max_entries=_POINTS_MAX, ttl=_POINTS_TTL)
+def points_for(source_key: str, lon_col: str, lat_col: str,
+               text_col: str | None):
+    """Lab 1: validated WGS84 points. Returns ``(gdf, report)`` — read-only."""
+    from . import data_loader as dl
+
+    df = dl.dataset(source_key)
+    if df is None:
+        return None, {}
+    return build_points(df, lon_col, lat_col, text_col)
+
+
+@st.cache_resource(show_spinner="Running DBSCAN…",
+                   max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
+def clusters_for(source_key: str, lon_col: str, lat_col: str,
+                 text_col: str | None, eps_m: float, min_samples: int):
+    """Lab 2: DBSCAN labels. Returns ``(gdf, info)`` — read-only."""
+    gdf, _ = points_for(source_key, lon_col, lat_col, text_col)
+    if gdf is None:
+        return None, {}
+    return run_dbscan(gdf, eps_m=eps_m, min_samples=min_samples)
+
+
+@st.cache_resource(show_spinner="Aggregating to a grid…",
+                   max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
+def grid_for(source_key: str, lon_col: str, lat_col: str, text_col: str | None,
+             cell_m: float):
+    """Lab 3a: grid counts over the validated points — read-only."""
+    gdf, _ = points_for(source_key, lon_col, lat_col, text_col)
+    if gdf is None:
+        return None
+    return grid_aggregate(gdf, cell_m=cell_m)
+
+
+@st.cache_resource(show_spinner="Computing cluster centroids…",
+                   max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
+def centroids_for(source_key: str, lon_col: str, lat_col: str,
+                  text_col: str | None, eps_m: float, min_samples: int,
+                  exclude_noise: bool):
+    """Lab 3b: one representative point per cluster — read-only."""
+    clustered, _ = clusters_for(source_key, lon_col, lat_col, text_col,
+                                eps_m, min_samples)
+    if clustered is None:
+        return None
+    return cluster_centroids(clustered, exclude_noise=exclude_noise)
+
+
+@st.cache_resource(show_spinner="Clipping to Philippine land…",
+                   max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
+def clipped_for(source_key: str, lon_col: str, lat_col: str,
+                text_col: str | None, eps_m: float | None, min_samples: int | None):
+    """Lab 4: land-clipped layer. Returns ``(gdf, info)`` — read-only.
+
+    ``eps_m``/``min_samples`` may be ``None``, meaning the trainee reached this
+    page without running DBSCAN; the raw validated points get clipped instead."""
+    if eps_m is None:
+        src, _ = points_for(source_key, lon_col, lat_col, text_col)
+    else:
+        src, _ = clusters_for(source_key, lon_col, lat_col, text_col,
+                              eps_m, min_samples)
+    if src is None:
+        return None, {}
+    return clip_to_ph(src)
+
+
+@st.cache_resource(show_spinner="Summarizing text per cluster…",
+                   max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
+def cluster_text_for(source_key: str, lon_col: str, lat_col: str, text_col: str,
+                     eps_m: float, min_samples: int, top_terms: int):
+    """Lab 5: per-cluster TF-IDF profile. Aggregates only — read-only."""
+    clustered, _ = clusters_for(source_key, lon_col, lat_col, text_col,
+                                eps_m, min_samples)
+    if clustered is None:
+        return pd.DataFrame()
+    return per_cluster_nlp(clustered, text_col, top_terms=top_terms)

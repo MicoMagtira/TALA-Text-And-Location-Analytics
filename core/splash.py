@@ -11,13 +11,20 @@ Two deliberate implementation choices:
   decode, crisp edges at any zoom, and no binary asset in the repo — which
   matters when the whole point of the exercise is a smaller, faster container.
   A strict CSP or an offline container cannot break it either.
-* **No artificial delay.** Progress is driven by the server as real work
-  completes, and the final frame fades itself out with a CSS animation rather
-  than a ``time.sleep``. The splash never makes the app slower to reach.
+* **The wait costs no server thread.** The splash is guaranteed ``MIN_SECONDS``
+  of screen time on a session's first load. Boot itself now finishes in well
+  under a second, so the difference is padded — but padded *client-side*: the
+  server measures how long boot actually took, hands the browser a CSS timeline
+  sized to whatever is left, and returns immediately. A ``time.sleep`` would have
+  held this session's script-runner thread for the full wait, and a cohort of
+  thirty trainees arriving together would then contend for Streamlit's thread
+  pool at exactly the wrong moment. Real boot progress drives the first half of
+  the bar; the tail animates through the remainder and fades itself out.
 """
 from __future__ import annotations
 
 import random
+import time
 
 import streamlit as st
 
@@ -160,6 +167,10 @@ _CSS = f"""
   from {{ opacity: 1; }}
   to   {{ opacity: 0; visibility: hidden; }}
 }}
+@keyframes tala-phase-in {{
+  from {{ opacity: 0; transform: translateY(4px); }}
+  to   {{ opacity: 1; transform: translateY(0); }}
+}}
 
 .tala-splash {{
   position: fixed; inset: 0; z-index: 99999;
@@ -174,6 +185,11 @@ _CSS = f"""
 .tala-splash.is-done {{
   animation: tala-fade-out .45s ease .05s forwards;
   pointer-events: none;
+}}
+/* Closing frame: sit for the remaining --tail, then fade. The delay is what
+   guarantees the splash its minimum screen time without a server-side sleep. */
+.tala-splash.is-closing {{
+  animation: tala-fade-out .5s ease var(--tail) forwards;
 }}
 
 .tala-starfield {{ position: absolute; inset: 0; }}
@@ -259,6 +275,17 @@ _CSS = f"""
 .tala-status .pct {{ color: {INK_ON_SKY}; opacity: .75; margin-right: .8em; }}
 .tala-status .caret {{ animation: tala-caret 1s step-end infinite; }}
 
+/* Cycling status lines for the closing frame. Each phase is stacked in the same
+   spot and fades in on its own delay; because later phases come later in the DOM
+   they paint over earlier ones, so no explicit fade-out is needed. */
+.tala-status.is-cycling {{ display: grid; place-items: center; }}
+.tala-status.is-cycling .tala-phase {{
+  grid-area: 1 / 1; white-space: nowrap;
+  opacity: 0; animation: tala-phase-in .3s ease forwards;
+}}
+/* Blocks that fill during the tail rise in on their own staggered delay. */
+.tala-progress i.fill {{ animation: tala-block-in .3s ease backwards; }}
+
 @media (prefers-reduced-motion: reduce) {{
   .tala-splash *, .tala-splash::after {{ animation: none !important; }}
   .tala-starfield i {{ opacity: .8; }}
@@ -305,6 +332,73 @@ def _frame(pct: int, message: str, done: bool = False) -> str:
     )
 
 
+# The splash is guaranteed this much screen time on a session's first load. Boot
+# is far quicker than this now, so the tail is padded client-side (see finish()).
+MIN_SECONDS = 5.0
+
+# Status lines for the padded tail, shown in order across whatever time is left.
+_TAIL_PHASES = [
+    (66, "Warming analytics caches"),
+    (78, "Linking text and location tracks"),
+    (90, "Priming the map tiles"),
+    (100, "Ready"),
+]
+
+
+def _finale(from_pct: int, remaining: float) -> str:
+    """The closing frame: fill the bar and cycle status lines over ``remaining``
+    seconds, then fade — all client-side.
+
+    Everything here is CSS with computed delays, so the browser owns the timeline.
+    A server-side ``time.sleep`` would have held this session's script-runner
+    thread for the whole wait, and thirty trainees arriving together would then
+    contend for Streamlit's thread pool at exactly the worst moment."""
+    lit_from = round(_BLOCKS * max(0, min(100, from_pct)) / 100)
+    to_fill = max(1, _BLOCKS - lit_from)
+
+    blocks = []
+    for i in range(_BLOCKS):
+        if i < lit_from:
+            blocks.append('<i class="on"></i>')
+        else:
+            # spread the remaining blocks evenly across the leftover time
+            delay = remaining * (i - lit_from) / to_fill
+            blocks.append(f'<i class="on fill" style="animation-delay:{delay:.2f}s"></i>')
+
+    slice_s = remaining / len(_TAIL_PHASES)
+    phases = "".join(
+        f'<span class="tala-phase" style="animation-delay:{i * slice_s:.2f}s">'
+        f'<span class="pct">{pct:3d}%</span>{msg}<span class="caret">_</span></span>'
+        for i, (pct, msg) in enumerate(_TAIL_PHASES)
+    )
+
+    star = (
+        '<div class="tala-starwrap">'
+        '<span class="ray h"></span><span class="ray v"></span>'
+        '<span class="ray d1"></span><span class="ray d2"></span>'
+        + _sprite_svg(STAR, {"#": GOLD}, pixel=7, extra_class="core")
+        + "</div>"
+    )
+    cast = (
+        '<div class="tala-cast">'
+        f'<div class="side left">{_sprite_svg(BUBBLE, {"#": NAVY, "+": GOLD}, 5)}</div>'
+        f"{star}"
+        f'<div class="side right">{_sprite_svg(PIN, {"#": NAVY, "o": GOLD}, 5)}</div>'
+        "</div>"
+    )
+    return (
+        f'<div class="tala-splash is-closing" style="--tail:{remaining:.2f}s">'
+        + _starfield()
+        + cast
+        + '<div class="tala-wordmark"><b>TALA</b>'
+          "<span>Text And Location Analytics</span>"
+          "<span>Initiative of the NU DOST-NICER Program</span></div>"
+        + f'<div class="tala-progress">{"".join(blocks)}</div>'
+        + f'<div class="tala-status is-cycling">{phases}</div>'
+        + "</div>"
+    )
+
+
 class Splash:
     """Handle for a live splash. Use via :func:`boot`."""
 
@@ -314,17 +408,27 @@ class Splash:
         # would tear it out again on the first progress update.
         st.markdown(_CSS, unsafe_allow_html=True)
         self._slot = st.empty()
+        self._started = time.monotonic()
+        self._pct = 0
 
     def update(self, pct: int, message: str) -> None:
+        self._pct = pct
         self._slot.markdown(_frame(pct, message), unsafe_allow_html=True)
 
     def finish(self, message: str = "Ready") -> None:
-        """Render the fade-out frame.
+        """Hand the rest of the minimum display time to the browser.
 
-        The overlay animates itself away client-side, so the page underneath is
-        already painted and interactive — no server-side sleep, and the splash
-        costs nothing on the critical path."""
-        self._slot.markdown(_frame(100, message, done=True), unsafe_allow_html=True)
+        Boot now takes well under a second, so ``MIN_SECONDS`` minus the real
+        elapsed time becomes the tail the closing frame animates through. The
+        server returns immediately either way: the page underneath is already
+        rendered, and the overlay counts itself down and fades on the client."""
+        remaining = max(0.0, MIN_SECONDS - (time.monotonic() - self._started))
+        if remaining <= 0.05:
+            self._slot.markdown(_frame(100, message, done=True),
+                                unsafe_allow_html=True)
+        else:
+            self._slot.markdown(_finale(self._pct, remaining),
+                                unsafe_allow_html=True)
 
 
 def boot(force: bool = False) -> Splash | None:

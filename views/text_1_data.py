@@ -9,16 +9,32 @@ ui.page_title("Text Analytics", "Data & Preprocessing",
 
 ui.learn(
     "The preprocessing pipeline (from NLP.ipynb)",
-    "Text preparation is a research decision, not a cosmetic step. This app "
-    "lowercases text, removes links, mentions, punctuation, digits and extra spaces, "
-    "then keeps meaningful tokens after filtering **English ∪ Filipino ∪ custom** "
-    "stopwords. That makes Taglish exploration more useful, but you should retain "
-    "words that matter to your question—for example, negations, service names, or "
-    "emotion markers.\n\n"
-    "**Before proceeding:** inspect the chosen text column for missing values, repeated "
-    "survey wording, very short responses, and the languages represented. Compare the "
-    "raw and cleaned sample below; if important meaning disappears, revise the sidebar "
-    "stopwords rather than treating the default pipeline as neutral.",
+    "Preprocessing is where you decide what the computer is allowed to notice. Raw text "
+    "carries punctuation, capitalization, filler words, emoji, numbers, typos and mixed "
+    "languages. Some of that is signal and some is noise, and *which is which depends "
+    "entirely on your research question.* Preprocessing is not a cleansing ritual — it "
+    "is a research decision you have to be able to defend.\n\n"
+    "**What this pipeline does, in order.** Lowercase → strip URLs → strip `@mentions` "
+    "and `#hashtags` → strip punctuation (Unicode-aware, so it handles curly quotes) → "
+    "strip digits → collapse whitespace → split on spaces → drop tokens shorter than 3 "
+    "characters → drop stopwords.\n\n"
+    "**What it costs on this corpus.** 292,674 raw words become 174,562 tokens — you "
+    "are discarding 40% of the text. The surviving vocabulary is 551 distinct words. "
+    "That is a big reduction, and it is the whole point: what remains should be the "
+    "part worth counting.\n\n"
+    "**The stopword decision.** 318 English stopwords come from scikit-learn's standard "
+    "list; 147 Filipino stopwords (`ang`, `sa`, `mga`, `naman`) are bundled separately "
+    "and toggled in the sidebar. Turn the Filipino list off and re-run any later page — "
+    "Tagalog function words flood the top of every frequency chart, which is exactly "
+    "what happens when you apply English-only tooling to Taglish data.\n\n"
+    "**Where the defaults will hurt you.** The digit-stripping rule deletes `24/7`, "
+    "`3 hours` and `P500`. The punctuation rule deletes the `!` in \"three hours "
+    "again!\" — if you are studying anger, you just removed the anger. The 3-character "
+    "minimum deletes `ER`, `OB` and `IV`. None of this is wrong in general and all of "
+    "it might be wrong for you.\n\n"
+    "**Do this before moving on.** Read the raw-vs-cleaned pairs below. If a comment "
+    "you understand becomes a comment you do not, add the lost words to the sidebar's "
+    "custom stopword box in reverse — that is, reconsider the rule, not the example.",
     code=(
         'from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS\n'
         'import re\n\n'
@@ -44,13 +60,18 @@ if src == "Upload a file":
                           "optional `lon`/`lat` for the geospatial pages.",
                           type=["csv", "xlsx", "xls"])
     if up is not None:
-        df = dl.load_upload(up.getvalue(), up.name)
+        # Registering returns a content-addressed key; the parsed frame lives in
+        # the shared cache, so two trainees uploading the same file share it and
+        # nothing large lands in this session's state.
+        source_key = dl.register_upload(up.getvalue(), up.name)
         source_name = f"Upload: {up.name}"
     else:
         st.stop()
 else:
-    df = dl.load_default()
-    source_name = "Bundled example: PH Health Services Sentiments"
+    source_key = dl.BUNDLED_KEY
+    source_name = dl.BUNDLED_LABEL
+
+df = dl.dataset(source_key)   # shared, read-only
 
 # --- Column mapping -----------------------------------------------------------
 st.markdown("### 2 · Map the columns")
@@ -67,7 +88,7 @@ lon_col = None if lon_col == none else lon_col
 lat_col = None if lat_col == none else lat_col
 
 if st.button("✅ Use this dataset", type="primary"):
-    dl.set_active(df, text_col, lon_col, lat_col, source_name)
+    dl.set_active(source_key, text_col, lon_col, lat_col, source_name)
     st.success("Dataset activated. It now drives every Text and Geospatial page.")
 
 st.markdown("#### Preview")

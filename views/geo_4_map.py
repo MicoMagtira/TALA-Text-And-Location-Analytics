@@ -11,14 +11,30 @@ ui.page_title("Geospatial", "Map & Exports",
 
 ui.learn(
     "Land clipping & the output contract (Lab 4)",
-    "This page applies a Philippines land polygon, not a simple rectangular bounding box. "
-    "That distinction removes overseas or implausible locations more defensibly while "
-    "retaining the geographic shape of the country. Compare the before/removed/kept counts "
-    "and investigate surprising removals—coastal locations can need particular care.\n\n"
-    "The GeoJSON and `metadata.json` form an output contract: another person can see the "
-    "CRS, clipping decision, record count, and analysis context without guessing. Export "
-    "aggregated or clipped data when sharing. A map is a communication aid, so document "
-    "its filtering choices and never treat an unverified point pattern as a causal claim.",
+    "Here is the number that should stop you: clipping removes **3,467 of 11,715 "
+    "points**. Nearly a third of this dataset was never in the Philippines, and it "
+    "survived every previous page. Lab 1's bounds check passed them because London and "
+    "California are valid coordinates. DBSCAN clustered them. The maps you have already "
+    "looked at all included them.\n\n"
+    "**Nothing warned you.** That is the lesson of this page, and the reason the dirty "
+    "coordinates were left in this long on purpose. Bad spatial data does not announce "
+    "itself; it produces confident, attractive, wrong output at every intermediate step.\n\n"
+    "**Polygon, not bounding box.** A rectangle around the Philippines would also catch "
+    "chunks of Malaysia, Taiwan and open sea. Clipping to the actual land geometry is a "
+    "*principled* filter — a point is kept because it falls on the country, not because "
+    "it falls in a convenient rectangle. The polygon is buffered ~15 km so a coarse "
+    "coastline does not discard legitimate seaside facilities; without that buffer you "
+    "silently lose real coastal data, which is its own quiet failure.\n\n"
+    "**The output contract.** Exports pair the GeoJSON with a `metadata.json` recording "
+    "CRS, the clipping decision and counts, DBSCAN parameters and the generalization "
+    "method. This is what makes the work reproducible: someone receiving your layer "
+    "should never have to guess whether coordinates are lon/lat or projected, or whether "
+    "3,467 records were dropped. A layer without that metadata is not a finished "
+    "deliverable.\n\n"
+    "**Before you publish.** Prefer the aggregated layers from Lab 3 over raw points. A "
+    "map is a rhetorical object — readers grant it more authority than a table, so state "
+    "your filtering choices *on the map itself*, and never let a point pattern imply a "
+    "cause it cannot support.",
     code=(
         "# App step (every run, no network):\n"
         "ph_land = gpd.read_file('data/ph_land.geojson').geometry.iloc[0]\n"
@@ -28,15 +44,15 @@ ui.learn(
     ),
 )
 
-if dl.SS_CLUSTERS not in st.session_state and dl.SS_POINTS not in st.session_state:
+if not st.session_state.get(dl.SS_POINTS_READY):
     st.warning("Build points and clusters first (Ingest → Clustering).", icon="⚠️")
     st.stop()
 
-src = st.session_state.get(dl.SS_CLUSTERS, st.session_state.get(dl.SS_POINTS))
+key = dl.geo_key()
+eps_m, min_samples = dl.cluster_params()
 
 st.markdown("#### 1 · Clip to Philippine land")
-with st.spinner("Loading land boundary and clipping…"):
-    clipped, clip_info = geo.clip_to_ph(src)
+clipped, clip_info = geo.clipped_for(*key, eps_m, min_samples)
 if clip_info.get("clipped"):
     c1, c2, c3 = st.columns(3)
     c1.metric("Before", f"{clip_info['before']:,}")
@@ -45,7 +61,6 @@ if clip_info.get("clipped"):
 else:
     st.info("Land boundary unavailable; showing unclipped points.")
 
-gen = st.session_state.get(dl.SS_GENERALIZED)
 st.markdown("#### 2 · Interactive map")
 from streamlit_folium import st_folium  # noqa: E402
 
@@ -63,8 +78,8 @@ metadata = {
     "crs": "EPSG:4326",
     "clip": clip_info,
     "n_features_exported": int(len(clipped)),
-    "generalized_features": int(len(gen)) if gen is not None else 0,
-    "dbscan": {"eps_m": None, "min_samples": None},
+    "generalization": st.session_state.get(dl.SS_GEN_PARAMS),
+    "dbscan": {"eps_m": eps_m, "min_samples": min_samples},
 }
 e1, e2 = st.columns(2)
 e1.download_button("⬇️ Clipped layer (GeoJSON)", clipped.to_json(),

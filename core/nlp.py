@@ -13,6 +13,7 @@ corpus never crashes a page.
 from __future__ import annotations
 
 import re
+import threading
 from collections import Counter
 
 import numpy as np
@@ -251,8 +252,20 @@ def rake_keywords(texts: tuple[str, ...], top_n: int = 25) -> pd.DataFrame:
     return pd.DataFrame(ranked, columns=["score", "keyword"])[["keyword", "score"]]
 
 
+_NLTK_LOCK = threading.Lock()
+_NLTK_FETCHED: set[str] = set()
+
+
 def _ensure_nltk(extra: tuple[tuple[str, str], ...] = ()) -> None:
     """Make sure the NLTK data packages we need are present.
+
+    Serialized behind a process-wide lock. Streamlit serves each session on its
+    own thread, so on a cold container a class opening the Keywords page together
+    would otherwise have several threads calling ``nltk.download`` for the same
+    package at once — all unpacking into the same ``nltk_data`` directory, which
+    can leave a half-written corpus that every later read then fails on. The lock
+    makes the first caller fetch while the rest wait, and ``_NLTK_FETCHED`` keeps
+    the fast path lock-free once a package has been resolved.
 
     NLTK renamed the English tagger in 3.8.2, so both names are attempted and a
     miss on either is tolerated."""
@@ -261,14 +274,22 @@ def _ensure_nltk(extra: tuple[tuple[str, str], ...] = ()) -> None:
     wanted = [("stopwords", "corpora/stopwords"),
               ("punkt", "tokenizers/punkt"),
               ("punkt_tab", "tokenizers/punkt_tab")] + list(extra)
-    for pkg, path in wanted:
-        try:
-            nltk.data.find(path)
-        except LookupError:
+    todo = [(pkg, path) for pkg, path in wanted if pkg not in _NLTK_FETCHED]
+    if not todo:
+        return
+
+    with _NLTK_LOCK:
+        for pkg, path in todo:
+            if pkg in _NLTK_FETCHED:      # another thread got here first
+                continue
             try:
-                nltk.download(pkg, quiet=True)
-            except Exception:
-                pass
+                nltk.data.find(path)
+            except LookupError:
+                try:
+                    nltk.download(pkg, quiet=True)
+                except Exception:
+                    pass
+            _NLTK_FETCHED.add(pkg)
 
 
 # ---------------------------------------------------------------------------

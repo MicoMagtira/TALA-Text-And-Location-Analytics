@@ -9,16 +9,32 @@ ui.page_title("Geospatial", "Ingest & CRS Validation",
 
 ui.learn(
     "CRS validation & reprojection (Lab 1)",
-    "This lab turns longitude/latitude into trustworthy spatial data. First, coordinate "
-    "values are coerced to numbers and invalid or missing pairs are removed. The initial "
-    "layer is **WGS84 / EPSG:4326**, which is appropriate for web maps but uses degrees. "
-    "Distances and areas must instead be calculated in a projected, meter-based CRS, so "
-    "the app selects a UTM zone from the data location.\n\n"
-    "Do not confuse `set_crs` with `to_crs`: the first declares what coordinates already "
-    "mean; the second transforms them. Use the nearest-neighbor check as a sanity test. "
-    "Unexpectedly tiny distances may indicate duplicate points; huge distances may reveal "
-    "bad coordinates. Raw locations and text can identify people, so do not share them "
-    "until the later aggregation steps are appropriate.",
+    "Two numbers in a spreadsheet are not yet a location. This lab turns `lon`/`lat` "
+    "columns into geometry a computer can measure with, and every later page depends on "
+    "getting it right here.\n\n"
+    "**The validation gate.** 12,000 input rows lose 29 to missing coordinates and 256 "
+    "to values outside the valid ranges (longitude ±180, latitude ±90), leaving 11,715 "
+    "points. Note what that gate does *not* catch: a comment about Cebu carrying "
+    "London's coordinates is perfectly valid as a number and survives untouched. Bounds "
+    "checking proves a coordinate is well-formed, never that it is correct.\n\n"
+    "**`set_crs` versus `to_crs` — the classic error.** `set_crs` *declares* what your "
+    "numbers already mean; `to_crs` *converts* them to a different system. Calling "
+    "`set_crs` when you meant `to_crs` silently relabels your data instead of moving it, "
+    "and nothing errors — the points simply land in the wrong place on every subsequent "
+    "map. If a layer looks shifted, suspect this first.\n\n"
+    "**Why the reprojection is not optional.** EPSG:4326 measures in degrees, and a "
+    "degree of longitude is ~111 km at the equator but shrinks toward the poles, so "
+    "degree distances are not comparable across a map. DBSCAN's `eps` on the next page "
+    "is a *distance*, so the data must first move to a metre-based CRS — here "
+    "**EPSG:32651** (UTM zone 51N), chosen automatically from the median longitude.\n\n"
+    "**Read the nearest-neighbour check as a diagnostic.** Median 2.3 km is sensible for "
+    "health facilities. The two extremes are the interesting part: **minimum 0 m** means "
+    "at least two points share identical coordinates — duplicates, or several comments "
+    "rounded to the same facility — which will inflate density for DBSCAN. **Maximum 175 "
+    "km** is the far-flung junk announcing itself before any map is drawn.\n\n"
+    "**On privacy.** From this point you hold precise locations attached to personal "
+    "accounts of medical visits. That combination is re-identifying. Everything you share "
+    "from here should be aggregated — which is what Labs 3 and 5 build.",
     code=(
         "import geopandas as gpd\n"
         "gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.lon, df.lat),\n"
@@ -33,18 +49,24 @@ if not dl.has_geo():
                "**Text Analytics → Data & Preprocessing**.", icon="⚠️")
     st.stop()
 
-df = dl.active_df()
-lon = st.session_state[dl.SS_LON_COL]
-lat = st.session_state[dl.SS_LAT_COL]
-text_col = st.session_state[dl.SS_TEXT_COL]
+key = dl.geo_key()
 
 try:
-    gdf, report = geo.build_points(df, lon, lat, text_col)
+    # Shared across sessions: the whole cohort on the bundled dataset resolves to
+    # one cached layer instead of one 14 MB copy each.
+    gdf, report = geo.points_for(*key)
 except Exception as e:  # geopandas / shapely import or geometry error
     st.error(f"Could not build geometry: {e}")
     st.stop()
 
-st.session_state[dl.SS_POINTS] = gdf
+if gdf is None:
+    st.error("The active dataset is no longer available. Re-upload it on "
+             "**Text Analytics → Data & Preprocessing**.")
+    st.stop()
+
+# Session state records only that this trainee has completed Lab 1 — the layer
+# itself lives in the shared cache.
+st.session_state[dl.SS_POINTS_READY] = True
 
 st.markdown("#### Validation report")
 c1, c2, c3, c4 = st.columns(4)

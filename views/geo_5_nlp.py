@@ -9,14 +9,32 @@ ui.page_title("Geospatial", "NLP per Cluster",
 
 ui.learn(
     "NLP per cluster — where text meets place (Lab 5)",
-    "This is the integration step. For each non-noise spatial cluster, the app derives "
-    "TF-IDF keywords, summarizes VADER sentiment, and assigns a transparent rule-based "
-    "tag. The result describes what is commonly discussed **within the configured spatial "
-    "cluster**; it does not diagnose the people or places represented by it.\n\n"
-    "Read cluster size alongside keywords and sentiment. A very small cluster can produce "
-    "unstable terms, and English-focused sentiment can misread Filipino or Taglish. The "
-    "table, tooltip, and exports deliberately contain aggregates rather than raw comments. "
-    "Keep that boundary when sharing results: location-linked text is especially sensitive.",
+    "This is the page the whole app exists for. Everything before it ran one track or the "
+    "other; here the text becomes an *attribute of place*. For each of the 29 non-noise "
+    "clusters you get TF-IDF keywords, a sentiment breakdown, and a rule-based tag — a "
+    "profile of what people are saying **in that specific area**.\n\n"
+    "**Why this is more than either half.** The text pages found that 1,448 comments "
+    "mention waiting hours; the geo pages found a cluster of 1,750 points. Neither could "
+    "connect them. Grouping by `cluster_id` before running TF-IDF answers the question "
+    "that matters operationally: not *what is discussed* or *where is dense*, but "
+    "**which concern belongs to which place** — the difference between \"waiting times "
+    "are a problem\" and \"waiting times are the problem in these four areas.\"\n\n"
+    "**TF-IDF is doing something specific here.** It is not ranking each cluster's "
+    "commonest words — that would return `health` and `hospital` for all 29. It weights "
+    "each cluster's terms against the *other clusters*, surfacing what makes this area's "
+    "comments distinctive. A term appearing everywhere scores near zero even if it "
+    "appears constantly.\n\n"
+    "**Read size first, always.** A cluster of 1,750 comments supports a claim; a cluster "
+    "of 12 does not, yet both produce a confident-looking row of keywords and a sentiment "
+    "percentage. Small clusters yield unstable terms that change completely if you nudge "
+    "`eps`. Sort by `n_points` and treat the tail with suspicion. The auto-assigned `tag` "
+    "is a keyword-matching convenience for navigation, not a classification — read the "
+    "terms and decide yourself.\n\n"
+    "**The privacy boundary is structural.** This table exports counts, aggregated "
+    "percentages and term lists — never a comment, never a coordinate. That is "
+    "deliberate: location-linked personal accounts of medical visits are among the most "
+    "re-identifying combinations you can hold. Aggregate here is not a formatting choice; "
+    "it is the control that makes the output shareable.",
     code=(
         "from sklearn.feature_extraction.text import TfidfVectorizer\n"
         "for cid, grp in gdf.groupby('cluster_id'):\n"
@@ -28,19 +46,19 @@ ui.learn(
     ),
 )
 
-if dl.SS_CLUSTERS not in st.session_state:
+key = dl.geo_key()
+eps_m, min_samples = dl.cluster_params()
+if eps_m is None:
     st.warning("Run **Geospatial → Clustering (DBSCAN)** first.", icon="⚠️")
     st.stop()
 
-clusters = st.session_state[dl.SS_CLUSTERS]
-text_col = st.session_state[dl.SS_TEXT_COL]
+clusters, _ = geo.clusters_for(*key, eps_m, min_samples)
+text_col = key[3]
 if text_col not in clusters.columns:
     st.warning("The clustered layer has no text column to analyze.", icon="⚠️")
     st.stop()
 
-with st.spinner("Profiling clusters (keywords + sentiment)…"):
-    summary = geo.per_cluster_nlp(clusters, text_col)
-st.session_state[dl.SS_CLUSTER_TEXT] = summary
+summary = geo.cluster_text_for(*key, eps_m, min_samples, 8)
 
 if summary.empty:
     st.info("No non-noise clusters to profile.")
