@@ -9,5 +9,35 @@ font = "sans serif"
 [server]
 maxUploadSize = 50
 
+# No file watcher. On Streamlit Community Cloud a redeploy is triggered by a git
+# push, so watching the tree buys nothing and costs a watchdog thread plus an
+# inotify handle per directory — real overhead in a ~1 GB container.
+# For local development with hot reload, override it on the command line:
+#   streamlit run app.py --server.fileWatcherType auto
+fileWatcherType = "none"
+
+# Nothing is served out of a static/ directory.
+enableStaticServing = false
+
+[runner]
+# Streamlit's "magic" re-parses the script's AST on every run to auto-render bare
+# expressions. Every view here renders explicitly through st.* calls, so this is
+# pure overhead. Verified: no module-level bare expressions in app.py or views/.
+magicEnabled = false
+
+# Abandon an in-flight run as soon as the user touches another widget, instead of
+# finishing work whose output is already stale. Matters most on the slow pages
+# (LDA, DBSCAN) where a mistimed slider drag would otherwise queue a full recompute.
+fastReruns = true
+
+# We deliberately keep GeoDataFrames in session_state, which are not trivially
+# serializable; leave the check off.
+enforceSerializableSessionState = false
+
+[client]
+# Collapse the top-right chrome to just the essentials.
+toolbarMode = "minimal"
+showErrorDetails = true
+
 [browser]
 gatherUsageStats = false

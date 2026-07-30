@@ -35,7 +35,7 @@ for t in res["topics"]:
                           height=30 * n_words + 60, yaxis_title="",
                           xaxis_title="", showlegend=False,
                           margin=dict(l=10, r=10, t=10, b=20))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
 st.markdown("#### Representative quotes")
 sel = st.selectbox("Show top quotes for", [f"Topic {i + 1}" for i in range(k)])
@@ -55,7 +55,7 @@ if st.button("Run stability check (3 seeds)"):
     if stab.empty:
         st.info("Could not compute stability for this corpus.")
     else:
-        st.dataframe(stab, use_container_width=True)
+        st.dataframe(stab, width="stretch")
         st.metric("Mean Jaccard (topic overlap)", f"{stab['mean_jaccard'].mean():.2f}")
 
 ui.learn(

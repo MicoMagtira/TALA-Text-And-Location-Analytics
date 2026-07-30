@@ -27,7 +27,7 @@ with c1:
         fig, ax = plt.subplots(figsize=(9, 4.5))
         ax.imshow(wc, interpolation="bilinear")
         ax.axis("off")
-        st.pyplot(fig, use_container_width=True)
+        st.pyplot(fig, width="stretch")
         buf = io.BytesIO()
         fig.savefig(buf, format="png", dpi=200, bbox_inches="tight")
         st.download_button("⬇️ Download word cloud (PNG)", buf.getvalue(),
@@ -43,7 +43,7 @@ with c2:
     fig.update_traces(textposition="outside", cliponaxis=False)
     fig.update_layout(**viz.plotly_template(ui.palette())["layout"], height=520,
                       yaxis_title="", xaxis_title="frequency", showlegend=False)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.download_button("⬇️ Download counts (CSV)", tdf.to_csv(index=False),
                        "tala_word_counts.csv", "text/csv")
 
@@ -64,7 +64,7 @@ else:
                 fig, ax = plt.subplots(figsize=(6, 3.2))
                 ax.imshow(wcx, interpolation="bilinear")
                 ax.axis("off")
-                st.pyplot(fig, use_container_width=True)
+                st.pyplot(fig, width="stretch")
             else:
                 st.caption(f"No {title.lower()} words found.")
 

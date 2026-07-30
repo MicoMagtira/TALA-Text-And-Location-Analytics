@@ -26,7 +26,7 @@ if summary.empty:
     st.stop()
 
 st.markdown("#### Cluster profiles")
-st.dataframe(summary, use_container_width=True)
+st.dataframe(summary, width="stretch")
 st.download_button("⬇️ Download cluster summary (CSV)", summary.to_csv(index=False),
                    "tala_cluster_summary.csv", "text/csv")
 

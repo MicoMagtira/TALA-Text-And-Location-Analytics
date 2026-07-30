@@ -13,8 +13,13 @@ import pandas as pd
 import streamlit as st
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+# Parquet is the shipped format (~0.5 MB vs 2.5 MB, and no text parsing on load);
+# the CSV is kept alongside it as the human-readable teaching copy and as a
+# fallback if pyarrow is unavailable.
+DEFAULT_PARQUET = DATA_DIR / "PH_Health_Services_Sentiments.parquet"
 DEFAULT_CSV = DATA_DIR / "PH_Health_Services_Sentiments.csv"
 TAGALOG_STOPWORDS = DATA_DIR / "tagalog_stop_words.txt"
+ENGLISH_STOPWORDS = DATA_DIR / "english_stop_words.txt"
 
 # Session-state keys shared across pages (the geo pages chain through these,
 # mirroring the notebooks' outputs/*.geojson pipeline).
@@ -31,7 +36,24 @@ SS_CLUSTER_TEXT = "geo_cluster_text"  # per-cluster NLP (Lab 5)
 
 @st.cache_data(show_spinner=False)
 def load_default() -> pd.DataFrame:
-    return pd.read_csv(DEFAULT_CSV)
+    """Load the bundled dataset, preferring Parquet over CSV."""
+    if DEFAULT_PARQUET.exists():
+        try:
+            return pd.read_parquet(DEFAULT_PARQUET)
+        except Exception:
+            pass  # fall through to the CSV copy
+    return _downcast(pd.read_csv(DEFAULT_CSV))
+
+
+def _downcast(df: pd.DataFrame) -> pd.DataFrame:
+    """Halve the footprint of coordinate columns.
+
+    float32 holds ~7 significant digits — far more than the ~1 cm of positional
+    precision that matters here, and DBSCAN/plotting are unaffected."""
+    for col in df.columns:
+        if str(df[col].dtype) == "float64":
+            df[col] = df[col].astype("float32")
+    return df
 
 
 @st.cache_data(show_spinner=False)
@@ -39,17 +61,34 @@ def load_upload(file_bytes: bytes, name: str) -> pd.DataFrame:
     from io import BytesIO
 
     buf = BytesIO(file_bytes)
-    if name.lower().endswith((".xlsx", ".xls")):
-        return pd.read_excel(buf)
-    return pd.read_csv(buf)
+    lower = name.lower()
+    if lower.endswith((".xlsx", ".xls")):
+        return _downcast(pd.read_excel(buf))
+    if lower.endswith(".parquet"):
+        return pd.read_parquet(buf)
+    return _downcast(pd.read_csv(buf))
+
+
+def _read_wordlist(path: Path) -> list[str]:
+    if not path.exists():
+        return []
+    with open(path, "r", encoding="utf-8") as fh:
+        return [w.strip() for w in fh if w.strip()]
 
 
 @st.cache_data(show_spinner=False)
 def load_tagalog_stopwords() -> list[str]:
-    if not TAGALOG_STOPWORDS.exists():
-        return []
-    with open(TAGALOG_STOPWORDS, "r", encoding="utf-8") as fh:
-        return [w.strip() for w in fh if w.strip()]
+    return _read_wordlist(TAGALOG_STOPWORDS)
+
+
+@st.cache_data(show_spinner=False)
+def load_english_stopwords() -> list[str]:
+    """The 318-word sklearn ENGLISH_STOP_WORDS list, vendored as plain text.
+
+    It is a static frozenset in sklearn, so shipping it as data lets the text
+    pipeline drop its sklearn import — worth ~1s and a large chunk of RSS on
+    every page load, since preprocess is on the base import path."""
+    return _read_wordlist(ENGLISH_STOPWORDS)
 
 
 def guess_columns(df: pd.DataFrame) -> tuple[str, str | None, str | None]:

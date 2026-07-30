@@ -35,7 +35,7 @@ with c1:
     fig.update_traces(marker=dict(size=6, line=dict(width=0.5, color="white")))
     fig.update_layout(**viz.plotly_template(ui.palette())["layout"], height=500,
                       xaxis_title="PC 1", yaxis_title="PC 2")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 with c2:
     st.markdown("#### Theme sizes")
     sizes = res["sizes"]
@@ -46,7 +46,7 @@ with c2:
     fig.update_traces(textposition="outside", cliponaxis=False)
     fig.update_layout(**viz.plotly_template(ui.palette())["layout"], height=500,
                       showlegend=False, yaxis_title="", xaxis_title="comments")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 st.markdown("#### Top terms per theme")
 for c in range(k):
@@ -71,7 +71,7 @@ fig = px.bar(cross.reset_index().melt(id_vars="theme", var_name="sentiment",
                                  "negative": "#e34948"})
 fig.update_layout(**viz.plotly_template(ui.palette())["layout"], height=90 + 55 * k,
                   barmode="stack", yaxis_title="", xaxis_title="comments")
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 
 ui.learn(
     "TF-IDF + K-Means themes (from NLP.ipynb)",

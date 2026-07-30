@@ -3,17 +3,20 @@
 Ports the preprocessing from NLP.ipynb: lowercase; strip URLs, @mentions,
 #hashtags, digits, punctuation (Unicode-aware), underscores and extra
 whitespace; whitespace tokenization; stopword removal against
-English (sklearn) ∪ Tagalog (bundled list) ∪ custom user stopwords. Taglish
+English ∪ Tagalog (bundled lists) ∪ custom user stopwords. Taglish
 content is supported by unioning the Filipino stopwords.
+
+The English list is the same 318 words as ``sklearn.feature_extraction.text.
+ENGLISH_STOP_WORDS``, shipped as data/english_stop_words.txt. sklearn defines it
+as a static frozenset, so vendoring it is lossless and keeps sklearn off the
+base import path.
 """
 from __future__ import annotations
 
 import re
 from functools import lru_cache
 
-from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
-
-from .data_loader import load_tagalog_stopwords
+from .data_loader import load_english_stopwords, load_tagalog_stopwords
 
 _URL = re.compile(r"http\S+|www\.\S+")
 _MENTION = re.compile(r"[@#]\w+")
@@ -26,12 +29,17 @@ MIN_TOKEN_LEN = 3
 
 
 @lru_cache(maxsize=1)
+def english_stopwords() -> frozenset[str]:
+    return frozenset(load_english_stopwords())
+
+
+@lru_cache(maxsize=1)
 def base_stopwords() -> frozenset[str]:
-    return frozenset(ENGLISH_STOP_WORDS) | frozenset(load_tagalog_stopwords())
+    return english_stopwords() | frozenset(load_tagalog_stopwords())
 
 
 def build_stopwords(custom: str | None = None, use_tagalog: bool = True) -> set[str]:
-    words: set[str] = set(ENGLISH_STOP_WORDS)
+    words: set[str] = set(english_stopwords())
     if use_tagalog:
         words |= set(load_tagalog_stopwords())
     if custom:

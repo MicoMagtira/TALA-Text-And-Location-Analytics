@@ -26,7 +26,7 @@ with st.expander("📈 k-distance plot (find the elbow for eps)", expanded=True)
     ax.set_xlabel("points (sorted)")
     ax.set_ylabel(f"distance to {k}-th neighbor (km)")
     ax.set_title("Look for the 'knee' — that distance is a good eps")
-    st.pyplot(fig, use_container_width=True)
+    st.pyplot(fig, width="stretch")
 
 st.markdown("#### DBSCAN parameters")
 c1, c2, c3 = st.columns([2, 2, 1])

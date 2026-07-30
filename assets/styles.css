@@ -69,6 +69,63 @@ div[data-testid="stMetric"] {
 section[data-testid="stSidebar"] h2,
 section[data-testid="stSidebar"] h3 { color: var(--nu-navy); }
 
+/* ---- Loading states --------------------------------------------------- */
+/* Every heavy cached function now names the work it is doing (see the
+   show_spinner= arguments in core/nlp.py). These rules dress Streamlit's own
+   spinner and progress chrome to match the 8-bit boot splash, so a mid-session
+   wait reads as the same system rather than as a stall. */
+@keyframes tala-marquee {
+  from { background-position: 0 0; }
+  to   { background-position: 22px 0; }
+}
+@keyframes tala-pip {
+  0%, 100% { opacity: 0.28; transform: translateY(0); }
+  50%      { opacity: 1;    transform: translateY(-3px); }
+}
+
+div[data-testid="stSpinner"] {
+  border-left: 4px solid var(--nu-gold);
+  background: linear-gradient(90deg, rgba(53, 64, 142, 0.07), transparent 70%);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0 8px 8px 0;
+}
+div[data-testid="stSpinner"] > div {
+  font-family: "Courier New", ui-monospace, monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  color: var(--nu-navy);
+  text-transform: uppercase;
+}
+/* Swap the round arc for a chunky navy/gold barber-pole bar. */
+div[data-testid="stSpinner"] svg { display: none; }
+div[data-testid="stSpinner"] > div::after {
+  content: "";
+  display: block;
+  height: 8px;
+  margin-top: 0.45rem;
+  border: 2px solid var(--nu-navy);
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--nu-gold) 0 6px,
+    var(--nu-navy) 6px 11px);
+  background-size: 22px 100%;
+  animation: tala-marquee 0.55s linear infinite;
+}
+
+/* Three bouncing pips for the indeterminate "…" beat. */
+.tala-pips { display: inline-flex; gap: 4px; vertical-align: middle; }
+.tala-pips i {
+  width: 6px; height: 6px; background: var(--nu-gold-deep);
+  animation: tala-pip 1.05s ease-in-out infinite;
+}
+.tala-pips i:nth-child(2) { animation-delay: 0.16s; }
+.tala-pips i:nth-child(3) { animation-delay: 0.32s; }
+
+div[data-testid="stProgress"] div[role="progressbar"] > div {
+  background-image: repeating-linear-gradient(
+    90deg, var(--nu-gold) 0 9px, var(--nu-gold-deep) 9px 12px);
+}
+
 /* ---- Footer ----------------------------------------------------------- */
 .tala-footer {
   margin-top: 2.5rem;

@@ -11,13 +11,16 @@ Two color roles are kept deliberately separate:
   blue-led so it harmonizes with the brand navy while staying colorblind-safe.
   Chart series color must be readable, so it is chosen by that computable gate
   rather than forced to the literal brand hexes.
+
+Import cost note: this module is pulled in by ``core.ui``, which ``app.py``
+imports on every page load. It therefore stays matplotlib-free at import time —
+palettes are plain hex data, and matplotlib is only imported inside the two
+functions that genuinely need a ``Colormap`` object (word clouds and the
+matplotlib theme).
 """
 from __future__ import annotations
 
 from functools import lru_cache
-
-import matplotlib as mpl
-from matplotlib.colors import LinearSegmentedColormap
 
 # --- National University Manila brand ------------------------------------------
 NU_NAVY = "#35408E"      # Navy Blue / Chambray  (primary)
@@ -49,20 +52,24 @@ _CATEGORICAL = {
 DEFAULT_CATEGORICAL = "National University"
 
 # --- Sequential colormaps (for magnitude: heatmaps, choropleths, word clouds) --
-# Single-hue navy ramp light->dark, plus perceptually-uniform standards.
-_NU_NAVY_RAMP = LinearSegmentedColormap.from_list(
-    "nu_navy", ["#eef1fb", "#b7c0e6", "#7d8ac9", "#4a56a5", NU_NAVY, "#232a5e"]
-)
-_NU_GOLD_RAMP = LinearSegmentedColormap.from_list(
-    "nu_gold", ["#fbf4e1", "#f5d89e", "#e2b85f", "#c9962e", "#966c17"]
-)
-
-_SEQUENTIAL = {
-    "NU Navy": _NU_NAVY_RAMP,
-    "NU Gold": _NU_GOLD_RAMP,
-    "Viridis": mpl.colormaps["viridis"],
-    "Cividis (colorblind-safe)": mpl.colormaps["cividis"],
-    "Magma": mpl.colormaps["magma"],
+# Stored as ordered hex stops rather than matplotlib Colormap objects so that
+# importing this module costs nothing. The perceptually-uniform standards are
+# 16-step samples of the matplotlib originals (viridis/cividis/magma), which is
+# well past the resolution any of our encodings resolve.
+_SEQUENTIAL: dict[str, list[str]] = {
+    # Single-hue navy ramp light->dark.
+    "NU Navy": ["#eef1fb", "#b7c0e6", "#7d8ac9", "#4a56a5", NU_NAVY, "#232a5e"],
+    "NU Gold": ["#fbf4e1", "#f5d89e", "#e2b85f", "#c9962e", "#966c17"],
+    "Viridis": ["#440154", "#481a6c", "#472f7d", "#414487", "#39568c", "#31688e",
+                "#2a788e", "#23888e", "#1f988b", "#22a884", "#35b779", "#54c568",
+                "#7ad151", "#a5db36", "#d2e21b", "#fde725"],
+    "Cividis (colorblind-safe)": [
+                "#00224e", "#002e6c", "#1e3a6f", "#35456c", "#47516c", "#575d6d",
+                "#666970", "#757575", "#848279", "#948e77", "#a59c74", "#b7a96e",
+                "#c8b866", "#dbc75a", "#eed649", "#fee838"],
+    "Magma": ["#000004", "#0b0924", "#20114b", "#3b0f70", "#57157e", "#721f81",
+              "#8c2981", "#a8327d", "#c43c75", "#de4968", "#f1605d", "#fa7f5e",
+              "#fe9f6d", "#febf84", "#fddea0", "#fcfdbf"],
 }
 DEFAULT_SEQUENTIAL = "NU Navy"
 
@@ -96,19 +103,53 @@ def categorical(name: str = DEFAULT_CATEGORICAL, n: int | None = None) -> list[s
     return (colors * reps)[:n]
 
 
+def sequential_stops(name: str = DEFAULT_SEQUENTIAL) -> list[str]:
+    """Return the raw ordered hex stops of a sequential palette (no matplotlib)."""
+    return list(_SEQUENTIAL.get(name, _SEQUENTIAL[DEFAULT_SEQUENTIAL]))
+
+
+@lru_cache(maxsize=8)
 def sequential_cmap(name: str = DEFAULT_SEQUENTIAL):
-    """Return a matplotlib Colormap for magnitude encodings / word clouds."""
-    return _SEQUENTIAL.get(name, _SEQUENTIAL[DEFAULT_SEQUENTIAL])
+    """Return a matplotlib Colormap for magnitude encodings / word clouds.
+
+    Imports matplotlib lazily — only word-cloud rendering needs a real Colormap,
+    so pages that never draw one never pay for the import."""
+    from matplotlib.colors import LinearSegmentedColormap
+
+    return LinearSegmentedColormap.from_list(name, sequential_stops(name))
+
+
+def _lerp_hex(a: str, b: str, t: float) -> str:
+    """Linearly interpolate two #rrggbb colors in sRGB."""
+    ar, ag, ab = (int(a[i:i + 2], 16) for i in (1, 3, 5))
+    br, bg, bb = (int(b[i:i + 2], 16) for i in (1, 3, 5))
+    return "#%02x%02x%02x" % (
+        round(ar + (br - ar) * t),
+        round(ag + (bg - ag) * t),
+        round(ab + (bb - ab) * t),
+    )
 
 
 def sequential_hexes(name: str = DEFAULT_SEQUENTIAL, n: int = 6) -> list[str]:
-    """Sample a sequential colormap into n hex steps (for branca/folium)."""
-    cmap = sequential_cmap(name)
-    return [mpl.colors.to_hex(cmap(i / max(1, n - 1))) for i in range(n)]
+    """Sample a sequential palette into n hex steps (for branca/folium/Plotly).
+
+    Pure-Python interpolation over the stored stops, so the geo and Plotly pages
+    do not drag matplotlib in just to pick colors."""
+    stops = sequential_stops(name)
+    if n <= 1:
+        return stops[:1]
+    out = []
+    for i in range(n):
+        pos = i / (n - 1) * (len(stops) - 1)
+        lo = min(int(pos), len(stops) - 2)
+        out.append(_lerp_hex(stops[lo], stops[lo + 1], pos - lo))
+    return out
 
 
 def apply_matplotlib_theme() -> None:
     """Apply a clean, brand-consistent look to matplotlib figures."""
+    import matplotlib as mpl
+
     mpl.rcParams.update({
         "figure.facecolor": SURFACE,
         "axes.facecolor": SURFACE,
