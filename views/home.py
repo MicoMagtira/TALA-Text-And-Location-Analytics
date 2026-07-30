@@ -7,16 +7,33 @@ ui.page_title("Overview", "Welcome to TALA")
 
 ui.learn(
     "How the two tracks connect",
-    "TALA follows one question through two complementary lenses: **what people are "
-    "saying** (text analytics) and **where patterns occur** (geospatial analytics). "
-    "Start by checking the data and preprocessing choices, then use text outputs to "
-    "generate and test interpretations rather than treating a chart as an answer.\n\n"
-    "The geospatial pages form a sequence: \n\n"
-    "`CSV → Ingest (points) → DBSCAN (clusters) → Generalization / NLP per cluster → Map & exports`\n\n"
-    "Each step changes what can be safely claimed and shared. The integration page joins "
-    "cluster-level keywords and sentiment to place while preserving privacy by showing "
-    "aggregates, not individual comments. Keep your research question, data limitations, "
-    "and audience in view as you move through the workflow.",
+    "Most analytics tools answer either *what are people saying* or *where is this "
+    "happening*. TALA is built to show why those two questions are weaker apart than "
+    "together. One dataset of 12,000 health-service comments carries both a `text` "
+    "column and a `lon`/`lat` pair, and every page is a different way of reading the "
+    "same 12,000 rows.\n\n"
+    "**Why the pairing matters.** Text alone tells you that 1,448 comments mention "
+    "waiting hours, but not whether that is one overwhelmed facility or a nationwide "
+    "pattern. Location alone shows you a dense cluster of 1,750 points, but not that "
+    "the people inside it are talking about staff conduct rather than medicine supply. "
+    "The final geospatial page joins the two: keywords and sentiment computed *per "
+    "cluster*, which is a claim neither track could make by itself.\n\n"
+    "**Two different shapes of work.** The eight text pages are independent lenses — "
+    "open them in any order. The five geospatial pages are a *pipeline*, where each "
+    "step consumes the last:\n\n"
+    "`Ingest → DBSCAN → Generalization → NLP per cluster → Map & exports`\n\n"
+    "That ordering is not a UI convenience. Distances cannot be measured until "
+    "coordinates are validated and projected; clusters cannot be found without "
+    "distances; per-cluster text needs clusters to group by. Skipping ahead produces "
+    "a number, just not a defensible one.\n\n"
+    "**A deliberate trap.** The bundled coordinates are dirty on purpose — some land in "
+    "London and California. Nothing removes them until the land-clip on the last page, "
+    "which drops 3,467 of 11,715 points. Roughly a third of this dataset is wrong in a "
+    "way no error message will announce, and every intermediate map still looks "
+    "plausible. Noticing that is the point.\n\n"
+    "**Sidebar controls apply everywhere.** Palettes, the Filipino-stopword toggle and "
+    "your custom stopwords are global, so a change on one page silently changes results "
+    "on the others. Set them deliberately before comparing outputs.",
 )
 
 st.markdown(

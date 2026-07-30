@@ -146,9 +146,36 @@ def sequential_hexes(name: str = DEFAULT_SEQUENTIAL, n: int = 6) -> list[str]:
     return out
 
 
+def figure(figsize=(8, 3.2)):
+    """Create a themed, thread-safe matplotlib Figure.
+
+    Deliberately avoids ``plt.subplots``. pyplot keeps a *process-global* registry
+    of figures, but Streamlit runs every user session on its own thread — so
+    concurrent trainees rendering charts can interleave on that shared state and
+    land a figure in the wrong session. Worse, pyplot holds a reference to every
+    figure it creates, so without an explicit ``plt.close`` each rerun leaked one.
+
+    Constructing ``Figure`` directly keeps the object local to the caller: nothing
+    is registered globally, and it is garbage-collected normally. ``st.pyplot``
+    accepts such a figure exactly like a pyplot one."""
+    from matplotlib.figure import Figure
+
+    apply_matplotlib_theme()
+    fig = Figure(figsize=figsize)
+    fig.set_facecolor(SURFACE)
+    ax = fig.subplots()
+    return fig, ax
+
+
 def apply_matplotlib_theme() -> None:
-    """Apply a clean, brand-consistent look to matplotlib figures."""
+    """Apply a clean, brand-consistent look to matplotlib figures.
+
+    Sets the non-interactive Agg backend, which is the only safe choice on a
+    headless server and avoids any GUI toolkit being probed at import time."""
     import matplotlib as mpl
+
+    if mpl.get_backend().lower() != "agg":
+        mpl.use("Agg", force=True)
 
     mpl.rcParams.update({
         "figure.facecolor": SURFACE,
