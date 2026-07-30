@@ -296,7 +296,8 @@ def _frame(pct: int, message: str, done: bool = False) -> str:
         + _starfield()
         + cast
         + '<div class="tala-wordmark"><b>TALA</b>'
-          "<span>TEXT AND LOCATION ANALYTICS</span></div>"
+          "<span>Text And Location Analytics</span>"
+          "<span>Initiative of the NU DOST-NICER Program</span></div>"
         + f'<div class="tala-progress">{blocks}</div>'
         + f'<div class="tala-status"><span class="pct">{pct:3d}%</span>'
           f'{message}<span class="caret">_</span></div>'

@@ -15,7 +15,7 @@ from .viz import categorical_names, sequential_names, load_css
 ASSETS = Path(__file__).resolve().parent.parent / "assets"
 
 APP_TITLE = "TALA — Text And Location Analytics"
-APP_SUB = "NLP + Geospatial Analytics Explorer for Training"
+APP_SUB = "NLP + Geospatial Analytics Explorer"
 DEVELOPER = "Mico C. Magtira — Senior Data and NLP-Geospatial Scientist, DOST-NICER"
 
 SS_PALETTE = "cat_palette"
