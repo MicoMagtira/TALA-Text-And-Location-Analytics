@@ -12,6 +12,25 @@ ui.page_title("Text Analytics", "Word Frequency & Clouds",
               "ranked bar chart, plus NRC positive/negative word clouds.")
 viz.apply_matplotlib_theme()
 
+ui.learn(
+    "Frequencies & word clouds",
+    "Frequency is a first-pass description of a corpus: after cleaning and stopword "
+    "removal, this page counts tokens. A **word cloud** makes high-frequency words easy "
+    "to notice; the labelled bar chart is the authoritative view for comparing exact "
+    "counts. The NRC clouds classify words with an English emotion lexicon.\n\n"
+    "A common word is not automatically an important finding. It may come from the survey "
+    "question, a template, or one frequently repeated response. Read sample comments and "
+    "compare the positive/negative clouds before assigning meaning—especially for Filipino "
+    "or Taglish terms, which an English lexicon may not recognize.",
+    code=(
+        "from collections import Counter\n"
+        "from wordcloud import WordCloud\n\n"
+        "counts = Counter(tokens)\n"
+        "wc = WordCloud(width=900, height=450, background_color='white',\n"
+        "               colormap='viridis').generate_from_frequencies(dict(counts))"
+    ),
+)
+
 texts = dl.text_series().tolist()
 sw = ui.stopwords()
 tokens = preprocess.all_tokens(texts, sw)
@@ -67,19 +86,3 @@ else:
                 st.pyplot(fig, width="stretch")
             else:
                 st.caption(f"No {title.lower()} words found.")
-
-ui.learn(
-    "Frequencies & word clouds",
-    "After cleaning and stopword removal, we count tokens with `collections.Counter`. "
-    "A **word cloud** sizes each word by frequency; the bar chart shows exact counts "
-    "(direct-labeled, since some palette colors sit below the 3:1 contrast floor and "
-    "must not rely on color alone). The positive/negative clouds classify each unique "
-    "word with the **NRC emotion lexicon**.",
-    code=(
-        "from collections import Counter\n"
-        "from wordcloud import WordCloud\n\n"
-        "counts = Counter(tokens)\n"
-        "wc = WordCloud(width=900, height=450, background_color='white',\n"
-        "               colormap='viridis').generate_from_frequencies(dict(counts))"
-    ),
-)

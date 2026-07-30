@@ -7,6 +7,27 @@ ui.page_title("Geospatial", "Generalization",
               "Summarize points into coarser features so patterns read at a glance "
               "and individual locations are not exposed.")
 
+ui.learn(
+    "Generalization: grid vs centroids (Lab 3)",
+    "Generalization deliberately trades exact location for a safer, more readable view. "
+    "**Grid aggregation** counts points in equal-sized meter-based cells, making density "
+    "patterns easier to compare. **Cluster centroids** replace each DBSCAN cluster with a "
+    "single representative point and its count. Both outputs are returned to WGS84 for "
+    "web mapping.\n\n"
+    "Choose the method based on the decision you need to support: grids preserve broad "
+    "density while centroids summarize known clusters. Try several grid sizes; smaller "
+    "cells can reveal detail but may expose people or create unstable-looking patterns. "
+    "Ask what the method hides, whether noise should be included, and whether the final "
+    "representation is safe enough for your audience.",
+    code=(
+        "from shapely.geometry import box, Point\n"
+        "# grid: count points inside each cell\n"
+        "cell = box(x0, y0, x0 + size, y0 + size)\n\n"
+        "# centroid: one point per cluster\n"
+        "Point(grp.geometry.x.mean(), grp.geometry.y.mean())"
+    ),
+)
+
 if dl.SS_CLUSTERS not in st.session_state and dl.SS_POINTS not in st.session_state:
     st.warning("Build points (Ingest) — and ideally clusters (DBSCAN) — first.",
                icon="⚠️")
@@ -65,19 +86,3 @@ if dl.SS_GENERALIZED in st.session_state and len(st.session_state[dl.SS_GENERALI
     st.download_button("⬇️ Download generalized layer (GeoJSON)",
                        gen.to_json(), "tala_generalized.geojson",
                        "application/geo+json")
-
-ui.learn(
-    "Generalization: grid vs centroids (Lab 3)",
-    "Generalization trades spatial precision for readability and privacy. "
-    "**Grid aggregation** overlays square cells (built in the metric CRS with "
-    "`shapely.box`) and counts points per cell — a density surface. **Cluster "
-    "centroids** collapse each DBSCAN cluster to a single mean point sized by its "
-    "count. Both are reprojected back to EPSG:4326 for web mapping.",
-    code=(
-        "from shapely.geometry import box, Point\n"
-        "# grid: count points inside each cell\n"
-        "cell = box(x0, y0, x0 + size, y0 + size)\n\n"
-        "# centroid: one point per cluster\n"
-        "Point(grp.geometry.x.mean(), grp.geometry.y.mean())"
-    ),
-)

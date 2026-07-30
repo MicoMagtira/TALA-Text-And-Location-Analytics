@@ -7,6 +7,33 @@ ui.page_title("Text Analytics", "Data & Preprocessing",
               "Load a dataset, pick the text/coordinate columns, and preview the "
               "cleaning pipeline that every text page uses.")
 
+ui.learn(
+    "The preprocessing pipeline (from NLP.ipynb)",
+    "Text preparation is a research decision, not a cosmetic step. This app "
+    "lowercases text, removes links, mentions, punctuation, digits and extra spaces, "
+    "then keeps meaningful tokens after filtering **English ∪ Filipino ∪ custom** "
+    "stopwords. That makes Taglish exploration more useful, but you should retain "
+    "words that matter to your question—for example, negations, service names, or "
+    "emotion markers.\n\n"
+    "**Before proceeding:** inspect the chosen text column for missing values, repeated "
+    "survey wording, very short responses, and the languages represented. Compare the "
+    "raw and cleaned sample below; if important meaning disappears, revise the sidebar "
+    "stopwords rather than treating the default pipeline as neutral.",
+    code=(
+        'from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS\n'
+        'import re\n\n'
+        'def clean_text(t):\n'
+        '    t = t.lower()\n'
+        '    t = re.sub(r"http\\S+|www\\.\\S+", " ", t)\n'
+        '    t = re.sub(r"[@#]\\w+", " ", t)\n'
+        '    t = re.sub(r"[^\\w\\s]", " ", t)   # punctuation (Unicode)\n'
+        '    t = re.sub(r"\\d+", " ", t)\n'
+        '    return re.sub(r"\\s+", " ", t).strip()\n\n'
+        'stopwords = set(ENGLISH_STOP_WORDS) | tagalog_stopwords | custom\n'
+        'tokens = [w for w in clean_text(t).split() if len(w) > 2 and w not in stopwords]'
+    ),
+)
+
 # --- Data source --------------------------------------------------------------
 st.markdown("### 1 · Choose a data source")
 src = st.radio("Source", ["Bundled example (PH Health Services)", "Upload a file"],
@@ -67,25 +94,3 @@ st.markdown("**Cleaned**")
 st.code(preprocess.clean_text(raw) or "(empty after cleaning)")
 st.markdown("**Tokens (stopwords removed)**")
 st.write(preprocess.tokenize(raw, sw) or "(no tokens)")
-
-ui.learn(
-    "The preprocessing pipeline (from NLP.ipynb)",
-    "Text is lowercased, then URLs, @mentions/#hashtags, digits, punctuation "
-    "(Unicode-aware), underscores and extra whitespace are stripped. Tokens are "
-    "split on whitespace, kept only if longer than 2 characters, and filtered "
-    "against **English (scikit-learn) ∪ Filipino ∪ custom** stopwords — the union "
-    "is what makes Taglish text work.",
-    code=(
-        'from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS\n'
-        'import re\n\n'
-        'def clean_text(t):\n'
-        '    t = t.lower()\n'
-        '    t = re.sub(r"http\\S+|www\\.\\S+", " ", t)\n'
-        '    t = re.sub(r"[@#]\\w+", " ", t)\n'
-        '    t = re.sub(r"[^\\w\\s]", " ", t)   # punctuation (Unicode)\n'
-        '    t = re.sub(r"\\d+", " ", t)\n'
-        '    return re.sub(r"\\s+", " ", t).strip()\n\n'
-        'stopwords = set(ENGLISH_STOP_WORDS) | tagalog_stopwords | custom\n'
-        'tokens = [w for w in clean_text(t).split() if len(w) > 2 and w not in stopwords]'
-    ),
-)

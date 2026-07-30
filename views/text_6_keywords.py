@@ -8,6 +8,27 @@ ui.page_title("Text Analytics", "Keywords & Nouns",
               "RAKE keyword extraction, noun / proper-noun ranking (NLTK POS), and "
               "a term co-occurrence heatmap.")
 
+ui.learn(
+    "RAKE, POS tagging & co-occurrence",
+    "These tools answer three different questions. **RAKE** ranks candidate multi-word "
+    "phrases from their local co-occurrence; **part-of-speech tagging** separates common "
+    "and proper nouns; the **heatmap** shows which terms tend to appear in the same "
+    "comment. Together they help generate labels and questions for closer qualitative review.\n\n"
+    "A high RAKE score does not guarantee an important theme, and an English-trained POS "
+    "tagger may be unreliable for Filipino or Taglish text. Use keywords as leads, check "
+    "the original wording, and avoid treating co-occurrence as proof that two concepts "
+    "cause one another.",
+    code=(
+        "from rake_nltk import Rake\n"
+        "r = Rake(); r.extract_keywords_from_text(corpus_text)\n"
+        "ranked = r.get_ranked_phrases_with_scores()\n\n"
+        "import nltk\n"
+        "from nltk.tokenize.treebank import TreebankWordTokenizer\n"
+        "tokens = TreebankWordTokenizer().tokenize(text)\n"
+        "nouns = [w for w, tag in nltk.pos_tag(tokens) if tag.startswith('NN')]"
+    ),
+)
+
 texts = dl.text_series().tolist()
 sw = ui.stopwords()
 
@@ -67,26 +88,3 @@ with tab_co:
                           font=dict(color=viz.INK_SECONDARY),
                           margin=dict(l=10, r=10, t=10, b=10))
         st.plotly_chart(fig, width="stretch")
-
-ui.learn(
-    "RAKE, POS tagging & co-occurrence",
-    "**RAKE** (Rapid Automatic Keyword Extraction) scores candidate phrases by word "
-    "frequency and degree of co-occurrence, favoring multi-word terms. **POS tagging** "
-    "labels each token so we can rank `NOUN` (common) and `PROPN` (proper) words "
-    "separately — here NLTK's averaged-perceptron tagger emits Penn Treebank tags "
-    "(`NN`, `NNP`, …) which we fold into coarse universal tags. The **co-occurrence** "
-    "matrix counts how often two terms appear in the same comment (binary per "
-    "document), revealing associated concepts.\n\n"
-    "*Why not spaCy?* It is more accurate, but the model plus its runtime is ~150 MB "
-    "— more than a free 1 GB container can spare alongside the geospatial stack. "
-    "Picking the tagger that fits the deployment budget is itself the lesson.",
-    code=(
-        "from rake_nltk import Rake\n"
-        "r = Rake(); r.extract_keywords_from_text(corpus_text)\n"
-        "ranked = r.get_ranked_phrases_with_scores()\n\n"
-        "import nltk\n"
-        "from nltk.tokenize.treebank import TreebankWordTokenizer\n"
-        "tokens = TreebankWordTokenizer().tokenize(text)\n"
-        "nouns = [w for w, tag in nltk.pos_tag(tokens) if tag.startswith('NN')]"
-    ),
-)

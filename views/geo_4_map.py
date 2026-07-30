@@ -9,6 +9,25 @@ ui.page_title("Geospatial", "Map & Exports",
               "Clip to Philippine land (removing the bogus off-PH coordinates), "
               "explore the interactive map, and export the stable output contract.")
 
+ui.learn(
+    "Land clipping & the output contract (Lab 4)",
+    "This page applies a Philippines land polygon, not a simple rectangular bounding box. "
+    "That distinction removes overseas or implausible locations more defensibly while "
+    "retaining the geographic shape of the country. Compare the before/removed/kept counts "
+    "and investigate surprising removals—coastal locations can need particular care.\n\n"
+    "The GeoJSON and `metadata.json` form an output contract: another person can see the "
+    "CRS, clipping decision, record count, and analysis context without guessing. Export "
+    "aggregated or clipped data when sharing. A map is a communication aid, so document "
+    "its filtering choices and never treat an unverified point pattern as a causal claim.",
+    code=(
+        "# App step (every run, no network):\n"
+        "ph_land = gpd.read_file('data/ph_land.geojson').geometry.iloc[0]\n"
+        "kept = gdf[gdf.geometry.within(ph_land)]          # spatial clip\n"
+        "metadata = {'crs': 'EPSG:4326', 'n_features_exported': len(kept)}\n"
+        "kept.to_file('map.geojson', driver='GeoJSON')"
+    ),
+)
+
 if dl.SS_CLUSTERS not in st.session_state and dl.SS_POINTS not in st.session_state:
     st.warning("Build points and clusters first (Ingest → Clustering).", icon="⚠️")
     st.stop()
@@ -52,27 +71,3 @@ e1.download_button("⬇️ Clipped layer (GeoJSON)", clipped.to_json(),
                    "tala_clipped.geojson", "application/geo+json")
 e2.download_button("⬇️ metadata.json", json.dumps(metadata, indent=2),
                    "tala_metadata.json", "application/json")
-
-ui.learn(
-    "Land clipping & the output contract (Lab 4)",
-    "The bogus coordinates (London, California…) are only removed **now**, by "
-    "spatially clipping to the **Philippine land polygon** from Natural Earth — a "
-    "principled geometric filter, not an arbitrary bounding box. The finished layer "
-    "is exported as GeoJSON + a `metadata.json` that records the CRS "
-    "and parameters, so downstream steps consume a **stable, documented contract**.\n\n"
-    "Note the deployment pattern: the boundary is derived from Natural Earth **once, "
-    "at build time**, and shipped as an 11 KB simplified GeoJSON. Fetching and "
-    "dissolving a global land layer inside the app would repeat that work in every "
-    "container and add a network dependency to the request path.",
-    code=(
-        "# Build step (run once, offline):\n"
-        "import geopandas as gpd, geodatasets\n"
-        "world = gpd.read_file(geodatasets.get_path('naturalearth.land')).to_crs(4326)\n"
-        "ph = world.clip(box(*PH_BBOX)).geometry.union_all().buffer(0.15)\n"
-        "gpd.GeoSeries([ph.simplify(0.01)], crs=4326).to_file('data/ph_land.geojson')\n\n"
-        "# App step (every run, no network):\n"
-        "ph_land = gpd.read_file('data/ph_land.geojson').geometry.iloc[0]\n"
-        "kept = gdf[gdf.geometry.within(ph_land)]          # spatial clip\n"
-        "kept.to_file('map.geojson', driver='GeoJSON')"
-    ),
-)

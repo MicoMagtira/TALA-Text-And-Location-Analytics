@@ -9,6 +9,26 @@ ui.page_title("Text Analytics", "Topic Modeling (LDA)",
               "Latent Dirichlet Allocation extracts hidden themes as word "
               "distributions, with representative quotes and a stability check.")
 
+ui.learn(
+    "LDA & topic stability",
+    "**LDA proposes candidate topics; people name and validate them.** It models each "
+    "document as a mixture of topics and each topic as a distribution of words. Read the "
+    "top words together, then use representative quotes to decide whether a coherent "
+    "shared idea is present. A topic is not a fact merely because its words look plausible.\n\n"
+    "There is no universal correct number of topics. Compare several values of K and "
+    "prefer a solution with interpretable, useful, and reasonably sized topics. The "
+    "stability check re-fits the model with different seeds: high overlap supports a "
+    "repeatable pattern; low overlap warns that the topic structure is fragile.",
+    code=(
+        "from sklearn.decomposition import LatentDirichletAllocation\n"
+        "from sklearn.feature_extraction.text import CountVectorizer\n\n"
+        "X = CountVectorizer(min_df=3, max_df=0.9).fit_transform(cleaned_docs)\n"
+        "lda = LatentDirichletAllocation(n_components=5, random_state=42)\n"
+        "doc_topic = lda.fit_transform(X)          # per-doc topic mix\n"
+        "top = lda.components_.argsort(axis=1)[:, ::-1][:, :10]  # top words"
+    ),
+)
+
 texts = dl.text_series().tolist()
 sw = ui.stopwords()
 corpus = tuple(preprocess.clean_corpus(texts, sw))
@@ -57,20 +77,3 @@ if st.button("Run stability check (3 seeds)"):
     else:
         st.dataframe(stab, width="stretch")
         st.metric("Mean Jaccard (topic overlap)", f"{stab['mean_jaccard'].mean():.2f}")
-
-ui.learn(
-    "LDA & topic stability",
-    "**LDA** treats each document as a mixture of topics and each topic as a "
-    "distribution over words. We fit it on a `CountVectorizer` bag-of-words and read "
-    "the top-weighted words per topic. Because LDA is initialized randomly, we assess "
-    "**stability** by re-fitting with different seeds and comparing topic word-sets "
-    "with **Jaccard** and **cosine** similarity — unstable topics shift between runs.",
-    code=(
-        "from sklearn.decomposition import LatentDirichletAllocation\n"
-        "from sklearn.feature_extraction.text import CountVectorizer\n\n"
-        "X = CountVectorizer(min_df=3, max_df=0.9).fit_transform(cleaned_docs)\n"
-        "lda = LatentDirichletAllocation(n_components=5, random_state=42)\n"
-        "doc_topic = lda.fit_transform(X)          # per-doc topic mix\n"
-        "top = lda.components_.argsort(axis=1)[:, ::-1][:, :10]  # top words"
-    ),
-)

@@ -7,6 +7,27 @@ ui.page_title("Geospatial", "NLP per Cluster",
               "The integration point: profile each spatial cluster with TF-IDF "
               "keywords + VADER sentiment — showing aggregates only, never raw text.")
 
+ui.learn(
+    "NLP per cluster — where text meets place (Lab 5)",
+    "This is the integration step. For each non-noise spatial cluster, the app derives "
+    "TF-IDF keywords, summarizes VADER sentiment, and assigns a transparent rule-based "
+    "tag. The result describes what is commonly discussed **within the configured spatial "
+    "cluster**; it does not diagnose the people or places represented by it.\n\n"
+    "Read cluster size alongside keywords and sentiment. A very small cluster can produce "
+    "unstable terms, and English-focused sentiment can misread Filipino or Taglish. The "
+    "table, tooltip, and exports deliberately contain aggregates rather than raw comments. "
+    "Keep that boundary when sharing results: location-linked text is especially sensitive.",
+    code=(
+        "from sklearn.feature_extraction.text import TfidfVectorizer\n"
+        "for cid, grp in gdf.groupby('cluster_id'):\n"
+        "    docs = clean(grp[text_col])\n"
+        "    X = TfidfVectorizer(ngram_range=(1,2)).fit_transform([' '.join(docs)])\n"
+        "    top_terms = ...            # highest TF-IDF terms for the cluster\n"
+        "    sentiment = majority(vader(t) for t in grp[text_col])\n"
+        "    # export ONLY: cluster_id, n_points, top_terms, sentiment %"
+    ),
+)
+
 if dl.SS_CLUSTERS not in st.session_state:
     st.warning("Run **Geospatial → Clustering (DBSCAN)** first.", icon="⚠️")
     st.stop()
@@ -58,21 +79,3 @@ for _, r in merged.iterrows():
         tooltip=folium.Tooltip(tip),
     ).add_to(m)
 st_folium(m, use_container_width=True, height=540, returned_objects=[])
-
-ui.learn(
-    "NLP per cluster — where text meets place (Lab 5)",
-    "For each DBSCAN cluster we join its comments into one document, extract the top "
-    "**TF-IDF** terms (what that place talks about), and take the **majority VADER "
-    "sentiment**. An auto-tag maps keywords to a human label (e.g. *Staff "
-    "Experience*). Crucially, maps and tooltips carry only these **aggregates** — the "
-    "raw comments never leave the table — which keeps location-linked text private.",
-    code=(
-        "from sklearn.feature_extraction.text import TfidfVectorizer\n"
-        "for cid, grp in gdf.groupby('cluster_id'):\n"
-        "    docs = clean(grp[text_col])\n"
-        "    X = TfidfVectorizer(ngram_range=(1,2)).fit_transform([' '.join(docs)])\n"
-        "    top_terms = ...            # highest TF-IDF terms for the cluster\n"
-        "    sentiment = majority(vader(t) for t in grp[text_col])\n"
-        "    # export ONLY: cluster_id, n_points, top_terms, sentiment %"
-    ),
-)

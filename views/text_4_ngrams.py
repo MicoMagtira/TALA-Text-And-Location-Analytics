@@ -10,6 +10,29 @@ ui.page_title("Text Analytics", "N-grams & Networks",
               "Frequent two- and three-word phrases, and a co-occurrence network "
               "that shows which words travel together.")
 
+ui.learn(
+    "N-grams & co-occurrence",
+    "An **n-gram** is a run of adjacent words: a bigram gives concise context such as "
+    "*waiting time*, while a trigram can reveal a more specific phrase. The network "
+    "turns high-frequency bigrams into connected words, so it is a map of repeated "
+    "associations—not a map of causal relationships.\n\n"
+    "Begin with bigrams and a low document-frequency threshold. Raise the threshold only "
+    "after checking that rare phrases are noise. Ask whether a phrase reflects a real "
+    "issue, a named service, or simply repeated survey wording; inspect source comments "
+    "before using a network connection as evidence.",
+    code=(
+        "from sklearn.feature_extraction.text import CountVectorizer\n"
+        "vec = CountVectorizer(ngram_range=(2, 2), min_df=2)\n"
+        "X = vec.fit_transform(cleaned_docs)\n"
+        "counts = X.sum(axis=0).A1  # per-bigram totals\n\n"
+        "import networkx as nx\n"
+        "G = nx.Graph()\n"
+        "for bigram, c in zip(vec.get_feature_names_out(), counts):\n"
+        "    w1, w2 = bigram.split()\n"
+        "    G.add_edge(w1, w2, weight=c)"
+    ),
+)
+
 texts = dl.text_series().tolist()
 sw = ui.stopwords()
 corpus = tuple(preprocess.clean_corpus(texts, sw))
@@ -70,22 +93,3 @@ else:
                           margin=dict(l=10, r=10, t=10, b=10),
                           xaxis=dict(visible=False), yaxis=dict(visible=False))
         st.plotly_chart(fig, width="stretch")
-
-ui.learn(
-    "N-grams & co-occurrence",
-    "An **n-gram** is a contiguous run of *n* words; `CountVectorizer` with "
-    "`ngram_range=(n, n)` counts them across the corpus. The **network** turns the "
-    "top bigrams into a graph — each word is a node, each bigram an edge weighted by "
-    "how often the pair appears — so recurring phrase structures become visible.",
-    code=(
-        "from sklearn.feature_extraction.text import CountVectorizer\n"
-        "vec = CountVectorizer(ngram_range=(2, 2), min_df=2)\n"
-        "X = vec.fit_transform(cleaned_docs)\n"
-        "counts = X.sum(axis=0).A1  # per-bigram totals\n\n"
-        "import networkx as nx\n"
-        "G = nx.Graph()\n"
-        "for bigram, c in zip(vec.get_feature_names_out(), counts):\n"
-        "    w1, w2 = bigram.split()\n"
-        "    G.add_edge(w1, w2, weight=c)"
-    ),
-)

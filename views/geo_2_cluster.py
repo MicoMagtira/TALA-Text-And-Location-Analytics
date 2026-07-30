@@ -10,6 +10,28 @@ ui.page_title("Geospatial", "Clustering (DBSCAN)",
               "elbow to choose a sensible neighborhood radius (eps).")
 viz.apply_matplotlib_theme()
 
+ui.learn(
+    "DBSCAN & the k-distance elbow (Lab 2)",
+    "**DBSCAN** finds areas where points are densely packed and labels points outside "
+    "those areas as **noise** (`cluster_id = -1`). It needs `eps`, the neighborhood "
+    "radius in meters, and `min_samples`, the number of nearby points needed to count as "
+    "a dense area. This is why Lab 1's metric CRS is essential.\n\n"
+    "Start by setting the k-distance neighbor rank close to `min_samples`, then look for "
+    "the bend where distances begin rising quickly; that is a defensible starting `eps`, "
+    "not a universal answer. Compare cluster count, noise count, and cluster sizes after "
+    "changing one parameter. A cluster indicates local density under your settings—it does "
+    "not by itself identify a community, cause, or service catchment.",
+    code=(
+        "from sklearn.cluster import DBSCAN\n"
+        "from sklearn.neighbors import NearestNeighbors\n\n"
+        "xy = list(zip(gdf_m.geometry.x, gdf_m.geometry.y))\n"
+        "# k-distance for the elbow\n"
+        "d, _ = NearestNeighbors(n_neighbors=11).fit(xy).kneighbors(xy)\n"
+        "kdist = sorted(d[:, 10])\n\n"
+        "labels = DBSCAN(eps=15000, min_samples=10).fit_predict(xy)  # metres"
+    ),
+)
+
 if dl.SS_POINTS not in st.session_state:
     st.warning("Run **Geospatial → Ingest & CRS Validation** first to build points.",
                icon="⚠️")
@@ -61,21 +83,3 @@ else:
 
 st.success("Clusters ready. Continue to **Generalization**, **NLP per Cluster**, "
            "or **Map & Exports**.", icon="➡️")
-
-ui.learn(
-    "DBSCAN & the k-distance elbow (Lab 2)",
-    "**DBSCAN** groups points that are densely packed and labels sparse points as "
-    "**noise** (`cluster_id = -1`). It needs two parameters: `eps` (neighborhood "
-    "radius, in **meters** — hence the metric reprojection) and `min_samples` (how "
-    "many neighbors make a 'dense' area). The **k-distance plot** sorts every point "
-    "by the distance to its k-th neighbor; the 'knee' of that curve is a good eps.",
-    code=(
-        "from sklearn.cluster import DBSCAN\n"
-        "from sklearn.neighbors import NearestNeighbors\n\n"
-        "xy = list(zip(gdf_m.geometry.x, gdf_m.geometry.y))\n"
-        "# k-distance for the elbow\n"
-        "d, _ = NearestNeighbors(n_neighbors=11).fit(xy).kneighbors(xy)\n"
-        "kdist = sorted(d[:, 10])\n\n"
-        "labels = DBSCAN(eps=15000, min_samples=10).fit_predict(xy)  # metres"
-    ),
-)

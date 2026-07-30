@@ -8,6 +8,28 @@ ui.page_title("Text Analytics", "Linguistic Metrics",
               "Corpus-level readability and lexical-diversity measures, plus the "
               "part-of-speech makeup of the text.")
 
+ui.learn(
+    "Readability formulas & lexical diversity",
+    "Readability measures estimate textual difficulty from sentence length, word length, "
+    "and syllables; lexical diversity measures how varied the vocabulary is. They are "
+    "useful for comparing similarly prepared English corpora or subsets—not for grading "
+    "individual writers. **Herdan's C** is included because simple type-token ratio drops "
+    "as a corpus becomes longer.\n\n"
+    "Readability formulas are calibrated mainly for English prose, so interpret Filipino, "
+    "Taglish, short survey replies, and fragments cautiously. Compare like with like, note "
+    "sample size, and use the POS chart to describe language patterns rather than infer "
+    "quality or capability from them.",
+    code=(
+        "import textstat\n"
+        "textstat.flesch_reading_ease(text)\n"
+        "textstat.flesch_kincaid_grade(text)\n"
+        "textstat.gunning_fog(text); textstat.smog_index(text)\n\n"
+        "types, tokens = len(set(words)), len(words)\n"
+        "ttr = types / tokens\n"
+        "herdan_c = math.log(types) / math.log(tokens)"
+    ),
+)
+
 texts = dl.text_series().tolist()
 metrics = nlp.readability(tuple(texts))
 
@@ -44,21 +66,3 @@ else:
                           showlegend=False)
         st.plotly_chart(fig, width="stretch")
         st.caption("Computed on a sample of up to 4,000 comments.")
-
-ui.learn(
-    "Readability formulas & lexical diversity",
-    "Readability indices estimate how hard text is to read from sentence and word "
-    "lengths (and syllable counts). We use the `textstat` library for Flesch Reading "
-    "Ease, Flesch-Kincaid grade, Gunning Fog and SMOG. **Lexical diversity** is the "
-    "ratio of unique words (types) to total words (tokens); **Herdan's C** = "
-    "log(types)/log(tokens) corrects TTR's sensitivity to text length.",
-    code=(
-        "import textstat\n"
-        "textstat.flesch_reading_ease(text)\n"
-        "textstat.flesch_kincaid_grade(text)\n"
-        "textstat.gunning_fog(text); textstat.smog_index(text)\n\n"
-        "types, tokens = len(set(words)), len(words)\n"
-        "ttr = types / tokens\n"
-        "herdan_c = math.log(types) / math.log(tokens)"
-    ),
-)
