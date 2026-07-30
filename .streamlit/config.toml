@@ -1,0 +1,13 @@
+[theme]
+# National University Manila brand palette
+primaryColor = "#35408E"          # Navy Blue / Chambray
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F3F4FA"
+textColor = "#333333"             # Mine Shaft
+font = "sans serif"
+
+[server]
+maxUploadSize = 50
+
+[browser]
+gatherUsageStats = false

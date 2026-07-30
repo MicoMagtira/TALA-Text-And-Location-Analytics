@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Streamlit / caches
+.streamlit/secrets.toml
+.geodatasets_cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Notebook / data scratch (keep the bundled example in data/)
+*.ipynb_checkpoints/
+outputs/

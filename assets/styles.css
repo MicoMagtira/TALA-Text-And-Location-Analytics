@@ -1,0 +1,99 @@
+/* TALA — National University Manila brand styling + responsive rules */
+:root {
+  --nu-navy: #35408E;
+  --nu-navy-dark: #232a5e;
+  --nu-gold: #F5D89E;
+  --nu-gold-deep: #C9962E;
+  --nu-dark: #333333;
+}
+
+/* ---- Header banner ---------------------------------------------------- */
+.tala-header {
+  background: linear-gradient(120deg, var(--nu-navy) 0%, var(--nu-navy-dark) 100%);
+  color: #fff;
+  border-radius: 14px;
+  padding: 1.15rem 1.5rem;
+  margin-bottom: 1.1rem;
+  box-shadow: 0 4px 18px rgba(35, 42, 94, 0.22);
+  border-bottom: 4px solid var(--nu-gold);
+}
+.tala-header h1 {
+  margin: 0;
+  font-size: clamp(1.35rem, 3.6vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1.15;
+}
+.tala-header .tala-sub {
+  font-size: clamp(0.82rem, 1.9vw, 1rem);
+  color: var(--nu-gold);
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+.tala-header .tala-dev {
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  opacity: 0.9;
+  margin-top: 0.35rem;
+}
+
+/* ---- Section pills / accents ----------------------------------------- */
+.tala-pill {
+  display: inline-block;
+  background: var(--nu-gold);
+  color: var(--nu-dark);
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+/* Buttons + widgets take the brand navy (config primaryColor also does this). */
+.stButton > button,
+.stDownloadButton > button {
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Metric cards get a subtle brand frame. */
+div[data-testid="stMetric"] {
+  background: #f7f8fc;
+  border: 1px solid #e6e8f4;
+  border-left: 4px solid var(--nu-navy);
+  border-radius: 10px;
+  padding: 0.6rem 0.9rem;
+}
+
+/* Sidebar heading accent */
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 { color: var(--nu-navy); }
+
+/* ---- Footer ----------------------------------------------------------- */
+.tala-footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--nu-gold);
+  color: #6b6b6b;
+  font-size: 0.8rem;
+  text-align: center;
+}
+.tala-footer strong { color: var(--nu-navy); }
+
+/* ---- Responsive ------------------------------------------------------- */
+.block-container { padding-top: 1.4rem; padding-bottom: 2rem; }
+
+@media (max-width: 768px) {
+  .block-container { padding-left: 0.7rem; padding-right: 0.7rem; }
+  .tala-header { padding: 0.9rem 1rem; border-radius: 10px; }
+  /* Let Streamlit column groups wrap instead of squashing on small screens. */
+  div[data-testid="stHorizontalBlock"] { flex-wrap: wrap; }
+  div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+    flex: 1 1 100% !important;
+    min-width: 100% !important;
+  }
+}
+
+/* Charts/maps never overflow their container. */
+.stPlotlyChart, .element-container iframe { max-width: 100%; }
+img { max-width: 100%; height: auto; }
