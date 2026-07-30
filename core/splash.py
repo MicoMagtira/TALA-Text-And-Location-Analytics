@@ -167,9 +167,10 @@ _CSS = f"""
   from {{ opacity: 1; }}
   to   {{ opacity: 0; visibility: hidden; }}
 }}
-@keyframes tala-phase-in {{
-  from {{ opacity: 0; transform: translateY(4px); }}
-  to   {{ opacity: 1; transform: translateY(0); }}
+@keyframes tala-phase-window {{
+  0%, 4%   {{ opacity: 0; transform: translateY(4px); }}
+  16%, 88% {{ opacity: 1; transform: translateY(0); }}
+  100%     {{ opacity: 0; transform: translateY(-2px); }}
 }}
 
 .tala-splash {{
@@ -275,13 +276,12 @@ _CSS = f"""
 .tala-status .pct {{ color: {INK_ON_SKY}; opacity: .75; margin-right: .8em; }}
 .tala-status .caret {{ animation: tala-caret 1s step-end infinite; }}
 
-/* Cycling status lines for the closing frame. Each phase is stacked in the same
-   spot and fades in on its own delay; because later phases come later in the DOM
-   they paint over earlier ones, so no explicit fade-out is needed. */
+/* Cycling status lines for the closing frame. A phase fades out before the next
+   begins; stacking alone cannot cover pixel-font glyphs from the prior message. */
 .tala-status.is-cycling {{ display: grid; place-items: center; }}
 .tala-status.is-cycling .tala-phase {{
   grid-area: 1 / 1; white-space: nowrap;
-  opacity: 0; animation: tala-phase-in .3s ease forwards;
+  opacity: 0; animation: tala-phase-window var(--phase) ease-in-out both;
 }}
 /* Blocks that fill during the tail rise in on their own staggered delay. */
 .tala-progress i.fill {{ animation: tala-block-in .3s ease backwards; }}
@@ -394,7 +394,7 @@ def _finale(from_pct: int, remaining: float) -> str:
           "<span>Text And Location Analytics</span>"
           "<span>Initiative of the NU DOST-NICER Program</span></div>"
         + f'<div class="tala-progress">{"".join(blocks)}</div>'
-        + f'<div class="tala-status is-cycling">{phases}</div>'
+        + f'<div class="tala-status is-cycling" style="--phase:{slice_s:.2f}s">{phases}</div>'
         + "</div>"
     )
 
