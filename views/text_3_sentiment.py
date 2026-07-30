@@ -25,14 +25,14 @@ with c1:
     fig.update_traces(textposition="outside", cliponaxis=False)
     fig.update_layout(**viz.plotly_template(ui.palette())["layout"], height=380,
                       showlegend=False, xaxis_title="", yaxis_title="comments")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 with c2:
     st.markdown("#### Compound score distribution")
     fig = px.histogram(sent, x="compound", nbins=40,
                        color_discrete_sequence=[viz.NU_NAVY])
     fig.update_layout(**viz.plotly_template(ui.palette())["layout"], height=380,
                       xaxis_title="VADER compound", yaxis_title="comments")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 m1, m2, m3 = st.columns(3)
 m1.metric("Positive", f"{(sent['label'] == 'positive').mean() * 100:.1f}%")
@@ -60,7 +60,7 @@ else:
                  color_discrete_sequence=viz.categorical(ui.palette()))
     fig.update_layout(**viz.plotly_template(ui.palette())["layout"], height=400,
                       showlegend=False, xaxis_title="", yaxis_title="term hits")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 st.warning("**Teaching note:** VADER and the NRC lexicon are English-tuned. On "
            "Filipino/Taglish text they still give a useful signal but will miss "

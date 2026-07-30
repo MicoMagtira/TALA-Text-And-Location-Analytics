@@ -60,7 +60,7 @@ m2.metric("Columns", len(df.columns))
 m3.metric("Text column", st.session_state.get(dl.SS_TEXT_COL, "—"))
 m4.metric("Has coordinates", "Yes" if dl.has_geo() else "No")
 st.caption(f"Source: {st.session_state.get(dl.SS_SOURCE, 'n/a')}")
-st.dataframe(df.head(15), use_container_width=True)
+st.dataframe(df.head(15), width="stretch")
 
 st.info(
     "Go to **Text Analytics → Data & Preprocessing** to upload your own data or "

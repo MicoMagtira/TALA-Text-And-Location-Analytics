@@ -2,23 +2,22 @@
 
 Mirrors the reference Text Analytics Explorer feature set and the user's
 NLP.ipynb pipeline: frequency + word clouds, n-grams, VADER polarity + NRC
-emotions, LDA topic modeling + topic stability, RAKE keywords, spaCy noun/POS
+emotions, LDA topic modeling + topic stability, RAKE keywords, noun/POS
 extraction, co-occurrence, readability metrics, and TF-IDF K-Means themes.
 
-Heavy/optional dependencies (nrclex, spacy model, rake-nltk, textstat) are
-imported lazily and degrade gracefully so a missing model never crashes a page.
+Heavy/optional dependencies (sklearn, nrclex, rake-nltk, textstat, the NLTK
+tagger) are imported lazily inside the functions that use them and degrade
+gracefully, so a page only pays for the models it actually runs and a missing
+corpus never crashes a page.
 """
 from __future__ import annotations
 
+import re
 from collections import Counter
 
 import numpy as np
 import pandas as pd
 import streamlit as st
-from sklearn.cluster import KMeans
-from sklearn.decomposition import PCA, LatentDirichletAllocation
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 
 from . import preprocess
 
@@ -50,9 +49,11 @@ def make_wordcloud(freqs: dict[str, int], colormap_name: str = "NU Navy",
 # ---------------------------------------------------------------------------
 # N-grams
 # ---------------------------------------------------------------------------
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner="Counting n-grams…")
 def top_ngrams(corpus: tuple[str, ...], ngram: tuple[int, int] = (2, 2),
                top_n: int = 20, min_df: int = 2) -> pd.DataFrame:
+    from sklearn.feature_extraction.text import CountVectorizer
+
     docs = [d for d in corpus if d.strip()]
     if not docs:
         return pd.DataFrame(columns=["ngram", "count"])
@@ -77,7 +78,7 @@ def _vader():
     return SentimentIntensityAnalyzer()
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner="Scoring sentiment with VADER…")
 def vader_sentiment(texts: tuple[str, ...],
                     threshold: float = VADER_THRESHOLD) -> pd.DataFrame:
     sia = _vader()
@@ -108,7 +109,7 @@ _NRC_ORDER = ["anticipation", "trust", "joy", "surprise", "anger",
               "fear", "sadness", "disgust", "positive", "negative"]
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner="Matching the NRC emotion lexicon…")
 def nrc_emotions(texts: tuple[str, ...]) -> pd.DataFrame:
     """Aggregate NRC emotion + pos/neg counts across the corpus."""
     nrc = _nrc()
@@ -126,7 +127,7 @@ def nrc_emotions(texts: tuple[str, ...]) -> pd.DataFrame:
     return df[df["count"] > 0].reset_index(drop=True)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner="Sorting polarity word clouds…")
 def polarity_word_frequencies(tokens: tuple[str, ...], top_n: int = 100):
     """Split unique tokens into NRC positive / negative buckets (for word clouds)."""
     nrc = _nrc()
@@ -148,24 +149,53 @@ def polarity_word_frequencies(tokens: tuple[str, ...], top_n: int = 100):
 # ---------------------------------------------------------------------------
 # Topic modeling (LDA) + stability
 # ---------------------------------------------------------------------------
-@st.cache_data(show_spinner=False)
-def lda_topics(corpus: tuple[str, ...], n_topics: int = 5, n_top_words: int = 10,
-               seed: int = 42, min_df: int = 3):
+@st.cache_data(show_spinner="Fitting the LDA topic model…")
+def _lda_fit(corpus: tuple[str, ...], n_topics: int, seed: int, min_df: int):
+    """Fit LDA and cache the model itself, keyed only on what changes the fit.
+
+    ``n_top_words`` is deliberately *not* a parameter here. It only decides how
+    many words get displayed, but when it was part of the cache key, nudging the
+    "Words per topic" slider threw away the model and refit from scratch — tens of
+    seconds for a purely cosmetic change. It also meant the stability check (which
+    asks for 15 words) could never reuse the model the charts had already fit at
+    10 words.
+
+    Solver settings: max_iter 20->10 and max_doc_update_iter 100->25 roughly halve
+    the fit on this corpus (~43s -> ~22s locally) while topic word-sets still agree
+    with the slower settings at 0.79 best-match Jaccard and perplexity moves only
+    228.7 -> 232.0. n_jobs is left at 1 on purpose: the parallel E-step is ~4x
+    faster, but each joblib worker re-imports numpy/scipy/sklearn, and ~150 MB per
+    worker is not affordable in a 1 GB container.
+    """
+    from sklearn.decomposition import LatentDirichletAllocation
+    from sklearn.feature_extraction.text import CountVectorizer
+
     docs = [d for d in corpus if d.strip()]
     if len(docs) < n_topics:
         return None
     vec = CountVectorizer(min_df=min_df, max_df=0.9)
     X = vec.fit_transform(docs)
-    terms = vec.get_feature_names_out()
     lda = LatentDirichletAllocation(n_components=n_topics, random_state=seed,
-                                    learning_method="batch", max_iter=20)
+                                    learning_method="batch", max_iter=10,
+                                    max_doc_update_iter=25, n_jobs=1)
     doc_topic = lda.fit_transform(X)
+    return {"components": lda.components_, "terms": vec.get_feature_names_out(),
+            "doc_topic": doc_topic, "docs": docs}
+
+
+def lda_topics(corpus: tuple[str, ...], n_topics: int = 5, n_top_words: int = 10,
+               seed: int = 42, min_df: int = 3):
+    """Top-N words per topic. Slicing only — the fit behind it is cached."""
+    fit = _lda_fit(corpus, n_topics, seed, min_df)
+    if fit is None:
+        return None
+    terms = fit["terms"]
     topics = []
-    for k, comp in enumerate(lda.components_):
+    for k, comp in enumerate(fit["components"]):
         idx = comp.argsort()[::-1][:n_top_words]
         topics.append({"topic": k, "words": list(terms[idx]),
                        "weights": list(comp[idx] / comp.sum())})
-    return {"topics": topics, "doc_topic": doc_topic, "docs": docs}
+    return {"topics": topics, "doc_topic": fit["doc_topic"], "docs": fit["docs"]}
 
 
 def _topic_word_sets(corpus, n_topics, seed, n_top_words=15, min_df=3):
@@ -175,11 +205,13 @@ def _topic_word_sets(corpus, n_topics, seed, n_top_words=15, min_df=3):
     return [set(t["words"]) for t in res["topics"]]
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner="Re-running LDA across seeds…")
 def topic_stability(corpus: tuple[str, ...], n_topics: int = 5,
                     seeds: tuple[int, ...] = (0, 1, 2)) -> pd.DataFrame:
     """Re-run LDA under different seeds; score topic-set agreement between the
     first run and each other via best-match Jaccard and cosine (bag overlap)."""
+    from sklearn.metrics.pairwise import cosine_similarity
+
     runs = [_topic_word_sets(corpus, n_topics, s) for s in seeds]
     runs = [r for r in runs if r]
     if len(runs) < 2:
@@ -204,9 +236,9 @@ def topic_stability(corpus: tuple[str, ...], n_topics: int = 5,
 
 
 # ---------------------------------------------------------------------------
-# Keywords (RAKE) + Noun/POS extraction (spaCy)
+# Keywords (RAKE) + Noun/POS extraction (NLTK)
 # ---------------------------------------------------------------------------
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner="Extracting RAKE keywords…")
 def rake_keywords(texts: tuple[str, ...], top_n: int = 25) -> pd.DataFrame:
     try:
         from rake_nltk import Rake
@@ -219,12 +251,17 @@ def rake_keywords(texts: tuple[str, ...], top_n: int = 25) -> pd.DataFrame:
     return pd.DataFrame(ranked, columns=["score", "keyword"])[["keyword", "score"]]
 
 
-def _ensure_nltk():
+def _ensure_nltk(extra: tuple[tuple[str, str], ...] = ()) -> None:
+    """Make sure the NLTK data packages we need are present.
+
+    NLTK renamed the English tagger in 3.8.2, so both names are attempted and a
+    miss on either is tolerated."""
     import nltk
 
-    for pkg, path in [("stopwords", "corpora/stopwords"),
-                      ("punkt", "tokenizers/punkt"),
-                      ("punkt_tab", "tokenizers/punkt_tab")]:
+    wanted = [("stopwords", "corpora/stopwords"),
+              ("punkt", "tokenizers/punkt"),
+              ("punkt_tab", "tokenizers/punkt_tab")] + list(extra)
+    for pkg, path in wanted:
         try:
             nltk.data.find(path)
         except LookupError:
@@ -234,62 +271,145 @@ def _ensure_nltk():
                 pass
 
 
-@st.cache_resource(show_spinner="Loading spaCy model…")
-def _spacy():
-    import spacy
+# ---------------------------------------------------------------------------
+# POS tagging (NLTK averaged perceptron)
+# ---------------------------------------------------------------------------
+# Penn Treebank -> coarse universal tags, so the UI keeps speaking NOUN/PROPN/
+# VERB/ADJ regardless of the tagger underneath.
+_PTB_TO_UNIVERSAL = {
+    "NN": "NOUN", "NNS": "NOUN",
+    "NNP": "PROPN", "NNPS": "PROPN",
+    "VB": "VERB", "VBD": "VERB", "VBG": "VERB", "VBN": "VERB",
+    "VBP": "VERB", "VBZ": "VERB", "MD": "VERB",
+    "JJ": "ADJ", "JJR": "ADJ", "JJS": "ADJ",
+    "RB": "ADV", "RBR": "ADV", "RBS": "ADV", "WRB": "ADV",
+    "PRP": "PRON", "PRP$": "PRON", "WP": "PRON", "WP$": "PRON",
+    "DT": "DET", "PDT": "DET", "WDT": "DET",
+    "IN": "ADP", "TO": "PART", "RP": "PART", "POS": "PART",
+    "CC": "CCONJ", "CD": "NUM", "UH": "INTJ", "EX": "PRON", "FW": "X",
+}
 
+# Lightweight sentence segmentation — avoids pulling the punkt model just to
+# find sentence boundaries in short, social-media-style comments.
+_SENT_SPLIT = re.compile(r"(?<=[.!?])\s+")
+
+_TAGGER_PKGS = (("averaged_perceptron_tagger", "taggers/averaged_perceptron_tagger"),
+                ("averaged_perceptron_tagger_eng",
+                 "taggers/averaged_perceptron_tagger_eng"))
+
+
+@st.cache_resource(show_spinner="Loading the POS tagger…")
+def _pos_backend():
+    """Return (tokenizer, tagger, lemmatizer) or None if NLTK data is unavailable.
+
+    Uses TreebankWordTokenizer directly rather than ``word_tokenize`` so no punkt
+    sentence model is needed for this path. The WordNet lemmatizer is optional —
+    without it, nouns are counted in surface form."""
     try:
-        return spacy.load("en_core_web_sm", disable=["parser", "ner"])
+        import nltk
+        from nltk.tokenize.treebank import TreebankWordTokenizer
     except Exception:
         return None
 
+    _ensure_nltk(_TAGGER_PKGS)
+    tokenizer = TreebankWordTokenizer()
+    try:  # fail fast if the tagger data really did not land
+        nltk.pos_tag(["test"])
+    except Exception:
+        return None
 
-def spacy_available() -> bool:
-    return _spacy() is not None
+    lemmatizer = None
+    try:
+        from nltk.stem import WordNetLemmatizer
+
+        _ensure_nltk((("wordnet", "corpora/wordnet"),))
+        lemmatizer = WordNetLemmatizer()
+        lemmatizer.lemmatize("tests")  # touch it once; raises if data is missing
+    except Exception:
+        lemmatizer = None
+    return tokenizer, nltk.pos_tag, lemmatizer
 
 
-@st.cache_data(show_spinner=False)
-def extract_nouns(texts: tuple[str, ...], top_n: int = 25):
-    nlp = _spacy()
-    if nlp is None:
-        return pd.DataFrame(), pd.DataFrame()
-    common, proper = Counter(), Counter()
-    sample = list(texts)[:4000]  # cap for responsiveness on 12k rows
-    for doc in nlp.pipe((str(t) for t in sample), batch_size=200):
-        for tok in doc:
-            if tok.is_stop or not tok.is_alpha or len(tok) < 3:
+def pos_available() -> bool:
+    return _pos_backend() is not None
+
+
+@st.cache_data(show_spinner="Tagging parts of speech…")
+def _pos_analysis(texts: tuple[str, ...], top_n: int = 25, sample: int = 4000) -> dict:
+    """Tag the corpus once and derive every POS-based view from that single pass.
+
+    Both the noun ranking and the POS distribution read this, so viewing both
+    costs one tagging pass instead of two. Only the small aggregates are cached,
+    never the token stream."""
+    backend = _pos_backend()
+    if backend is None:
+        return {}
+    tokenize, pos_tag, lemmatizer = backend
+    stops = preprocess.english_stopwords()
+
+    common, pos_counts = Counter(), Counter()
+    # Proper nouns are tallied in two buckets. A capitalized word that only ever
+    # appears at the start of a sentence ("Tried…", "Felt…") is almost always a
+    # tagger artifact, not a name; one that also appears capitalized mid-sentence
+    # is a real proper noun. Only the latter survives, and it keeps its full count.
+    proper_initial, proper_mid = Counter(), Counter()
+
+    for text in list(texts)[:sample]:  # cap for responsiveness on 12k rows
+        # TreebankWordTokenizer assumes sentence-level input — it only splits a
+        # trailing period at the very end of the string. Segmenting first is what
+        # makes both the tags and the sentence-initial test correct.
+        for sentence in _SENT_SPLIT.split(str(text)):
+            tokens = tokenize.tokenize(sentence)
+            if not tokens:
                 continue
-            if tok.pos_ == "NOUN":
-                common[tok.lemma_.lower()] += 1
-            elif tok.pos_ == "PROPN":
-                proper[tok.text] += 1
+            for idx, (word, tag) in enumerate(pos_tag(tokens)):
+                universal = _PTB_TO_UNIVERSAL.get(tag, "X")
+                if not word.isalpha():
+                    continue
+                pos_counts[universal] += 1
+                if len(word) < 3 or word.lower() in stops:
+                    continue
+                if universal == "NOUN":
+                    lemma = word.lower()
+                    if lemmatizer is not None:
+                        lemma = lemmatizer.lemmatize(lemma)
+                    common[lemma] += 1
+                elif universal == "PROPN":
+                    (proper_initial if idx == 0 else proper_mid)[word] += 1
+
+    proper = Counter({w: c + proper_initial[w] for w, c in proper_mid.items()})
+
+    total = sum(pos_counts.values()) or 1
     to_df = lambda c, col: pd.DataFrame(c.most_common(top_n), columns=[col, "count"])
-    return to_df(common, "noun"), to_df(proper, "proper_noun")
+    return {
+        "nouns": to_df(common, "noun"),
+        "proper": to_df(proper, "proper_noun"),
+        "pos": pd.DataFrame(
+            [(p, n, 100 * n / total) for p, n in pos_counts.most_common()],
+            columns=["pos", "count", "percent"]),
+    }
 
 
-@st.cache_data(show_spinner=False)
+def extract_nouns(texts: tuple[str, ...], top_n: int = 25):
+    res = _pos_analysis(texts, top_n)
+    if not res:
+        return pd.DataFrame(), pd.DataFrame()
+    return res["nouns"], res["proper"]
+
+
 def pos_proportions(texts: tuple[str, ...]) -> pd.DataFrame:
-    nlp = _spacy()
-    if nlp is None:
-        return pd.DataFrame()
-    counts = Counter()
-    sample = list(texts)[:4000]
-    for doc in nlp.pipe((str(t) for t in sample), batch_size=200):
-        for tok in doc:
-            if tok.is_alpha:
-                counts[tok.pos_] += 1
-    total = sum(counts.values()) or 1
-    df = pd.DataFrame([(p, n, 100 * n / total) for p, n in counts.most_common()],
-                      columns=["pos", "count", "percent"])
-    return df
+    res = _pos_analysis(texts)
+    return res.get("pos", pd.DataFrame())
 
 
 # ---------------------------------------------------------------------------
 # Co-occurrence
 # ---------------------------------------------------------------------------
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner="Building the co-occurrence matrix…")
 def cooccurrence(corpus: tuple[str, ...], top_terms: int = 15,
                  min_df: int = 3) -> pd.DataFrame:
+    from sklearn.feature_extraction.text import CountVectorizer
+
     docs = [d for d in corpus if d.strip()]
     if not docs:
         return pd.DataFrame()
@@ -311,7 +431,7 @@ def cooccurrence(corpus: tuple[str, ...], top_terms: int = 15,
 # ---------------------------------------------------------------------------
 # Readability / linguistic metrics
 # ---------------------------------------------------------------------------
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner="Computing readability metrics…")
 def readability(texts: tuple[str, ...]) -> dict:
     joined = " ".join(str(t) for t in texts)
     words = joined.split()
@@ -339,9 +459,13 @@ def readability(texts: tuple[str, ...]) -> dict:
 # ---------------------------------------------------------------------------
 # TF-IDF K-Means themes (from NLP.ipynb)
 # ---------------------------------------------------------------------------
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner="Clustering themes (TF-IDF + K-Means)…")
 def tfidf_kmeans(corpus: tuple[str, ...], k: int = 4, seed: int = 42,
                  top_terms: int = 10):
+    from sklearn.cluster import KMeans
+    from sklearn.decomposition import TruncatedSVD
+    from sklearn.feature_extraction.text import TfidfVectorizer
+
     docs = [d for d in corpus if d.strip()]
     if len(docs) < k:
         return None
@@ -352,7 +476,10 @@ def tfidf_kmeans(corpus: tuple[str, ...], k: int = 4, seed: int = 42,
     terms = vec.get_feature_names_out()
     order_centroids = km.cluster_centers_.argsort()[:, ::-1]
     top = {c: [terms[i] for i in order_centroids[c, :top_terms]] for c in range(k)}
-    coords = PCA(n_components=2, random_state=seed).fit_transform(X.toarray())
+    # TruncatedSVD, not PCA: it consumes the sparse TF-IDF matrix directly.
+    # PCA required X.toarray(), which densified 12k x 1200 float64 into a ~115 MB
+    # allocation — the single largest transient in the app, on a 1 GB box.
+    coords = TruncatedSVD(n_components=2, random_state=seed).fit_transform(X)
     sizes = pd.Series(labels).value_counts().sort_index()
     return {"labels": labels, "top_terms": top, "coords": coords,
             "sizes": sizes, "docs": docs}

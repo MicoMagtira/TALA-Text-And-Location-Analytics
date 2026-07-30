@@ -5,9 +5,12 @@ Lab 4 PH-land clip + map/exports -> Lab 5 NLP per cluster. GeoDataFrames are
 chained through st.session_state by the pages, mirroring the notebooks'
 outputs/*.geojson hand-off.
 
-Heavy geo deps (geopandas/shapely/pyproj/folium/geodatasets) import lazily.
+Heavy geo deps (geopandas/shapely/pyproj/folium) import lazily, so the text
+pages never pay for them.
 """
 from __future__ import annotations
+
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -150,26 +153,30 @@ def cluster_centroids(gdf, exclude_noise: bool = True):
 PH_BBOX = (116.0, 4.5, 127.0, 21.5)  # lon/lat window around the Philippines
 
 
+PH_LAND_FILE = Path(__file__).resolve().parent.parent / "data" / "ph_land.geojson"
+
+
 @st.cache_resource(show_spinner="Loading Philippines land boundary…")
 def ph_land():
     """Philippine land polygon: Natural Earth land clipped to the PH window.
 
-    geodatasets only ships global `naturalearth.land` (no per-country names), so
-    we intersect it with the PH bounding box to get the actual island landmass,
-    then buffer it slightly so the coarse 110m coastline does not drop legitimate
-    coastal points. Falls back to the plain bounding box if the download fails
-    (keeps the app usable offline)."""
+    Precomputed and vendored as data/ph_land.geojson (~11 KB). It was built by
+    intersecting global `naturalearth.land` with the PH bounding box, buffering
+    ~15 km so the coarse 110m coastline does not drop legitimate coastal points,
+    and simplifying at 0.01° — ample for the `within()` mask this feeds.
+
+    Doing it at build time rather than on first use removes a multi-megabyte
+    download from the user's session, which on a cold free-tier container was
+    both the slowest step on this page and the one most likely to fail.
+    Falls back to the plain bounding box if the file is missing."""
     from shapely.geometry import box
 
     ph_box = box(*PH_BBOX)
     try:
-        import geodatasets
         import geopandas as gpd
 
-        land = gpd.read_file(geodatasets.get_path("naturalearth.land")).to_crs(4326)
-        clipped = land.clip(ph_box)
-        geom = clipped.geometry.union_all().buffer(0.15)  # ~15 km grace on coasts
-        if geom and not geom.is_empty:
+        geom = gpd.read_file(PH_LAND_FILE).geometry.iloc[0]
+        if geom is not None and not geom.is_empty:
             return geom
     except Exception:
         pass

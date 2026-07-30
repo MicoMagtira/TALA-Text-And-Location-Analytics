@@ -1,24 +1,52 @@
-streamlit>=1.36
-pandas>=2.0
-numpy>=1.26
-matplotlib>=3.8
-seaborn>=0.13
-plotly>=5.20
-scikit-learn>=1.4
+# TALA runtime dependencies.
+#
+# Kept deliberately lean: the target is Streamlit Community Cloud, where the
+# container has ~1 GB RAM and a shared CPU, so every wheel here is paid for in
+# both build time and resident memory. Upper bounds are pinned so a surprise
+# major release cannot slow or break a rebuild.
+#
+# Deliberately NOT here:
+#   spacy / en_core_web_sm  — ~150 MB for POS tagging only, and the pinned model
+#                             (3.7.1) was incompatible with the spacy version pip
+#                             resolved, so it silently failed to load in
+#                             production. Replaced by NLTK's averaged-perceptron
+#                             tagger; see core/nlp.py.
+#   geodatasets             — was downloading Natural Earth at runtime; the PH
+#                             boundary is now vendored as data/ph_land.geojson.
+#   seaborn                 — imported nowhere.
+
+# --- core ---
+streamlit>=1.36,<2
+pandas>=2.0,<3
+numpy>=1.26,<3
+pyarrow>=15.0            # Parquet reader for the bundled dataset
+
+# --- charting ---
+plotly>=5.20,<7
+matplotlib>=3.8,<4       # word-cloud colormaps + static map export
+networkx>=3.2,<4
+
+# --- text analytics ---
+scikit-learn>=1.4,<2
 wordcloud>=1.9
 vaderSentiment>=3.3.2
 nrclex>=4.0
 rake-nltk>=1.0.6
 nltk>=3.8
 textstat>=0.7.4
-networkx>=3.2
-geopandas>=0.14
-shapely>=2.0
-pyproj>=3.6
+
+# --- geospatial ---
+# These wheels bundle their own native libraries (shapely->GEOS, pyproj->PROJ,
+# pyogrio->GDAL), which is why packages.txt no longer installs libgeos-dev /
+# libproj-dev / libgdal-dev. Those apt packages pulled hundreds of megabytes on
+# every rebuild to duplicate what pip already provides.
+geopandas>=0.14,<2
+shapely>=2.0,<3
+pyproj>=3.6,<4
+pyogrio>=0.8            # geopandas' default IO engine; ships GDAL in the wheel
 folium>=0.16
 streamlit-folium>=0.20
 branca>=0.7
-geodatasets>=2023.12
-openpyxl>=3.1
-spacy>=3.7
-en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
+
+# --- file upload support ---
+openpyxl>=3.1            # pandas.read_excel engine for user-uploaded .xlsx

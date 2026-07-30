@@ -5,7 +5,7 @@ from core import data_loader as dl
 from core import nlp, preprocess, ui, viz
 
 ui.page_title("Text Analytics", "Keywords & Nouns",
-              "RAKE keyword extraction, noun / proper-noun ranking (spaCy POS), and "
+              "RAKE keyword extraction, noun / proper-noun ranking (NLTK POS), and "
               "a term co-occurrence heatmap.")
 
 texts = dl.text_series().tolist()
@@ -25,14 +25,14 @@ with tab_rake:
         fig.update_layout(**viz.plotly_template(ui.palette())["layout"],
                           height=26 * len(rk) + 80, yaxis_title="",
                           xaxis_title="RAKE score", showlegend=False)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
         st.download_button("⬇️ Keywords (CSV)", rk.to_csv(index=False),
                            "tala_keywords.csv", "text/csv")
 
 with tab_nouns:
-    if not nlp.spacy_available():
-        st.info("Noun extraction needs the spaCy model `en_core_web_sm`. Install it "
-                "with `python -m spacy download en_core_web_sm`.")
+    if not nlp.pos_available():
+        st.info("Noun extraction needs the NLTK tagger data, which is downloaded "
+                "on first use. Check this container's network access and reload.")
     else:
         nouns, proper = nlp.extract_nouns(tuple(texts))
         c1, c2 = st.columns(2)
@@ -43,7 +43,7 @@ with tab_nouns:
             fig.update_layout(**viz.plotly_template(ui.palette())["layout"],
                               height=26 * len(nouns) + 80, yaxis_title="",
                               showlegend=False)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
         with c2:
             st.markdown("**Proper nouns**")
             fig = px.bar(proper.sort_values("count"), x="count", y="proper_noun",
@@ -51,7 +51,7 @@ with tab_nouns:
             fig.update_layout(**viz.plotly_template(ui.palette())["layout"],
                               height=26 * len(proper) + 80, yaxis_title="",
                               showlegend=False)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
         st.caption("Computed on a sample of up to 4,000 comments for responsiveness.")
 
 with tab_co:
@@ -66,21 +66,27 @@ with tab_co:
         fig.update_layout(height=560, paper_bgcolor=viz.SURFACE,
                           font=dict(color=viz.INK_SECONDARY),
                           margin=dict(l=10, r=10, t=10, b=10))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
 ui.learn(
     "RAKE, POS tagging & co-occurrence",
     "**RAKE** (Rapid Automatic Keyword Extraction) scores candidate phrases by word "
-    "frequency and degree of co-occurrence, favoring multi-word terms. **spaCy** POS "
-    "tagging labels each token so we can rank `NOUN` (common) and `PROPN` (proper) "
-    "words separately. The **co-occurrence** matrix counts how often two terms appear "
-    "in the same comment (binary per document), revealing associated concepts.",
+    "frequency and degree of co-occurrence, favoring multi-word terms. **POS tagging** "
+    "labels each token so we can rank `NOUN` (common) and `PROPN` (proper) words "
+    "separately — here NLTK's averaged-perceptron tagger emits Penn Treebank tags "
+    "(`NN`, `NNP`, …) which we fold into coarse universal tags. The **co-occurrence** "
+    "matrix counts how often two terms appear in the same comment (binary per "
+    "document), revealing associated concepts.\n\n"
+    "*Why not spaCy?* It is more accurate, but the model plus its runtime is ~150 MB "
+    "— more than a free 1 GB container can spare alongside the geospatial stack. "
+    "Picking the tagger that fits the deployment budget is itself the lesson.",
     code=(
         "from rake_nltk import Rake\n"
         "r = Rake(); r.extract_keywords_from_text(corpus_text)\n"
         "ranked = r.get_ranked_phrases_with_scores()\n\n"
-        "import spacy\n"
-        "nlp = spacy.load('en_core_web_sm')\n"
-        "nouns = [t.lemma_ for d in nlp.pipe(texts) for t in d if t.pos_ == 'NOUN']"
+        "import nltk\n"
+        "from nltk.tokenize.treebank import TreebankWordTokenizer\n"
+        "tokens = TreebankWordTokenizer().tokenize(text)\n"
+        "nouns = [w for w, tag in nltk.pos_tag(tokens) if tag.startswith('NN')]"
     ),
 )

@@ -29,7 +29,7 @@ else:
     fig.update_layout(**viz.plotly_template(ui.palette())["layout"],
                       height=26 * len(ng) + 80, yaxis_title="",
                       xaxis_title="frequency", showlegend=False)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.download_button("⬇️ Download n-grams (CSV)", ng.to_csv(index=False),
                        f"tala_{n}grams.csv", "text/csv")
 
@@ -69,7 +69,7 @@ else:
                           paper_bgcolor=viz.SURFACE, plot_bgcolor=viz.SURFACE,
                           margin=dict(l=10, r=10, t=10, b=10),
                           xaxis=dict(visible=False), yaxis=dict(visible=False))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
 ui.learn(
     "N-grams & co-occurrence",

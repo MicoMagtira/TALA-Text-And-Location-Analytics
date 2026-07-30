@@ -46,7 +46,7 @@ else:
     clipped.plot(ax=ax, color=viz.NU_NAVY, markersize=3, alpha=0.5)
 ax.set_title("TALA — Generalized health-service feedback (PH)")
 ax.set_axis_off()
-st.pyplot(fig, use_container_width=True)
+st.pyplot(fig, width="stretch")
 
 png_buf = io.BytesIO()
 fig.savefig(png_buf, format="png", dpi=240, bbox_inches="tight")
@@ -84,11 +84,19 @@ ui.learn(
     "spatially clipping to the **Philippine land polygon** from Natural Earth — a "
     "principled geometric filter, not an arbitrary bounding box. The finished layer "
     "is exported as GeoJSON + a static PNG + a `metadata.json` that records the CRS "
-    "and parameters, so downstream steps consume a **stable, documented contract**.",
+    "and parameters, so downstream steps consume a **stable, documented contract**.\n\n"
+    "Note the deployment pattern: the boundary is derived from Natural Earth **once, "
+    "at build time**, and shipped as an 11 KB simplified GeoJSON. Fetching and "
+    "dissolving a global land layer inside the app would repeat that work in every "
+    "container and add a network dependency to the request path.",
     code=(
+        "# Build step (run once, offline):\n"
         "import geopandas as gpd, geodatasets\n"
-        "world = gpd.read_file(geodatasets.get_path('naturalearth.land'))\n"
-        "ph_land = world_ph.geometry.union_all()          # PH polygon\n"
+        "world = gpd.read_file(geodatasets.get_path('naturalearth.land')).to_crs(4326)\n"
+        "ph = world.clip(box(*PH_BBOX)).geometry.union_all().buffer(0.15)\n"
+        "gpd.GeoSeries([ph.simplify(0.01)], crs=4326).to_file('data/ph_land.geojson')\n\n"
+        "# App step (every run, no network):\n"
+        "ph_land = gpd.read_file('data/ph_land.geojson').geometry.iloc[0]\n"
         "kept = gdf[gdf.geometry.within(ph_land)]          # spatial clip\n"
         "kept.to_file('map.geojson', driver='GeoJSON')"
     ),

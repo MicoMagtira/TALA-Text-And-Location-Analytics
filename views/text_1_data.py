@@ -44,7 +44,7 @@ if st.button("✅ Use this dataset", type="primary"):
     st.success("Dataset activated. It now drives every Text and Geospatial page.")
 
 st.markdown("#### Preview")
-st.dataframe(df.head(20), use_container_width=True)
+st.dataframe(df.head(20), width="stretch")
 m1, m2, m3 = st.columns(3)
 m1.metric("Rows", f"{len(df):,}")
 m2.metric("Columns", len(df.columns))

@@ -63,7 +63,7 @@ else:
 if dl.SS_GENERALIZED in st.session_state and len(st.session_state[dl.SS_GENERALIZED]):
     gen = st.session_state[dl.SS_GENERALIZED]
     st.markdown("#### Summary")
-    st.dataframe(gen.drop(columns="geometry"), use_container_width=True)
+    st.dataframe(gen.drop(columns="geometry"), width="stretch")
     st.download_button("⬇️ Download generalized layer (GeoJSON)",
                        gen.to_json(), "tala_generalized.geojson",
                        "application/geo+json")

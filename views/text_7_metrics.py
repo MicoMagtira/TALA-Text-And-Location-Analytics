@@ -27,8 +27,9 @@ with st.expander("What do these mean?"):
 
 st.markdown("---")
 st.markdown("#### Part-of-speech proportions")
-if not nlp.spacy_available():
-    st.info("POS proportions need the spaCy model `en_core_web_sm`.")
+if not nlp.pos_available():
+    st.info("POS proportions need the NLTK tagger data, which is downloaded on "
+            "first use. Check this container's network access and reload.")
 else:
     pos = nlp.pos_proportions(tuple(texts))
     if pos.empty:
@@ -41,7 +42,7 @@ else:
         fig.update_layout(**viz.plotly_template(ui.palette())["layout"], height=420,
                           xaxis_title="part of speech", yaxis_title="% of tokens",
                           showlegend=False)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
         st.caption("Computed on a sample of up to 4,000 comments.")
 
 ui.learn(
