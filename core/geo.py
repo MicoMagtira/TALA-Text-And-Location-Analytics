@@ -127,33 +127,33 @@ def run_dbscan(gdf, eps_m: float = 15000, min_samples: int = 10):
 # ---------------------------------------------------------------------------
 # Lab 3 - Generalization
 # ---------------------------------------------------------------------------
-def grid_aggregate(gdf, cell_m: float = 20000, max_cells: int = 20000):
+def grid_aggregate(gdf, cell_m: float = 20000):
+    """Aggregate points into occupied cells of exactly ``cell_m`` metres.
+
+    Only cells containing at least one point are materialized. This avoids building a
+    huge empty grid when a dataset includes far-apart records, while preserving the
+    cell size selected by the user.
+    """
     import geopandas as gpd
     from shapely.geometry import box
 
     gm = to_metric(gdf)
     xy = np.column_stack([gm.geometry.x, gm.geometry.y])
-    # Robust bounds: use the 1st-99th percentile so the deliberately dirty
-    # far-off points (London, California, impossible coords) — which are not
-    # removed until the land-clip step — cannot explode the projected extent.
-    xmin, xmax = np.percentile(xy[:, 0], [1, 99])
-    ymin, ymax = np.percentile(xy[:, 1], [1, 99])
-    span_x, span_y = max(xmax - xmin, cell_m), max(ymax - ymin, cell_m)
-    # Enlarge the cell if the grid would exceed the hard cell cap.
-    est_cells = (span_x / cell_m + 1) * (span_y / cell_m + 1)
-    if est_cells > max_cells:
-        cell_m = float(np.sqrt(span_x * span_y / max_cells))
-    xs = np.arange(xmin, xmax + cell_m, cell_m)
-    ys = np.arange(ymin, ymax + cell_m, cell_m)
-    cells, counts = [], []
-    for x0 in xs[:-1]:
-        for y0 in ys[:-1]:
-            mask = (xy[:, 0] >= x0) & (xy[:, 0] < x0 + cell_m) & \
-                   (xy[:, 1] >= y0) & (xy[:, 1] < y0 + cell_m)
-            n = int(mask.sum())
-            if n:
-                cells.append(box(x0, y0, x0 + cell_m, y0 + cell_m))
-                counts.append(n)
+    if not len(xy):
+        return gpd.GeoDataFrame({"n_points": []}, geometry=[], crs=gm.crs)
+
+    # Anchor to a cell boundary and group directly by grid index. Unlike iterating
+    # over every coordinate between the bounds, this remains compact for sparse or
+    # globally spread records and never needs to silently enlarge the requested cell.
+    xmin = np.floor(xy[:, 0].min() / cell_m) * cell_m
+    ymin = np.floor(xy[:, 1].min() / cell_m) * cell_m
+    cell_ids = np.floor((xy - [xmin, ymin]) / cell_m).astype(np.int64)
+    occupied, counts = np.unique(cell_ids, axis=0, return_counts=True)
+    cells = [
+        box(xmin + ix * cell_m, ymin + iy * cell_m,
+            xmin + (ix + 1) * cell_m, ymin + (iy + 1) * cell_m)
+        for ix, iy in occupied
+    ]
     grid = gpd.GeoDataFrame({"n_points": counts}, geometry=cells, crs=gm.crs)
     return grid.to_crs(epsg=4326)
 
