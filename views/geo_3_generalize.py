@@ -63,7 +63,6 @@ if method == "Grid aggregation":
     cell_km = st.slider("Grid cell size (km)", 5, 100, 20, 5)
     gen = geo.grid_for(*key, cell_km * 1000)
     st.session_state[dl.SS_GEN_PARAMS] = ("grid", cell_km * 1000)
-    st.metric("Grid cells with points", len(gen))
     if len(gen):
         vmax = int(gen["n_points"].max())
         cmap = branca.colormap.LinearColormap(
