@@ -17,7 +17,7 @@ that turns notes into insight.
     """
 )
 
-c1, c2, c3 = st.columns(3)
+c1, c2 = st.columns(2)
 with c1:
     st.markdown("#### 🧠 Text Analytics")
     st.markdown(
@@ -40,17 +40,6 @@ with c2:
         "- **NLP per cluster** (privacy-safe)\n"
         "- GeoJSON / PNG / CSV exports"
     )
-with c3:
-    st.markdown("#### 🎓 For Training")
-    st.markdown(
-        "- **Learn** panels with source code\n"
-        "- Adjustable parameters (live)\n"
-        "- Reset-to-lab-defaults buttons\n"
-        "- NU-Manila branding\n"
-        "- Responsive on any screen\n"
-        "- Bundled example dataset"
-    )
-
 st.markdown("---")
 st.markdown("### 📦 Active dataset")
 df = dl.active_df()
