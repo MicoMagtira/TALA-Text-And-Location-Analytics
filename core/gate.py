@@ -216,9 +216,13 @@ def language_gate() -> None:
     st.markdown(f'<div class="tala-hint">{hint}</div>', unsafe_allow_html=True)
 
     audio.gate_settings()
-    # Mount before the buttons so the capture listener can play the START cue
-    # synchronously with the browser's click event.
-    audio.mount(start_labels=(start_label,), play_music=False)
+    # Mount before the buttons so music can begin on the first gate interaction
+    # when the browser blocks unmuted autoplay, and the START cue is synchronous.
+    audio.mount(
+        start_labels=(start_label,),
+        play_music=True,
+        start_music_on_interaction=True,
+    )
     del st.session_state[i18n.SS_LANG]            # not chosen until START
 
     for col, (code, meta) in zip(st.columns(len(i18n.LANGS)), i18n.LANGS.items()):

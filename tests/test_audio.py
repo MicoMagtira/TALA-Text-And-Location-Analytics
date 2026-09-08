@@ -39,7 +39,14 @@ def test_audio_manager_uses_static_urls_not_embedded_bytes():
     assert "components.html" in source
     assert "clickHandler" in source
     assert "startLabels" in source
+    assert "startMusicOnInteraction" in source
     assert "open(" not in source, "audio manager must not load sound bytes into Python"
+
+
+def test_gate_can_start_music_before_start_button():
+    source = (ROOT / "core" / "gate.py").read_text(encoding="utf-8")
+    assert "play_music=True" in source
+    assert "start_music_on_interaction=True" in source
 
 
 def test_static_audio_serving_is_enabled():
