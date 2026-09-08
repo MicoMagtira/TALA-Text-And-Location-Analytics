@@ -158,11 +158,35 @@ def mount(
               sound.play().catch(() => {{}});
             }};
             manager.playMusic = () => {{
+              if (manager.waitingForStartCue) return;
               if (!manager.config.musicOn) {{
                 manager.music.pause();
                 return;
               }}
               manager.music.play().catch(() => {{}});
+            }};
+            manager.playStartThenMusic = () => {{
+              // Do not overlap the gate's distinct START cue with the loop.
+              // If SFX is muted, there is no cue to wait for.
+              if (!manager.config.sfxOn) {{
+                manager.waitingForStartCue = false;
+                manager.playMusic();
+                return;
+              }}
+              manager.waitingForStartCue = true;
+              manager.music.pause();
+              manager.start.onended = () => {{
+                manager.waitingForStartCue = false;
+                manager.start.onended = null;
+                manager.playMusic();
+              }};
+              manager.start.currentTime = 0;
+              manager.start.play().catch(() => {{
+                // A browser may reject a play request; do not leave music paused.
+                manager.waitingForStartCue = false;
+                manager.start.onended = null;
+                manager.playMusic();
+              }});
             }};
 
             if (manager.clickHandler) {{
@@ -186,8 +210,7 @@ def mount(
                 (startLabel) => startLabel && label.includes(startLabel)
               );
               if (isStart) {{
-                manager.play('start');
-                manager.playMusic();
+                manager.playStartThenMusic();
               }} else {{
                 manager.play('click');
                 if (manager.config.startMusicOnInteraction) manager.playMusic();
