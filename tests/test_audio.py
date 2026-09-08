@@ -43,6 +43,8 @@ def test_audio_manager_uses_static_urls_not_embedded_bytes():
     assert "playStartThenMusic" in source
     assert "waitingForStartCue" in source
     assert "start.onended" in source
+    assert "setAttribute('onended'" in source
+    assert "manager.music.volume = 0" in source
     assert 'a[href]' in source
     assert 'summary' in source
     assert '[role="switch"]' in source
