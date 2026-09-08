@@ -31,6 +31,19 @@ Parquet → Ingest (points) → DBSCAN (clusters) → Generalization / NLP-per-c
 Every page has a **Learn** panel (toggle in the sidebar) that shows the concept and
 the equivalent source code — turning the app into live teaching material.
 
+## Sound
+
+TALA can play optional 8-bit sound in the browser. The language gate offers
+**Sound settings** before START, and the sidebar keeps **Music** and **SFX**
+toggles plus independent volume sliders available throughout the app. START
+plays its own cue and begins the looping music; other buttons use the click cue.
+
+Audio begins only after an explicit click, as required by browser autoplay rules.
+The optimized runtime files live in `static/audio/` and stream directly to the
+browser, so they do not consume per-session Streamlit memory. See
+[`docs/AUDIO.md`](docs/AUDIO.md) for the asset manifest, rebuild command, and
+licensing reminder.
+
 ## Languages
 
 TALA ships in **English, Filipino, Cebuano, Ilocano and Hiligaynon**. A session

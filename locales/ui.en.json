@@ -339,5 +339,12 @@
   "geo_5_nlp.tip_pts": "{n} pts",
   "geo_5_nlp.tip_tag": "Tag",
   "geo_5_nlp.tip_sentiment": "Sentiment",
-  "geo_5_nlp.tip_top": "Top"
+  "geo_5_nlp.tip_top": "Top",
+
+  "audio.heading": "🔊 Audio",
+  "audio.gate_heading": "⚙ Sound settings",
+  "audio.gate_hint": "Your choices carry into the app. Sound begins after START.",
+  "audio.music": "Music",
+  "audio.sfx": "SFX",
+  "audio.volume": "{name} volume"
 }

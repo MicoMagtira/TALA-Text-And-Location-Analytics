@@ -295,4 +295,11 @@
   "text_8_themes.terms_head": "#### Kangrunaan a termino iti kada tema",
   "text_8_themes.theme": "Tema {n}",
   "text_8_themes.theme_terms": "**Tema {n}** — {terms}"
+,
+  "audio.heading": "🔊 Uni",
+  "audio.gate_heading": "⚙ Dagiti setting ti uni",
+  "audio.gate_hint": "Mayala dagiti pilim iti app. Manggirugi ti uni kalpasan ti START.",
+  "audio.music": "Musika",
+  "audio.sfx": "SFX",
+  "audio.volume": "Kadagsen ti {name}"
 }

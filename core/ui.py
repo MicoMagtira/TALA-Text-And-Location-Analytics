@@ -14,7 +14,7 @@ from pathlib import Path
 
 import streamlit as st
 
-from . import data_loader as dl
+from . import audio, data_loader as dl
 from . import i18n
 from .viz import categorical_names, sequential_names, load_css
 
@@ -93,6 +93,8 @@ def sidebar_controls() -> None:
         format_func=i18n.label, on_change=_on_language_change,
         label_visibility="collapsed",
     )
+
+    audio.sidebar_settings()
 
     st.sidebar.markdown(f"### {i18n.t('side.appearance')}")
     st.session_state.setdefault(SS_PALETTE, categorical_names()[0])

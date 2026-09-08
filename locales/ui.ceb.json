@@ -11,6 +11,30 @@
     "src": "18ce5c7202",
     "t": "Usa ka inisyatiba sa NU DOST-NICER Program"
   },
+  "audio.gate_heading": {
+    "src": "cdd9e17c75",
+    "t": "⚙ Mga setting sa tingog"
+  },
+  "audio.gate_hint": {
+    "src": "d1e39ba9ba",
+    "t": "Madala ang imong mga pilion sa app. Mosugod ang tingog human sa START."
+  },
+  "audio.heading": {
+    "src": "5ac4b197b0",
+    "t": "🔊 Tingog"
+  },
+  "audio.music": {
+    "src": "131260cbfb",
+    "t": "Musika"
+  },
+  "audio.sfx": {
+    "src": "db939a93b4",
+    "t": "SFX"
+  },
+  "audio.volume": {
+    "src": "7f5b291aa5",
+    "t": "Kusog sa {name}"
+  },
   "boot.caches": {
     "src": "7b0785b2a5",
     "t": "Giandam ang mga analytics cache"
