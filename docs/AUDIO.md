@@ -10,9 +10,11 @@ The browser fetches the runtime MP3 files from `/app/static/audio/` directly.
 - The gate attempts to begin background music as soon as it loads. If a browser
   blocks unmuted autoplay, the first gate interaction (including choosing a
   language, opening sound settings, or pressing START) begins the loop instead.
-- Pressing START plays the dedicated start cue. Other interactive controls use
-  the short click cue, including page-navigation links, Learn expanders, tabs,
-  radio buttons, checkboxes, toggles, menu items, and ordinary buttons.
+- Pressing START pauses the loop and plays the dedicated start cue. The loop
+  resumes only after that cue finishes (or immediately if SFX is muted). Other
+  interactive controls use the short click cue, including page-navigation links,
+  Learn expanders, tabs, radio buttons, checkboxes, toggles, menu items, and
+  ordinary buttons.
 - The sidebar repeats the controls as **Music** and **SFX**, each with an on/off
   toggle and a 0–100 volume slider. Preferences are session-specific.
 - Modern browser autoplay policies can reject the initial, unmuted playback
