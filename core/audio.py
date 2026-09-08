@@ -172,11 +172,13 @@ def mount(
               const target = event.target;
               if (!(target instanceof host.Element)) return;
               // Streamlit navigation uses links, Learn panels use <summary>,
-              // and widgets use a mix of native and ARIA controls. Treat each
-              // as an app interaction, not only literal <button> elements.
+              // and its radios, checkboxes, and toggles are label/BaseWeb
+              // controls. Treat each as an app interaction, not only literal
+              // <button> elements.
               const control = target.closest(
-                'button, a[href], summary, [role="button"], [role="tab"], '
-                + '[role="switch"], [role="menuitem"], select, input:not([type="range"])'
+                'button, a[href], summary, label, input, select, [role="button"], '
+                + '[role="tab"], [role="switch"], [role="radio"], [role="checkbox"], '
+                + '[role="menuitem"], [data-baseweb="radio"], [data-baseweb="checkbox"]'
               );
               if (!control || control.disabled || control.getAttribute('aria-disabled') === 'true') return;
               const label = (control.innerText || control.textContent || '').trim();

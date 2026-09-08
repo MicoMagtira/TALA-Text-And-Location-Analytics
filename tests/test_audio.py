@@ -43,6 +43,9 @@ def test_audio_manager_uses_static_urls_not_embedded_bytes():
     assert 'a[href]' in source
     assert 'summary' in source
     assert '[role="switch"]' in source
+    assert '[role="radio"]' in source
+    assert '[role="checkbox"]' in source
+    assert '[data-baseweb="checkbox"]' in source
     assert "open(" not in source, "audio manager must not load sound bytes into Python"
 
 
