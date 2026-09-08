@@ -38,7 +38,8 @@ TALA can play optional 8-bit sound in the browser. The language gate offers
 toggles plus independent volume sliders available throughout the app. Music is
 attempted on the start screen and, if browser autoplay is blocked, begins on
 the visitor's first gate interaction. START plays its own cue; other buttons
-use the click cue.
+and interactive controls—including page navigation, Learn expanders, radio
+buttons, checkboxes, and toggles—use the click cue.
 
 Some browsers require that first interaction before unmuted audio can play. The
 optimized runtime files live in `static/audio/` and stream directly to the
