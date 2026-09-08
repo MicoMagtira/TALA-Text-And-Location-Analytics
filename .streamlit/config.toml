@@ -16,8 +16,10 @@ maxUploadSize = 50
 #   streamlit run app.py --server.fileWatcherType auto
 fileWatcherType = "none"
 
-# Nothing is served out of a static/ directory.
-enableStaticServing = false
+# The compact runtime audio files in static/audio are streamed directly by the
+# browser. This keeps them out of Streamlit deltas and lets the background loop
+# persist independently of app reruns.
+enableStaticServing = true
 
 [runner]
 # Streamlit's "magic" re-parses the script's AST on every run to auto-render bare

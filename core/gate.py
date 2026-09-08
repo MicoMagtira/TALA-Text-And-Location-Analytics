@@ -26,7 +26,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-from . import i18n
+from . import audio, i18n
 from .splash import (
     BUBBLE, GOLD, GOLD_DEEP, INK_ON_SKY, NAVY, PIN, SKY_DEEP, SKY_MID, STAR,
     _sprite_svg, _starfield,
@@ -211,10 +211,15 @@ def language_gate() -> None:
     start_label = i18n.t("gate.start")
     footer = (i18n.t("gate.selected", language=i18n.LANGS[pick]["endonym"])
               if pick else i18n.t("gate.press_start"))
-    del st.session_state[i18n.SS_LANG]            # not chosen until START
 
     st.markdown(f'<div class="tala-prompt">▸ {prompt} ◂</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="tala-hint">{hint}</div>', unsafe_allow_html=True)
+
+    audio.gate_settings()
+    # Mount before the buttons so the capture listener can play the START cue
+    # synchronously with the browser's click event.
+    audio.mount(start_labels=(start_label,), play_music=False)
+    del st.session_state[i18n.SS_LANG]            # not chosen until START
 
     for col, (code, meta) in zip(st.columns(len(i18n.LANGS)), i18n.LANGS.items()):
         with col:
@@ -231,6 +236,7 @@ def language_gate() -> None:
     with mid:
         if st.button(f"▶  {start_label}", key="tala_start", type="primary",
                      use_container_width=True, disabled=pick is None):
+            audio.mark_started()
             i18n.set_lang(pick)
             st.rerun()
         st.markdown(f'<div class="tala-greet">{footer}</div>', unsafe_allow_html=True)

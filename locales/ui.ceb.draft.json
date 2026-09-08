@@ -295,4 +295,11 @@
   "text_8_themes.terms_head": "#### Nag-unang termino matag tema",
   "text_8_themes.theme": "Tema {n}",
   "text_8_themes.theme_terms": "**Tema {n}** — {terms}"
+,
+  "audio.heading": "🔊 Tingog",
+  "audio.gate_heading": "⚙ Mga setting sa tingog",
+  "audio.gate_hint": "Madala ang imong mga pilion sa app. Mosugod ang tingog human sa START.",
+  "audio.music": "Musika",
+  "audio.sfx": "SFX",
+  "audio.volume": "Kusog sa {name}"
 }

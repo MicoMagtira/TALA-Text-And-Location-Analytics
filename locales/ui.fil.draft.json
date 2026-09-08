@@ -295,4 +295,11 @@
   "text_8_themes.terms_head": "#### Nangungunang termino kada tema",
   "text_8_themes.theme": "Tema {n}",
   "text_8_themes.theme_terms": "**Tema {n}** — {terms}"
+,
+  "audio.heading": "🔊 Tunog",
+  "audio.gate_heading": "⚙ Mga setting ng tunog",
+  "audio.gate_hint": "Maililipat sa app ang mga pinili mo. Magsisimula ang tunog pagkatapos ng START.",
+  "audio.music": "Musika",
+  "audio.sfx": "SFX",
+  "audio.volume": "{name} na volume"
 }

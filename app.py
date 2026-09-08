@@ -44,7 +44,7 @@ boot = splash.boot()
 if boot:
     boot.update(6, i18n.t("boot.core"))
 
-from core import data_loader as dl  # noqa: E402
+from core import audio, data_loader as dl  # noqa: E402
 from core import ui  # noqa: E402
 
 if boot:
@@ -62,6 +62,9 @@ dl.ensure_loaded()
 if boot:
     boot.update(44, i18n.t("boot.indexing"))
 ui.sidebar_controls()
+# The component has no visible player. It keeps the browser-side sound manager
+# alive across Streamlit reruns and applies the Music/SFX sidebar preferences.
+audio.mount()
 
 # --- Navigation ---------------------------------------------------------------
 # Titles come from the catalog; the ones that should stay English (Topic
