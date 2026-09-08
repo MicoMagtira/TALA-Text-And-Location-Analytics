@@ -37,6 +37,8 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
+from . import i18n
+
 # Cache sizing. points_for varies only with the dataset + column choice, so one
 # entry serves a whole cohort; the parameterised stages get a little more room.
 _POINTS_MAX, _POINTS_TTL = 4, 3600
@@ -182,7 +184,8 @@ PH_BBOX = (116.0, 4.5, 127.0, 21.5)  # lon/lat window around the Philippines
 PH_LAND_FILE = Path(__file__).resolve().parent.parent / "data" / "ph_land.geojson"
 
 
-@st.cache_resource(show_spinner="Loading Philippines land boundary…")
+@i18n.localized_spinner("spin.ph_land")
+@st.cache_resource(show_spinner=False)
 def ph_land():
     """Philippine land polygon: Natural Earth land clipped to the PH window.
 
@@ -314,7 +317,8 @@ def cluster_marker_map(gdf, palette_hexes: list[str], max_points: int = 4000):
 # function of its arguments, so identical parameters resolve to one shared layer
 # no matter how many sessions ask for it. See the module docstring.
 
-@st.cache_resource(show_spinner="Validating coordinates and building points…",
+@i18n.localized_spinner("spin.points")
+@st.cache_resource(show_spinner=False,
                    max_entries=_POINTS_MAX, ttl=_POINTS_TTL)
 def points_for(source_key: str, lon_col: str, lat_col: str,
                text_col: str | None):
@@ -327,7 +331,8 @@ def points_for(source_key: str, lon_col: str, lat_col: str,
     return build_points(df, lon_col, lat_col, text_col)
 
 
-@st.cache_resource(show_spinner="Running DBSCAN…",
+@i18n.localized_spinner("spin.dbscan")
+@st.cache_resource(show_spinner=False,
                    max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
 def clusters_for(source_key: str, lon_col: str, lat_col: str,
                  text_col: str | None, eps_m: float, min_samples: int):
@@ -338,7 +343,8 @@ def clusters_for(source_key: str, lon_col: str, lat_col: str,
     return run_dbscan(gdf, eps_m=eps_m, min_samples=min_samples)
 
 
-@st.cache_resource(show_spinner="Aggregating to a grid…",
+@i18n.localized_spinner("spin.grid")
+@st.cache_resource(show_spinner=False,
                    max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
 def grid_for(source_key: str, lon_col: str, lat_col: str, text_col: str | None,
              cell_m: float):
@@ -349,7 +355,8 @@ def grid_for(source_key: str, lon_col: str, lat_col: str, text_col: str | None,
     return grid_aggregate(gdf, cell_m=cell_m)
 
 
-@st.cache_resource(show_spinner="Computing cluster centroids…",
+@i18n.localized_spinner("spin.centroids")
+@st.cache_resource(show_spinner=False,
                    max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
 def centroids_for(source_key: str, lon_col: str, lat_col: str,
                   text_col: str | None, eps_m: float, min_samples: int,
@@ -362,7 +369,8 @@ def centroids_for(source_key: str, lon_col: str, lat_col: str,
     return cluster_centroids(clustered, exclude_noise=exclude_noise)
 
 
-@st.cache_resource(show_spinner="Clipping to Philippine land…",
+@i18n.localized_spinner("spin.clip")
+@st.cache_resource(show_spinner=False,
                    max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
 def clipped_for(source_key: str, lon_col: str, lat_col: str,
                 text_col: str | None, eps_m: float | None, min_samples: int | None):
@@ -380,7 +388,8 @@ def clipped_for(source_key: str, lon_col: str, lat_col: str,
     return clip_to_ph(src)
 
 
-@st.cache_resource(show_spinner="Summarizing text per cluster…",
+@i18n.localized_spinner("spin.cluster_text")
+@st.cache_resource(show_spinner=False,
                    max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
 def cluster_text_for(source_key: str, lon_col: str, lat_col: str, text_col: str,
                      eps_m: float, min_samples: int, top_terms: int):

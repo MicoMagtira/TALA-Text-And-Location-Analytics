@@ -1,0 +1,1186 @@
+{
+  "app.footer": {
+    "src": "88d01cde1c",
+    "t": "National University Manila · Para sa paghanas sa data science / NLP / geospatial."
+  },
+  "app.subtitle": {
+    "src": "1419b2b49b",
+    "t": "Explorer para sa NLP + Geospatial Analytics"
+  },
+  "app.wordmark_org": {
+    "src": "18ce5c7202",
+    "t": "Isa ka inisyatiba sang NU DOST-NICER Program"
+  },
+  "boot.caches": {
+    "src": "7b0785b2a5",
+    "t": "Ginahanda ang mga analytics cache"
+  },
+  "boot.core": {
+    "src": "96dbfc3d7c",
+    "t": "Ginabuksan ang TALA core"
+  },
+  "boot.dataset": {
+    "src": "1b2787aa09",
+    "t": "Ginabasa ang dataset (Parquet)"
+  },
+  "boot.indexing": {
+    "src": "833e9a73f5",
+    "t": "Gina-index ang text kag mga coordinate"
+  },
+  "boot.linking": {
+    "src": "8d66792f9b",
+    "t": "Ginasumpay ang text kag location"
+  },
+  "boot.ready": {
+    "src": "20c7c5522f",
+    "t": "Handa na"
+  },
+  "boot.render": {
+    "src": "8b4d0eba20",
+    "t": "Ginapakita ang view"
+  },
+  "boot.theme": {
+    "src": "f8d81b58f2",
+    "t": "Ginaload ang theme kag mga palette"
+  },
+  "boot.tiles": {
+    "src": "41b4afdb20",
+    "t": "Ginahanda ang map tiles"
+  },
+  "data.bundled_label": {
+    "src": "9e8f97ed39",
+    "t": "Bundled nga halimbawa: PH Health Services Sentiments"
+  },
+  "data.upload_expired": {
+    "src": "4f65694b3b",
+    "t": "Nag-expire sa shared cache ang imo gin-upload nga dataset. Magabalik sa bundled nga halimbawa — mag-upload liwat agod ipadayon ang imo kaugalingon nga file."
+  },
+  "gate.hint": {
+    "src": "0531f63eea",
+    "t": "Mabag-o mo ini sa ulihi sa sidebar."
+  },
+  "gate.press_start": {
+    "src": "61e0a87e4e",
+    "t": "Magpili sang lenguahe agod magsugod"
+  },
+  "gate.prompt": {
+    "src": "bc06fdbb8a",
+    "t": "Magpili sang lenguahe"
+  },
+  "gate.selected": {
+    "src": "732dd52359",
+    "t": "Magasugod sa {language}"
+  },
+  "gate.start": {
+    "src": "7196e7c29d",
+    "t": "SUGDAN"
+  },
+  "geo_1_ingest.blurb": {
+    "src": "74fcdec117",
+    "t": "Magtukod sang spatial points halin sa coordinates, i-validate ini, kag i-reproject sa metric CRS — ang pundasyon sang kada geo nga tikang."
+  },
+  "geo_1_ingest.crs_caption": {
+    "src": "c8c1ec9d67",
+    "t": "Awtomatiko nga ginpili nga projected CRS para sa metriko nga kalayuon: **EPSG:{epsg}** (UTM zone halin sa median longitude)."
+  },
+  "geo_1_ingest.geom_error": {
+    "src": "8f0a11aca3",
+    "t": "Indi makahimo sang geometry: {error}"
+  },
+  "geo_1_ingest.gone": {
+    "src": "a34b9d9a75",
+    "t": "Indi na available ang aktibo nga dataset. I-upload liwat sa **Text Analytics → Data & Preprocessing**."
+  },
+  "geo_1_ingest.m_input": {
+    "src": "077560e437",
+    "t": "Input rows"
+  },
+  "geo_1_ingest.m_max": {
+    "src": "295f0b92d0",
+    "t": "Max NN"
+  },
+  "geo_1_ingest.m_median": {
+    "src": "fd23b6bd5a",
+    "t": "Median NN"
+  },
+  "geo_1_ingest.m_min": {
+    "src": "1bc424faff",
+    "t": "Min NN"
+  },
+  "geo_1_ingest.m_null": {
+    "src": "be9add2098",
+    "t": "Ginkuha: wala sing coords"
+  },
+  "geo_1_ingest.m_oob": {
+    "src": "a5fa4c5cc2",
+    "t": "Ginkuha: guwa sa sakop"
+  },
+  "geo_1_ingest.m_valid": {
+    "src": "ac6db45bf2",
+    "t": "Balido nga points"
+  },
+  "geo_1_ingest.map_caption": {
+    "src": "dd8bb56f61",
+    "t": "Talupangda: sa sini nga hugna, global nga lon/lat bounds lang ang ginapatuman — hungod nga makita gihapon ang athag nga sala nga punto sa guwa sang Pilipinas."
+  },
+  "geo_1_ingest.map_head": {
+    "src": "b42ecfc542",
+    "t": "#### Mapa sang balido nga points"
+  },
+  "geo_1_ingest.nav": {
+    "src": "46b5fa4e0f",
+    "t": "Ingest kag CRS Validation"
+  },
+  "geo_1_ingest.nn_head": {
+    "src": "58d1480d92",
+    "t": "#### Kalayuon sa pinakalapit nga kaingod (sanity check)"
+  },
+  "geo_1_ingest.no_geo": {
+    "src": "27beb8f235",
+    "t": "Wala sing longitude/latitude columns ang aktibo nga dataset. Ipahamtang ini sa **Text Analytics → Data & Preprocessing**."
+  },
+  "geo_1_ingest.report_head": {
+    "src": "b03a5da911",
+    "t": "#### Report sang validation"
+  },
+  "geo_1_ingest.success": {
+    "src": "f417d1ae9f",
+    "t": "Handa na ang points. Padayon sa **Geospatial → Clustering (DBSCAN)**."
+  },
+  "geo_1_ingest.title": {
+    "src": "46b5fa4e0f",
+    "t": "Ingest kag CRS Validation"
+  },
+  "geo_2_cluster.blurb": {
+    "src": "8abd4a16f6",
+    "t": "Pangitaa ang mabaskog nga grupo sang punto gamit ang DBSCAN, gamit ang k-distance elbow agod magpili sang madepensahan nga eps."
+  },
+  "geo_2_cluster.defaults": {
+    "src": "554d164aa0",
+    "t": "↺ Default sang lab"
+  },
+  "geo_2_cluster.eps": {
+    "src": "0dc4027b19",
+    "t": "eps (km)"
+  },
+  "geo_2_cluster.k": {
+    "src": "1b926ee284",
+    "t": "k (ranggo sang kaingod)"
+  },
+  "geo_2_cluster.kd_title": {
+    "src": "097d9ec3bd",
+    "t": "Pangitaa ang 'tuhod' — maayo nga eps inang kalayuon"
+  },
+  "geo_2_cluster.kd_x": {
+    "src": "7012881be5",
+    "t": "points (ginhan-ay)"
+  },
+  "geo_2_cluster.kd_y": {
+    "src": "2969da8f40",
+    "t": "kalayuon sa ika-{k} nga kaingod (km)"
+  },
+  "geo_2_cluster.kdist_head": {
+    "src": "29073c6daa",
+    "t": "📈 k-distance plot (pangitaa ang siko para sa eps)"
+  },
+  "geo_2_cluster.m_clustered": {
+    "src": "075f0c3106",
+    "t": "Naka-cluster nga points"
+  },
+  "geo_2_cluster.m_clusters": {
+    "src": "532a26b913",
+    "t": "Nakita nga clusters"
+  },
+  "geo_2_cluster.m_noise": {
+    "src": "31c399073b",
+    "t": "Noise points"
+  },
+  "geo_2_cluster.map_head": {
+    "src": "d79cdbec6a",
+    "t": "#### Mapa sang cluster"
+  },
+  "geo_2_cluster.min_samples": {
+    "src": "6ac73f5a71",
+    "t": "min_samples"
+  },
+  "geo_2_cluster.need_points": {
+    "src": "4aaa3bde77",
+    "t": "Padalagana anay ang **Geospatial → Ingest & CRS Validation** agod makahimo sang points."
+  },
+  "geo_2_cluster.no_clusters": {
+    "src": "10e26b68d5",
+    "t": "Wala sing cluster sa sini nga setting — paubsa ang min_samples ukon pataasa ang eps."
+  },
+  "geo_2_cluster.params_head": {
+    "src": "803e5bcf53",
+    "t": "#### Mga parameter sang DBSCAN"
+  },
+  "geo_2_cluster.points": {
+    "src": "819f41f058",
+    "t": "points"
+  },
+  "geo_2_cluster.sizes_head": {
+    "src": "a053530b57",
+    "t": "#### Kadakuon sang cluster"
+  },
+  "geo_2_cluster.success": {
+    "src": "f2a85edbc4",
+    "t": "Handa na ang clusters. Padayon sa **Generalization**, **NLP kada Cluster**, ukon **Mapa kag Exports**."
+  },
+  "geo_3_generalize.blurb": {
+    "src": "31534e87cb",
+    "t": "Buuron ang mga punto sa mas daku nga feature agod madasig mabasa ang pattern kag indi mabuyagyag ang indibidwal nga lokasyon."
+  },
+  "geo_3_generalize.cell": {
+    "src": "1bf56007b2",
+    "t": "Kadakuon sang grid cell (km)"
+  },
+  "geo_3_generalize.centroids": {
+    "src": "e4ffca908c",
+    "t": "Cluster centroids"
+  },
+  "geo_3_generalize.cluster_tip": {
+    "src": "20ca7957d9",
+    "t": "Cluster {id} · {n} points"
+  },
+  "geo_3_generalize.dl": {
+    "src": "870444de6d",
+    "t": "⬇️ I-download ang generalized layer (GeoJSON)"
+  },
+  "geo_3_generalize.exclude": {
+    "src": "38d1443cab",
+    "t": "Indi ilakip ang noise points"
+  },
+  "geo_3_generalize.grid": {
+    "src": "b11804c491",
+    "t": "Grid aggregation"
+  },
+  "geo_3_generalize.legend": {
+    "src": "590d7fc7a5",
+    "t": "points kada cell"
+  },
+  "geo_3_generalize.m_centroids": {
+    "src": "e4ffca908c",
+    "t": "Cluster centroids"
+  },
+  "geo_3_generalize.method": {
+    "src": "88306943fe",
+    "t": "Pamaagi"
+  },
+  "geo_3_generalize.need_clusters": {
+    "src": "4e683eb6d5",
+    "t": "Kinahanglan sang cluster centroids ang DBSCAN clusters. Padalagana anay ang **Clustering**."
+  },
+  "geo_3_generalize.need_points": {
+    "src": "21f56aa2ac",
+    "t": "Maghimo anay sang points (Ingest) — kag mas maayo kon may clusters na (DBSCAN)."
+  },
+  "geo_3_generalize.tooltip_points": {
+    "src": "3496d82e95",
+    "t": "Points:"
+  },
+  "geo_4_map.blurb": {
+    "src": "fcfbf5f331",
+    "t": "I-clip sa duta sang Pilipinas (ginakuha ang peke nga coordinates sa guwa sang PH), usisaa ang interactive nga mapa, kag i-export ang malig-on nga output contract."
+  },
+  "geo_4_map.clip_head": {
+    "src": "529020be25",
+    "t": "#### 1 · I-clip sa duta sang Pilipinas"
+  },
+  "geo_4_map.dl_geojson": {
+    "src": "eeb84ce011",
+    "t": "⬇️ Na-clip nga layer (GeoJSON)"
+  },
+  "geo_4_map.dl_meta": {
+    "src": "6e90c9804d",
+    "t": "⬇️ metadata.json"
+  },
+  "geo_4_map.exports_head": {
+    "src": "322135f3cc",
+    "t": "#### 3 · Exports (malig-on nga output contract)"
+  },
+  "geo_4_map.m_before": {
+    "src": "74f39697ac",
+    "t": "Antes"
+  },
+  "geo_4_map.m_kept": {
+    "src": "727edd6bf4",
+    "t": "Nabilin"
+  },
+  "geo_4_map.m_removed": {
+    "src": "a4b47e6d0b",
+    "t": "Ginkuha (guwa sang PH)"
+  },
+  "geo_4_map.map_head": {
+    "src": "777a2b5782",
+    "t": "#### 2 · Interactive nga mapa"
+  },
+  "geo_4_map.nav": {
+    "src": "47b9614856",
+    "t": "Mapa kag Exports"
+  },
+  "geo_4_map.need": {
+    "src": "d7c79ff74a",
+    "t": "Maghimo anay sang points kag clusters (Ingest → Clustering)."
+  },
+  "geo_4_map.no_land": {
+    "src": "cd2c47cd02",
+    "t": "Indi available ang dulunan sang duta; ginapakita ang wala ma-clip nga points."
+  },
+  "geo_4_map.title": {
+    "src": "47b9614856",
+    "t": "Mapa kag Exports"
+  },
+  "geo_5_nlp.blurb": {
+    "src": "87eb559326",
+    "t": "Ang punto sang pagtingob: ang kada spatial cluster gina-profile gamit ang TF-IDF keywords + VADER sentiment — aggregate lang ang ginapakita, indi gid hilaw nga text."
+  },
+  "geo_5_nlp.dl": {
+    "src": "3a74eb8f2b",
+    "t": "⬇️ I-download ang buod sang cluster (CSV)"
+  },
+  "geo_5_nlp.map_head": {
+    "src": "49df8affd8",
+    "t": "#### Mapa — cluster centroids nga may topics kag sentiment"
+  },
+  "geo_5_nlp.nav": {
+    "src": "36b7454c7b",
+    "t": "NLP kada Cluster"
+  },
+  "geo_5_nlp.need_clusters": {
+    "src": "4a7a30922f",
+    "t": "Padalagana anay ang **Geospatial → Clustering (DBSCAN)**."
+  },
+  "geo_5_nlp.no_clusters": {
+    "src": "bc1bc20a12",
+    "t": "Wala sing non-noise nga cluster nga ma-profile."
+  },
+  "geo_5_nlp.no_text": {
+    "src": "c41f4f94e8",
+    "t": "Wala sing text column nga mausisa sa clustered layer."
+  },
+  "geo_5_nlp.privacy": {
+    "src": "42cadf7258",
+    "t": "🔒 **Privacy-safe ang disenyo:** ang talaan kag mapa nagapakita lang sang keywords kag porsyento sang sentiment sa lebel sang cluster — indi gid indibidwal nga komento."
+  },
+  "geo_5_nlp.profiles_head": {
+    "src": "ef59d1ee17",
+    "t": "#### Profile sang cluster"
+  },
+  "geo_5_nlp.tip_cluster": {
+    "src": "2b1e6d4983",
+    "t": "Cluster {id}"
+  },
+  "geo_5_nlp.tip_pts": {
+    "src": "b98ab59bdc",
+    "t": "{n} pts"
+  },
+  "geo_5_nlp.tip_sentiment": {
+    "src": "52bfe34c30",
+    "t": "Sentiment"
+  },
+  "geo_5_nlp.tip_tag": {
+    "src": "982963c1c4",
+    "t": "Tag"
+  },
+  "geo_5_nlp.tip_top": {
+    "src": "cae0435c41",
+    "t": "Nagapanguna"
+  },
+  "geo_5_nlp.title": {
+    "src": "36b7454c7b",
+    "t": "NLP kada Cluster"
+  },
+  "home.dataset_head": {
+    "src": "9fbda9efdc",
+    "t": "### 📦 Aktibo nga dataset"
+  },
+  "home.geo_head": {
+    "src": "45640d796c",
+    "t": "#### 🗺️ Geospatial Analytics"
+  },
+  "home.geo_list": {
+    "src": "530d0abe35",
+    "t": "- Ingest + **CRS/bounds validation**\n- DBSCAN clustering (+ k-distance)\n- Grid / centroid generalization\n- Pag-clip sa duta sang Pilipinas\n- Interactive kag publication maps\n- **NLP kada cluster** (privacy-safe)\n- GeoJSON / PNG / CSV exports"
+  },
+  "home.intro": {
+    "src": "52d4d440c1",
+    "t": "Ang **TALA — Text And Location Analytics** isa ka hands-on nga training app nga nagatingob sang klasiko nga **Natural Language Processing** kag sang bug-os nga **geospatial** nga workflow, agod makahalin ang mga umalambit sa hilaw nga komento pakadto sa *ano ang ginahambal sang mga tawo* **kag** *diin nila ini ginahambal*.\n\nAng *tala* Filipino para sa **bituon** kag para sa **rekord / nota** — bagay sa isa ka galamiton nga nagahimo sa mga nota nga insight."
+  },
+  "home.m_cols": {
+    "src": "cf723c59b6",
+    "t": "Columns"
+  },
+  "home.m_hasgeo": {
+    "src": "e0b2ce1d23",
+    "t": "May coordinates"
+  },
+  "home.m_rows": {
+    "src": "52d0b35277",
+    "t": "Rows"
+  },
+  "home.m_textcol": {
+    "src": "58ee9f9831",
+    "t": "Text column"
+  },
+  "home.nav": {
+    "src": "6090e41055",
+    "t": "Home kag Parte sa TALA"
+  },
+  "home.no": {
+    "src": "816c52fd2b",
+    "t": "Wala"
+  },
+  "home.source": {
+    "src": "86728b17ad",
+    "t": "Ginhalinan: {source}"
+  },
+  "home.text_head": {
+    "src": "f5a70feeaf",
+    "t": "#### 🧠 Text Analytics"
+  },
+  "home.text_list": {
+    "src": "9000d00136",
+    "t": "- Pagtinlo kag Filipino/Taglish stopwords\n- Word clouds kag mga kadamuon\n- VADER sentiment + NRC emotions\n- N-grams kag co-occurrence networks\n- LDA topics + stability\n- RAKE keywords, nouns/POS\n- Readability metrics kag TF-IDF themes"
+  },
+  "home.tip": {
+    "src": "854f374f04",
+    "t": "Kadto sa **Text Analytics → Data & Preprocessing** agod mag-upload sang imo kaugalingon nga data ukon magbag-o sang text column, dayon usisaa ang Text kag Geospatial nga seksyon sa sidebar. Gamita ang mga toggle sa sidebar agod baylohan ang palette, magdugang sang Filipino stopwords, ukon itago ang Learn panels sa tion sang pagtilaw."
+  },
+  "home.title": {
+    "src": "361fa18c41",
+    "t": "Maayong pag-abot sa TALA"
+  },
+  "home.yes": {
+    "src": "5397e0583f",
+    "t": "Huo"
+  },
+  "learn.discuss_body": {
+    "src": "50926aed30",
+    "t": "Pamangkot: *Ano ang ginasuportahan sini nga output? Ano ang wala sini mapamatud-an? Ano nga data, lenguahe, sampling, ukon privacy nga desisyon ang mahimo magbag-o sang resulta?* Kabiga ang kada chart nga ebidensya nga dapat usisaon—indi awtomatiko nga nasapwan."
+  },
+  "learn.discuss_heading": {
+    "src": "2275e190a5",
+    "t": "#### Hambali anay antes magkonklusyon"
+  },
+  "learn.header": {
+    "src": "cb04cbd64a",
+    "t": "📘 Hibalua anay antes tilawan — {title}"
+  },
+  "learn.routine": {
+    "src": "eab1804e3c",
+    "t": "**Paagi sa pagtuon:** basaha ang ideya, maghimo sang isa ka tuyo nga pagbag-o, dayon ipaathag kon ano ang nagbag-o gamit ang mga halimbawa halin sa subong nga data."
+  },
+  "learn.see_code": {
+    "src": "eb6731869f",
+    "t": "Tan-awa ang code sa likod sini"
+  },
+  "learn.try_body": {
+    "src": "991a9ca584",
+    "t": "Magsugod sa default nga setting. Bag-uha ang **isa** lang ka kontrol kada tion, ipaanggid ang resulta, kag isulat kon ano ang nagbag-o kag kon ano ang nagpabilin. Gamita ang mga halimbawa nga makita ukon ang na-download nga output agod usisaon kon ang pattern nagasabat bala sa imo matuod nga pamangkot."
+  },
+  "learn.try_heading": {
+    "src": "8594c04ccd",
+    "t": "#### Tilawi nga may tuyo"
+  },
+  "learn.understand": {
+    "src": "8e175403de",
+    "t": "#### Intiendiha ang pamaagi"
+  },
+  "metric.Avg. sentence length": {
+    "src": "646ad405f8",
+    "t": "Kinaandan nga kalabaon sang sentence"
+  },
+  "metric.Total words": {
+    "src": "1400b76079",
+    "t": "Tanan nga pulong"
+  },
+  "metric.Unique words (types)": {
+    "src": "71b70819cc",
+    "t": "Talagsahon nga pulong (types)"
+  },
+  "nav.overview": {
+    "src": "0efc2e6be4",
+    "t": "Panugod"
+  },
+  "pill.geo": {
+    "src": "c93777485a",
+    "t": "Geospatial"
+  },
+  "pill.overview": {
+    "src": "0efc2e6be4",
+    "t": "Panugod"
+  },
+  "sent.negative": {
+    "src": "cb47297f54",
+    "t": "negatibo"
+  },
+  "sent.neutral": {
+    "src": "e7fb41a6a0",
+    "t": "neutral"
+  },
+  "sent.positive": {
+    "src": "c4c6c57253",
+    "t": "positibo"
+  },
+  "side.appearance": {
+    "src": "be0e75bb44",
+    "t": "🎨 Hitsura"
+  },
+  "side.custom_placeholder": {
+    "src": "9742096c43",
+    "t": "halimbawa: clinic, hospital, ospital"
+  },
+  "side.custom_stopwords": {
+    "src": "37bc47df1d",
+    "t": "Kaugalingon nga stopwords (bulagon sang comma ukon bag-o nga linya)"
+  },
+  "side.language": {
+    "src": "4167c72b99",
+    "t": "🌐 Lenguahe"
+  },
+  "side.language_pick": {
+    "src": "01e1787a9e",
+    "t": "Lenguahe sang app"
+  },
+  "side.palette_cat": {
+    "src": "ad3f5f6e00",
+    "t": "Categorical palette (para sa series)"
+  },
+  "side.palette_seq": {
+    "src": "8440224e5a",
+    "t": "Sequential palette (mapa/heatmap)"
+  },
+  "side.show_learn": {
+    "src": "84ebb2309c",
+    "t": "Ipakita ang mga paathag sa 'Learn'"
+  },
+  "side.stopwords": {
+    "src": "20b4adba16",
+    "t": "🈳 Lenguahe / stopwords"
+  },
+  "side.training": {
+    "src": "4baf6547ec",
+    "t": "🎓 Paghanas"
+  },
+  "side.use_tagalog": {
+    "src": "e6dd81d47a",
+    "t": "Ilakip ang Filipino/Tagalog stopwords"
+  },
+  "spin.centroids": {
+    "src": "cb4142aab4",
+    "t": "Ginakwenta ang cluster centroids…"
+  },
+  "spin.clip": {
+    "src": "fbe1397c04",
+    "t": "Gina-clip sa duta sang Pilipinas…"
+  },
+  "spin.cluster_text": {
+    "src": "1f033cc858",
+    "t": "Ginabuod ang text kada cluster…"
+  },
+  "spin.cooccurrence": {
+    "src": "94c702fc71",
+    "t": "Ginatukod ang co-occurrence matrix…"
+  },
+  "spin.dbscan": {
+    "src": "7706809324",
+    "t": "Ginapadalagan ang DBSCAN…"
+  },
+  "spin.grid": {
+    "src": "62cc1e0b18",
+    "t": "Ginatipon sa grid…"
+  },
+  "spin.kmeans": {
+    "src": "1b74f00ad1",
+    "t": "Ginagrupo ang mga tema (TF-IDF + K-Means)…"
+  },
+  "spin.lda": {
+    "src": "c6bb6b2955",
+    "t": "Gina-fit ang LDA topic model…"
+  },
+  "spin.ngrams": {
+    "src": "0ff6529f4e",
+    "t": "Ginaisip ang n-grams…"
+  },
+  "spin.nrc": {
+    "src": "ccce9659c1",
+    "t": "Ginapaanggid sa NRC emotion lexicon…"
+  },
+  "spin.ph_land": {
+    "src": "cf90efd7dc",
+    "t": "Ginaload ang dulunan sang duta sang Pilipinas…"
+  },
+  "spin.points": {
+    "src": "e06ceeae11",
+    "t": "Gina-validate ang coordinates kag ginatukod ang points…"
+  },
+  "spin.polarity": {
+    "src": "8b3cc26b1e",
+    "t": "Ginahan-ay ang polarity word clouds…"
+  },
+  "spin.pos_load": {
+    "src": "8c8b79d175",
+    "t": "Ginaload ang POS tagger…"
+  },
+  "spin.pos_tag": {
+    "src": "d1b3b22845",
+    "t": "Gina-tag ang parts of speech…"
+  },
+  "spin.rake": {
+    "src": "5cbd70bf8d",
+    "t": "Ginakuha ang RAKE keywords…"
+  },
+  "spin.readability": {
+    "src": "5876a2d9e1",
+    "t": "Ginakwenta ang readability metrics…"
+  },
+  "spin.stability": {
+    "src": "f9c8c3f283",
+    "t": "Ginapadalagan liwat ang LDA sa lain-lain nga seed…"
+  },
+  "spin.vader": {
+    "src": "1aff26da65",
+    "t": "Ginaiskor ang sentiment gamit ang VADER…"
+  },
+  "text_1_data.activated": {
+    "src": "155dae14dc",
+    "t": "Aktibo na ang dataset. Amo na ini ang gamiton sang kada Text kag Geospatial nga page."
+  },
+  "text_1_data.blurb": {
+    "src": "d708bd66d9",
+    "t": "Mag-load sang dataset, pilia ang text kag coordinate columns, kag tan-awa ang cleaning pipeline nga ginagamit sang kada text page."
+  },
+  "text_1_data.cleaned": {
+    "src": "c4b9b4a27a",
+    "t": "**Natinluan**"
+  },
+  "text_1_data.coords_none": {
+    "src": "6eef664840",
+    "t": "Wala"
+  },
+  "text_1_data.coords_present": {
+    "src": "4e9f7a31ee",
+    "t": "May ara"
+  },
+  "text_1_data.empty_clean": {
+    "src": "e63ba802e0",
+    "t": "(wala sing nabilin pagkatapos tinluan)"
+  },
+  "text_1_data.inspect": {
+    "src": "3e096d77dc",
+    "t": "Usisaa ang isa ka sample row"
+  },
+  "text_1_data.lat_col": {
+    "src": "633713d87c",
+    "t": "Latitude column"
+  },
+  "text_1_data.lon_col": {
+    "src": "7a3d4d0214",
+    "t": "Longitude column"
+  },
+  "text_1_data.m_cols": {
+    "src": "cf723c59b6",
+    "t": "Columns"
+  },
+  "text_1_data.m_coords": {
+    "src": "8ebebca019",
+    "t": "Coordinates"
+  },
+  "text_1_data.m_rows": {
+    "src": "52d0b35277",
+    "t": "Rows"
+  },
+  "text_1_data.nav": {
+    "src": "c694db13cb",
+    "t": "Data kag Preprocessing"
+  },
+  "text_1_data.no_tokens": {
+    "src": "cf3b9e0018",
+    "t": "(wala sing tokens)"
+  },
+  "text_1_data.none": {
+    "src": "867f3e8a58",
+    "t": "— wala —"
+  },
+  "text_1_data.preview": {
+    "src": "aa7100b6dd",
+    "t": "#### Silip"
+  },
+  "text_1_data.raw": {
+    "src": "c24b77ad8a",
+    "t": "**Hilaw**"
+  },
+  "text_1_data.source": {
+    "src": "6da13addb0",
+    "t": "Ginhalinan"
+  },
+  "text_1_data.src_bundled": {
+    "src": "7f81b59076",
+    "t": "Bundled nga halimbawa (PH Health Services)"
+  },
+  "text_1_data.src_upload": {
+    "src": "454a8bf181",
+    "t": "Mag-upload sang file"
+  },
+  "text_1_data.step1": {
+    "src": "eceefe0a91",
+    "t": "### 1 · Magpili sang ginhalinan sang data"
+  },
+  "text_1_data.step2": {
+    "src": "0d41737feb",
+    "t": "### 2 · Ipares ang mga column"
+  },
+  "text_1_data.step3": {
+    "src": "142495d213",
+    "t": "### 3 · Silip sa preprocessing"
+  },
+  "text_1_data.sw_caption": {
+    "src": "2036509388",
+    "t": "Aktibo nga stopword set: **{count}** ka pulong (English + {tagalog}custom). Bag-uha sa sidebar."
+  },
+  "text_1_data.sw_tagalog": {
+    "src": "273c774cdd",
+    "t": "Filipino + "
+  },
+  "text_1_data.text_col": {
+    "src": "58ee9f9831",
+    "t": "Text column"
+  },
+  "text_1_data.title": {
+    "src": "c694db13cb",
+    "t": "Data kag Preprocessing"
+  },
+  "text_1_data.tokens": {
+    "src": "d66c482850",
+    "t": "**Tokens (ginkuha ang stopwords)**"
+  },
+  "text_1_data.upload_name": {
+    "src": "51d1c48d68",
+    "t": "Upload: {name}"
+  },
+  "text_1_data.uploader": {
+    "src": "dc26616fa6",
+    "t": "Mag-upload sang CSV ukon Excel (.xlsx). Kinahanglan sang text column; opsyonal ang `lon`/`lat` para sa geospatial pages."
+  },
+  "text_1_data.use_btn": {
+    "src": "dc86d9db42",
+    "t": "✅ Gamita ini nga dataset"
+  },
+  "text_2_wordcloud.axis_freq": {
+    "src": "48a8832d14",
+    "t": "kadamuon"
+  },
+  "text_2_wordcloud.blurb": {
+    "src": "d448db732b",
+    "t": "Ang pinakamasami nga pulong pagkatapos sang pagtinlo, ginapakita bilang word cloud kag ranked bar chart, lakip ang NRC positive/negative word clouds."
+  },
+  "text_2_wordcloud.dl_counts": {
+    "src": "a18c5be119",
+    "t": "⬇️ I-download ang isip (CSV)"
+  },
+  "text_2_wordcloud.dl_wc": {
+    "src": "5585c31e63",
+    "t": "⬇️ I-download ang word cloud (PNG)"
+  },
+  "text_2_wordcloud.nav": {
+    "src": "a6c818d674",
+    "t": "Kadamuon sang Pulong kag Word Cloud"
+  },
+  "text_2_wordcloud.negative": {
+    "src": "c70827c69d",
+    "t": "Negatibo"
+  },
+  "text_2_wordcloud.no_tokens": {
+    "src": "d3513af2cf",
+    "t": "Wala sing tokens nga ipakita para sa subong nga data / stopwords."
+  },
+  "text_2_wordcloud.no_words": {
+    "src": "c3a12b6c8d",
+    "t": "Wala sing nakita nga {polarity} nga pulong."
+  },
+  "text_2_wordcloud.nrc_missing": {
+    "src": "9730c336f7",
+    "t": "Indi available ang NRC lexicon (nrclex), gani ginlaktawan ang polarity word clouds. I-install ang `nrclex` agod paandaron ini."
+  },
+  "text_2_wordcloud.polarity_head": {
+    "src": "c754b0f9fb",
+    "t": "#### Positibo / negatibo nga word clouds (NRC lexicon)"
+  },
+  "text_2_wordcloud.positive": {
+    "src": "06fe9ace96",
+    "t": "Positibo"
+  },
+  "text_2_wordcloud.title": {
+    "src": "a6c818d674",
+    "t": "Kadamuon sang Pulong kag Word Cloud"
+  },
+  "text_2_wordcloud.top_head": {
+    "src": "54466f65bb",
+    "t": "#### Nagapanguna nga pulong"
+  },
+  "text_2_wordcloud.top_n": {
+    "src": "b9c0e6894f",
+    "t": "Kadamuon sang nagapanguna nga pulong"
+  },
+  "text_2_wordcloud.wc_head": {
+    "src": "42dd50528c",
+    "t": "#### Word cloud"
+  },
+  "text_3_sentiment.axis_comments": {
+    "src": "5b17a6c606",
+    "t": "mga komento"
+  },
+  "text_3_sentiment.axis_compound": {
+    "src": "7bf1971efb",
+    "t": "VADER compound"
+  },
+  "text_3_sentiment.axis_hits": {
+    "src": "6856eee80e",
+    "t": "term hits"
+  },
+  "text_3_sentiment.blurb": {
+    "src": "4c864df715",
+    "t": "VADER polarity kada komento (positibo / neutral / negatibo) kag ang NRC emotion profile sang corpus."
+  },
+  "text_3_sentiment.compound_head": {
+    "src": "a756e8d421",
+    "t": "#### Distribusyon sang compound score"
+  },
+  "text_3_sentiment.dist_head": {
+    "src": "e5090ceb27",
+    "t": "#### Distribusyon sang sentiment"
+  },
+  "text_3_sentiment.dl": {
+    "src": "c3f7d79e68",
+    "t": "⬇️ I-download ang sentiment kada komento (CSV)"
+  },
+  "text_3_sentiment.emo_caption": {
+    "src": "833be84f1c",
+    "t": "Gintipon sa {n} ka komento."
+  },
+  "text_3_sentiment.emo_head": {
+    "src": "47eb4d56ee",
+    "t": "#### Emotion profile (NRC lexicon)"
+  },
+  "text_3_sentiment.examples": {
+    "src": "d61d2c70c8",
+    "t": "Tan-awa ang pinakapositibo / negatibo nga halimbawa"
+  },
+  "text_3_sentiment.m_negative": {
+    "src": "c70827c69d",
+    "t": "Negatibo"
+  },
+  "text_3_sentiment.m_neutral": {
+    "src": "4bd2913945",
+    "t": "Neutral"
+  },
+  "text_3_sentiment.m_positive": {
+    "src": "06fe9ace96",
+    "t": "Positibo"
+  },
+  "text_3_sentiment.most_neg": {
+    "src": "2ad004c20b",
+    "t": "**Pinakanegatibo**"
+  },
+  "text_3_sentiment.most_pos": {
+    "src": "99f2baff5a",
+    "t": "**Pinakapositibo**"
+  },
+  "text_3_sentiment.nav": {
+    "src": "491a498d34",
+    "t": "Sentiment kag Emosyon"
+  },
+  "text_3_sentiment.nrc_missing": {
+    "src": "8b065266f1",
+    "t": "Kinahanglan sang NRC emotions ang `nrclex`. I-install ini agod paandaron ini nga chart."
+  },
+  "text_3_sentiment.teaching_note": {
+    "src": "a11bb59b27",
+    "t": "**Pahanumdom sa pagtudlo:** naka-tune sa English ang VADER kag ang NRC lexicon. Sa Filipino/Taglish nga text, may nahatag gihapon sila nga mapuslanon nga tanda pero malipatan ukon masayop nila ang emosyon sa kaugalingon nga lenguahe — maayo ini nga punto nga hambalan sa mga umalambit kag agod may rason ang multilingual nga modelo."
+  },
+  "text_3_sentiment.threshold": {
+    "src": "18ebf289e3",
+    "t": "VADER neutral threshold (±)"
+  },
+  "text_3_sentiment.title": {
+    "src": "491a498d34",
+    "t": "Sentiment kag Emosyon"
+  },
+  "text_4_ngrams.axis_freq": {
+    "src": "48a8832d14",
+    "t": "kadamuon"
+  },
+  "text_4_ngrams.blurb": {
+    "src": "3a7f1913a0",
+    "t": "Ang pinakamasami nga multi-word nga prase, kag isa ka network kon ano nga pulong ang ara sa tupad sang ano."
+  },
+  "text_4_ngrams.degree": {
+    "src": "0870bc2b3f",
+    "t": "{word} · degree {n}"
+  },
+  "text_4_ngrams.dl": {
+    "src": "decce0a788",
+    "t": "⬇️ I-download ang n-grams (CSV)"
+  },
+  "text_4_ngrams.min_df": {
+    "src": "362c4787cd",
+    "t": "Minimum nga document frequency"
+  },
+  "text_4_ngrams.nav": {
+    "src": "65eea98fcd",
+    "t": "N-grams kag Network"
+  },
+  "text_4_ngrams.net_head": {
+    "src": "a0876bc1df",
+    "t": "#### Bigram co-occurrence network"
+  },
+  "text_4_ngrams.no_bigrams": {
+    "src": "c7c4cc6da9",
+    "t": "Kulang ang bigrams agod makahimo sang network."
+  },
+  "text_4_ngrams.no_connected": {
+    "src": "b63b797070",
+    "t": "Wala sing konektado nga bigrams nga ipakita."
+  },
+  "text_4_ngrams.none": {
+    "src": "37d3260901",
+    "t": "Wala sing n-grams sa sini nga setting — tilawi nga paubson ang minimum document frequency."
+  },
+  "text_4_ngrams.size": {
+    "src": "89dfa09096",
+    "t": "Kadakuon sang n-gram"
+  },
+  "text_4_ngrams.size_fmt": {
+    "src": "53d6bca4d6",
+    "t": "{n}-gram"
+  },
+  "text_4_ngrams.title": {
+    "src": "65eea98fcd",
+    "t": "N-grams kag Network"
+  },
+  "text_4_ngrams.top_n": {
+    "src": "601d881ad8",
+    "t": "Nagapanguna nga prase"
+  },
+  "text_5_topics.blurb": {
+    "src": "1c1b212119",
+    "t": "Ginakuha sang Latent Dirichlet Allocation ang tago nga mga tema bilang distribusyon sang pulong, upod ang tiglawas nga quote kag stability check."
+  },
+  "text_5_topics.k": {
+    "src": "d4a30eee80",
+    "t": "Kadamuon sang topics"
+  },
+  "text_5_topics.n_words": {
+    "src": "fb74dad9d9",
+    "t": "Pulong kada topic"
+  },
+  "text_5_topics.not_enough": {
+    "src": "96e8867d50",
+    "t": "Kulang ang dokumento agod mag-fit sang LDA sa sini nga setting."
+  },
+  "text_5_topics.quotes_head": {
+    "src": "905c0026fe",
+    "t": "#### Tiglawas nga quote"
+  },
+  "text_5_topics.seed": {
+    "src": "e83bff0849",
+    "t": "Random seed"
+  },
+  "text_5_topics.show_quotes": {
+    "src": "2b99be6c11",
+    "t": "Ipakita ang top quotes para sa"
+  },
+  "text_5_topics.stab_btn": {
+    "src": "195e036fd7",
+    "t": "Padalagana ang stability check (3 seeds)"
+  },
+  "text_5_topics.stab_caption": {
+    "src": "d50f79f6d7",
+    "t": "Stochastic ang LDA. Gina-fit namon ini liwat sa lain-lain nga random seed kag ginasukat kon daw ano kalig-on nga nagabalik ang pareho nga topics (mas mataas = mas malig-on)."
+  },
+  "text_5_topics.stab_head": {
+    "src": "9ddb87aece",
+    "t": "#### Kalig-unan sang topic"
+  },
+  "text_5_topics.stab_metric": {
+    "src": "9a0c0e3959",
+    "t": "Mean Jaccard (overlap sang topic)"
+  },
+  "text_5_topics.stab_none": {
+    "src": "cc21210c05",
+    "t": "Indi makwenta ang stability para sa sini nga corpus."
+  },
+  "text_5_topics.stab_spinner": {
+    "src": "72767f275e",
+    "t": "Gina-fit liwat ang LDA sa lain-lain nga seed…"
+  },
+  "text_5_topics.title": {
+    "src": "e1bc031f86",
+    "t": "Topic Modeling (LDA)"
+  },
+  "text_5_topics.topic_bold": {
+    "src": "9240ff1e55",
+    "t": "**Topic {n}**"
+  },
+  "text_5_topics.topic_opt": {
+    "src": "fee545cbf7",
+    "t": "Topic {n}"
+  },
+  "text_6_keywords.axis_rake": {
+    "src": "e9dcbe4a2d",
+    "t": "RAKE score"
+  },
+  "text_6_keywords.blurb": {
+    "src": "beeb1d7010",
+    "t": "RAKE keyword extraction, ranking sang noun kag proper noun (NLTK POS), kag co-occurrence heatmap sang mga termino."
+  },
+  "text_6_keywords.co_legend": {
+    "src": "aeb2979ea4",
+    "t": "dungan nga pagguwa"
+  },
+  "text_6_keywords.co_none": {
+    "src": "04c45459e5",
+    "t": "Kulang ang ginabahin nga termino agod makahimo sang co-occurrence matrix."
+  },
+  "text_6_keywords.common_nouns": {
+    "src": "dd06f6f0c4",
+    "t": "**Kinaandan nga nouns**"
+  },
+  "text_6_keywords.dl": {
+    "src": "59400009e8",
+    "t": "⬇️ Keywords (CSV)"
+  },
+  "text_6_keywords.kw_n": {
+    "src": "f530db58b3",
+    "t": "Keywords"
+  },
+  "text_6_keywords.nav": {
+    "src": "a8e03becc7",
+    "t": "Keywords kag Nouns"
+  },
+  "text_6_keywords.nltk_missing": {
+    "src": "ee4c3d8386",
+    "t": "Kinahanglan sang noun extraction ang NLTK tagger data, nga gina-download sa una nga paggamit. Usisaa ang network access sini nga container dayon i-reload."
+  },
+  "text_6_keywords.proper_nouns": {
+    "src": "e73004da5c",
+    "t": "**Proper nouns**"
+  },
+  "text_6_keywords.rake_missing": {
+    "src": "2515fb7584",
+    "t": "Kinahanglan sang RAKE ang `rake-nltk` (kag NLTK data). I-install ini agod paandaron."
+  },
+  "text_6_keywords.sample_caption": {
+    "src": "48172a2b56",
+    "t": "Ginkwenta sa sample nga tubtob 4,000 ka komento agod madasig magsabat."
+  },
+  "text_6_keywords.tab_co": {
+    "src": "6646df5330",
+    "t": "🔥 Co-occurrence heatmap"
+  },
+  "text_6_keywords.tab_nouns": {
+    "src": "4bf69aecb7",
+    "t": "🏷️ Nouns kag proper nouns"
+  },
+  "text_6_keywords.tab_rake": {
+    "src": "dd40506ba9",
+    "t": "🔑 RAKE keywords"
+  },
+  "text_6_keywords.terms": {
+    "src": "2e7a82d9af",
+    "t": "Mga termino sa matrix"
+  },
+  "text_6_keywords.title": {
+    "src": "a8e03becc7",
+    "t": "Keywords kag Nouns"
+  },
+  "text_7_metrics.axis_pct": {
+    "src": "95e1e7a8b7",
+    "t": "% sang tokens"
+  },
+  "text_7_metrics.axis_pos": {
+    "src": "54a81520c8",
+    "t": "part of speech"
+  },
+  "text_7_metrics.blurb": {
+    "src": "300adc7b41",
+    "t": "Mga sukat sang readability kag lexical diversity sa lebel sang corpus, lakip ang part-of-speech nga komposisyon sang text."
+  },
+  "text_7_metrics.nav": {
+    "src": "5f33cd25fc",
+    "t": "Mga Sukat sang Lenguahe"
+  },
+  "text_7_metrics.nltk_missing": {
+    "src": "2fc4b68a5f",
+    "t": "Kinahanglan sang POS proportions ang NLTK tagger data, nga gina-download sa una nga paggamit. Usisaa ang network access sini nga container dayon i-reload."
+  },
+  "text_7_metrics.no_pos": {
+    "src": "4686ce9613",
+    "t": "Wala sing available nga POS data."
+  },
+  "text_7_metrics.pos_head": {
+    "src": "b8e1dd6b65",
+    "t": "#### Proporsyon sang part-of-speech"
+  },
+  "text_7_metrics.read_head": {
+    "src": "89acae4c63",
+    "t": "#### Readability kag lexical diversity"
+  },
+  "text_7_metrics.sample_caption": {
+    "src": "68e12b5f43",
+    "t": "Ginkwenta sa sample nga tubtob 4,000 ka komento."
+  },
+  "text_7_metrics.title": {
+    "src": "5f33cd25fc",
+    "t": "Mga Sukat sang Lenguahe"
+  },
+  "text_7_metrics.what": {
+    "src": "21e13c56f6",
+    "t": "Ano ang buot silingon sini?"
+  },
+  "text_7_metrics.what_body": {
+    "src": "7dc671006a",
+    "t": "- **Flesch Reading Ease** — mas mataas (tubtob ~100) mas mahapos basahon.\n- **Flesch-Kincaid / Gunning Fog / SMOG** — banabana nga lebel sang grado sa US nga kinahanglan agod mahangpan ang text; mas manubo mas simple.\n- **Type-Token Ratio** kag **Herdan's C** — lexical diversity (kamanggaran sang bokabularyo); mas mataas mas lain-lain ang paghambal."
+  },
+  "text_8_themes.axis_comments": {
+    "src": "5b17a6c606",
+    "t": "mga komento"
+  },
+  "text_8_themes.blurb": {
+    "src": "7343112ad8",
+    "t": "Grupuha ang mga komento sa tema gamit ang TF-IDF + K-Means, dayon basaha ang nagapanguna nga termino kag simbog sang sentiment sang kada tema."
+  },
+  "text_8_themes.cross_head": {
+    "src": "7b1b2a6ee5",
+    "t": "#### Tema × sentiment"
+  },
+  "text_8_themes.k": {
+    "src": "82bbe5fc7d",
+    "t": "Kadamuon sang tema (K)"
+  },
+  "text_8_themes.map_head": {
+    "src": "29104262d5",
+    "t": "#### Mapa sang tema (PCA projection)"
+  },
+  "text_8_themes.not_enough": {
+    "src": "5c80bc44d1",
+    "t": "Kulang ang dokumento agod mag-cluster sa sini nga setting."
+  },
+  "text_8_themes.sizes_head": {
+    "src": "859dff9cd2",
+    "t": "#### Kadakuon sang tema"
+  },
+  "text_8_themes.terms_head": {
+    "src": "a4409c20c0",
+    "t": "#### Nagapanguna nga termino kada tema"
+  },
+  "text_8_themes.theme": {
+    "src": "8d65d0bbd9",
+    "t": "Tema {n}"
+  },
+  "text_8_themes.theme_terms": {
+    "src": "8ea04d01e0",
+    "t": "**Tema {n}** — {terms}"
+  }
+}

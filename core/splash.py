@@ -322,9 +322,7 @@ def _frame(pct: int, message: str, done: bool = False) -> str:
         f'<div class="tala-splash{" is-done" if done else ""}">'
         + _starfield()
         + cast
-        + '<div class="tala-wordmark"><b>TALA</b>'
-          "<span>Text And Location Analytics</span>"
-          "<span>Initiative of the NU DOST-NICER Program</span></div>"
+        + _wordmark()
         + f'<div class="tala-progress">{blocks}</div>'
         + f'<div class="tala-status"><span class="pct">{pct:3d}%</span>'
           f'{message}<span class="caret">_</span></div>'
@@ -336,13 +334,28 @@ def _frame(pct: int, message: str, done: bool = False) -> str:
 # is far quicker than this now, so the tail is padded client-side (see finish()).
 MIN_SECONDS = 5.0
 
-# Status lines for the padded tail, shown in order across whatever time is left.
-_TAIL_PHASES = [
-    (66, "Warming analytics caches"),
-    (78, "Linking text and location tracks"),
-    (90, "Priming the map tiles"),
-    (100, "Ready"),
-]
+def _tail_phases() -> list[tuple[int, str]]:
+    '''Status lines for the padded tail, in order across whatever time is left.
+
+    Deliberately a function rather than a module constant: the language is
+    chosen on the gate *before* boot runs, but this module is imported before
+    that choice can be read, so a constant would freeze the English strings at
+    import time and every session would boot in English.'''
+    from . import i18n
+
+    return [(66, i18n.t("boot.caches")),
+            (78, i18n.t("boot.linking")),
+            (90, i18n.t("boot.tiles")),
+            (100, i18n.t("boot.ready"))]
+
+
+def _wordmark() -> str:
+    '''The TALA lockup, localized. Shared by the live frame and the finale.'''
+    from . import i18n
+
+    return ('<div class="tala-wordmark"><b>TALA</b>'
+            f'<span>{i18n.t("app.wordmark_sub")}</span>'
+            f'<span>{i18n.t("app.wordmark_org")}</span></div>')
 
 
 def _finale(from_pct: int, remaining: float) -> str:
@@ -365,11 +378,12 @@ def _finale(from_pct: int, remaining: float) -> str:
             delay = remaining * (i - lit_from) / to_fill
             blocks.append(f'<i class="on fill" style="animation-delay:{delay:.2f}s"></i>')
 
-    slice_s = remaining / len(_TAIL_PHASES)
+    tail = _tail_phases()
+    slice_s = remaining / len(tail)
     phases = "".join(
         f'<span class="tala-phase" style="animation-delay:{i * slice_s:.2f}s">'
         f'<span class="pct">{pct:3d}%</span>{msg}<span class="caret">_</span></span>'
-        for i, (pct, msg) in enumerate(_TAIL_PHASES)
+        for i, (pct, msg) in enumerate(tail)
     )
 
     star = (
@@ -390,9 +404,7 @@ def _finale(from_pct: int, remaining: float) -> str:
         f'<div class="tala-splash is-closing" style="--tail:{remaining:.2f}s">'
         + _starfield()
         + cast
-        + '<div class="tala-wordmark"><b>TALA</b>'
-          "<span>Text And Location Analytics</span>"
-          "<span>Initiative of the NU DOST-NICER Program</span></div>"
+        + _wordmark()
         + f'<div class="tala-progress">{"".join(blocks)}</div>'
         + f'<div class="tala-status is-cycling" style="--phase:{slice_s:.2f}s">{phases}</div>'
         + "</div>"

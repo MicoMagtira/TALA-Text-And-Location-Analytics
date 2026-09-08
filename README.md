@@ -31,6 +31,51 @@ Parquet → Ingest (points) → DBSCAN (clusters) → Generalization / NLP-per-c
 Every page has a **Learn** panel (toggle in the sidebar) that shows the concept and
 the equivalent source code — turning the app into live teaching material.
 
+## Languages
+
+TALA ships in **English, Filipino, Cebuano, Ilocano and Hiligaynon**. A session
+opens on a language gate — pixel-art cards and a START button, in the same 8-bit
+idiom as the boot splash — and the sidebar can switch language mid-session.
+
+There is **one** set of views. Prose is data, not code:
+
+| Store | Holds | Edited by |
+|---|---|---|
+| `locales/ui.<lang>.json` | short strings: labels, buttons, spinners, errors | `ui.<lang>.draft.json` + `stamp` |
+| `locales/pages/<lang>/<page>.md` | the long-form Learn essays, one block per paragraph | directly |
+
+Three rules make five languages maintainable while the app is still changing:
+
+1. **English is canonical.** Every key exists in English first.
+2. **Missing translations fall back to English, per unit.** So an English
+   improvement ships today and is translated next week — nothing breaks, nothing
+   blocks. Keys that should *stay* English (the brand name, `Topic Modeling`,
+   `Clustering (DBSCAN)`, `Flesch Reading Ease`) are simply left untranslated.
+3. **Every translated unit stores a hash of the English it came from.** When the
+   English moves, `i18n_tool.py check` names exactly which units drifted, in
+   which languages. Nobody has to remember what went stale.
+
+```bash
+python tools/i18n_tool.py check    # what drifted since it was translated?
+python tools/i18n_tool.py stamp    # publish drafts, recording English hashes
+python tools/i18n_tool.py export   # reviewer workbook (.xlsx) for native speakers
+python tools/i18n_tool.py import   # read reviewer edits back into the drafts
+```
+
+**Register.** Everyday spoken language, not formal or literary vocabulary.
+Technical terms stay in English inline (`DBSCAN`, `cluster`, `sentiment`,
+`stopwords`) — that is how the audience actually speaks, and it keeps trainees
+able to follow the English documentation the course prepares them for.
+
+**Cost.** Catalogs are tens of KB behind `cache_resource`, so a cohort shares one
+copy per language. The active language never enters an analysis cache key, so a
+Cebuano trainee and a Tagalog trainee still share the same 14 MB clustered layer —
+localization is a render-layer concern only, and `tests/test_i18n.py` enforces it.
+
+**Not localized, deliberately:** the dataset, exported CSV/GeoJSON field names and
+filenames (geo_4 calls these a stable output contract — a shared worksheet breaks
+if columns differ by language), and the code snippets in the Learn panels.
+
 ## Run locally
 
 ```bash
@@ -88,7 +133,10 @@ tala_app/
 ├── requirements.txt
 ├── assets/styles.css          # brand + responsive CSS + loading states
 ├── data/                      # Parquet dataset, PH land polygon, stopword lists
-├── core/                      # data_loader, preprocess, nlp, geo, viz, ui, splash
+├── locales/                   # ui.<lang>.json + pages/<lang>/*.md (5 languages)
+├── tools/                     # i18n_tool (check/stamp/export/import), extract, seed
+├── core/                      # data_loader, preprocess, nlp, geo, viz, ui, i18n, gate, splash
+├── tests/                     # concurrency + i18n guards
 └── views/                     # one script per page (text_*, geo_*, home)
 ```
 

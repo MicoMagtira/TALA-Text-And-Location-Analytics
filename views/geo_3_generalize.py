@@ -1,57 +1,35 @@
 import streamlit as st
 
 from core import data_loader as dl
-from core import geo, ui, viz
+from core import geo, i18n, ui, viz
 
-ui.page_title("Geospatial", "Generalization",
-              "Summarize points into coarser features so patterns read at a glance "
-              "and individual locations are not exposed.")
+PAGE = "geo_3_generalize"
 
-ui.learn(
-    "Generalization: grid vs centroids (Lab 3)",
-    "Generalization is the step where you *deliberately destroy precision*. That sounds "
-    "like damage, and it is — chosen on purpose, because a map of exact coordinates "
-    "attached to medical complaints is both harder to read and unsafe to publish. The "
-    "question is not whether to lose detail but which detail you can afford to lose.\n\n"
-    "**Grid aggregation** lays equal metre-based squares over the projected points and "
-    "counts what falls in each. Every location becomes \"somewhere in this cell\". The "
-    "number of populated cells, the largest count, and the median count should change as "
-    "you adjust the cell size; compare those values to see the resolution–privacy trade-off "
-    "rather than relying on one default.\n\n"
-    "**Cluster centroids** replace each DBSCAN cluster with one representative point "
-    "carrying the member count, giving **29 markers** instead of 11,715. Far cleaner, but "
-    "it inherits every parameter choice from the previous page — change `eps` and your "
-    "centroids move.\n\n"
-    "**Choosing between them.** Grids answer \"where is activity concentrated?\" and "
-    "cover everywhere, including sparse areas. Centroids answer \"where are the dense "
-    "groups we identified?\" and are silent about everything DBSCAN called noise. Grids "
-    "impose an arbitrary lattice that can split one real hotspot across four cells; "
-    "centroids place a marker at a mean position where possibly nobody was — a centroid "
-    "can land in the sea.\n\n"
-    "**Cell size is a privacy control, not just a visual one.** Shrink the cells and "
-    "counts drop until a cell contains one person at a known address. A common rule is "
-    "to suppress or merge any cell below a minimum count (often 5). Use the slider and "
-    "watch the median count fall — that is your privacy budget being spent.\n\n"
-    "**The question to carry forward:** what does this representation hide, and is that "
-    "the detail I intended to remove?",
+ui.page_header(PAGE, "geo")
+ui.learn_page(
+    PAGE,
     code=(
-        "from shapely.geometry import box, Point\n"
-        "# grid: count points inside each cell\n"
-        "cell = box(x0, y0, x0 + size, y0 + size)\n\n"
-        "# centroid: one point per cluster\n"
-        "Point(grp.geometry.x.mean(), grp.geometry.y.mean())"
+        "from shapely.geometry import box\n\n"
+        "# occupied cells only — never materialize an empty grid\n"
+        "cell = 20000  # metres\n"
+        "ix = np.floor((xy - [xmin, ymin]) / cell).astype(int)\n"
+        "occupied, counts = np.unique(ix, axis=0, return_counts=True)\n"
+        "cells = [box(xmin + i*cell, ymin + j*cell,\n"
+        "             xmin + (i+1)*cell, ymin + (j+1)*cell) for i, j in occupied]"
     ),
 )
 
 if not st.session_state.get(dl.SS_POINTS_READY):
-    st.warning("Build points (Ingest) — and ideally clusters (DBSCAN) — first.",
-               icon="⚠️")
+    st.warning(i18n.t("geo_3_generalize.need_points"), icon="⚠️")
     st.stop()
 
 key = dl.geo_key()
 eps_m, min_samples = dl.cluster_params()
 
-method = st.radio("Method", ["Grid aggregation", "Cluster centroids"], horizontal=True)
+grid_label = i18n.t("geo_3_generalize.grid")
+centroid_label = i18n.t("geo_3_generalize.centroids")
+method = st.radio(i18n.t("geo_3_generalize.method"),
+                  [grid_label, centroid_label], horizontal=True)
 
 from streamlit_folium import st_folium  # noqa: E402
 
@@ -59,33 +37,35 @@ import branca  # noqa: E402
 import folium  # noqa: E402
 
 gen = None
-if method == "Grid aggregation":
-    cell_km = st.slider("Grid cell size (km)", 5, 100, 20, 5)
+if method == grid_label:
+    cell_km = st.slider(i18n.t("geo_3_generalize.cell"), 5, 100, 20, 5)
     gen = geo.grid_for(*key, cell_km * 1000)
     st.session_state[dl.SS_GEN_PARAMS] = ("grid", cell_km * 1000)
     if len(gen):
         vmax = int(gen["n_points"].max())
         cmap = branca.colormap.LinearColormap(
             viz.sequential_hexes(ui.seq_palette(), 6), vmin=0, vmax=vmax,
-            caption="points per cell")
+            caption=i18n.t("geo_3_generalize.legend"))
         m = geo.base_map(gen)
         folium.GeoJson(
             gen.to_json(),
             style_function=lambda f: {
                 "fillColor": cmap(f["properties"]["n_points"]),
                 "color": "#555", "weight": 0.4, "fillOpacity": 0.7},
-            tooltip=folium.GeoJsonTooltip(fields=["n_points"], aliases=["Points:"]),
+            tooltip=folium.GeoJsonTooltip(
+                fields=["n_points"],
+                aliases=[i18n.t("geo_3_generalize.tooltip_points")]),
         ).add_to(m)
         cmap.add_to(m)
         st_folium(m, use_container_width=True, height=520, returned_objects=[])
 else:
-    exclude = st.checkbox("Exclude noise points", value=True)
+    exclude = st.checkbox(i18n.t("geo_3_generalize.exclude"), value=True)
     if eps_m is None:
-        st.info("Cluster centroids need DBSCAN clusters. Run **Clustering** first.")
+        st.info(i18n.t("geo_3_generalize.need_clusters"))
         st.stop()
     gen = geo.centroids_for(*key, eps_m, min_samples, exclude)
     st.session_state[dl.SS_GEN_PARAMS] = ("centroids", exclude)
-    st.metric("Cluster centroids", len(gen))
+    st.metric(i18n.t("geo_3_generalize.m_centroids"), len(gen))
     if len(gen):
         m = geo.base_map(gen)
         vmax = int(gen["n_points"].max())
@@ -94,11 +74,12 @@ else:
                 [r.geometry.y, r.geometry.x],
                 radius=6 + 18 * (r["n_points"] / vmax),
                 color=viz.NU_NAVY, fill=True, fill_opacity=0.6, weight=1,
-                tooltip=f"Cluster {int(r['cluster_id'])} · {int(r['n_points'])} points",
+                tooltip=i18n.t("geo_3_generalize.cluster_tip",
+                               id=int(r["cluster_id"]), n=int(r["n_points"])),
             ).add_to(m)
         st_folium(m, use_container_width=True, height=520, returned_objects=[])
 
 if gen is not None and len(gen):
-    st.download_button("⬇️ Download generalized layer (GeoJSON)",
+    st.download_button(i18n.t("geo_3_generalize.dl"),
                        gen.to_json(), "tala_generalized.geojson",
                        "application/geo+json")
