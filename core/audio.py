@@ -169,9 +169,17 @@ def mount(
               doc.removeEventListener('click', manager.clickHandler, true);
             }}
             manager.clickHandler = (event) => {{
-              const button = event.target.closest('button');
-              if (!button || button.disabled) return;
-              const label = (button.innerText || button.textContent || '').trim();
+              const target = event.target;
+              if (!(target instanceof host.Element)) return;
+              // Streamlit navigation uses links, Learn panels use <summary>,
+              // and widgets use a mix of native and ARIA controls. Treat each
+              // as an app interaction, not only literal <button> elements.
+              const control = target.closest(
+                'button, a[href], summary, [role="button"], [role="tab"], '
+                + '[role="switch"], [role="menuitem"], select, input:not([type="range"])'
+              );
+              if (!control || control.disabled || control.getAttribute('aria-disabled') === 'true') return;
+              const label = (control.innerText || control.textContent || '').trim();
               const isStart = manager.config.startLabels.some(
                 (startLabel) => startLabel && label.includes(startLabel)
               );
