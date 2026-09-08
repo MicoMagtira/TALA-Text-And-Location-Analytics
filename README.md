@@ -35,11 +35,13 @@ the equivalent source code — turning the app into live teaching material.
 
 TALA can play optional 8-bit sound in the browser. The language gate offers
 **Sound settings** before START, and the sidebar keeps **Music** and **SFX**
-toggles plus independent volume sliders available throughout the app. START
-plays its own cue and begins the looping music; other buttons use the click cue.
+toggles plus independent volume sliders available throughout the app. Music is
+attempted on the start screen and, if browser autoplay is blocked, begins on
+the visitor's first gate interaction. START plays its own cue; other buttons
+use the click cue.
 
-Audio begins only after an explicit click, as required by browser autoplay rules.
-The optimized runtime files live in `static/audio/` and stream directly to the
+Some browsers require that first interaction before unmuted audio can play. The
+optimized runtime files live in `static/audio/` and stream directly to the
 browser, so they do not consume per-session Streamlit memory. See
 [`docs/AUDIO.md`](docs/AUDIO.md) for the asset manifest, rebuild command, and
 licensing reminder.

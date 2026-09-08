@@ -7,13 +7,17 @@ The browser fetches the runtime MP3 files from `/app/static/audio/` directly.
 ## Behaviour
 
 - The language gate includes **Sound settings** before the trainee presses START.
-- Pressing START plays the dedicated start cue and begins the background loop.
-- Other Streamlit button clicks use the short click cue.
+- The gate attempts to begin background music as soon as it loads. If a browser
+  blocks unmuted autoplay, the first gate interaction (including choosing a
+  language, opening sound settings, or pressing START) begins the loop instead.
+- Pressing START plays the dedicated start cue. Other Streamlit button clicks
+  use the short click cue.
 - The sidebar repeats the controls as **Music** and **SFX**, each with an on/off
   toggle and a 0–100 volume slider. Preferences are session-specific.
-- The first `play()` call is made inside the actual START click event. This is
-  required by modern browser autoplay policies. A browser or operating-system
-  mute setting can still suppress playback; the app remains fully usable.
+- Modern browser autoplay policies can reject the initial, unmuted playback
+  attempt. The gate therefore retries from the visitor's first click, while a
+  browser or operating-system mute setting can still suppress playback. The app
+  remains fully usable in either case.
 
 ## Runtime assets
 
