@@ -90,12 +90,18 @@ def sidebar_settings() -> None:
     _settings(st.sidebar)
 
 
-def mount(*, start_labels: tuple[str, ...] = (), play_music: bool | None = None) -> None:
+def mount(
+    *,
+    start_labels: tuple[str, ...] = (),
+    play_music: bool | None = None,
+    start_music_on_interaction: bool = False,
+) -> None:
     """Install/update the browser audio manager without rendering a player.
 
     ``start_labels`` is only supplied on the language gate. It lets the capture
-    listener distinguish the START button from every other Streamlit button and
-    play the special cue before beginning the loop.
+    listener distinguish the START button from every other Streamlit button.
+    ``start_music_on_interaction`` lets the language gate begin its loop on the
+    first visitor interaction when the browser blocks unmuted autoplay.
     """
     _defaults()
     if play_music is None:
@@ -108,6 +114,7 @@ def mount(*, start_labels: tuple[str, ...] = (), play_music: bool | None = None)
         "sfxVolume": int(st.session_state[SS_SFX_VOLUME]) / 100,
         "startLabels": list(start_labels),
         "playMusic": bool(play_music),
+        "startMusicOnInteraction": start_music_on_interaction,
     }
     payload = json.dumps(state).replace("</", "<\\/")
     components.html(
@@ -173,6 +180,7 @@ def mount(*, start_labels: tuple[str, ...] = (), play_music: bool | None = None)
                 manager.playMusic();
               }} else {{
                 manager.play('click');
+                if (manager.config.startMusicOnInteraction) manager.playMusic();
               }}
             }};
             doc.addEventListener('click', manager.clickHandler, true);
