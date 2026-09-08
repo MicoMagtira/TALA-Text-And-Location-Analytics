@@ -129,9 +129,36 @@ section[data-testid="stSidebar"], header[data-testid="stHeader"] {{ display: non
   text-transform: uppercase; animation: tala-blink 1.4s step-end infinite;
 }}
 .tala-hint {{
-  text-align: center; color: {INK_ON_SKY}; opacity: .6; margin-bottom: .6rem;
+  text-align: center; color: #eef1ff; opacity: .94; margin-bottom: .75rem;
   font-family: "Courier New", ui-monospace, monospace; font-size: .7rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,.7);
 }}
+
+/* The gate is dark by design, so lift the optional audio panel above the sky.
+   These selectors apply only while the language gate owns the rendered page. */
+div[data-testid="stExpander"] {{
+  border: 2px solid rgba(200, 208, 240, .78) !important;
+  background: linear-gradient(135deg, rgba(77, 96, 180, .62), rgba(35, 47, 112, .72)) !important;
+  box-shadow: 0 0 0 2px rgba(5, 7, 26, .34), 0 5px 16px rgba(0,0,0,.25);
+}}
+div[data-testid="stExpander"] details {{ background: transparent !important; }}
+div[data-testid="stExpander"] summary {{
+  background: rgba(245, 216, 158, .14) !important;
+  color: #fff0c7 !important;
+}}
+div[data-testid="stExpander"] summary *,
+div[data-testid="stExpander"] label,
+div[data-testid="stExpander"] [data-testid="stWidgetLabel"] p,
+div[data-testid="stExpander"] [data-testid="stCaptionContainer"],
+div[data-testid="stExpander"] [data-testid="stCaptionContainer"] p {{
+  color: #f5f7ff !important;
+  opacity: 1 !important;
+}}
+div[data-testid="stExpander"] [data-baseweb="slider"] [role="slider"] {{
+  background-color: {GOLD} !important;
+  border-color: #fff0c7 !important;
+}}
+div[data-testid="stExpander"] input {{ color: #f5f7ff !important; }}
 
 /* --- 8-bit widget skin -------------------------------------------------- */
 .stButton > button {{
