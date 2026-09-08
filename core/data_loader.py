@@ -217,9 +217,9 @@ def active_df() -> pd.DataFrame:
     df = dataset(st.session_state[SS_SOURCE_KEY])
     if df is None:
         # The upload aged out of the shared cache; fall back rather than crash.
-        st.warning("Your uploaded dataset expired from the shared cache. "
-                   "Falling back to the bundled example — re-upload to continue "
-                   "with your own file.", icon="⚠️")
+        from . import i18n
+
+        st.warning(i18n.t("data.upload_expired"), icon="⚠️")
         text, lon, lat = guess_columns(_bundled())
         set_active(BUNDLED_KEY, text, lon, lat, BUNDLED_LABEL)
         df = _bundled()

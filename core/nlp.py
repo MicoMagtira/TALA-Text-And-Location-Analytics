@@ -20,6 +20,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
+from . import i18n
 from . import preprocess
 
 VADER_THRESHOLD = 0.05
@@ -50,7 +51,8 @@ def make_wordcloud(freqs: dict[str, int], colormap_name: str = "NU Navy",
 # ---------------------------------------------------------------------------
 # N-grams
 # ---------------------------------------------------------------------------
-@st.cache_data(show_spinner="Counting n-grams…")
+@i18n.localized_spinner("spin.ngrams")
+@st.cache_data(show_spinner=False)
 def top_ngrams(corpus: tuple[str, ...], ngram: tuple[int, int] = (2, 2),
                top_n: int = 20, min_df: int = 2) -> pd.DataFrame:
     from sklearn.feature_extraction.text import CountVectorizer
@@ -79,7 +81,8 @@ def _vader():
     return SentimentIntensityAnalyzer()
 
 
-@st.cache_data(show_spinner="Scoring sentiment with VADER…")
+@i18n.localized_spinner("spin.vader")
+@st.cache_data(show_spinner=False)
 def vader_sentiment(texts: tuple[str, ...],
                     threshold: float = VADER_THRESHOLD) -> pd.DataFrame:
     sia = _vader()
@@ -110,7 +113,8 @@ _NRC_ORDER = ["anticipation", "trust", "joy", "surprise", "anger",
               "fear", "sadness", "disgust", "positive", "negative"]
 
 
-@st.cache_data(show_spinner="Matching the NRC emotion lexicon…")
+@i18n.localized_spinner("spin.nrc")
+@st.cache_data(show_spinner=False)
 def nrc_emotions(texts: tuple[str, ...]) -> pd.DataFrame:
     """Aggregate NRC emotion + pos/neg counts across the corpus."""
     nrc = _nrc()
@@ -128,7 +132,8 @@ def nrc_emotions(texts: tuple[str, ...]) -> pd.DataFrame:
     return df[df["count"] > 0].reset_index(drop=True)
 
 
-@st.cache_data(show_spinner="Sorting polarity word clouds…")
+@i18n.localized_spinner("spin.polarity")
+@st.cache_data(show_spinner=False)
 def polarity_word_frequencies(tokens: tuple[str, ...], top_n: int = 100):
     """Split unique tokens into NRC positive / negative buckets (for word clouds)."""
     nrc = _nrc()
@@ -150,7 +155,8 @@ def polarity_word_frequencies(tokens: tuple[str, ...], top_n: int = 100):
 # ---------------------------------------------------------------------------
 # Topic modeling (LDA) + stability
 # ---------------------------------------------------------------------------
-@st.cache_data(show_spinner="Fitting the LDA topic model…")
+@i18n.localized_spinner("spin.lda")
+@st.cache_data(show_spinner=False)
 def _lda_fit(corpus: tuple[str, ...], n_topics: int, seed: int, min_df: int):
     """Fit LDA and cache the model itself, keyed only on what changes the fit.
 
@@ -206,7 +212,8 @@ def _topic_word_sets(corpus, n_topics, seed, n_top_words=15, min_df=3):
     return [set(t["words"]) for t in res["topics"]]
 
 
-@st.cache_data(show_spinner="Re-running LDA across seeds…")
+@i18n.localized_spinner("spin.stability")
+@st.cache_data(show_spinner=False)
 def topic_stability(corpus: tuple[str, ...], n_topics: int = 5,
                     seeds: tuple[int, ...] = (0, 1, 2)) -> pd.DataFrame:
     """Re-run LDA under different seeds; score topic-set agreement between the
@@ -239,7 +246,8 @@ def topic_stability(corpus: tuple[str, ...], n_topics: int = 5,
 # ---------------------------------------------------------------------------
 # Keywords (RAKE) + Noun/POS extraction (NLTK)
 # ---------------------------------------------------------------------------
-@st.cache_data(show_spinner="Extracting RAKE keywords…")
+@i18n.localized_spinner("spin.rake")
+@st.cache_data(show_spinner=False)
 def rake_keywords(texts: tuple[str, ...], top_n: int = 25) -> pd.DataFrame:
     try:
         from rake_nltk import Rake
@@ -319,7 +327,8 @@ _TAGGER_PKGS = (("averaged_perceptron_tagger", "taggers/averaged_perceptron_tagg
                  "taggers/averaged_perceptron_tagger_eng"))
 
 
-@st.cache_resource(show_spinner="Loading the POS tagger…")
+@i18n.localized_spinner("spin.pos_load")
+@st.cache_resource(show_spinner=False)
 def _pos_backend():
     """Return (tokenizer, tagger, lemmatizer) or None if NLTK data is unavailable.
 
@@ -355,7 +364,8 @@ def pos_available() -> bool:
     return _pos_backend() is not None
 
 
-@st.cache_data(show_spinner="Tagging parts of speech…")
+@i18n.localized_spinner("spin.pos_tag")
+@st.cache_data(show_spinner=False)
 def _pos_analysis(texts: tuple[str, ...], top_n: int = 25, sample: int = 4000) -> dict:
     """Tag the corpus once and derive every POS-based view from that single pass.
 
@@ -426,7 +436,8 @@ def pos_proportions(texts: tuple[str, ...]) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 # Co-occurrence
 # ---------------------------------------------------------------------------
-@st.cache_data(show_spinner="Building the co-occurrence matrix…")
+@i18n.localized_spinner("spin.cooccurrence")
+@st.cache_data(show_spinner=False)
 def cooccurrence(corpus: tuple[str, ...], top_terms: int = 15,
                  min_df: int = 3) -> pd.DataFrame:
     from sklearn.feature_extraction.text import CountVectorizer
@@ -452,7 +463,8 @@ def cooccurrence(corpus: tuple[str, ...], top_terms: int = 15,
 # ---------------------------------------------------------------------------
 # Readability / linguistic metrics
 # ---------------------------------------------------------------------------
-@st.cache_data(show_spinner="Computing readability metrics…")
+@i18n.localized_spinner("spin.readability")
+@st.cache_data(show_spinner=False)
 def readability(texts: tuple[str, ...]) -> dict:
     joined = " ".join(str(t) for t in texts)
     words = joined.split()
@@ -480,7 +492,8 @@ def readability(texts: tuple[str, ...]) -> dict:
 # ---------------------------------------------------------------------------
 # TF-IDF K-Means themes (from NLP.ipynb)
 # ---------------------------------------------------------------------------
-@st.cache_data(show_spinner="Clustering themes (TF-IDF + K-Means)…")
+@i18n.localized_spinner("spin.kmeans")
+@st.cache_data(show_spinner=False)
 def tfidf_kmeans(corpus: tuple[str, ...], k: int = 4, seed: int = 42,
                  top_terms: int = 10):
     from sklearn.cluster import KMeans
