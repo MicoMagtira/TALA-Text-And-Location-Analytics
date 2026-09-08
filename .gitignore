@@ -22,3 +22,5 @@ Thumbs.db
 *.ipynb_checkpoints/
 outputs/
 refs/
+# Generated reviewer workbook (rebuild with: python tools/i18n_tool.py export)
+TALA_translation_review.xlsx
