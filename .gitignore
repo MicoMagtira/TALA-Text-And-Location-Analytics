@@ -24,3 +24,8 @@ outputs/
 refs/
 # Generated reviewer workbook (rebuild with: python tools/i18n_tool.py export)
 TALA_translation_review.xlsx
+
+# Audio production masters and editor projects stay local. Only the optimized,
+# browser-served runtime files in static/audio/ belong in the repository.
+assets/Sound Loop/
+assets/Start Button/
