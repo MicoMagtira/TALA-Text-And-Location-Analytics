@@ -2,7 +2,17 @@
 
 TALA treats sound as an optional browser-side enhancement. It never stores audio
 bytes in Streamlit session state and never sends them through a Streamlit delta.
-The browser fetches the runtime MP3 files from `/app/static/audio/` directly.
+The browser fetches the runtime MP3 files directly, without sending them through
+the Streamlit session.
+
+## Deployment delivery
+
+The primary URLs use GitHub Raw for the checked-in MP3 files. This is deliberate:
+some Streamlit static-file deployments label MP3 files as `text/plain` with
+`X-Content-Type-Options: nosniff`, which prevents browser playback. GitHub Raw
+returns `audio/mpeg` for these files. The app keeps `/app/static/audio/` as a
+same-origin fallback for local installations or a temporary GitHub delivery
+failure.
 
 ## Behaviour
 

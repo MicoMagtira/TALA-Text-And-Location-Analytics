@@ -32,11 +32,16 @@ def test_runtime_audio_assets_exist_and_are_compact():
         )
 
 
-def test_audio_manager_uses_static_urls_not_embedded_bytes():
+def test_audio_manager_uses_deployment_safe_urls_not_embedded_bytes():
     """Sound must stream separately from Streamlit rerun payloads."""
-    assert all(url.startswith("/app/static/audio/") for url in audio.AUDIO_URLS.values())
+    assert all(url.startswith("https://raw.githubusercontent.com/")
+               for url in audio.AUDIO_URLS.values())
+    assert all(url.startswith("/app/static/audio/")
+               for url in audio.STATIC_AUDIO_URLS.values())
     source = (ROOT / "core" / "audio.py").read_text(encoding="utf-8")
     assert "components.html" in source
+    assert "fallbackUrls" in source
+    assert "talaFallbackUrl" in source
     assert "clickHandler" in source
     assert "startLabels" in source
     assert "startMusicOnInteraction" in source
