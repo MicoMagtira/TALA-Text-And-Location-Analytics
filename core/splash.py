@@ -23,6 +23,7 @@ Two deliberate implementation choices:
 """
 from __future__ import annotations
 
+import base64
 import random
 import time
 
@@ -139,7 +140,14 @@ _CSS = f"""
    navigation and Streamlit toolbar until its client-side finale has finished. */
 body:not(.tala-boot-complete):has(.tala-splash) section[data-testid="stSidebar"],
 body:not(.tala-boot-complete):has(.tala-splash) header[data-testid="stHeader"] {{
-  display: none;
+  visibility: hidden;
+  /* A CSP or browser extension must never leave navigation unavailable.
+     The normal controller restores it at the splash finale; this is a
+     one-time, client-only safety release after the longest boot timeline. */
+  animation: tala-show-chrome 0s linear 7s forwards;
+}}
+@keyframes tala-show-chrome {{
+  to {{ visibility: visible; }}
 }}
 
 @keyframes tala-twinkle {{
@@ -443,15 +451,29 @@ class Splash:
         rule above rather than relying on a fragile delayed server rerun.
         """
         milliseconds = max(0, round(seconds * 1000))
-        st.html(
-            f"""
-            <script>
+        # See ``core.audio`` for the same Streamlit-hosted-browser constraint:
+        # a compact executable bootstrap is retained while controller code is
+        # passed as data. This avoids sanitizer edge cases without using eval.
+        reveal_controller = f"""
             (() => {{
               const host = window.parent === window ? window : window.parent;
               host.setTimeout(
                 () => host.document.body.classList.add('tala-boot-complete'),
                 {milliseconds},
               );
+            }})();
+        """
+        encoded_reveal = base64.b64encode(
+            reveal_controller.encode("utf-8")
+        ).decode("ascii")
+        st.html(
+            f"""
+            <script>
+            (() => {{
+              const script = document.createElement("script");
+              script.textContent = atob("{encoded_reveal}");
+              document.head.appendChild(script);
+              script.remove();
             }})();
             </script>
             """,
