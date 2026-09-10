@@ -22,9 +22,19 @@ import streamlit.components.v1 as components
 from . import i18n
 
 
-# Static URLs avoid embedding audio bytes in Streamlit deltas. The files are
-# served directly by Streamlit's static-file handler (see .streamlit/config.toml).
+# Community Cloud's static-file handler does not classify MP3 as normal media in
+# every Streamlit release. GitHub Raw returns the correct ``audio/mpeg`` type;
+# keep the app's static URLs as a same-origin fallback for local installs.
+_GITHUB_AUDIO_ROOT = (
+    "https://raw.githubusercontent.com/MicoMagtira/"
+    "TALA-Text-And-Location-Analytics/main/static/audio"
+)
 AUDIO_URLS = {
+    "music": f"{_GITHUB_AUDIO_ROOT}/tala-background.mp3",
+    "start": f"{_GITHUB_AUDIO_ROOT}/tala-start.mp3",
+    "click": f"{_GITHUB_AUDIO_ROOT}/tala-click.mp3",
+}
+STATIC_AUDIO_URLS = {
     "music": "/app/static/audio/tala-background.mp3",
     "start": "/app/static/audio/tala-start.mp3",
     "click": "/app/static/audio/tala-click.mp3",
@@ -108,6 +118,7 @@ def mount(
         play_music = started()
     state = {
         "urls": AUDIO_URLS,
+        "fallbackUrls": STATIC_AUDIO_URLS,
         "musicOn": bool(st.session_state[SS_MUSIC_ON]),
         "musicVolume": int(st.session_state[SS_MUSIC_VOLUME]) / 100,
         "sfxOn": bool(st.session_state[SS_SFX_ON]),
@@ -127,24 +138,41 @@ def mount(
             const config = {payload};
             const manager = host.__talaAudio || (host.__talaAudio = {{}});
 
-            const makeAudio = (name, src, loop, preload) => {{
+            const makeAudio = (name, src, fallbackSrc, loop, preload) => {{
               let audio = doc.getElementById(`tala-audio-${{name}}`);
               if (!audio) {{
                 audio = doc.createElement('audio');
                 audio.id = `tala-audio-${{name}}`;
-                audio.src = src;
                 audio.loop = loop;
                 audio.preload = preload;
                 audio.setAttribute('aria-hidden', 'true');
                 audio.style.display = 'none';
                 doc.body.appendChild(audio);
               }}
+              if (audio.dataset.talaPrimaryUrl !== src) {{
+                audio.dataset.talaPrimaryUrl = src;
+                audio.dataset.talaFallbackUrl = fallbackSrc;
+                audio.dataset.talaUsingFallback = 'false';
+                audio.src = src;
+                audio.onerror = () => {{
+                  if (audio.dataset.talaUsingFallback === 'true' || !fallbackSrc) return;
+                  audio.dataset.talaUsingFallback = 'true';
+                  audio.src = fallbackSrc;
+                  audio.load();
+                }};
+              }}
               return audio;
             }};
 
-            manager.music = makeAudio('music', config.urls.music, true, 'metadata');
-            manager.start = makeAudio('start', config.urls.start, false, 'auto');
-            manager.click = makeAudio('click', config.urls.click, false, 'auto');
+            manager.music = makeAudio(
+              'music', config.urls.music, config.fallbackUrls.music, true, 'metadata'
+            );
+            manager.start = makeAudio(
+              'start', config.urls.start, config.fallbackUrls.start, false, 'auto'
+            );
+            manager.click = makeAudio(
+              'click', config.urls.click, config.fallbackUrls.click, false, 'auto'
+            );
             manager.config = config;
             // Keep the loop inaudible during the START cue, even if Streamlit
             // has already rerun and supplied a fresh configuration.
