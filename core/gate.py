@@ -154,20 +154,29 @@ div[data-testid="stExpander"] [data-testid="stCaptionContainer"] p {{
   color: #f5f7ff !important;
   opacity: 1 !important;
 }}
-div[data-testid="stExpander"] [data-baseweb="slider"] [role="slider"] {{
-  background-color: #fff0c7 !important;
-  border: 2px solid {GOLD_DEEP} !important;
-  box-shadow: 0 0 0 2px rgba(5, 7, 26, .5) !important;
-}}
 div[data-testid="stExpander"] [data-testid="stSlider"] {{
-  background: rgba(5, 7, 26, .28);
-  border: 1px solid rgba(245, 247, 255, .34);
-  padding: .35rem .55rem .85rem;
+  background: rgba(5, 7, 26, .46);
+  border: 2px solid rgba(245, 247, 255, .68);
+  padding: .45rem .7rem 1rem;
+  box-shadow: inset 0 0 0 1px rgba(5, 7, 26, .65);
 }}
-div[data-testid="stExpander"] .react-aria-SliderTrack > div:first-child {{
-  height: .42rem !important;
-  border-radius: .3rem;
-  box-shadow: 0 0 0 1px rgba(245, 247, 255, .5), 0 1px 3px rgba(0,0,0,.65);
+/* Streamlit 1.60's React Aria slider renders the rail as this positioned
+   child. Styling it directly keeps the rail bright across theme changes. */
+div[data-testid="stExpander"] [data-testid="stSlider"] div[style*="pointer-events: none"] {{
+  height: .65rem !important;
+  border: 2px solid #fff9de !important;
+  border-radius: .45rem;
+  background: linear-gradient(to right, {GOLD} 0%, #fff9de 100%) !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,.9);
+}}
+/* The thumb itself is absolutely positioned with this transform. */
+div[data-testid="stExpander"] [data-testid="stSlider"] div[style*="translate(-50%, -50%)"] {{
+  width: 1.35rem !important;
+  height: 1.35rem !important;
+  background: #fff9de !important;
+  border: 3px solid {GOLD_DEEP} !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 0 3px rgba(5, 7, 26, .8), 0 1px 5px rgba(0,0,0,.85) !important;
 }}
 div[data-testid="stExpander"] [data-testid="stSliderThumbValue"],
 div[data-testid="stExpander"] [data-testid="stSliderThumbValue"] * {{

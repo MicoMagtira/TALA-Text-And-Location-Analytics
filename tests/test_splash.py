@@ -16,6 +16,15 @@ def test_boot_hides_chrome_until_the_splash_finishes():
     assert "host.setTimeout" in source
 
 
+def test_gate_sliders_use_react_aria_contrast_selectors():
+    source = (ROOT / "core" / "gate.py").read_text(encoding="utf-8")
+    assert 'data-testid="stSlider"' in source
+    assert 'pointer-events: none' in source
+    assert 'translate(-50%, -50%)' in source
+    assert "#fff9de" in source
+
+
 if __name__ == "__main__":
     test_boot_hides_chrome_until_the_splash_finishes()
-    print("1/1 splash guard passed")
+    test_gate_sliders_use_react_aria_contrast_selectors()
+    print("2/2 splash and gate guards passed")
