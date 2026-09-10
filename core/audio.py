@@ -14,6 +14,7 @@ available to opt in, mute, or adjust volumes.
 """
 from __future__ import annotations
 
+import base64
 import json
 
 import streamlit as st
@@ -150,9 +151,11 @@ def mount(
         "startMusicOnInteraction": start_music_on_interaction,
     }
     payload = json.dumps(state).replace("</", "<\\/")
-    st.html(
-        f"""
-        <script>
+    # Streamlit's sanitizer accepts a small executable ``st.html`` script but
+    # can discard a long controller containing browser event-handler syntax.
+    # Keep the controller data-only in the HTML payload, then evaluate it from
+    # the supported JavaScript-enabled ``st.html`` bootstrap.
+    controller = f"""
         (() => {{
           try {{
             const host = window.parent === window ? window : window.parent;
@@ -309,6 +312,12 @@ def mount(
             // Sound is an enhancement. A restrictive browser/CSP must not stop TALA.
           }}
         }})();
+        """
+    encoded_controller = base64.b64encode(controller.encode("utf-8")).decode("ascii")
+    st.html(
+        f"""
+        <script>
+        (0, eval)(atob("{encoded_controller}"));
         </script>
         """,
         unsafe_allow_javascript=True,
