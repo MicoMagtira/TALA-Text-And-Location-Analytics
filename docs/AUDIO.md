@@ -10,6 +10,8 @@ unsafe_allow_javascript=True)` API rather than the deprecated
 `st.components.v1.html` iframe helper.
 Its small bootstrap injects the controller without `eval()`, so it remains
 compatible with restrictive hosted Content Security Policies.
+The controller deliberately keeps its state in the current app window rather
+than `window.parent`, which may be a cross-origin hosting shell.
 
 ## Deployment delivery
 

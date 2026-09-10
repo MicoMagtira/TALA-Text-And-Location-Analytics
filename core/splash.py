@@ -456,7 +456,9 @@ class Splash:
         # passed as data. This avoids sanitizer edge cases without using eval.
         reveal_controller = f"""
             (() => {{
-              const host = window.parent === window ? window : window.parent;
+              // ``st.html`` runs in the app document. Its parent can be a
+              // cross-origin Community Cloud shell, so only touch this window.
+              const host = window;
               host.setTimeout(
                 () => host.document.body.classList.add('tala-boot-complete'),
                 {milliseconds},

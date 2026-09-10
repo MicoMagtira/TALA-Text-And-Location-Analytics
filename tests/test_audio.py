@@ -46,6 +46,7 @@ def test_audio_manager_uses_deployment_safe_urls_not_embedded_bytes():
     assert "atob(" in source
     assert "(0, eval)" not in source
     assert 'document.createElement("script")' in source
+    assert "const host = window;" in source
     assert "fallbackUrls" in source
     assert "talaFallbackUrl" in source
     assert "useLocalAssets" in source
