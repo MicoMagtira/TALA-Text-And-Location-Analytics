@@ -146,7 +146,9 @@ def mount(
             manager.start = makeAudio('start', config.urls.start, false, 'auto');
             manager.click = makeAudio('click', config.urls.click, false, 'auto');
             manager.config = config;
-            manager.music.volume = config.musicVolume;
+            // Keep the loop inaudible during the START cue, even if Streamlit
+            // has already rerun and supplied a fresh configuration.
+            manager.music.volume = manager.waitingForStartCue ? 0 : config.musicVolume;
             manager.start.volume = config.sfxVolume;
             manager.click.volume = config.sfxVolume;
 
@@ -174,17 +176,31 @@ def mount(
                 return;
               }}
               manager.waitingForStartCue = true;
-              manager.music.pause();
-              manager.start.onended = () => {{
-                manager.waitingForStartCue = false;
-                manager.start.onended = null;
-                manager.playMusic();
-              }};
+              // Starting the loop muted inside this real click event preserves
+              // browser media permission. Restoring its volume after the cue is
+              // reliable where an asynchronous second play() would be blocked.
+              if (manager.config.musicOn) {{
+                manager.music.volume = 0;
+                manager.music.play().catch(() => {{}});
+              }} else {{
+                manager.music.pause();
+              }}
+              // Store this handler on the parent-document <audio> element.
+              // A Streamlit rerun may replace this component iframe before the
+              // cue ends, but the parent audio element and its inline handler
+              // remain alive long enough to resume the loop.
+              const resumeScript =
+                "var audio=window.__talaAudio;if(audio){{audio.waitingForStartCue=false;"
+                + "if(audio.config&&audio.config.musicOn){{audio.music.volume=audio.config.musicVolume;}}"
+                + "else{{audio.music.pause();}}}}";
+              manager.start.onended = null;
+              manager.start.setAttribute('onended', resumeScript);
               manager.start.currentTime = 0;
               manager.start.play().catch(() => {{
                 // A browser may reject a play request; do not leave music paused.
                 manager.waitingForStartCue = false;
-                manager.start.onended = null;
+                manager.start.removeAttribute('onended');
+                manager.music.volume = manager.config.musicVolume;
                 manager.playMusic();
               }});
             }};

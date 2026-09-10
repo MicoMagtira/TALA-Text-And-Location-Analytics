@@ -37,8 +37,8 @@ TALA can play optional 8-bit sound in the browser. The language gate offers
 **Sound settings** before START, and the sidebar keeps **Music** and **SFX**
 toggles plus independent volume sliders available throughout the app. Music is
 attempted on the start screen and, if browser autoplay is blocked, begins on
-the visitor's first gate interaction. START pauses the loop while its cue plays,
-then resumes music after the cue ends. Other buttons and interactive
+the visitor's first gate interaction. START silences the loop while its cue plays,
+then makes it audible after the cue ends. Other buttons and interactive
 controls—including page navigation, Learn expanders, radio buttons, checkboxes,
 and toggles—use the click cue.
 
