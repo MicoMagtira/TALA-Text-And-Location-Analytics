@@ -8,6 +8,8 @@ the Streamlit session.
 The browser controller uses Streamlit's supported `st.html(...,
 unsafe_allow_javascript=True)` API rather than the deprecated
 `st.components.v1.html` iframe helper.
+Its small bootstrap injects the controller without `eval()`, so it remains
+compatible with restrictive hosted Content Security Policies.
 
 ## Deployment delivery
 
