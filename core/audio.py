@@ -153,8 +153,9 @@ def mount(
     payload = json.dumps(state).replace("</", "<\\/")
     # Streamlit's sanitizer accepts a small executable ``st.html`` script but
     # can discard a long controller containing browser event-handler syntax.
-    # Keep the controller data-only in the HTML payload, then evaluate it from
-    # the supported JavaScript-enabled ``st.html`` bootstrap.
+    # Keep the controller data-only in the HTML payload, then inject it from
+    # the supported JavaScript-enabled ``st.html`` bootstrap. This avoids
+    # ``eval()``, which hosted Content Security Policies commonly disallow.
     controller = f"""
         (() => {{
           try {{
@@ -317,7 +318,12 @@ def mount(
     st.html(
         f"""
         <script>
-        (0, eval)(atob("{encoded_controller}"));
+        (() => {{
+          const script = document.createElement("script");
+          script.textContent = atob("{encoded_controller}");
+          document.head.appendChild(script);
+          script.remove();
+        }})();
         </script>
         """,
         unsafe_allow_javascript=True,
