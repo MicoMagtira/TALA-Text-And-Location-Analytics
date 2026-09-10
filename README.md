@@ -43,8 +43,8 @@ controls—including page navigation, Learn expanders, radio buttons, checkboxes
 and toggles—use the click cue.
 
 Some browsers require that first interaction before unmuted audio can play. The
-optimized runtime files live in `static/audio/` and stream directly to the
-browser, so they do not consume per-session Streamlit memory. See
+optimized runtime files live in `static/audio/`, stream directly from GitHub Raw
+with a same-origin fallback, and do not consume per-session Streamlit memory. See
 [`docs/AUDIO.md`](docs/AUDIO.md) for the asset manifest, rebuild command, and
 licensing reminder.
 
