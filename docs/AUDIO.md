@@ -35,6 +35,13 @@ failure.
   browser or operating-system mute setting can still suppress playback. The app
   remains fully usable in either case.
 
+## iPhone and iPad Safari
+
+On Safari versions where web pages cannot set media volume, TALA detects the
+locked `HTMLMediaElement.volume` property, hides the ineffective sliders, and
+shows a note to use the device's physical volume buttons. The Music and SFX
+toggles still work. Browsers that allow page-level media volume keep the sliders.
+
 ## Runtime assets
 
 | File | Use | Source |

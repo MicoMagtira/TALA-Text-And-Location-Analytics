@@ -42,6 +42,10 @@ then makes it audible after the cue ends. Other buttons and interactive
 controls—including page navigation, Learn expanders, radio buttons, checkboxes,
 and toggles—use the click cue.
 
+On iPhone/iPad Safari versions that lock web-media volume, use the device's
+physical volume buttons; TALA hides the ineffective sliders and keeps the Music
+and SFX toggles available.
+
 Some browsers require that first interaction before unmuted audio can play. The
 optimized runtime files live in `static/audio/`, stream directly from GitHub Raw
 with a same-origin fallback, and do not consume per-session Streamlit memory. See
