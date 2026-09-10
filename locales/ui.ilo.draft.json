@@ -301,5 +301,6 @@
   "audio.gate_hint": "Mayala dagiti pilim iti app. Manggirugi ti uni kalpasan ti START.",
   "audio.music": "Musika",
   "audio.sfx": "SFX",
-  "audio.volume": "Kadagsen ti {name}"
+  "audio.volume": "Kadagsen ti {name}",
+  "audio.ios_volume_note": "Iti Safari iti iPhone wenno iPad, usarem dagiti buton ti volume ti device mo."
 }

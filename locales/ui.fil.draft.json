@@ -301,5 +301,6 @@
   "audio.gate_hint": "Maililipat sa app ang mga pinili mo. Magsisimula ang tunog pagkatapos ng START.",
   "audio.music": "Musika",
   "audio.sfx": "SFX",
-  "audio.volume": "{name} na volume"
+  "audio.volume": "{name} na volume",
+  "audio.ios_volume_note": "Sa Safari sa iPhone o iPad, gamitin ang mga button ng volume ng iyong device."
 }
