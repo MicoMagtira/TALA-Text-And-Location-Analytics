@@ -16,7 +16,7 @@
 #   seaborn                 — imported nowhere.
 
 # --- core ---
-streamlit>=1.36,<2
+streamlit>=1.60,<2  # st.html(..., unsafe_allow_javascript=True) powers audio/splash controllers
 pandas>=2.0,<3
 numpy>=1.26,<3
 pyarrow>=15.0            # Parquet reader for the bundled dataset

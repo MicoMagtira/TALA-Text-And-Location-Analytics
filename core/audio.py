@@ -17,7 +17,6 @@ from __future__ import annotations
 import json
 
 import streamlit as st
-import streamlit.components.v1 as components
 
 from . import i18n
 
@@ -151,12 +150,12 @@ def mount(
         "startMusicOnInteraction": start_music_on_interaction,
     }
     payload = json.dumps(state).replace("</", "<\\/")
-    components.html(
+    st.html(
         f"""
         <script>
         (() => {{
           try {{
-            const host = window.parent;
+            const host = window.parent === window ? window : window.parent;
             const doc = host.document;
             const config = {payload};
             const manager = host.__talaAudio || (host.__talaAudio = {{}});
@@ -312,6 +311,5 @@ def mount(
         }})();
         </script>
         """,
-        height=0,
-        width=0,
+        unsafe_allow_javascript=True,
     )

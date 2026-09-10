@@ -14,6 +14,9 @@ def test_boot_hides_chrome_until_the_splash_finishes():
     assert 'header[data-testid="stHeader"]' in source
     assert "_reveal_chrome_after" in source
     assert "host.setTimeout" in source
+    assert "st.html(" in source
+    assert "unsafe_allow_javascript=True" in source
+    assert "components.html" not in source
 
 
 def test_gate_sliders_use_react_aria_contrast_selectors():
