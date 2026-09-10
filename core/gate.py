@@ -155,8 +155,26 @@ div[data-testid="stExpander"] [data-testid="stCaptionContainer"] p {{
   opacity: 1 !important;
 }}
 div[data-testid="stExpander"] [data-baseweb="slider"] [role="slider"] {{
-  background-color: {GOLD} !important;
-  border-color: #fff0c7 !important;
+  background-color: #fff0c7 !important;
+  border: 2px solid {GOLD_DEEP} !important;
+  box-shadow: 0 0 0 2px rgba(5, 7, 26, .5) !important;
+}}
+div[data-testid="stExpander"] [data-testid="stSlider"] {{
+  background: rgba(5, 7, 26, .28);
+  border: 1px solid rgba(245, 247, 255, .34);
+  padding: .35rem .55rem .85rem;
+}}
+div[data-testid="stExpander"] .react-aria-SliderTrack > div:first-child {{
+  height: .42rem !important;
+  border-radius: .3rem;
+  box-shadow: 0 0 0 1px rgba(245, 247, 255, .5), 0 1px 3px rgba(0,0,0,.65);
+}}
+div[data-testid="stExpander"] [data-testid="stSliderThumbValue"],
+div[data-testid="stExpander"] [data-testid="stSliderThumbValue"] * {{
+  color: #fff9de !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,.9);
 }}
 div[data-testid="stExpander"] input {{ color: #f5f7ff !important; }}
 
