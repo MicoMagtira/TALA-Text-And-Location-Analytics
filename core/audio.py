@@ -159,7 +159,10 @@ def mount(
     controller = f"""
         (() => {{
           try {{
-            const host = window.parent === window ? window : window.parent;
+            // ``st.html`` executes in TALA's document. Community Cloud may
+            // frame that document, so ``window.parent`` can be cross-origin;
+            // never cross that boundary for browser-owned audio state.
+            const host = window;
             const doc = host.document;
             const config = {payload};
             const manager = host.__talaAudio || (host.__talaAudio = {{}});
