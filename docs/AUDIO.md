@@ -5,6 +5,10 @@ bytes in Streamlit session state and never sends them through a Streamlit delta.
 The browser fetches the runtime MP3 files directly, without sending them through
 the Streamlit session.
 
+The browser controller uses Streamlit's supported `st.html(...,
+unsafe_allow_javascript=True)` API rather than the deprecated
+`st.components.v1.html` iframe helper.
+
 ## Deployment delivery
 
 The primary URLs use GitHub Raw for the checked-in MP3 files. This is deliberate:

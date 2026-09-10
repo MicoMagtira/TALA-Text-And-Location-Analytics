@@ -27,7 +27,6 @@ import random
 import time
 
 import streamlit as st
-import streamlit.components.v1 as components
 
 # --- palette (National University Manila) ------------------------------------
 SKY_DEEP = "#0b0f2b"
@@ -444,11 +443,11 @@ class Splash:
         rule above rather than relying on a fragile delayed server rerun.
         """
         milliseconds = max(0, round(seconds * 1000))
-        components.html(
+        st.html(
             f"""
             <script>
             (() => {{
-              const host = window.parent;
+              const host = window.parent === window ? window : window.parent;
               host.setTimeout(
                 () => host.document.body.classList.add('tala-boot-complete'),
                 {milliseconds},
@@ -456,8 +455,7 @@ class Splash:
             }})();
             </script>
             """,
-            height=0,
-            width=0,
+            unsafe_allow_javascript=True,
         )
 
     def finish(self, message: str = "Ready") -> None:

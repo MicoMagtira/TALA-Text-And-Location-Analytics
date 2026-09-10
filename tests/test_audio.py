@@ -39,7 +39,9 @@ def test_audio_manager_uses_deployment_safe_urls_not_embedded_bytes():
     assert all(url.startswith("/app/static/audio/")
                for url in audio.STATIC_AUDIO_URLS.values())
     source = (ROOT / "core" / "audio.py").read_text(encoding="utf-8")
-    assert "components.html" in source
+    assert "st.html" in source
+    assert "unsafe_allow_javascript=True" in source
+    assert "components.html" not in source
     assert "fallbackUrls" in source
     assert "talaFallbackUrl" in source
     assert "useLocalAssets" in source
