@@ -23,6 +23,10 @@
     "src": "5ac4b197b0",
     "t": "🔊 Tingog"
   },
+  "audio.ios_volume_note": {
+    "src": "845e176ce2",
+    "t": "Sa Safari sa iPhone o iPad, gamita ang mga buton sa volume sa imong device."
+  },
   "audio.music": {
     "src": "131260cbfb",
     "t": "Musika"

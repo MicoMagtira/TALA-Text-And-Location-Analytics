@@ -42,6 +42,9 @@ def test_audio_manager_uses_deployment_safe_urls_not_embedded_bytes():
     assert "components.html" in source
     assert "fallbackUrls" in source
     assert "talaFallbackUrl" in source
+    assert "tala-volume-locked" in source
+    assert "audio.ios_volume_note" in source
+    assert 'key="audio-controls"' in source
     assert "clickHandler" in source
     assert "startLabels" in source
     assert "startMusicOnInteraction" in source
@@ -68,6 +71,15 @@ def test_gate_can_start_music_before_start_button():
 def test_static_audio_serving_is_enabled():
     config = (ROOT / ".streamlit" / "config.toml").read_text(encoding="utf-8")
     assert "enableStaticServing = true" in config
+
+
+def test_ios_volume_notice_is_translated():
+    """Every supported language explains the iOS hardware-volume limitation."""
+    import json
+
+    for lang in ("fil", "ceb", "ilo", "hil"):
+        catalog = json.loads((ROOT / "locales" / f"ui.{lang}.json").read_text(encoding="utf-8"))
+        assert catalog["audio.ios_volume_note"]["t"]
 
 
 def _run_standalone() -> int:

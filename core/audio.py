@@ -46,6 +46,23 @@ SS_SFX_ON = "audio_sfx_on"
 SS_SFX_VOLUME = "audio_sfx_volume"
 SS_STARTED = "audio_started"
 
+_IOS_VOLUME_CSS = """
+<style>
+.tala-ios-volume-note {
+  display: none;
+  margin: .45rem 0 0;
+  color: inherit;
+  font-size: .82rem;
+}
+html.tala-volume-locked .st-key-audio-controls [data-testid="stSlider"] {
+  display: none !important;
+}
+html.tala-volume-locked .st-key-audio-controls .tala-ios-volume-note {
+  display: block;
+}
+</style>
+"""
+
 
 def _defaults() -> None:
     """Initialize compact, per-session audio preferences."""
@@ -70,10 +87,12 @@ def mark_started() -> None:
 def _settings(target, *, compact: bool = False) -> None:
     """Render shared Music and SFX controls in a Streamlit container/sidebar."""
     _defaults()
+    controls = target.container(key="audio-controls")
+    controls.markdown(_IOS_VOLUME_CSS, unsafe_allow_html=True)
     if compact:
-        target.caption(i18n.t("audio.gate_hint"))
+        controls.caption(i18n.t("audio.gate_hint"))
 
-    music, sfx = target.columns(2)
+    music, sfx = controls.columns(2)
     with music:
         music.toggle(i18n.t("audio.music"), key=SS_MUSIC_ON)
         music.slider(
@@ -86,6 +105,10 @@ def _settings(target, *, compact: bool = False) -> None:
             i18n.t("audio.volume", name=i18n.t("audio.sfx")), 0, 100,
             key=SS_SFX_VOLUME, disabled=not st.session_state[SS_SFX_ON],
         )
+    controls.markdown(
+        f'<p class="tala-ios-volume-note">{i18n.t("audio.ios_volume_note")}</p>',
+        unsafe_allow_html=True,
+    )
 
 
 def gate_settings() -> None:
@@ -137,6 +160,18 @@ def mount(
             const doc = host.document;
             const config = {payload};
             const manager = host.__talaAudio || (host.__talaAudio = {{}});
+            // iPhone Safari keeps media volume under the device's physical
+            // controls. Feature-detect the locked property instead of relying
+            // on user-agent text, so iPads/newer Safari remain supported.
+            const volumeProbe = doc.createElement('audio');
+            let volumeLocked = false;
+            try {{
+              volumeProbe.volume = 0.37;
+              volumeLocked = volumeProbe.volume !== 0.37;
+            }} catch (_) {{
+              volumeLocked = true;
+            }}
+            doc.documentElement.classList.toggle('tala-volume-locked', volumeLocked);
 
             const makeAudio = (name, src, fallbackSrc, loop, preload) => {{
               let audio = doc.getElementById(`tala-audio-${{name}}`);

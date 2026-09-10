@@ -301,5 +301,6 @@
   "audio.gate_hint": "Madala ang imong mga pilion sa app. Mosugod ang tingog human sa START.",
   "audio.music": "Musika",
   "audio.sfx": "SFX",
-  "audio.volume": "Kusog sa {name}"
+  "audio.volume": "Kusog sa {name}",
+  "audio.ios_volume_note": "Sa Safari sa iPhone o iPad, gamita ang mga buton sa volume sa imong device."
 }

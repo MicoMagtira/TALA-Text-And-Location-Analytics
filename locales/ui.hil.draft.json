@@ -301,5 +301,6 @@
   "audio.gate_hint": "Madala ang imo nga mga pilion sa app. Magaumpisa ang tunog pagkatapos sang START.",
   "audio.music": "Musika",
   "audio.sfx": "SFX",
-  "audio.volume": "Bolyum sang {name}"
+  "audio.volume": "Bolyum sang {name}",
+  "audio.ios_volume_note": "Sa Safari sa iPhone ukon iPad, gamita ang mga buton sang bolyum sang imo device."
 }

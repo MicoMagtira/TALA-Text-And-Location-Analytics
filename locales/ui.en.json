@@ -346,5 +346,6 @@
   "audio.gate_hint": "Your choices carry into the app. Sound begins after START.",
   "audio.music": "Music",
   "audio.sfx": "SFX",
-  "audio.volume": "{name} volume"
+  "audio.volume": "{name} volume",
+  "audio.ios_volume_note": "On iPhone or iPad Safari, use your device volume buttons."
 }

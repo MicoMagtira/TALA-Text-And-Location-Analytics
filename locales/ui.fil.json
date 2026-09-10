@@ -23,6 +23,10 @@
     "src": "5ac4b197b0",
     "t": "🔊 Tunog"
   },
+  "audio.ios_volume_note": {
+    "src": "845e176ce2",
+    "t": "Sa Safari sa iPhone o iPad, gamitin ang mga button ng volume ng iyong device."
+  },
   "audio.music": {
     "src": "131260cbfb",
     "t": "Musika"
