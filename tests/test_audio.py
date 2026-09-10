@@ -42,6 +42,9 @@ def test_audio_manager_uses_deployment_safe_urls_not_embedded_bytes():
     assert "components.html" in source
     assert "fallbackUrls" in source
     assert "talaFallbackUrl" in source
+    assert "useLocalAssets" in source
+    assert "host.location.hostname" in source
+    assert "primaryUrls.start" in source
     assert "tala-volume-locked" in source
     assert "audio.ios_volume_note" in source
     assert 'key="audio-controls"' in source

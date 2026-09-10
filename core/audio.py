@@ -160,6 +160,14 @@ def mount(
             const doc = host.document;
             const config = {payload};
             const manager = host.__talaAudio || (host.__talaAudio = {{}});
+            // Terminal/local development must play the MP3 files in this
+            // checkout, not the versions already published on GitHub. Deployed
+            // apps keep GitHub Raw as the primary MIME-safe delivery route.
+            const localHosts = new Set(['localhost', '127.0.0.1', '::1']);
+            const useLocalAssets = localHosts.has(host.location.hostname)
+              || host.location.hostname.endsWith('.local');
+            const primaryUrls = useLocalAssets ? config.fallbackUrls : config.urls;
+            const secondaryUrls = useLocalAssets ? config.urls : config.fallbackUrls;
             // iPhone Safari keeps media volume under the device's physical
             // controls. Feature-detect the locked property instead of relying
             // on user-agent text, so iPads/newer Safari remain supported.
@@ -200,13 +208,13 @@ def mount(
             }};
 
             manager.music = makeAudio(
-              'music', config.urls.music, config.fallbackUrls.music, true, 'metadata'
+              'music', primaryUrls.music, secondaryUrls.music, true, 'metadata'
             );
             manager.start = makeAudio(
-              'start', config.urls.start, config.fallbackUrls.start, false, 'auto'
+              'start', primaryUrls.start, secondaryUrls.start, false, 'auto'
             );
             manager.click = makeAudio(
-              'click', config.urls.click, config.fallbackUrls.click, false, 'auto'
+              'click', primaryUrls.click, secondaryUrls.click, false, 'auto'
             );
             manager.config = config;
             // Keep the loop inaudible during the START cue, even if Streamlit
