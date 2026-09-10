@@ -14,6 +14,10 @@ returns `audio/mpeg` for these files. The app keeps `/app/static/audio/` as a
 same-origin fallback for local installations or a temporary GitHub delivery
 failure.
 
+When the app runs on `localhost`, it reverses that order: the checked-out
+`static/audio/` files are primary, so replacing an MP3 can be tested locally
+without first pushing it to GitHub.
+
 ## Behaviour
 
 - The language gate includes **Sound settings** before the trainee presses START.
