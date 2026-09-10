@@ -44,6 +44,8 @@ def test_audio_manager_uses_deployment_safe_urls_not_embedded_bytes():
     assert "components.html" not in source
     assert "encoded_controller" in source
     assert "atob(" in source
+    assert "(0, eval)" not in source
+    assert 'document.createElement("script")' in source
     assert "fallbackUrls" in source
     assert "talaFallbackUrl" in source
     assert "useLocalAssets" in source
