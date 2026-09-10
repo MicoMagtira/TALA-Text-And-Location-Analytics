@@ -27,6 +27,7 @@ import random
 import time
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 # --- palette (National University Manila) ------------------------------------
 SKY_DEEP = "#0b0f2b"
@@ -135,6 +136,13 @@ def _starfield(n: int = 46, seed: int = 7) -> str:
 
 _CSS = f"""
 <style>
+/* The splash is a real boot screen, not a translucent overlay. Hide the
+   navigation and Streamlit toolbar until its client-side finale has finished. */
+body:not(.tala-boot-complete):has(.tala-splash) section[data-testid="stSidebar"],
+body:not(.tala-boot-complete):has(.tala-splash) header[data-testid="stHeader"] {{
+  display: none;
+}}
+
 @keyframes tala-twinkle {{
   0%, 100% {{ opacity: var(--dim); transform: scale(1); }}
   50%      {{ opacity: 1; transform: scale(1.35); }}
@@ -427,6 +435,31 @@ class Splash:
         self._pct = pct
         self._slot.markdown(_frame(pct, message), unsafe_allow_html=True)
 
+    @staticmethod
+    def _reveal_chrome_after(seconds: float) -> None:
+        """Restore the chrome after the browser-side splash fade completes.
+
+        The component's timer runs in the browser, so waiting never occupies a
+        Streamlit script-runner thread. The class also disables the CSS hiding
+        rule above rather than relying on a fragile delayed server rerun.
+        """
+        milliseconds = max(0, round(seconds * 1000))
+        components.html(
+            f"""
+            <script>
+            (() => {{
+              const host = window.parent;
+              host.setTimeout(
+                () => host.document.body.classList.add('tala-boot-complete'),
+                {milliseconds},
+              );
+            }})();
+            </script>
+            """,
+            height=0,
+            width=0,
+        )
+
     def finish(self, message: str = "Ready") -> None:
         """Hand the rest of the minimum display time to the browser.
 
@@ -438,9 +471,12 @@ class Splash:
         if remaining <= 0.05:
             self._slot.markdown(_frame(100, message, done=True),
                                 unsafe_allow_html=True)
+            self._reveal_chrome_after(0.55)
         else:
             self._slot.markdown(_finale(self._pct, remaining),
                                 unsafe_allow_html=True)
+            # Match the CSS tail plus its half-second fade-out.
+            self._reveal_chrome_after(remaining + 0.55)
 
 
 def boot(force: bool = False) -> Splash | None:
