@@ -27,6 +27,8 @@ def test_boot_hides_chrome_until_the_splash_finishes():
     assert 'document.createElement("script")' in source
     assert "tala-show-chrome" in source
     assert "const host = window;" in source
+    assert "opacity: 0" in source
+    assert "pointer-events: none" in source
 
 
 def test_splash_reveal_bootstrap_contains_the_controller():

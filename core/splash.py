@@ -140,14 +140,18 @@ _CSS = f"""
    navigation and Streamlit toolbar until its client-side finale has finished. */
 body:not(.tala-boot-complete):has(.tala-splash) section[data-testid="stSidebar"],
 body:not(.tala-boot-complete):has(.tala-splash) header[data-testid="stHeader"] {{
-  visibility: hidden;
+  /* Opacity applies to the complete compositing layer, unlike visibility:
+     Streamlit child widgets can reset their own visibility and otherwise peek
+     through the splash. */
+  opacity: 0;
+  pointer-events: none;
   /* A CSP or browser extension must never leave navigation unavailable.
      The normal controller restores it at the splash finale; this is a
      one-time, client-only safety release after the longest boot timeline. */
   animation: tala-show-chrome 0s linear 7s forwards;
 }}
 @keyframes tala-show-chrome {{
-  to {{ visibility: visible; }}
+  to {{ opacity: 1; pointer-events: auto; }}
 }}
 
 @keyframes tala-twinkle {{
