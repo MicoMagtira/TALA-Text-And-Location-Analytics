@@ -329,6 +329,10 @@ body.tala-boot-complete .tala-splash {{
   box-shadow: 0 0 0 3px rgba(0,0,0,.4), 0 0 18px rgba(245,216,158,.45);
   opacity: 0; pointer-events: none;
 }}
+.tala-tri {{
+  display: inline-block; width: .55em; height: .65em; margin-right: .6em;
+  background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%);
+}}
 .tala-start:hover, .tala-start:focus-visible {{
   transform: translateY(-2px); outline: 3px solid #fff9de; outline-offset: 3px;
 }}
@@ -362,7 +366,7 @@ def _start_button() -> str:
     id; it is inert until the CSS fade-in at 100%."""
     from . import i18n
 
-    return f'<button id="tala-start" class="tala-start" type="button">▶ {i18n.t("gate.start")}</button>'
+    return f'<button id="tala-start" class="tala-start" type="button"><i class="tala-tri" aria-hidden="true"></i>{i18n.t("gate.start")}</button>'
 
 
 def _frame(pct: int, message: str, done: bool = False) -> str:

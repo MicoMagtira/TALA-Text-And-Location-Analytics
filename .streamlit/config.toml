@@ -6,6 +6,14 @@ secondaryBackgroundColor = "#F3F4FA"
 textColor = "#333333"             # Mine Shaft
 font = "sans serif"
 
+# The sidebar is the night sky from the gate and splash (tala = star); the main
+# area stays a light sheet so charts, maps and tables keep full contrast.
+[theme.sidebar]
+backgroundColor = "#10153a"
+secondaryBackgroundColor = "#1b2252"
+textColor = "#e6e9f8"
+primaryColor = "#F5D89E"
+
 [server]
 maxUploadSize = 50
 

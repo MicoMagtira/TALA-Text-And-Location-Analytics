@@ -18,6 +18,7 @@
   border-bottom: 4px solid var(--nu-gold);
 }
 .tala-header h1 {
+  display: flex; align-items: center; gap: 1rem;
   margin: 0;
   font-size: clamp(1.35rem, 3.6vw, 2.1rem);
   font-weight: 800;
@@ -174,37 +175,171 @@ div[data-testid="stElementContainer"]:has(script),
 div[data-testid="stDeckGlJsonChart"] { min-height: 520px; }
 .stPlotlyChart { min-height: 300px; }
 
-/* Progress strip: one pixel block per page, never wrapping (not even on phones). */
+/* ---- Night theme ------------------------------------------------------ */
+/* Tala means star: the app sits on the same pixel night sky as the gate and
+   splash, and the working area is a white sheet on top of it so charts, maps
+   and tables keep their full contrast. */
+:root {
+  --sky-deep: #0b0f2b;
+  --sky-mid: #1b2559;
+  --ink-navy: #1b2559;
+  --tala-star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 13' shape-rendering='crispEdges'%3E%3Crect x='7' y='0' width='1' height='1'/%3E%3Crect x='7' y='1' width='1' height='1'/%3E%3Crect x='6' y='2' width='3' height='1'/%3E%3Crect x='6' y='3' width='3' height='1'/%3E%3Crect x='2' y='4' width='11' height='1'/%3E%3Crect x='1' y='5' width='13' height='1'/%3E%3Crect x='2' y='6' width='11' height='1'/%3E%3Crect x='3' y='7' width='9' height='1'/%3E%3Crect x='4' y='8' width='7' height='1'/%3E%3Crect x='4' y='9' width='7' height='1'/%3E%3Crect x='4' y='10' width='7' height='1'/%3E%3Crect x='3' y='11' width='3' height='1'/%3E%3Crect x='9' y='11' width='3' height='1'/%3E%3Crect x='3' y='12' width='2' height='1'/%3E%3Crect x='10' y='12' width='2' height='1'/%3E%3C/svg%3E");
+}
+.stApp {
+  background-color: var(--sky-deep);
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='240'%20height='240'%20shape-rendering='crispEdges'%3E%3Crect%20x='14'%20y='22'%20width='2'%20height='2'%20fill='%23F5D89E'%20fill-opacity='0.55'/%3E%3Crect%20x='61'%20y='140'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.4'/%3E%3Crect%20x='96'%20y='48'%20width='2'%20height='2'%20fill='%23F5D89E'%20fill-opacity='0.7'/%3E%3Crect%20x='131'%20y='201'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.45'/%3E%3Crect%20x='172'%20y='92'%20width='3'%20height='3'%20fill='%23F5D89E'%20fill-opacity='0.6'/%3E%3Crect%20x='208'%20y='17'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.5'/%3E%3Crect%20x='226'%20y='160'%20width='2'%20height='2'%20fill='%23F5D89E'%20fill-opacity='0.5'/%3E%3Crect%20x='40'%20y='210'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.35'/%3E%3Crect%20x='150'%20y='130'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.3'/%3E%3Crect%20x='84'%20y='186'%20width='2'%20height='2'%20fill='%23F5D89E'%20fill-opacity='0.45'/%3E%3Crect%20x='190'%20y='228'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.4'/%3E%3Crect%20x='118'%20y='8'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.5'/%3E%3Crect%20x='24'%20y='104'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.4'/%3E%3Crect%20x='233'%20y='66'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.35'/%3E%3C/svg%3E"),
+    radial-gradient(120% 70% at 50% 0%, var(--sky-mid) 0%, var(--sky-deep) 58%, #05071a 100%);
+  background-attachment: fixed;
+}
+header[data-testid="stHeader"] { background: transparent; }
+[data-testid="stMainBlockContainer"] {
+  background: #fff;
+  border-radius: 18px;
+  margin-top: 2.2rem;
+  margin-bottom: 2.2rem;
+  padding: 2rem 2.6rem 1.6rem !important;
+  box-shadow: 0 0 0 1px rgba(245, 216, 158, 0.18), 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+@media (max-width: 768px) {
+  [data-testid="stMainBlockContainer"] {
+    border-radius: 12px; margin-top: 2.8rem; padding: 1.2rem 0.9rem !important;
+  }
+}
+.tala-header-star { flex: none; margin-right: 0.35rem; width: 45px; height: 39px; filter: drop-shadow(0 0 8px rgba(245, 216, 158, 0.55)); }
+.tala-footer { border-top-color: var(--nu-gold); }
+
+/* Sidebar: the night sky continues; the theme's [theme.sidebar] sets the base colours. */
+section[data-testid="stSidebar"] {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='240'%20height='240'%20shape-rendering='crispEdges'%3E%3Crect%20x='14'%20y='22'%20width='2'%20height='2'%20fill='%23F5D89E'%20fill-opacity='0.55'/%3E%3Crect%20x='61'%20y='140'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.4'/%3E%3Crect%20x='96'%20y='48'%20width='2'%20height='2'%20fill='%23F5D89E'%20fill-opacity='0.7'/%3E%3Crect%20x='131'%20y='201'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.45'/%3E%3Crect%20x='172'%20y='92'%20width='3'%20height='3'%20fill='%23F5D89E'%20fill-opacity='0.6'/%3E%3Crect%20x='208'%20y='17'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.5'/%3E%3Crect%20x='226'%20y='160'%20width='2'%20height='2'%20fill='%23F5D89E'%20fill-opacity='0.5'/%3E%3Crect%20x='40'%20y='210'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.35'/%3E%3Crect%20x='150'%20y='130'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.3'/%3E%3Crect%20x='84'%20y='186'%20width='2'%20height='2'%20fill='%23F5D89E'%20fill-opacity='0.45'/%3E%3Crect%20x='190'%20y='228'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.4'/%3E%3Crect%20x='118'%20y='8'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.5'/%3E%3Crect%20x='24'%20y='104'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.4'/%3E%3Crect%20x='233'%20y='66'%20width='1'%20height='1'%20fill='%23F5D89E'%20fill-opacity='0.35'/%3E%3C/svg%3E");
+  border-right: 1px solid rgba(245, 216, 158, 0.16);
+}
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 { color: var(--nu-gold); }
+section[data-testid="stSidebar"] [data-testid="stNavSectionHeader"],
+section[data-testid="stSidebar"] [data-testid="stNavSectionHeader"] * {
+  color: var(--nu-gold) !important; font-family: "Courier New", ui-monospace, monospace;
+  letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.72rem; font-weight: 700;
+}
+section[data-testid="stSidebar"] [data-testid="stExpander"] details {
+  border-color: rgba(245, 216, 158, 0.28);
+  background: rgba(5, 7, 26, 0.35);
+}
+.tala-set-head {
+  margin: 0.9rem 0 0.25rem;
+  font-family: "Courier New", ui-monospace, monospace;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--nu-gold);
+}
+section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] { color: #aab3dd; }
+
+/* ---- Track progress: a constellation of pixel stars ------------------ */
+.st-key-tala-strip { position: relative; margin: 0.1rem 0 0.6rem; }
+.st-key-tala-strip::before,
+.tala-constellation::before {
+  content: ""; position: absolute; left: 3%; right: 3%; top: 50%; height: 2px;
+  background: repeating-linear-gradient(90deg, rgba(53, 64, 142, 0.32) 0 6px, transparent 6px 11px);
+  transform: translateY(-50%); pointer-events: none;
+}
 .st-key-tala-strip div[data-testid="stHorizontalBlock"] {
-  flex-wrap: nowrap !important; gap: 4px !important; margin-bottom: 0.4rem;
+  flex-wrap: nowrap !important; gap: 0 !important; position: relative;
 }
 .st-key-tala-strip div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"],
 .st-key-tala-strip div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
   min-width: 0 !important; flex: 1 1 0 !important;
 }
-.st-key-tala-strip a {
-  display: flex; justify-content: center; padding: 0.15rem 0 !important;
-  border: 2px solid var(--nu-navy); border-radius: 0; min-height: 0;
-  font-family: "Courier New", ui-monospace, monospace; font-size: 0.7rem; font-weight: 700;
-  color: var(--nu-navy); background: #eceef8;
+.st-key-tala-strip [data-testid="stElementContainer"] { width: 100% !important; }
+.st-key-tala-strip [data-testid="stPageLink"],
+.st-key-tala-strip [data-testid="stPageLink"] > div,
+.st-key-tala-strip [data-testid="stTooltipHoverTarget"] { display: flex !important; justify-content: center !important; width: 100%; }
+/* One star per step on a white disc, so the dotted line stops at each star. */
+.st-key-tala-strip a[data-testid="stPageLink-NavLink"] {
+  position: relative; display: flex !important; align-items: center; justify-content: center;
+  width: 40px; height: 40px; min-height: 0; padding: 0 !important; margin: 0 auto;
+  border: 0 !important; border-radius: 50% !important; background: #fff !important;
 }
-.st-key-tala-strip a p { font-size: 0.7rem; margin: 0; }
-[class*="st-key-tala-seg-done-"] a { background: var(--nu-gold); border-color: var(--nu-gold-deep); color: var(--nu-dark); }
-[class*="st-key-tala-seg-current-"] a { background: #fff; outline: 2px solid var(--nu-gold-deep); outline-offset: 1px; }
-[class*="st-key-tala-seg-todo-"] a { opacity: 0.6; }
-
-/* Static segments (Home's track cards). */
-.tala-segs { display: flex; gap: 4px; margin: 0.3rem 0 0.5rem; }
-.tala-seg { flex: 1; height: 12px; border: 2px solid var(--nu-navy); background: #eceef8; opacity: 0.6; }
-.tala-seg-done { background: var(--nu-gold); border-color: var(--nu-gold-deep); opacity: 1; }
-.tala-seg-current { background: #fff; opacity: 1; }
-
-/* Back / Next footer. */
-.st-key-tala-footnav { margin-top: 1.6rem; padding-top: 0.8rem; border-top: 2px solid var(--nu-gold); }
-.st-key-tala-footnav a {
-  border: 2px solid var(--nu-navy); border-radius: 0; padding: 0.35rem 0.9rem;
-  font-family: "Courier New", ui-monospace, monospace; font-weight: 700; color: var(--nu-navy);
+/* The step number stays in the link for screen readers; the star replaces it visually. */
+.st-key-tala-strip a[data-testid="stPageLink-NavLink"] > * {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
 }
-.st-key-tala-footnav-next a { background: var(--nu-navy); color: #fff; }
-.st-key-tala-footnav-next { display: flex; justify-content: flex-end; }
-.st-key-tala-complete { background: linear-gradient(120deg, #fff8e6, #fff); border-color: var(--nu-gold-deep) !important; }
+.st-key-tala-strip a[data-testid="stPageLink-NavLink"]::before,
+.tala-star::before {
+  content: ""; display: block; width: 26px; height: 23px;
+  background: var(--star-c, rgba(53, 64, 142, 0.28));
+  -webkit-mask: var(--tala-star) center / contain no-repeat;
+  mask: var(--tala-star) center / contain no-repeat;
+  transition: transform 140ms steps(2), background-color 140ms steps(2);
+}
+.st-key-tala-strip a[data-testid="stPageLink-NavLink"]:hover::before { transform: scale(1.18); --star-c: var(--nu-navy); }
+[class*="st-key-tala-seg-done-"] { --star-c: var(--nu-gold-deep); }
+[class*="st-key-tala-seg-current-"] { --star-c: var(--nu-gold-deep); }
+[class*="st-key-tala-seg-current-"] a[data-testid="stPageLink-NavLink"]::before {
+  width: 34px; height: 30px; filter: drop-shadow(0 0 6px rgba(201, 150, 46, 0.75));
+}
+@keyframes tala-star-pulse { 50% { filter: drop-shadow(0 0 12px rgba(201, 150, 46, 0.95)); } }
+@media (prefers-reduced-motion: no-preference) {
+  [class*="st-key-tala-seg-current-"] a[data-testid="stPageLink-NavLink"]::before {
+    animation: tala-star-pulse 1.8s steps(4) infinite;
+  }
+}
+
+/* Static constellation on Home's track cards. */
+.tala-constellation {
+  position: relative; display: flex; justify-content: space-between; align-items: center;
+  margin: 0.4rem 0 0.5rem; padding: 0 1%;
+}
+.tala-star {
+  position: relative; z-index: 1; display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 50%; background: #fff;
+}
+.tala-star::before { width: 22px; height: 19px; }
+.tala-star-todo { --star-c: rgba(53, 64, 142, 0.28); }
+.tala-star-done, .tala-star-current { --star-c: var(--nu-gold-deep); }
+
+/* ---- Buttons: one gold pixel style for every "go somewhere" link ----- */
+.st-key-tala-footnav { margin-top: 1.8rem; padding-top: 1.1rem; border-top: 2px solid var(--nu-gold); }
+.st-key-tala-footnav a,
+.st-key-tala-continue a,
+[class*="st-key-tala-card-"] [data-testid="stPageLink"] a,
+.st-key-tala-complete [data-testid="stPageLink"] a,
+.st-key-tala-locked [data-testid="stPageLink"] a {
+  background: var(--nu-gold) !important;
+  border: 3px solid var(--ink-navy) !important;
+  border-radius: 0 !important;
+  box-shadow: 4px 4px 0 var(--ink-navy);
+  padding: 0.45rem 1.05rem !important;
+  transition: transform 100ms steps(2), box-shadow 100ms steps(2);
+}
+.st-key-tala-footnav a *,
+.st-key-tala-continue a *,
+[class*="st-key-tala-card-"] [data-testid="stPageLink"] a *,
+.st-key-tala-complete [data-testid="stPageLink"] a *,
+.st-key-tala-locked [data-testid="stPageLink"] a * {
+  color: var(--ink-navy) !important;
+}
+.st-key-tala-footnav a p,
+.st-key-tala-continue a p,
+[class*="st-key-tala-card-"] [data-testid="stPageLink"] a p,
+.st-key-tala-complete [data-testid="stPageLink"] a p,
+.st-key-tala-locked [data-testid="stPageLink"] a p {
+  font-family: "Courier New", ui-monospace, monospace; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.st-key-tala-footnav a:hover,
+.st-key-tala-continue a:hover,
+[class*="st-key-tala-card-"] [data-testid="stPageLink"] a:hover,
+.st-key-tala-complete [data-testid="stPageLink"] a:hover,
+.st-key-tala-locked [data-testid="stPageLink"] a:hover {
+  background: #f9e4b8 !important; transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink-navy);
+}
+
+/* Cards: Continue, track cards, track complete. */
+.st-key-tala-continue, [class*="st-key-tala-card-"] { border-color: #e3e6f4 !important; }
+.st-key-tala-continue { border-left: 4px solid var(--nu-gold-deep) !important; }
+.st-key-tala-complete {
+  background: linear-gradient(120deg, #fff8e6, #fff); border-color: var(--nu-gold-deep) !important;
+}
+.st-key-tala-complete h3 { display: flex; align-items: center; gap: 0.6rem; }
+.st-key-tala-complete h3::before {
+  content: ""; width: 30px; height: 26px; flex: none; background: var(--nu-gold-deep);
+  -webkit-mask: var(--tala-star) center / contain no-repeat; mask: var(--tala-star) center / contain no-repeat;
+}

@@ -50,7 +50,7 @@ if src == UPLOAD:
             g_text, g_lon, g_lat = dl.guess_columns(dl.dataset(new_key))
             dl.set_active(new_key, g_text, g_lon, g_lat,
                           i18n.t("text_1_data.upload_name", name=up.name))
-            st.toast(i18n.t("text_1_data.toast_upload", name=up.name), icon="📥")
+            st.toast(i18n.t("text_1_data.toast_upload", name=up.name), icon=":material/upload_file:")
             audio.cue("upload")
     elif dl.source_key() == dl.BUNDLED_KEY:
         st.caption(i18n.t("text_1_data.upload_hint"))
@@ -60,7 +60,7 @@ elif dl.source_key() != dl.BUNDLED_KEY:
     # Stored untranslated: ui.source_label() localizes it for display, so the
     # label survives a mid-session language switch.
     dl.set_active(dl.BUNDLED_KEY, g_text, g_lon, g_lat, dl.BUNDLED_LABEL)
-    st.toast(i18n.t("text_1_data.toast_bundled"), icon="📦")
+    st.toast(i18n.t("text_1_data.toast_bundled"), icon=":material/dataset:")
 
 source_key = dl.source_key()
 df = dl.active_df()   # shared, read-only

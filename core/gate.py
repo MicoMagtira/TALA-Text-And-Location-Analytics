@@ -210,7 +210,13 @@ div[data-testid="stExpander"] input {{ color: #f5f7ff !important; }}
 .stButton > button[kind="primary"]:hover {{
   color: #1b2559; background: linear-gradient(to bottom, {GOLD} 0 45%, {GOLD_DEEP} 45% 100%);
 }}
-.stButton > button:disabled {{ opacity: .35; }}
+/* Continue before a language is picked: one flat, quiet tone (the primary
+   two-tone gold would read as a broken half-lit button at low opacity). */
+.stButton > button:disabled,
+.stButton > button[kind="primary"]:disabled {{
+  background: rgba(0,0,0,.35); border-color: {NAVY}; color: {INK_ON_SKY};
+  box-shadow: none; opacity: .55; cursor: not-allowed; transform: none;
+}}
 .tala-greet {{
   text-align: center; color: {INK_ON_SKY}; opacity: .7; margin-top: .25rem;
   font-family: "Courier New", ui-monospace, monospace; font-size: .68rem;

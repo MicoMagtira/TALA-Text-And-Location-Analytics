@@ -223,7 +223,7 @@ def active_df() -> pd.DataFrame:
         # The upload aged out of the shared cache; fall back rather than crash.
         from . import i18n
 
-        st.warning(i18n.t("data.upload_expired"), icon="⚠️")
+        st.warning(i18n.t("data.upload_expired"), icon=":material/warning:")
         text, lon, lat = guess_columns(_bundled())
         set_active(BUNDLED_KEY, text, lon, lat, BUNDLED_LABEL)
         df = _bundled()

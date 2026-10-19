@@ -83,3 +83,17 @@ def test_no_folium_or_branca_imports():
     files.append(ROOT / "app.py")
     pat = re.compile(r"^\s*(import|from)\s+(folium|branca|streamlit_folium)\b", re.M)
     assert [f.name for f in files if pat.search(f.read_text(encoding="utf-8"))] == []
+
+
+def test_unit_props_are_literals_not_accessors():
+    """pydeck turns bare strings into ``@@=`` expressions; units must stay literal.
+
+    ``radius_units="pixels"`` serialises as ``"@@=pixels"``, which deck.gl
+    evaluates to undefined, so points were drawn in metres as huge blobs."""
+    import json
+
+    gdf = _gdf(20)
+    layers = [maps.cluster_layer(gdf, ["#35408E"]), maps.points_layer(maps.to_frame(gdf))]
+    for layer in layers:
+        spec = json.loads(maps.deck([layer], maps.view_for(maps.to_frame(gdf))).to_json())["layers"][0]
+        assert not str(spec.get("radiusUnits", "")).startswith("@@="), spec.get("radiusUnits")

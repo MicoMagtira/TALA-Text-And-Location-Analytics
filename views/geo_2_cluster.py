@@ -1,4 +1,4 @@
-import pandas as pd
+import plotly.express as px
 import streamlit as st
 
 from core import data_loader as dl
@@ -100,7 +100,7 @@ def _cluster_map(result, palette):
         return
     n = int((result["cluster_id"] == cid).sum())
     st.info(i18n.t("geo_2_cluster.picked", id=cid, n=n))
-    st.page_link("views/geo_5_nlp.py", label=i18n.t("geo_5_nlp.nav"), icon="➡️")
+    st.page_link(tracks.path_of("geo_5_nlp"), label=i18n.t("geo_5_nlp.nav"), icon=":material/arrow_forward:")
 
 
 _cluster_map(result, palette)
@@ -109,8 +109,15 @@ st.markdown(i18n.t("geo_2_cluster.sizes_head"))
 sizes = (result[result["cluster_id"] != -1]["cluster_id"]
          .value_counts().sort_index())
 if len(sizes):
-    st.bar_chart(pd.DataFrame({i18n.t("geo_2_cluster.points"): sizes.values},
-                              index=[f"C{c}" for c in sizes.index]))
+    # Plotly like every other chart in TALA (brand template), with the clusters
+    # kept in numeric order; st.bar_chart sorted the labels as text (C0, C1, C10...).
+    labels = [f"C{c}" for c in sizes.index]
+    fig = px.bar(x=labels, y=sizes.values, color_discrete_sequence=[viz.NU_NAVY])
+    layout = viz.plotly_template(ui.palette())["layout"]
+    layout["xaxis"] = {**layout["xaxis"], "categoryorder": "array", "categoryarray": labels}
+    fig.update_layout(**layout, height=340, xaxis_title="",
+                      yaxis_title=i18n.t("geo_2_cluster.points"))
+    st.plotly_chart(fig, width="stretch")
 else:
     ui.info(i18n.t("geo_2_cluster.no_clusters"))
 

@@ -88,7 +88,7 @@ else:
                       yaxis_title=i18n.t("text_3_sentiment.axis_hits"))
     st.plotly_chart(fig, width="stretch")
 
-st.warning(i18n.t("text_3_sentiment.teaching_note"), icon="⚠️")
+st.warning(i18n.t("text_3_sentiment.teaching_note"), icon=":material/warning:")
 
 ui.page_done(PAGE)
 ui.track_footer(PAGE)

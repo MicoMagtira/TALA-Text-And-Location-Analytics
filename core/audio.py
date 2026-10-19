@@ -99,10 +99,15 @@ def gate_settings() -> None:
         _settings(st)
 
 
-def sidebar_settings() -> None:
-    """Persistent controls available throughout the app."""
-    st.sidebar.markdown(f"### {i18n.t('audio.heading')}")
-    _settings(st.sidebar)
+def sidebar_settings(target=None) -> None:
+    """Music and SFX controls for the sidebar's Settings panel.
+
+    ``target`` is the container to draw into (the Settings expander); it defaults
+    to the sidebar itself."""
+    target = target or st.sidebar
+    target.markdown(f'<p class="tala-set-head">{i18n.t("audio.heading")}</p>',
+                    unsafe_allow_html=True)
+    _settings(target)
 
 
 def _html_script(js: str, *, marker: str = "") -> None:

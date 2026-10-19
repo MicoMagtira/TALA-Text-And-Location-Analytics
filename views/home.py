@@ -16,7 +16,8 @@ if pos:
     with st.container(border=True, key="tala-continue"):
         track, index, total = pos
         st.markdown(f"**{i18n.t('home.continue', title=i18n.t(f'{last}.title'), track=i18n.t(f'home.track_{track}'), index=index, total=total)}**")
-        st.page_link(tracks.path_of(last), label=i18n.t("home.continue_btn"), icon="▶")
+        st.page_link(tracks.path_of(last), label=i18n.t("home.continue_btn"),
+                     icon=":material/arrow_forward:", icon_position="right")
 
 # --- Your path ----------------------------------------------------------------
 st.markdown(i18n.t("home.path_head"))
@@ -31,7 +32,8 @@ for col, track in zip(st.columns(2), ("text", "geo")):
         st.markdown(i18n.t(f"home.{track}_list"))
         verb = "start" if n_done == 0 else ("review" if n_done == len(pages) else "resume")
         st.page_link(tracks.path_of(tracks.first_todo(track)),
-                     label=i18n.t(f"home.{verb}"), icon="▶")
+                     label=i18n.t(f"home.{verb}"),
+                     icon=":material/arrow_forward:", icon_position="right")
 
 # --- Dataset ------------------------------------------------------------------
 st.markdown(i18n.t("home.dataset_head"))

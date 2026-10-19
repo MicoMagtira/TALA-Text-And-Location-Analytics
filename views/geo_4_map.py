@@ -25,7 +25,7 @@ st.markdown(i18n.t("geo_4_map.clip_head"))
 if dl.cluster_params_are_default():
     st.caption(i18n.t("geo_2_cluster.using_defaults",
                       eps=int(eps_m / 1000), n=min_samples))
-    st.page_link("views/geo_2_cluster.py", label=i18n.t("geo_2_cluster.nav"), icon="🎚️")
+    st.page_link("views/geo_2_cluster.py", label=i18n.t("geo_2_cluster.nav"), icon=":material/tune:")
 
 with audio.result(tracks.SIGNATURE[PAGE], key + (eps_m, min_samples)):
     clipped, clip_info = geo.clipped_for(*key, eps_m, min_samples)

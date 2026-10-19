@@ -24,7 +24,7 @@ eps_m, min_samples = dl.cluster_params()
 if dl.cluster_params_are_default():
     st.caption(i18n.t("geo_2_cluster.using_defaults",
                       eps=int(eps_m / 1000), n=min_samples))
-    st.page_link("views/geo_2_cluster.py", label=i18n.t("geo_2_cluster.nav"), icon="🎚️")
+    st.page_link("views/geo_2_cluster.py", label=i18n.t("geo_2_cluster.nav"), icon=":material/tune:")
 
 clusters, _ = geo.clusters_for(*key, eps_m, min_samples)
 text_col = key[3]
@@ -45,7 +45,7 @@ st.dataframe(summary, width="stretch")
 st.download_button(i18n.t("geo_5_nlp.dl"), summary.to_csv(index=False),
                    "tala_cluster_summary.csv", "text/csv")
 
-st.info(i18n.t("geo_5_nlp.privacy"), icon="🔒")
+st.info(i18n.t("geo_5_nlp.privacy"), icon=":material/lock:")
 
 st.markdown(i18n.t("geo_5_nlp.map_head"))
 centroids = geo.cluster_centroids(clusters, exclude_noise=True)

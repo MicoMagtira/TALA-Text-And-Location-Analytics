@@ -36,21 +36,31 @@ CLUSTER_LAYER_ID = "clusters"
 
 
 def view_for(lonlat_df):
-    """Fit the camera to the points, falling back to the whole Philippines.
+    """Fit the camera to where the points actually are, falling back to the Philippines.
 
-    ``lonlat_df`` needs ``lon`` and ``lat`` columns. ``compute_view`` can produce
-    a degenerate zoom for a single point, so we clamp it."""
+    ``lonlat_df`` needs ``lon`` and ``lat`` columns. The fit is deliberately
+    robust: the centre is the median and the extent comes from the interquartile
+    range. TALA's bundled data is dirty on purpose (about 30% of coordinates fall
+    outside the Philippines, scattered worldwide), and a min/max or mean-based
+    fit such as ``pdk.data_utils.compute_view`` zooms out to half the globe. The
+    trainee can still pan out to see the stray points."""
+    import numpy as np
     import pydeck as pdk
 
     lat, lon, zoom = PH_FALLBACK
     if lonlat_df is not None and len(lonlat_df):
-        try:
-            v = pdk.data_utils.compute_view(lonlat_df[["lon", "lat"]],
-                                            view_proportion=0.95)
-            return pdk.ViewState(latitude=v.latitude, longitude=v.longitude,
-                                 zoom=float(min(max(v.zoom, 1), 14)))
-        except Exception:
-            pass
+        xs = lonlat_df["lon"].to_numpy(dtype=float)
+        ys = lonlat_df["lat"].to_numpy(dtype=float)
+        ok = np.isfinite(xs) & np.isfinite(ys)
+        if ok.any():
+            xs, ys = xs[ok], ys[ok]
+            span = max(float(np.subtract(*np.percentile(xs, [75, 25]))),
+                       1.3 * float(np.subtract(*np.percentile(ys, [75, 25]))))
+            span = max(span * 3.5, 0.05)  # IQR covers half the points; widen to frame them
+            # 256 * 2**zoom px span 360 degrees; aim for ~1100 px across the extent.
+            zoom = float(np.clip(np.log2(1100 * 360 / (256 * span)), 3, 14))
+            return pdk.ViewState(latitude=float(np.median(ys)),
+                                 longitude=float(np.median(xs)), zoom=zoom)
     return pdk.ViewState(latitude=lat, longitude=lon, zoom=zoom)
 
 
@@ -106,7 +116,7 @@ def points_layer(df, color=(53, 64, 142, 180), radius_px: int = 3):
 
     return pdk.Layer(
         "ScatterplotLayer", id="points", data=df, get_position="[lon, lat]",
-        get_fill_color=list(color), get_radius=radius_px, radius_units="pixels",
+        get_fill_color=list(color), get_radius=radius_px, radius_units="'pixels'",
         radius_min_pixels=1, pickable="tip" in df.columns,
     )
 
@@ -141,7 +151,7 @@ def cluster_layer(gdf, palette_hexes, cap: int = 50_000, frame=None):
     return pdk.Layer(
         "ScatterplotLayer", id=CLUSTER_LAYER_ID, data=df,
         get_position="[lon, lat]", get_fill_color="color", get_radius="radius",
-        radius_units="pixels", pickable=True, auto_highlight=True,
+        radius_units="'pixels'", pickable=True, auto_highlight=True,
     )
 
 
@@ -197,7 +207,7 @@ def centroid_layer(cent_gdf, color_by=None):
                    for s in sent]
     return pdk.Layer(
         "ScatterplotLayer", id="centroids", data=df, get_position="[lon, lat]",
-        get_fill_color="color", get_radius="radius_m", radius_units="meters",
+        get_fill_color="color", get_radius="radius_m", radius_units="'meters'",
         radius_min_pixels=4, stroked=True, get_line_color=[53, 64, 142, 230],
         line_width_min_pixels=1, pickable=True, auto_highlight=True,
     )

@@ -23,7 +23,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="TALA — Text And Location Analytics",
-    page_icon="🌟",
+    page_icon=":material/star:",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -72,32 +72,32 @@ ui.sidebar_controls()
 # Titles come from the catalog; the ones that should stay English (Topic
 # Modeling, Clustering (DBSCAN), Generalization) simply have no translation and
 # fall through to the English source. See core/i18n.py.
-home = st.Page("views/home.py", title=i18n.t("home.nav"), icon="🏠", default=True)
+home = st.Page("views/home.py", title=i18n.t("home.nav"), icon=":material/home:", default=True)
 
 text_pages = [
-    st.Page("views/text_1_data.py", title=i18n.t("text_1_data.nav"), icon="🧹"),
-    st.Page("views/text_2_wordcloud.py", title=i18n.t("text_2_wordcloud.nav"), icon="☁️"),
-    st.Page("views/text_3_sentiment.py", title=i18n.t("text_3_sentiment.nav"), icon="😊"),
-    st.Page("views/text_4_ngrams.py", title=i18n.t("text_4_ngrams.nav"), icon="🔗"),
-    st.Page("views/text_5_topics.py", title=i18n.t("text_5_topics.nav"), icon="🧩"),
-    st.Page("views/text_6_keywords.py", title=i18n.t("text_6_keywords.nav"), icon="🔑"),
-    st.Page("views/text_7_metrics.py", title=i18n.t("text_7_metrics.nav"), icon="📐"),
-    st.Page("views/text_8_themes.py", title=i18n.t("text_8_themes.nav"), icon="🎯"),
+    st.Page("views/text_1_data.py", title=i18n.t("text_1_data.nav"), icon=":material/cleaning_services:"),
+    st.Page("views/text_2_wordcloud.py", title=i18n.t("text_2_wordcloud.nav"), icon=":material/cloud:"),
+    st.Page("views/text_3_sentiment.py", title=i18n.t("text_3_sentiment.nav"), icon=":material/sentiment_satisfied:"),
+    st.Page("views/text_4_ngrams.py", title=i18n.t("text_4_ngrams.nav"), icon=":material/hub:"),
+    st.Page("views/text_5_topics.py", title=i18n.t("text_5_topics.nav"), icon=":material/category:"),
+    st.Page("views/text_6_keywords.py", title=i18n.t("text_6_keywords.nav"), icon=":material/key:"),
+    st.Page("views/text_7_metrics.py", title=i18n.t("text_7_metrics.nav"), icon=":material/straighten:"),
+    st.Page("views/text_8_themes.py", title=i18n.t("text_8_themes.nav"), icon=":material/scatter_plot:"),
 ]
 
 geo_pages = [
-    st.Page("views/geo_1_ingest.py", title=i18n.t("geo_1_ingest.nav"), icon="🛰️"),
-    st.Page("views/geo_2_cluster.py", title=i18n.t("geo_2_cluster.nav"), icon="🧭"),
-    st.Page("views/geo_3_generalize.py", title=i18n.t("geo_3_generalize.nav"), icon="🔲"),
-    st.Page("views/geo_4_map.py", title=i18n.t("geo_4_map.nav"), icon="🗺️"),
-    st.Page("views/geo_5_nlp.py", title=i18n.t("geo_5_nlp.nav"), icon="📍"),
+    st.Page("views/geo_1_ingest.py", title=i18n.t("geo_1_ingest.nav"), icon=":material/satellite_alt:"),
+    st.Page("views/geo_2_cluster.py", title=i18n.t("geo_2_cluster.nav"), icon=":material/bubble_chart:"),
+    st.Page("views/geo_3_generalize.py", title=i18n.t("geo_3_generalize.nav"), icon=":material/grid_on:"),
+    st.Page("views/geo_4_map.py", title=i18n.t("geo_4_map.nav"), icon=":material/map:"),
+    st.Page("views/geo_5_nlp.py", title=i18n.t("geo_5_nlp.nav"), icon=":material/pin_drop:"),
 ]
 
 nav = st.navigation({
     i18n.t("nav.overview"): [home],
     i18n.t("nav.text"): text_pages,
     i18n.t("nav.geo"): geo_pages,
-})
+}, expanded=True)  # all 14 pages visible; no "View more" fold hiding the geo track
 
 # The music follows the page about to run. url_path is "" for Home.
 area = tracks.area_for(nav.url_path or "")

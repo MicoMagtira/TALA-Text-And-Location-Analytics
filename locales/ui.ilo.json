@@ -12,12 +12,12 @@
     "t": "Maysa nga inisiatiba ti NU DOST-NICER Program"
   },
   "audio.gate_heading": {
-    "src": "cdd9e17c75",
-    "t": "⚙ Dagiti setting ti uni"
+    "src": "175245275e",
+    "t": "Dagiti setting ti uni"
   },
   "audio.heading": {
-    "src": "5ac4b197b0",
-    "t": "🔊 Uni"
+    "src": "acdac205f5",
+    "t": "Uni"
   },
   "audio.music": {
     "src": "131260cbfb",
@@ -168,8 +168,8 @@
     "t": "Agbiruk kadagiti napuskol a bunggoy ti punto babaen ti DBSCAN, nga us-usaren ti k-distance elbow tapno makapili iti maikanawa nga eps."
   },
   "geo_2_cluster.defaults": {
-    "src": "554d164aa0",
-    "t": "↺ Default ti lab"
+    "src": "345956fe64",
+    "t": "Default ti lab"
   },
   "geo_2_cluster.eps": {
     "src": "0dc4027b19",
@@ -192,8 +192,8 @@
     "t": "kaadayo iti maika-{k} a kaarruba (km)"
   },
   "geo_2_cluster.kdist_head": {
-    "src": "29073c6daa",
-    "t": "📈 k-distance plot (birukem ti siko para iti eps)"
+    "src": "d86eeb8e33",
+    "t": "k-distance plot (birukem ti siko para iti eps)"
   },
   "geo_2_cluster.m_clustered": {
     "src": "075f0c3106",
@@ -248,8 +248,8 @@
     "t": "Cluster {id} · {n} points"
   },
   "geo_3_generalize.dl": {
-    "src": "870444de6d",
-    "t": "⬇️ I-download ti generalized layer (GeoJSON)"
+    "src": "addd04d98b",
+    "t": "I-download ti generalized layer (GeoJSON)"
   },
   "geo_3_generalize.exclude": {
     "src": "38d1443cab",
@@ -284,12 +284,12 @@
     "t": "#### 1 · I-clip iti daga ti Filipinas"
   },
   "geo_4_map.dl_geojson": {
-    "src": "eeb84ce011",
-    "t": "⬇️ Na-clip a layer (GeoJSON)"
+    "src": "89f13bff9a",
+    "t": "Na-clip a layer (GeoJSON)"
   },
   "geo_4_map.dl_meta": {
-    "src": "6e90c9804d",
-    "t": "⬇️ metadata.json"
+    "src": "3e0d0e116c",
+    "t": "metadata.json"
   },
   "geo_4_map.exports_head": {
     "src": "322135f3cc",
@@ -328,8 +328,8 @@
     "t": "Ti punto ti panagtipon: ti tunggal espasial a cluster ket ma-profile babaen ti TF-IDF keywords + VADER sentiment — aggregate laeng ti maipakita, saan a pulos a gubsang a text."
   },
   "geo_5_nlp.dl": {
-    "src": "3a74eb8f2b",
-    "t": "⬇️ I-download ti buod ti cluster (CSV)"
+    "src": "f632f731fc",
+    "t": "I-download ti buod ti cluster (CSV)"
   },
   "geo_5_nlp.map_head": {
     "src": "49df8affd8",
@@ -348,8 +348,8 @@
     "t": "Awan ti text column a masukimat iti clustered layer."
   },
   "geo_5_nlp.privacy": {
-    "src": "42cadf7258",
-    "t": "🔒 **Privacy-safe ti disenio:** ti tabla ken ti mapa ket agipakpakita laeng kadagiti keywords ken porsiento ti sentiment iti tukad ti cluster — saan a pulos nga indibidual a komento."
+    "src": "00989a790f",
+    "t": "**Privacy-safe ti disenio:** ti tabla ken ti mapa ket agipakpakita laeng kadagiti keywords ken porsiento ti sentiment iti tukad ti cluster — saan a pulos nga indibidual a komento."
   },
   "geo_5_nlp.profiles_head": {
     "src": "ef59d1ee17",
@@ -380,16 +380,16 @@
     "t": "NLP iti kada Cluster"
   },
   "home.dataset_head": {
-    "src": "9fbda9efdc",
-    "t": "### 📦 Aktibo a dataset"
+    "src": "9e83a44b70",
+    "t": "### Aktibo a dataset"
   },
   "home.geo_head": {
-    "src": "45640d796c",
-    "t": "#### 🗺️ Geospatial Analytics"
+    "src": "5c9112a1e0",
+    "t": "#### Geospatial Analytics"
   },
   "home.geo_list": {
-    "src": "530d0abe35",
-    "t": "- Ingest + **CRS/bounds validation**\n- DBSCAN clustering (+ k-distance)\n- Grid / centroid generalization\n- Panag-clip iti daga ti Filipinas\n- Interactive ken publication maps\n- **NLP iti kada cluster** (privacy-safe)\n- GeoJSON / PNG / CSV exports"
+    "src": "741b60cd24",
+    "t": "- Ingest + **CRS/bounds validation**\n- DBSCAN clustering (+ k-distance)\n- Grid / centroid generalization\n- Panag-clip iti daga ti Filipinas\n- Interactive pydeck maps\n- **NLP iti kada cluster** (privacy-safe)\n- GeoJSON / CSV exports"
   },
   "home.intro": {
     "src": "52d4d440c1",
@@ -424,8 +424,8 @@
     "t": "Naggapuan: {source}"
   },
   "home.text_head": {
-    "src": "f5a70feeaf",
-    "t": "#### 🧠 Text Analytics"
+    "src": "0fbeeffc36",
+    "t": "#### Text Analytics"
   },
   "home.text_list": {
     "src": "9000d00136",
@@ -512,8 +512,8 @@
     "t": "Bukod a stopwords (paglasinen iti comma wenno baro a linia)"
   },
   "side.language": {
-    "src": "4167c72b99",
-    "t": "🌐 Pagsasao"
+    "src": "89b86ab0e6",
+    "t": "Pagsasao"
   },
   "side.language_pick": {
     "src": "01e1787a9e",
@@ -736,12 +736,12 @@
     "t": "Dagiti kasansanan a sao kalpasan ti panagdalus, naipakita kas word cloud ken ranked bar chart, agraman dagiti NRC positive/negative word clouds."
   },
   "text_2_wordcloud.dl_counts": {
-    "src": "a18c5be119",
-    "t": "⬇️ I-download ti bilang (CSV)"
+    "src": "452b28c30e",
+    "t": "I-download ti bilang (CSV)"
   },
   "text_2_wordcloud.dl_wc": {
-    "src": "5585c31e63",
-    "t": "⬇️ I-download ti word cloud (PNG)"
+    "src": "3a59ea1a6b",
+    "t": "I-download ti word cloud (PNG)"
   },
   "text_2_wordcloud.nav": {
     "src": "a6c818d674",
@@ -812,8 +812,8 @@
     "t": "#### Distribusion ti sentiment"
   },
   "text_3_sentiment.dl": {
-    "src": "c3f7d79e68",
-    "t": "⬇️ I-download ti sentiment iti kada komento (CSV)"
+    "src": "aed8dfcb5e",
+    "t": "I-download ti sentiment iti kada komento (CSV)"
   },
   "text_3_sentiment.emo_caption": {
     "src": "833be84f1c",
@@ -880,8 +880,8 @@
     "t": "{word} · degree {n}"
   },
   "text_4_ngrams.dl": {
-    "src": "decce0a788",
-    "t": "⬇️ I-download dagiti n-grams (CSV)"
+    "src": "e3038ebd1b",
+    "t": "I-download dagiti n-grams (CSV)"
   },
   "text_4_ngrams.min_df": {
     "src": "362c4787cd",
@@ -1008,8 +1008,8 @@
     "t": "**Gagangay a nouns**"
   },
   "text_6_keywords.dl": {
-    "src": "59400009e8",
-    "t": "⬇️ Keywords (CSV)"
+    "src": "e82185e9d5",
+    "t": "Keywords (CSV)"
   },
   "text_6_keywords.kw_n": {
     "src": "f530db58b3",
@@ -1036,16 +1036,16 @@
     "t": "Nakwenta iti sample nga agingga iti 4,000 a komento tapno napartak ti sungbat."
   },
   "text_6_keywords.tab_co": {
-    "src": "6646df5330",
-    "t": "🔥 Co-occurrence heatmap"
+    "src": "aacc7fbfc3",
+    "t": "Co-occurrence heatmap"
   },
   "text_6_keywords.tab_nouns": {
-    "src": "4bf69aecb7",
-    "t": "🏷️ Nouns ken proper nouns"
+    "src": "1a21291d23",
+    "t": "Nouns ken proper nouns"
   },
   "text_6_keywords.tab_rake": {
-    "src": "dd40506ba9",
-    "t": "🔑 RAKE keywords"
+    "src": "fb68f12b13",
+    "t": "RAKE keywords"
   },
   "text_6_keywords.terms": {
     "src": "2e7a82d9af",

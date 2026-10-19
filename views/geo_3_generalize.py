@@ -59,7 +59,7 @@ def _generalize():
             st.caption(i18n.t("geo_2_cluster.using_defaults",
                               eps=int(eps_m / 1000), n=min_samples))
             st.page_link("views/geo_2_cluster.py", label=i18n.t("geo_2_cluster.nav"),
-                         icon="🎚️")
+                         icon=":material/tune:")
         with audio.result(tracks.SIGNATURE[PAGE],
                           key + ("centroids", eps_m, min_samples, exclude)):
             gen = geo.centroids_for(*key, eps_m, min_samples, exclude)

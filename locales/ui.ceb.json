@@ -12,12 +12,12 @@
     "t": "Usa ka inisyatiba sa NU DOST-NICER Program"
   },
   "audio.gate_heading": {
-    "src": "cdd9e17c75",
-    "t": "⚙ Mga setting sa tingog"
+    "src": "175245275e",
+    "t": "Mga setting sa tingog"
   },
   "audio.heading": {
-    "src": "5ac4b197b0",
-    "t": "🔊 Tingog"
+    "src": "acdac205f5",
+    "t": "Tingog"
   },
   "audio.music": {
     "src": "131260cbfb",
@@ -168,8 +168,8 @@
     "t": "Pangita og bagang grupo sa punto gamit ang DBSCAN, gamit ang k-distance elbow aron mopili og madepensahan nga eps."
   },
   "geo_2_cluster.defaults": {
-    "src": "554d164aa0",
-    "t": "↺ Default sa lab"
+    "src": "345956fe64",
+    "t": "Default sa lab"
   },
   "geo_2_cluster.eps": {
     "src": "0dc4027b19",
@@ -192,8 +192,8 @@
     "t": "gilay-on sa ika-{k} nga silingan (km)"
   },
   "geo_2_cluster.kdist_head": {
-    "src": "29073c6daa",
-    "t": "📈 k-distance plot (pangitaa ang siko para sa eps)"
+    "src": "d86eeb8e33",
+    "t": "k-distance plot (pangitaa ang siko para sa eps)"
   },
   "geo_2_cluster.m_clustered": {
     "src": "075f0c3106",
@@ -248,8 +248,8 @@
     "t": "Cluster {id} · {n} points"
   },
   "geo_3_generalize.dl": {
-    "src": "870444de6d",
-    "t": "⬇️ I-download ang generalized layer (GeoJSON)"
+    "src": "addd04d98b",
+    "t": "I-download ang generalized layer (GeoJSON)"
   },
   "geo_3_generalize.exclude": {
     "src": "38d1443cab",
@@ -284,12 +284,12 @@
     "t": "#### 1 · I-clip sa yuta sa Pilipinas"
   },
   "geo_4_map.dl_geojson": {
-    "src": "eeb84ce011",
-    "t": "⬇️ Na-clip nga layer (GeoJSON)"
+    "src": "89f13bff9a",
+    "t": "Na-clip nga layer (GeoJSON)"
   },
   "geo_4_map.dl_meta": {
-    "src": "6e90c9804d",
-    "t": "⬇️ metadata.json"
+    "src": "3e0d0e116c",
+    "t": "metadata.json"
   },
   "geo_4_map.exports_head": {
     "src": "322135f3cc",
@@ -328,8 +328,8 @@
     "t": "Ang punto sa pagsumpay: ang matag spatial cluster gi-profile gamit ang TF-IDF keywords + VADER sentiment — aggregate ra ang gipakita, dili gyud hilaw nga text."
   },
   "geo_5_nlp.dl": {
-    "src": "3a74eb8f2b",
-    "t": "⬇️ I-download ang sumaryo sa cluster (CSV)"
+    "src": "f632f731fc",
+    "t": "I-download ang sumaryo sa cluster (CSV)"
   },
   "geo_5_nlp.map_head": {
     "src": "49df8affd8",
@@ -348,8 +348,8 @@
     "t": "Walay text column nga masusi sa clustered layer."
   },
   "geo_5_nlp.privacy": {
-    "src": "42cadf7258",
-    "t": "🔒 **Privacy-safe ang disenyo:** ang talaan ug mapa nagpakita ra og keywords ug porsyento sa sentiment sa lebel sa cluster — dili gyud indibidwal nga komento."
+    "src": "00989a790f",
+    "t": "**Privacy-safe ang disenyo:** ang talaan ug mapa nagpakita ra og keywords ug porsyento sa sentiment sa lebel sa cluster — dili gyud indibidwal nga komento."
   },
   "geo_5_nlp.profiles_head": {
     "src": "ef59d1ee17",
@@ -380,16 +380,16 @@
     "t": "NLP matag Cluster"
   },
   "home.dataset_head": {
-    "src": "9fbda9efdc",
-    "t": "### 📦 Aktibo nga dataset"
+    "src": "9e83a44b70",
+    "t": "### Aktibo nga dataset"
   },
   "home.geo_head": {
-    "src": "45640d796c",
-    "t": "#### 🗺️ Geospatial Analytics"
+    "src": "5c9112a1e0",
+    "t": "#### Geospatial Analytics"
   },
   "home.geo_list": {
-    "src": "530d0abe35",
-    "t": "- Ingest + **CRS/bounds validation**\n- DBSCAN clustering (+ k-distance)\n- Grid / centroid generalization\n- Pag-clip sa yuta sa Pilipinas\n- Interactive ug publication maps\n- **NLP matag cluster** (privacy-safe)\n- GeoJSON / PNG / CSV exports"
+    "src": "741b60cd24",
+    "t": "- Ingest + **CRS/bounds validation**\n- DBSCAN clustering (+ k-distance)\n- Grid / centroid generalization\n- Pag-clip sa yuta sa Pilipinas\n- Interactive pydeck maps\n- **NLP matag cluster** (privacy-safe)\n- GeoJSON / CSV exports"
   },
   "home.intro": {
     "src": "52d4d440c1",
@@ -424,8 +424,8 @@
     "t": "Gigikanan: {source}"
   },
   "home.text_head": {
-    "src": "f5a70feeaf",
-    "t": "#### 🧠 Text Analytics"
+    "src": "0fbeeffc36",
+    "t": "#### Text Analytics"
   },
   "home.text_list": {
     "src": "9000d00136",
@@ -512,8 +512,8 @@
     "t": "Kaugalingong stopwords (bulagon og comma o bag-ong linya)"
   },
   "side.language": {
-    "src": "4167c72b99",
-    "t": "🌐 Pinulongan"
+    "src": "89b86ab0e6",
+    "t": "Pinulongan"
   },
   "side.language_pick": {
     "src": "01e1787a9e",
@@ -736,12 +736,12 @@
     "t": "Ang pinakasubsob nga pulong human sa paglimpyo, gipakita isip word cloud ug ranked bar chart, apil ang NRC positive/negative word clouds."
   },
   "text_2_wordcloud.dl_counts": {
-    "src": "a18c5be119",
-    "t": "⬇️ I-download ang ihap (CSV)"
+    "src": "452b28c30e",
+    "t": "I-download ang ihap (CSV)"
   },
   "text_2_wordcloud.dl_wc": {
-    "src": "5585c31e63",
-    "t": "⬇️ I-download ang word cloud (PNG)"
+    "src": "3a59ea1a6b",
+    "t": "I-download ang word cloud (PNG)"
   },
   "text_2_wordcloud.nav": {
     "src": "a6c818d674",
@@ -812,8 +812,8 @@
     "t": "#### Distribusyon sa sentiment"
   },
   "text_3_sentiment.dl": {
-    "src": "c3f7d79e68",
-    "t": "⬇️ I-download ang sentiment matag komento (CSV)"
+    "src": "aed8dfcb5e",
+    "t": "I-download ang sentiment matag komento (CSV)"
   },
   "text_3_sentiment.emo_caption": {
     "src": "833be84f1c",
@@ -880,8 +880,8 @@
     "t": "{word} · degree {n}"
   },
   "text_4_ngrams.dl": {
-    "src": "decce0a788",
-    "t": "⬇️ I-download ang n-grams (CSV)"
+    "src": "e3038ebd1b",
+    "t": "I-download ang n-grams (CSV)"
   },
   "text_4_ngrams.min_df": {
     "src": "362c4787cd",
@@ -1008,8 +1008,8 @@
     "t": "**Komon nga nouns**"
   },
   "text_6_keywords.dl": {
-    "src": "59400009e8",
-    "t": "⬇️ Keywords (CSV)"
+    "src": "e82185e9d5",
+    "t": "Keywords (CSV)"
   },
   "text_6_keywords.kw_n": {
     "src": "f530db58b3",
@@ -1036,16 +1036,16 @@
     "t": "Gikwenta sa sample nga hangtod 4,000 ka komento aron paspas motubag."
   },
   "text_6_keywords.tab_co": {
-    "src": "6646df5330",
-    "t": "🔥 Co-occurrence heatmap"
+    "src": "aacc7fbfc3",
+    "t": "Co-occurrence heatmap"
   },
   "text_6_keywords.tab_nouns": {
-    "src": "4bf69aecb7",
-    "t": "🏷️ Nouns ug proper nouns"
+    "src": "1a21291d23",
+    "t": "Nouns ug proper nouns"
   },
   "text_6_keywords.tab_rake": {
-    "src": "dd40506ba9",
-    "t": "🔑 RAKE keywords"
+    "src": "fb68f12b13",
+    "t": "RAKE keywords"
   },
   "text_6_keywords.terms": {
     "src": "2e7a82d9af",
