@@ -17,4 +17,4 @@ Iti preprocessing ti pangikeddengam no ania ti palubosam a makita ti computer. A
 **Ditoy ka masaktan ti defaults.** Ikkaten ti pagannurotan iti numero ti `24/7`, `3 hours` ken `P500`. Ikkaten ti pagannurotan iti punctuation ti `!` iti "three hours again!" — no unget ti ad-adalem, kaikkatmo laeng iti unget. Ikkaten ti 3-letra a minimum ti `ER`, `OB` ken `IV`. Awan ti biddut iti daytoy iti sapasap, ket mabalin nga amin daytoy ket biddut para kenka.
 
 --- key: p6 src: 3e1be010df
-**Aramidem daytoy sakbay nga agtuloyka.** Basaem dagiti agparis a raw ken cleaned iti baba. No ti komento a matarusam ket agbalin a komento a saanmon a matarusan, isublim iti sabali a bangir dagiti napukaw a sao iti custom stopword box ti sidebar — kayatna a sawen, panunotem manen ti pagannurotan, saan ket a ti pagarigan.
+**Aramidem daytoy sakbay nga agtuloyka.** Basaem dagiti agparis a raw ken cleaned iti baba. No ti komento a matarusam ket agbalin a komento a saanmon a matarusan, isublim iti sabali a bangir dagiti napukaw a sao iti custom stopword box ti sidebar — kayat na a sawen, panunotem manen ti pagannurotan, saan ket a ti pagarigan.

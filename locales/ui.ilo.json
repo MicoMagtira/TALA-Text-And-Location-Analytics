@@ -77,7 +77,7 @@
   },
   "gate.hint": {
     "src": "0531f63eea",
-    "t": "Mabalinmo a sukatan daytoy kalpasan babaen ti sidebar."
+    "t": "Mabalin mo a sukatan daytoy kalpasan babaen ti sidebar."
   },
   "gate.prompt": {
     "src": "bc06fdbb8a",
@@ -441,7 +441,7 @@
   },
   "learn.discuss_body": {
     "src": "50926aed30",
-    "t": "Isaludsod: *Ania ti suportaran daytoy nga output? Ania ti saanna a mapaneknekan? Ania a data, pagsasao, sampling, wenno privacy a desision ti mabalin a mangbaliw iti resulta?* Ibilangyo ti tunggal chart kas ebidensia a masapul a sukimaten—saan a kas automatiko a natakuatan."
+    "t": "Isaludsod: *Ania ti suportaran daytoy nga output? Ania ti saan na a mapaneknekan? Ania a data, pagsasao, sampling, wenno privacy a desision ti mabalin a mangbaliw iti resulta?* Ibilangyo ti tunggal chart kas ebidensia a masapul a sukimaten—saan a kas automatiko a natakuatan."
   },
   "learn.discuss_heading": {
     "src": "2275e190a5",
@@ -457,7 +457,7 @@
   },
   "learn.try_body": {
     "src": "991a9ca584",
-    "t": "Mangrugi iti default a setting. Baliwan ti **maysa** laeng a kontrol iti tunggal gundaway, idiligyo ti resulta, ken isurat no ania ti nagbaliw ken no ania ti nagtalinaed. Usaren dagiti pagarigan a makita wenno ti na-download nga output tapno masukimat no ti pattern ket sungbatanna ti pudno a saludsodmo."
+    "t": "Mangrugi iti default a setting. Baliwan ti **maysa** laeng a kontrol iti tunggal gundaway, idiligyo ti resulta, ken isurat no ania ti nagbaliw ken no ania ti nagtalinaed. Usaren dagiti pagarigan a makita wenno ti na-download nga output tapno masukimat no ti pattern ket sungbatan na ti pudno a saludsodmo."
   },
   "learn.try_heading": {
     "src": "8594c04ccd",

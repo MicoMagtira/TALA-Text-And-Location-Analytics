@@ -14,4 +14,4 @@ Daytoy ti page a pagtungpalan ti app iti karina. Ti tunggal immuna a page ket su
 **Dagiti automatiko a tag ket pangrugian a pammatang-ay.** Ti tag a `Staff Experience` wenno `Waiting Time` ket naggapu iti bassit a listaan ti keyword, saan ket iti modelo a makaawat. Makatulong daytoy tapno napardas a mabasa ti tabla ket agbiddutto daytoy. Basaem dagiti kangrunaan a termino sakbay nga awatem ti tag.
 
 --- key: p5 src: 57f48deea8
-**Ti umno a saludsod ditoy ket panagidilig.** Saanmo a saludsoden ti "ania ti ibagbaga ti cluster 3". Saludsodem ti "apay a naiduma ti cluster 3 iti cluster 7" — ket kalpasanna, no dayta a paggidiatan ket maipapan kadagiti pasilidad, kadagiti tattao nga agnanaed sadiay, wenno iti no siasino ti nagrigat a nagkomento. Ti maudi ket maysa a palawag a saan a maikkat ti mapa.
+**Ti umno a saludsod ditoy ket panagidilig.** Saanmo a saludsoden ti "ania ti ibagbaga ti cluster 3". Saludsodem ti "apay a naiduma ti cluster 3 iti cluster 7" — ket kalpasan na, no dayta a paggidiatan ket maipapan kadagiti pasilidad, kadagiti tattao nga agnanaed sadiay, wenno iti no siasino ti nagrigat a nagkomento. Ti maudi ket maysa a palawag a saan a maikkat ti mapa.
