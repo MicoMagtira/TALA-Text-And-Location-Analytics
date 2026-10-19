@@ -4,7 +4,7 @@ import plotly.express as px
 import streamlit as st
 
 from core import data_loader as dl
-from core import i18n, nlp, preprocess, ui, viz
+from core import audio, i18n, nlp, preprocess, ui, viz, tracks
 
 PAGE = "text_2_wordcloud"
 
@@ -24,38 +24,44 @@ texts = dl.text_series().tolist()
 sw = ui.stopwords()
 tokens = preprocess.all_tokens(texts, sw)
 
-top_n = st.slider(i18n.t("text_2_wordcloud.top_n"), 10, 50, 20, step=5)
-freqs = dict(nlp.word_frequencies(tokens, top_n=200).set_index("word")["count"])
+@st.fragment
+def _cloud_and_counts():
+    top_n = st.slider(i18n.t("text_2_wordcloud.top_n"), 10, 50, 20, step=5)
+    with audio.result(tracks.SIGNATURE[PAGE], (len(tokens), top_n)):
+        freqs = dict(nlp.word_frequencies(tokens, top_n=200).set_index("word")["count"])
 
-c1, c2 = st.columns([1.3, 1])
-with c1:
-    st.markdown(i18n.t("text_2_wordcloud.wc_head"))
-    wc = nlp.make_wordcloud(freqs, ui.seq_palette())
-    if wc is not None:
-        fig, ax = viz.figure(figsize=(9, 4.5))
-        ax.imshow(wc, interpolation="bilinear")
-        ax.axis("off")
-        st.pyplot(fig, width="stretch")
-        buf = io.BytesIO()
-        fig.savefig(buf, format="png", dpi=200, bbox_inches="tight")
-        st.download_button(i18n.t("text_2_wordcloud.dl_wc"), buf.getvalue(),
-                           "tala_wordcloud.png", "image/png")
-    else:
-        st.info(i18n.t("text_2_wordcloud.no_tokens"))
+    c1, c2 = st.columns([1.3, 1])
+    with c1:
+        st.markdown(i18n.t("text_2_wordcloud.wc_head"))
+        wc = nlp.make_wordcloud(freqs, ui.seq_palette())
+        if wc is not None:
+            fig, ax = viz.figure(figsize=(9, 4.5))
+            ax.imshow(wc, interpolation="bilinear")
+            ax.axis("off")
+            st.pyplot(fig, width="stretch")
+            buf = io.BytesIO()
+            fig.savefig(buf, format="png", dpi=200, bbox_inches="tight")
+            st.download_button(i18n.t("text_2_wordcloud.dl_wc"), buf.getvalue(),
+                               "tala_wordcloud.png", "image/png")
+        else:
+            st.info(i18n.t("text_2_wordcloud.no_tokens"))
 
-with c2:
-    st.markdown(i18n.t("text_2_wordcloud.top_head"))
-    tdf = nlp.word_frequencies(tokens, top_n=top_n)
-    fig = px.bar(tdf.sort_values("count"), x="count", y="word", orientation="h",
-                 text="count", color_discrete_sequence=[viz.NU_NAVY])
-    fig.update_traces(textposition="outside", cliponaxis=False)
-    fig.update_layout(**viz.plotly_template(ui.palette())["layout"], height=520,
-                      yaxis_title="",
-                      xaxis_title=i18n.t("text_2_wordcloud.axis_freq"),
-                      showlegend=False)
-    st.plotly_chart(fig, width="stretch")
-    st.download_button(i18n.t("text_2_wordcloud.dl_counts"), tdf.to_csv(index=False),
-                       "tala_word_counts.csv", "text/csv")
+    with c2:
+        st.markdown(i18n.t("text_2_wordcloud.top_head"))
+        tdf = nlp.word_frequencies(tokens, top_n=top_n)
+        fig = px.bar(tdf.sort_values("count"), x="count", y="word", orientation="h",
+                     text="count", color_discrete_sequence=[viz.NU_NAVY])
+        fig.update_traces(textposition="outside", cliponaxis=False)
+        fig.update_layout(**viz.plotly_template(ui.palette())["layout"], height=520,
+                          yaxis_title="",
+                          xaxis_title=i18n.t("text_2_wordcloud.axis_freq"),
+                          showlegend=False)
+        st.plotly_chart(fig, width="stretch")
+        st.download_button(i18n.t("text_2_wordcloud.dl_counts"), tdf.to_csv(index=False),
+                           "tala_word_counts.csv", "text/csv")
+
+
+_cloud_and_counts()
 
 st.markdown("---")
 st.markdown(i18n.t("text_2_wordcloud.polarity_head"))
@@ -78,3 +84,6 @@ else:
             else:
                 st.caption(i18n.t("text_2_wordcloud.no_words",
                                   polarity=title.lower()))
+
+ui.page_done(PAGE)
+ui.track_footer(PAGE)

@@ -2,7 +2,7 @@ import plotly.express as px
 import streamlit as st
 
 from core import data_loader as dl
-from core import i18n, nlp, ui, viz
+from core import audio, i18n, nlp, ui, viz, tracks
 
 PAGE = "text_7_metrics"
 
@@ -20,7 +20,8 @@ ui.learn_page(
 )
 
 texts = dl.text_series().tolist()
-metrics = nlp.readability(tuple(texts))
+with audio.result(tracks.SIGNATURE[PAGE], (len(texts),)):
+    metrics = nlp.readability(tuple(texts))
 
 st.markdown(i18n.t("text_7_metrics.read_head"))
 cols = st.columns(4)
@@ -51,3 +52,6 @@ else:
                           showlegend=False)
         st.plotly_chart(fig, width="stretch")
         st.caption(i18n.t("text_7_metrics.sample_caption"))
+
+ui.page_done(PAGE)
+ui.track_footer(PAGE)

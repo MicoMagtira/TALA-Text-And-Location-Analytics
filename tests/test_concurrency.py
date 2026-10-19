@@ -134,7 +134,7 @@ def test_no_dataframes_in_the_session_state_contract():
     assert not heavy, f"session-state keys that look like frame storage: {heavy}"
 
     expected = {"SS_SOURCE_KEY", "SS_TEXT_COL", "SS_LON_COL", "SS_LAT_COL",
-                "SS_SOURCE", "SS_POINTS_READY", "SS_CLUSTER_PARAMS",
+                "SS_SOURCE", "SS_CLUSTER_PARAMS",
                 "SS_GEN_PARAMS"}
     actual = {n for n in dir(dl) if n.startswith("SS_")}
     assert actual == expected, f"session-state key set changed: {actual ^ expected}"

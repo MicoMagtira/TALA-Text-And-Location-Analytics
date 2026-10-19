@@ -159,10 +159,6 @@
     "src": "b03a5da911",
     "t": "#### Ulat ng validation"
   },
-  "geo_1_ingest.success": {
-    "src": "f417d1ae9f",
-    "t": "Handa na ang points. Magpatuloy sa **Geospatial → Clustering (DBSCAN)**."
-  },
   "geo_1_ingest.title": {
     "src": "46b5fa4e0f",
     "t": "Ingest at CRS Validation"
@@ -219,10 +215,6 @@
     "src": "6ac73f5a71",
     "t": "min_samples"
   },
-  "geo_2_cluster.need_points": {
-    "src": "4aaa3bde77",
-    "t": "Patakbuhin muna ang **Geospatial → Ingest & CRS Validation** para makabuo ng points."
-  },
   "geo_2_cluster.no_clusters": {
     "src": "10e26b68d5",
     "t": "Walang cluster sa setting na ito — ibaba ang min_samples o itaas ang eps."
@@ -238,10 +230,6 @@
   "geo_2_cluster.sizes_head": {
     "src": "a053530b57",
     "t": "#### Laki ng cluster"
-  },
-  "geo_2_cluster.success": {
-    "src": "f2a85edbc4",
-    "t": "Handa na ang clusters. Magpatuloy sa **Generalization**, **NLP kada Cluster**, o **Mapa at Exports**."
   },
   "geo_3_generalize.blurb": {
     "src": "31534e87cb",
@@ -282,14 +270,6 @@
   "geo_3_generalize.method": {
     "src": "88306943fe",
     "t": "Paraan"
-  },
-  "geo_3_generalize.need_clusters": {
-    "src": "4e683eb6d5",
-    "t": "Kailangan ng DBSCAN clusters ang cluster centroids. Patakbuhin muna ang **Clustering**."
-  },
-  "geo_3_generalize.need_points": {
-    "src": "21f56aa2ac",
-    "t": "Bumuo muna ng points (Ingest) — at mas mabuti kung may clusters na (DBSCAN)."
   },
   "geo_3_generalize.tooltip_points": {
     "src": "3496d82e95",
@@ -335,10 +315,6 @@
     "src": "47b9614856",
     "t": "Mapa at Exports"
   },
-  "geo_4_map.need": {
-    "src": "d7c79ff74a",
-    "t": "Bumuo muna ng points at clusters (Ingest → Clustering)."
-  },
   "geo_4_map.no_land": {
     "src": "cd2c47cd02",
     "t": "Hindi available ang hangganan ng lupain; ipinapakita ang hindi na-clip na points."
@@ -362,10 +338,6 @@
   "geo_5_nlp.nav": {
     "src": "36b7454c7b",
     "t": "NLP kada Cluster"
-  },
-  "geo_5_nlp.need_clusters": {
-    "src": "4a7a30922f",
-    "t": "Patakbuhin muna ang **Geospatial → Clustering (DBSCAN)**."
   },
   "geo_5_nlp.no_clusters": {
     "src": "bc1bc20a12",

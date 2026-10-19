@@ -28,6 +28,11 @@ st.set_page_config(
 )
 
 from core import i18n  # noqa: E402  (after set_page_config, per Streamlit rules)
+from core import persist  # noqa: E402
+
+# Saved prefs load before the gate check: a restored language means returning
+# visitors skip the gate and land on the page named by the URL.
+persist.restore()
 
 # Nothing else renders until a language is chosen. language_gate() never
 # returns — it calls st.stop(), and the run that follows START finds is_set().
@@ -111,5 +116,6 @@ try:
 finally:
     if boot:
         boot.finish(i18n.t("boot.ready"))
+    persist.save()
 
 ui.footer()

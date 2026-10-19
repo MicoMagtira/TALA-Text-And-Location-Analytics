@@ -159,10 +159,6 @@
     "src": "b03a5da911",
     "t": "#### Report sa validation"
   },
-  "geo_1_ingest.success": {
-    "src": "f417d1ae9f",
-    "t": "Andam na ang points. Padayon sa **Geospatial → Clustering (DBSCAN)**."
-  },
   "geo_1_ingest.title": {
     "src": "46b5fa4e0f",
     "t": "Ingest ug CRS Validation"
@@ -219,10 +215,6 @@
     "src": "6ac73f5a71",
     "t": "min_samples"
   },
-  "geo_2_cluster.need_points": {
-    "src": "4aaa3bde77",
-    "t": "Padagana usa ang **Geospatial → Ingest & CRS Validation** aron makahimo og points."
-  },
   "geo_2_cluster.no_clusters": {
     "src": "10e26b68d5",
     "t": "Walay cluster niini nga setting — ipaubos ang min_samples o ipataas ang eps."
@@ -238,10 +230,6 @@
   "geo_2_cluster.sizes_head": {
     "src": "a053530b57",
     "t": "#### Gidak-on sa cluster"
-  },
-  "geo_2_cluster.success": {
-    "src": "f2a85edbc4",
-    "t": "Andam na ang clusters. Padayon sa **Generalization**, **NLP matag Cluster**, o **Mapa ug Exports**."
   },
   "geo_3_generalize.blurb": {
     "src": "31534e87cb",
@@ -282,14 +270,6 @@
   "geo_3_generalize.method": {
     "src": "88306943fe",
     "t": "Pamaagi"
-  },
-  "geo_3_generalize.need_clusters": {
-    "src": "4e683eb6d5",
-    "t": "Kinahanglan sa cluster centroids ang DBSCAN clusters. Padagana usa ang **Clustering**."
-  },
-  "geo_3_generalize.need_points": {
-    "src": "21f56aa2ac",
-    "t": "Paghimo usa og points (Ingest) — ug mas maayo kung adunay clusters na (DBSCAN)."
   },
   "geo_3_generalize.tooltip_points": {
     "src": "3496d82e95",
@@ -335,10 +315,6 @@
     "src": "47b9614856",
     "t": "Mapa ug Exports"
   },
-  "geo_4_map.need": {
-    "src": "d7c79ff74a",
-    "t": "Paghimo usa og points ug clusters (Ingest → Clustering)."
-  },
   "geo_4_map.no_land": {
     "src": "cd2c47cd02",
     "t": "Dili available ang utlanan sa yuta; gipakita ang wala ma-clip nga points."
@@ -362,10 +338,6 @@
   "geo_5_nlp.nav": {
     "src": "36b7454c7b",
     "t": "NLP matag Cluster"
-  },
-  "geo_5_nlp.need_clusters": {
-    "src": "4a7a30922f",
-    "t": "Padagana usa ang **Geospatial → Clustering (DBSCAN)**."
   },
   "geo_5_nlp.no_clusters": {
     "src": "bc1bc20a12",

@@ -119,6 +119,13 @@ def sidebar_controls() -> None:
         st.selectbox(i18n.t("audio.style"), list(styles), key=audio.SS_MUSIC_STYLE,
                      format_func=lambda v: i18n.t(styles[v]))
 
+        # Workshop PCs are shared: let a trainee wipe what TALA saved here.
+        if st.button(i18n.t("persist.forget"), key="tala_forget",
+                     help=i18n.t("persist.forget_help")):
+            from . import persist
+
+            persist.forget()
+
     st.sidebar.markdown("---")
     st.sidebar.caption(i18n.t("side.data", source=source_label()))
     st.sidebar.caption(i18n.t("side.rows",

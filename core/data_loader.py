@@ -53,9 +53,13 @@ SS_SOURCE = "data_source"           # human-readable label
 
 # Geo pipeline: session state records only *what was asked for*. The heavy
 # GeoDataFrames are derived on demand and shared through core.geo's caches.
-SS_POINTS_READY = "geo_points_ready"      # bool — has the user run Lab 1?
 SS_CLUSTER_PARAMS = "geo_cluster_params"  # (eps_m, min_samples)
 SS_GEN_PARAMS = "geo_gen_params"          # ("grid", cell_m) | ("centroids", bool)
+
+# DBSCAN defaults used until the trainee tunes them on the Clustering page, so no
+# geo page ever has to say "run the previous page first".
+DEFAULT_EPS_M = 15000.0
+DEFAULT_MIN_SAMPLES = 10
 
 # Upload cache sizing: a workshop cohort works mostly from the bundled file, so a
 # handful of distinct uploads at a time is plenty. Bounded so an unexpected burst
@@ -194,7 +198,7 @@ def set_active(source_key: str, text_col: str, lon_col: str | None,
 
 def reset_geo_chain() -> None:
     """A new dataset invalidates the geo pipeline the user has walked."""
-    for key in (SS_POINTS_READY, SS_CLUSTER_PARAMS, SS_GEN_PARAMS):
+    for key in (SS_CLUSTER_PARAMS, SS_GEN_PARAMS):
         st.session_state.pop(key, None)
 
 
@@ -251,6 +255,13 @@ def geo_key() -> tuple[str, str, str, str]:
             st.session_state[SS_TEXT_COL])
 
 
-def cluster_params() -> tuple[float, int] | tuple[None, None]:
-    """DBSCAN parameters this session last ran, or (None, None) if it has not."""
-    return st.session_state.get(SS_CLUSTER_PARAMS, (None, None))
+def cluster_params() -> tuple[float, int]:
+    """DBSCAN parameters for this session: what the trainee set on Clustering,
+    else the lab defaults. Always usable, so downstream pages auto-run."""
+    return st.session_state.get(SS_CLUSTER_PARAMS,
+                                (DEFAULT_EPS_M, DEFAULT_MIN_SAMPLES))
+
+
+def cluster_params_are_default() -> bool:
+    """True while the session is still on the lab defaults (nothing tuned yet)."""
+    return tuple(cluster_params()) == (DEFAULT_EPS_M, DEFAULT_MIN_SAMPLES)

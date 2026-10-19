@@ -1,7 +1,7 @@
 import streamlit as st
 
 from core import data_loader as dl
-from core import geo, i18n, ui
+from core import audio, geo, i18n, tracks, ui
 
 PAGE = "geo_1_ingest"
 
@@ -18,26 +18,24 @@ ui.learn_page(
 )
 
 if not dl.has_geo():
-    st.warning(i18n.t("geo_1_ingest.no_geo"), icon="⚠️")
-    st.stop()
+    ui.locked(i18n.t("geo_1_ingest.no_geo"), "text_1_data",
+              i18n.t("geo_1_ingest.pick_coords"))
 
 key = dl.geo_key()
 
 try:
     # Shared across sessions: the whole cohort on the bundled dataset resolves to
     # one cached layer instead of one 14 MB copy each.
-    gdf, report = geo.points_for(*key)
+    with audio.result(tracks.SIGNATURE[PAGE], key):
+        gdf, report = geo.points_for(*key)
 except Exception as e:  # geopandas / shapely import or geometry error
-    st.error(i18n.t("geo_1_ingest.geom_error", error=e))
+    ui.error(i18n.t("geo_1_ingest.geom_error", error=e))
+    ui.track_footer(PAGE)
     st.stop()
 
 if gdf is None:
-    st.error(i18n.t("geo_1_ingest.gone"))
-    st.stop()
-
-# Session state records only that this trainee has completed Lab 1 — the layer
-# itself lives in the shared cache.
-st.session_state[dl.SS_POINTS_READY] = True
+    ui.locked(i18n.t("geo_1_ingest.gone"), "text_1_data",
+              i18n.t("geo_1_ingest.pick_coords"))
 
 st.markdown(i18n.t("geo_1_ingest.report_head"))
 c1, c2, c3, c4 = st.columns(4)
@@ -75,4 +73,5 @@ st.pydeck_chart(
 if frame.attrs.get("sampled"):
     st.caption(i18n.t("maps.sampled", shown=len(frame), total=frame.attrs["total"]))
 
-st.success(i18n.t("geo_1_ingest.success"), icon="➡️")
+ui.page_done(PAGE)
+ui.track_footer(PAGE)

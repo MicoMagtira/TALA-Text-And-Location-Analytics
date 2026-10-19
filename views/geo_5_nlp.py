@@ -1,7 +1,7 @@
 import streamlit as st
 
 from core import data_loader as dl
-from core import geo, i18n, ui, viz
+from core import audio, geo, i18n, tracks, ui, viz
 
 PAGE = "geo_5_nlp"
 
@@ -21,20 +21,23 @@ ui.learn_page(
 
 key = dl.geo_key()
 eps_m, min_samples = dl.cluster_params()
-if eps_m is None:
-    st.warning(i18n.t("geo_5_nlp.need_clusters"), icon="⚠️")
-    st.stop()
+if dl.cluster_params_are_default():
+    st.caption(i18n.t("geo_2_cluster.using_defaults",
+                      eps=int(eps_m / 1000), n=min_samples))
+    st.page_link("views/geo_2_cluster.py", label=i18n.t("geo_2_cluster.nav"), icon="🎚️")
 
 clusters, _ = geo.clusters_for(*key, eps_m, min_samples)
 text_col = key[3]
 if text_col not in clusters.columns:
-    st.warning(i18n.t("geo_5_nlp.no_text"), icon="⚠️")
-    st.stop()
+    ui.locked(i18n.t("geo_5_nlp.no_text"), "text_1_data",
+              i18n.t("geo_5_nlp.pick_text"))
 
-summary = geo.cluster_text_for(*key, eps_m, min_samples, 8)
+with audio.result(tracks.SIGNATURE[PAGE], key + (eps_m, min_samples)):
+    summary = geo.cluster_text_for(*key, eps_m, min_samples, 8)
 
 if summary.empty:
-    st.info(i18n.t("geo_5_nlp.no_clusters"))
+    ui.info(i18n.t("geo_5_nlp.no_clusters"))
+    ui.track_footer(PAGE)
     st.stop()
 
 st.markdown(i18n.t("geo_5_nlp.profiles_head"))
@@ -78,3 +81,6 @@ st.pydeck_chart(
     maps.deck([maps.centroid_layer(frame, color_by=sent_color)],
               maps.view_for(frame), "{tip}"),
     height=540, width="stretch")
+
+ui.page_done(PAGE)
+ui.track_footer(PAGE)
