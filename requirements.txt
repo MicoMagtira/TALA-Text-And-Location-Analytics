@@ -44,9 +44,7 @@ geopandas>=0.14,<2
 shapely>=2.0,<3
 pyproj>=3.6,<4
 pyogrio>=0.8            # geopandas' default IO engine; ships GDAL in the wheel
-folium>=0.16
-streamlit-folium>=0.20
-branca>=0.7
+pydeck>=0.9,<1          # GPU maps via st.pydeck_chart (click selection); replaced folium
 
 # --- file upload support ---
 openpyxl>=3.1            # pandas.read_excel engine for user-uploaded .xlsx

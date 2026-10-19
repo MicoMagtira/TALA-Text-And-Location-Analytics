@@ -58,18 +58,21 @@ if nn:
 
 st.markdown(i18n.t("geo_1_ingest.map_head"))
 st.caption(i18n.t("geo_1_ingest.map_caption"))
-from streamlit_folium import st_folium  # noqa: E402
+import html as _html  # noqa: E402
 
-import folium  # noqa: E402
-from folium.plugins import MarkerCluster  # noqa: E402
+from core import maps  # noqa: E402
 
-m = geo.base_map(gdf)
-mc = MarkerCluster().add_to(m)
-sample = gdf.sample(min(len(gdf), 3000), random_state=1)
-for _, r in sample.iterrows():
-    folium.CircleMarker([r.geometry.y, r.geometry.x], radius=3,
-                        color="#35408E", fill=True, fill_opacity=0.7,
-                        weight=1).add_to(mc)
-st_folium(m, use_container_width=True, height=520, returned_objects=[])
+# ALL valid points go to the browser (pydeck draws them on the GPU); only the
+# 50k safety cap in to_frame can thin them, and then we say so.
+text_col = key[3]
+frame = maps.to_frame(
+    gdf, tip=(lambda g: [_html.escape(str(v)) for v in g[text_col].fillna("")])
+    if text_col in gdf.columns else None)
+st.pydeck_chart(
+    maps.deck([maps.points_layer(frame)], maps.view_for(frame),
+              "{tip}" if "tip" in frame.columns else None),
+    height=520, width="stretch")
+if frame.attrs.get("sampled"):
+    st.caption(i18n.t("maps.sampled", shown=len(frame), total=frame.attrs["total"]))
 
 st.success(i18n.t("geo_1_ingest.success"), icon="➡️")

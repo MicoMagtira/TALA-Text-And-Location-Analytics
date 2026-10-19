@@ -1,83 +1,110 @@
 # Audio design
 
-TALA treats sound as an optional browser-side enhancement. It never stores audio
-bytes in Streamlit session state and never sends them through a Streamlit delta.
-The browser fetches the runtime MP3 files directly, without sending them through
-the Streamlit session.
+TALA's sound is **synthesized in the browser**. There are no audio files: the
+engine in `core/sound_engine.js` builds every sound and every song from
+oscillators and noise with the Web Audio API. Nothing is stored in session
+state and no audio bytes travel through Streamlit.
 
-The browser controller uses Streamlit's supported `st.html(...,
-unsafe_allow_javascript=True)` API rather than the deprecated
-`st.components.v1.html` iframe helper.
-Its small bootstrap injects the controller without `eval()`, so it remains
-compatible with restrictive hosted Content Security Policies.
-The controller deliberately keeps its state in the current app window rather
-than `window.parent`, which may be a cross-origin hosting shell.
+`docs/sound/soundboard.html` is the source of truth. Open it in a browser to
+hear all 48 approved sounds and loops. The engine copies the board's engine,
+instruments, `S` sounds and music verbatim.
 
-## Deployment delivery
+## How it is wired
 
-The primary URLs use GitHub Raw for the checked-in MP3 files. This is deliberate:
-some Streamlit static-file deployments label MP3 files as `text/plain` with
-`X-Content-Type-Options: nosniff`, which prevents browser playback. GitHub Raw
-returns `audio/mpeg` for these files. The app keeps `/app/static/audio/` as a
-same-origin fallback for local installations or a temporary GitHub delivery
-failure.
+* `core/audio.py` sends the engine **once per session** through the supported
+  `st.html(..., unsafe_allow_javascript=True)` hook, as a base64 bootstrap (no
+  `eval`, so strict CSPs are fine). Later runs send only a small config script:
+  `__talaSound?.setPrefs({...}); __talaSound?.area("text")`.
+* The engine installs `window.__talaSound` in the app document and survives
+  reruns, so music never restarts when a control changes. Injecting it again
+  replaces the old instance and carries the unlocked context over.
+* The first `pointerdown` or `keydown` calls `unlock()`. That is the gesture the
+  browser needs, which is why the **language gate comes first**: the first card
+  tap unlocks audio and starts the `gate` music.
+* The tab pauses sound when hidden and resumes when visible.
 
-When the app runs on `localhost`, it reverses that order: the checked-out
-`static/audio/` files are primary, so replacing an MP3 can be tested locally
-without first pushing it to GitHub.
+### Python API
 
-## Behaviour
+| Function | Purpose |
+|---|---|
+| `mount(area)` | `'gate' \| 'home' \| 'text' \| 'geo'`; sends engine once, then prefs and area |
+| `cue(name, arg=None, delay_ms=0)` | play one sound from the server |
+| `special(name)` | `'trackDone'` or `'fullSky'` fanfare, then music turns to `harana` until the area changes |
+| `result(sig, params)` | context manager: nothing on an unchanged rerun, `cached` for a fast change, `sig` for a slow one (>= 0.3 s) |
+| `boot_timeline(from_pct, seconds, segments)` | splash progress ticks and the ready chime |
+| `style_options()` | `[("melody", key), ("ambience", key)]` for the Settings select |
 
-- The language gate includes **Sound settings** before the trainee presses START.
-- The gate attempts to begin background music as soon as it loads. If a browser
-  blocks unmuted autoplay, the first gate interaction (including choosing a
-  language, opening sound settings, or pressing START) begins the loop instead.
-- Pressing START makes the loop temporarily silent and plays the dedicated start
-  cue. The loop becomes audible only after that cue finishes (or immediately if
-  SFX is muted). Keeping the loop playing silently during the cue preserves the
-  browser media permission granted by the START click. Other interactive controls
-  use the short click cue, including page-navigation links, Learn expanders,
-  tabs, radio buttons, checkboxes, toggles, menu items, and ordinary buttons.
-- The resume handler lives on the persistent parent-page audio element, so the
-  loop resumes even while Streamlit replaces the gate during navigation.
-- The sidebar repeats the controls as **Music** and **SFX**, each with an on/off
-  toggle and a 0–100 volume slider. Preferences are session-specific.
-- Modern browser autoplay policies can reject the initial, unmuted playback
-  attempt. The gate therefore retries from the visitor's first click, while a
-  browser or operating-system mute setting can still suppress playback. The app
-  remains fully usable in either case.
+Preferences live in `audio_music_on|volume`, `audio_sfx_on|volume` (defaults:
+music on 25, SFX on 65) and `audio_music_style` (`melody` or `ambience`).
 
-## iPhone and iPad Safari
+## Buses and echo
 
-On Safari versions where web pages cannot set media volume, TALA detects the
-locked `HTMLMediaElement.volume` property, hides the ineffective sliders, and
-shows a note to use the device's physical volume buttons. The Music and SFX
-toggles still work. Browsers that allow page-level media volume keep the sliders.
-
-## Runtime assets
-
-| File | Use | Source |
-|---|---|---|
-| `static/audio/tala-background.mp3` | looping background music | optimized from the supplied `assets/Sound Loop/bg.wav` master |
-| `static/audio/tala-start.mp3` | language-gate START cue | supplied start-button effect |
-| `static/audio/tala-click.mp3` | ordinary button cue | supplied click effect |
-
-The supplied WAV master is 10:18 long and about 170 MB. It is deliberately not
-committed: GitHub's normal file limit is lower, and serving it to every trainee
-would be needlessly expensive. The checked-in MP3 is stereo, 44.1 kHz and 96
-kb/s (about 7.1 MB). Keep source recordings, Adobe session files, wave caches,
-and alternate takes in the ignored `assets/Sound Loop/` and `assets/Start Button/`
-directories.
-
-To rebuild the background asset locally after replacing the WAV master:
-
-```powershell
-ffmpeg -y -i "assets/Sound Loop/bg.wav" -codec:a libmp3lame -b:a 96k -ar 44100 `
-  static/audio/tala-background.mp3
+```
+voices -> sfxBus ----+--> master (0.8) -> lowpass 7.2 kHz -> compressor -> out
+voices -> musicBus --+         ^
+   sends -> feedback delay (0.28 s, damped) -> echo (0.55) --+
 ```
 
-`enableStaticServing = true` in `.streamlit/config.toml` is required. Do not
-turn it off unless the audio manager is changed to use another hosting route.
+Volume maps like the board: `gain = (vol / 100) ** 1.6`. Each echo send follows
+its bus volume, so muting a bus also mutes its echo. Envelopes move in 60 Hz,
+4-bit steps like old consoles.
 
-Before distributing the app, confirm that the team holds the required rights or
-licenses for each supplied music and sound-effect source.
+## Music per area
+
+| Area | Song |
+|---|---|
+| gate, home | `gabi` |
+| text | `buwan` |
+| geo | `bituin` |
+| after a track-complete fanfare | `harana` (until the area changes) |
+| style `ambience`, everywhere | `kuliglig` (crickets and a drone) |
+
+Changes crossfade over about 0.6 s on the music bus.
+
+## Event map
+
+The capture listener checks click targets in this order:
+
+| Target | Sound |
+|---|---|
+| `[data-testid="stSidebarNav"] a`, `[data-testid="stPageLink"] a` | `nav` |
+| `details > summary` | `learnOpen` / `learnClose` (from `details.open` before the click) |
+| `[role="switch"]`, checkboxes, `[data-baseweb="checkbox"]` | `toggleOn` / `toggleOff` |
+| radios, `[role="option"]` | `select` |
+| `[data-testid="stDownloadButton"] button` | `download` |
+| `[data-testid="stCode"] button` | `copy` |
+| `.st-key-tala-gate-langs button` | `language`, and the `gate` music starts |
+| `#tala-start` | `startPressed()`: `start`, reveal the app, music fades in after 1.3 s |
+| any other button, link, tab, menu item | `click` |
+
+Also: `pointerup` / `keyup` on a slider plays `slider` (throttled to 150 ms). A
+Streamlit spinner appearing plays `run` (at most once a second); spinners only
+show on cache misses, so `run` means real compute. While the gate's sky is on
+screen, `twinkle` plays every 7 to 9 s.
+
+## Intro flow
+
+1. Language gate: five cards, then **Continue**. No START button here.
+2. Boot splash (audible, because Continue was a gesture): one `progress(i)` tick
+   per bar segment, then `bootReady` at 100%.
+3. At 100% a pixel **START** button appears and takes focus. Pressing it is
+   client-only: it plays `start`, adds `tala-boot-complete` to `<body>` and sets
+   the `tala_booted=1` session cookie. A refresh in the same browser session
+   skips the splash.
+4. If JS or the engine is blocked, a CSS animation hides the overlay 12 s after
+   100%, so nobody is trapped.
+
+## Adding a sound
+
+1. Prototype it on `docs/sound/soundboard.html` (add a card and rate it there).
+2. Copy the finished `S` entry (and any new instrument or song) into
+   `core/sound_engine.js` unchanged.
+3. Add its id to `SOUND_IDS` in `tests/test_audio.py`.
+4. Trigger it with `audio.cue("name")`, `audio.result(...)`, or a row in the
+   event map above.
+
+## Licensing
+
+Every sound and song is original, generated by the synth code in this
+repository. There are no samples and no third-party recordings, so there are no
+third-party rights to clear.

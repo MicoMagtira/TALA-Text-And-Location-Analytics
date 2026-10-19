@@ -14,7 +14,6 @@
   "data.bundled_label": "Bundled nga pananglitan: PH Health Services Sentiments",
   "data.upload_expired": "Ni-expire sa shared cache ang imong gi-upload nga dataset. Mobalik sa bundled nga pananglitan — i-upload pag-usab aron magpadayon sa imong kaugalingong file.",
   "gate.hint": "Mabag-o ni nimo unya sa sidebar.",
-  "gate.press_start": "Pagpili og pinulongan aron magsugod",
   "gate.prompt": "Pilia ang pinulongan",
   "gate.selected": "Magsugod sa {language}",
   "gate.start": "SUGDI",
@@ -298,9 +297,7 @@
 ,
   "audio.heading": "🔊 Tingog",
   "audio.gate_heading": "⚙ Mga setting sa tingog",
-  "audio.gate_hint": "Madala ang imong mga pilion sa app. Mosugod ang tingog human sa START.",
   "audio.music": "Musika",
   "audio.sfx": "SFX",
-  "audio.volume": "Kusog sa {name}",
-  "audio.ios_volume_note": "Sa Safari sa iPhone o iPad, gamita ang mga buton sa volume sa imong device."
+  "audio.volume": "Kusog sa {name}"
 }

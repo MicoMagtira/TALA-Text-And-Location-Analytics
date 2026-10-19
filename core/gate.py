@@ -1,9 +1,11 @@
 """Language-select gate — the first screen of a TALA session.
 
 The app opens like a console game: the pixel-art night sky from the boot splash,
-five language cards, and a START button. Nothing else renders until a language
+five language cards and a Continue button. Nothing else renders until a language
 is chosen, so the boot splash that follows is already localized and a trainee
-never sees the UI change language underneath them.
+never sees the UI change language underneath them. The first tap on a card is
+also the gesture that unlocks browser audio (see core/audio.py), so the intro
+is audible from the very start; the START button now lives on the boot splash.
 
 Why this is not a GIF
 ---------------------
@@ -234,7 +236,7 @@ def _art() -> str:
         + "</div>"
     )
     return (
-        f'<div class="tala-sky">{_starfield()}</div>'
+        f'<div class="tala-sky tala-gate-sky">{_starfield()}</div>'
         '<div class="tala-cast">'
         f'<div class="side left">{_sprite_svg(BUBBLE, {"#": NAVY, "+": GOLD}, 5)}</div>'
         f"{star}"
@@ -262,41 +264,40 @@ def language_gate() -> None:
     st.session_state[i18n.SS_LANG] = preview      # temporary, for this render only
     prompt = i18n.t("gate.prompt")
     hint = i18n.t("gate.hint")
-    start_label = i18n.t("gate.start")
+    continue_label = i18n.t("gate.continue")
     footer = (i18n.t("gate.selected", language=i18n.LANGS[pick]["endonym"])
-              if pick else i18n.t("gate.press_start"))
+              if pick else i18n.t("gate.press_continue"))
 
     st.markdown(f'<div class="tala-prompt">▸ {prompt} ◂</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="tala-hint">{hint}</div>', unsafe_allow_html=True)
 
-    audio.gate_settings()
-    # Mount before the buttons so music can begin on the first gate interaction
-    # when the browser blocks unmuted autoplay, and the START cue is synchronous.
-    audio.mount(
-        start_labels=(start_label,),
-        play_music=True,
-        start_music_on_interaction=True,
-    )
-    del st.session_state[i18n.SS_LANG]            # not chosen until START
+    # The engine treats the very first pointer/key event as the gesture that
+    # unlocks audio, and the language cards (``.st-key-tala-gate-langs``) start
+    # the gate music. Mount before the widgets so the listener exists by then.
+    audio.mount("gate")
+    del st.session_state[i18n.SS_LANG]            # not chosen until Continue
 
-    for col, (code, meta) in zip(st.columns(len(i18n.LANGS)), i18n.LANGS.items()):
-        with col:
-            if st.button(meta["endonym"], key=f"tala_lang_{code}",
-                         type="primary" if pick == code else "secondary",
-                         use_container_width=True):
-                st.session_state[i18n.SS_PICK] = code
-                st.rerun()
-            st.markdown(f'<div class="tala-greet">{meta["hello"]}</div>',
-                        unsafe_allow_html=True)
+    with st.container(key="tala-gate-langs"):
+        for col, (code, meta) in zip(st.columns(len(i18n.LANGS)), i18n.LANGS.items()):
+            with col:
+                if st.button(meta["endonym"], key=f"tala_lang_{code}",
+                             type="primary" if pick == code else "secondary",
+                             use_container_width=True):
+                    st.session_state[i18n.SS_PICK] = code
+                    st.rerun()
+                st.markdown(f'<div class="tala-greet">{meta["hello"]}</div>',
+                            unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
     _, mid, _ = st.columns([1, 2, 1])
     with mid:
-        if st.button(f"▶  {start_label}", key="tala_start", type="primary",
+        if st.button(f"{continue_label}  ▸", key="tala_continue", type="primary",
                      use_container_width=True, disabled=pick is None):
             audio.mark_started()
             i18n.set_lang(pick)
             st.rerun()
         st.markdown(f'<div class="tala-greet">{footer}</div>', unsafe_allow_html=True)
+
+    audio.gate_settings()
 
     st.stop()

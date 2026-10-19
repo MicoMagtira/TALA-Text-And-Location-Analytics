@@ -5,7 +5,7 @@ Lab 4 PH-land clip + map/exports -> Lab 5 NLP per cluster. GeoDataFrames are
 chained through st.session_state by the pages, mirroring the notebooks'
 outputs/*.geojson hand-off.
 
-Heavy geo deps (geopandas/shapely/pyproj/folium) import lazily, so the text
+Heavy geo deps (geopandas/shapely/pyproj) import lazily, so the text
 pages never pay for them.
 
 Concurrency model
@@ -274,40 +274,6 @@ def _auto_tag(terms: list[str]) -> str:
         if kw in text:
             return tag
     return "General Feedback"
-
-
-# ---------------------------------------------------------------------------
-# Folium map helpers
-# ---------------------------------------------------------------------------
-def base_map(gdf=None, zoom_start: int = 6):
-    import folium
-
-    if gdf is not None and len(gdf):
-        # total_bounds works for any geometry type (points, polygons, grids).
-        minx, miny, maxx, maxy = gdf.total_bounds
-        center = [float((miny + maxy) / 2), float((minx + maxx) / 2)]
-    else:
-        center = [12.8, 121.8]  # Philippines
-    return folium.Map(location=center, zoom_start=zoom_start,
-                      tiles="CartoDB positron", control_scale=True)
-
-
-def cluster_marker_map(gdf, palette_hexes: list[str], max_points: int = 4000):
-    import folium
-    from folium.plugins import MarkerCluster
-
-    m = base_map(gdf)
-    mc = MarkerCluster().add_to(m)
-    sample = gdf.sample(min(len(gdf), max_points), random_state=1) if len(gdf) > max_points else gdf
-    for _, r in sample.iterrows():
-        cid = int(r.get("cluster_id", 0))
-        color = "#999999" if cid == -1 else palette_hexes[cid % len(palette_hexes)]
-        folium.CircleMarker(
-            location=[r.geometry.y, r.geometry.x], radius=4,
-            color=color, fill=True, fill_opacity=0.8, weight=1,
-            tooltip=f"Cluster {cid}" if cid != -1 else "Noise",
-        ).add_to(mc)
-    return m
 
 
 # ---------------------------------------------------------------------------

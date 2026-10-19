@@ -14,7 +14,6 @@
   "data.bundled_label": "Bundled a pagarigan: PH Health Services Sentiments",
   "data.upload_expired": "Nag-expire iti shared cache ti na-upload a dataset-mo. Agsubli iti bundled a pagarigan — ag-upload manen tapno maituloy ti bukodmo a file.",
   "gate.hint": "Mabalinmo a sukatan daytoy kalpasan babaen ti sidebar.",
-  "gate.press_start": "Agpili iti pagsasao tapno mangrugi",
   "gate.prompt": "Agpili iti pagsasao",
   "gate.selected": "Mangrugi iti {language}",
   "gate.start": "RUGIAN",
@@ -298,9 +297,7 @@
 ,
   "audio.heading": "🔊 Uni",
   "audio.gate_heading": "⚙ Dagiti setting ti uni",
-  "audio.gate_hint": "Mayala dagiti pilim iti app. Manggirugi ti uni kalpasan ti START.",
   "audio.music": "Musika",
   "audio.sfx": "SFX",
-  "audio.volume": "Kadagsen ti {name}",
-  "audio.ios_volume_note": "Iti Safari iti iPhone wenno iPad, usarem dagiti buton ti volume ti device mo."
+  "audio.volume": "Kadagsen ti {name}"
 }

@@ -36,15 +36,32 @@ else:
     st.info(i18n.t("geo_4_map.no_land"))
 
 st.markdown(i18n.t("geo_4_map.map_head"))
-from streamlit_folium import st_folium  # noqa: E402
+from core import maps  # noqa: E402
 
 palette = viz.categorical(ui.palette(), 12)
-m = geo.cluster_marker_map(clipped, palette) if "cluster_id" in clipped.columns \
-    else geo.base_map(clipped)
-import folium  # noqa: E402
-
-folium.LayerControl().add_to(m)
-st_folium(m, use_container_width=True, height=520, returned_objects=[])
+show_removed = st.checkbox(i18n.t("geo_4_map.show_removed"), value=False,
+                           disabled=not clip_info.get("clipped"))
+layers = [maps.land_layer()]
+if "cluster_id" in clipped.columns:
+    kept_frame = maps.cluster_frame(clipped, palette)
+    layers.append(maps.cluster_layer(clipped, palette, frame=kept_frame))
+else:
+    kept_frame = maps.to_frame(clipped, tip=None)
+    layers.append(maps.points_layer(kept_frame))
+if show_removed and clip_info.get("removed"):
+    # Validated points the land clip dropped: the CRS/bounds lesson made visible.
+    all_pts, _ = geo.points_for(*key)
+    removed = all_pts.loc[~all_pts.index.isin(clipped.index)]
+    layers.append(maps.points_layer(maps.to_frame(removed),
+                                    color=(214, 39, 40, 220), radius_px=4))
+    st.caption(i18n.t("geo_4_map.removed_caption", n=len(removed)))
+st.pydeck_chart(
+    maps.deck(layers, maps.view_for(kept_frame),
+              "{tip}" if "tip" in kept_frame.columns else None),
+    height=520, width="stretch")
+if kept_frame.attrs.get("sampled"):
+    st.caption(i18n.t("maps.sampled", shown=len(kept_frame),
+                      total=kept_frame.attrs["total"]))
 
 st.markdown(i18n.t("geo_4_map.exports_head"))
 # The export payload is deliberately NOT localized: downstream lab worksheets

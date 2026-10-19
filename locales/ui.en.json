@@ -9,7 +9,8 @@
   "gate.prompt": "Select a language",
   "gate.hint": "You can change this later from the sidebar.",
   "gate.start": "START",
-  "gate.press_start": "Choose a language to begin",
+  "gate.continue": "Continue",
+  "gate.press_continue": "Choose a language to continue",
   "gate.selected": "Starting in {language}",
 
   "boot.core": "Booting TALA core",
@@ -271,6 +272,7 @@
   "geo_1_ingest.m_max": "Max NN",
   "geo_1_ingest.map_head": "#### Map of valid points",
   "geo_1_ingest.map_caption": "Note: at this stage only global lon/lat bounds are enforced — obviously wrong points outside the Philippines are still shown, on purpose.",
+  "maps.sampled": "Showing a random sample of {shown} of {total} points to keep the map fast.",
   "geo_1_ingest.success": "Points ready. Continue to **Geospatial → Clustering (DBSCAN)**.",
 
   "geo_2_cluster.nav": "Clustering (DBSCAN)",
@@ -290,6 +292,9 @@
   "geo_2_cluster.m_noise": "Noise points",
   "geo_2_cluster.m_clustered": "Clustered points",
   "geo_2_cluster.map_head": "#### Cluster map",
+  "geo_2_cluster.pick_hint": "Click a point to see which cluster it belongs to.",
+  "geo_2_cluster.picked": "Selected point: **cluster C{id}** ({n} points).",
+  "geo_2_cluster.picked_noise": "Selected point is **noise**: too isolated to join any cluster.",
   "geo_2_cluster.sizes_head": "#### Cluster sizes",
   "geo_2_cluster.points": "points",
   "geo_2_cluster.no_clusters": "No clusters at this setting — lower min_samples or raise eps.",
@@ -321,6 +326,8 @@
   "geo_4_map.m_kept": "Kept",
   "geo_4_map.no_land": "Land boundary unavailable; showing unclipped points.",
   "geo_4_map.map_head": "#### 2 · Interactive map",
+  "geo_4_map.show_removed": "Show removed points",
+  "geo_4_map.removed_caption": "Red: {n} validated points that fall outside the Philippine land polygon.",
   "geo_4_map.exports_head": "#### 3 · Exports (stable output contract)",
   "geo_4_map.dl_geojson": "⬇️ Clipped layer (GeoJSON)",
   "geo_4_map.dl_meta": "⬇️ metadata.json",
@@ -343,9 +350,10 @@
 
   "audio.heading": "🔊 Audio",
   "audio.gate_heading": "⚙ Sound settings",
-  "audio.gate_hint": "Your choices carry into the app. Sound begins after START.",
   "audio.music": "Music",
   "audio.sfx": "SFX",
   "audio.volume": "{name} volume",
-  "audio.ios_volume_note": "On iPhone or iPad Safari, use your device volume buttons."
+  "audio.style": "Music style",
+  "audio.style_melody": "Melody",
+  "audio.style_ambience": "Ambience (no melody)"
 }

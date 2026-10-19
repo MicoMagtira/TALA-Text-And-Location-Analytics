@@ -48,27 +48,33 @@ st.markdown(i18n.t("geo_5_nlp.map_head"))
 centroids = geo.cluster_centroids(clusters, exclude_noise=True)
 merged = centroids.merge(summary, on="cluster_id", how="left", suffixes=("", "_s"))
 
-from streamlit_folium import st_folium  # noqa: E402
+import html as _html  # noqa: E402
 
-import folium  # noqa: E402
+from core import maps  # noqa: E402
 
 sent_color = {"positive": "#008300", "negative": "#e34948", "neutral": viz.INK_MUTED}
-m = geo.base_map(merged)
-vmax = int(merged["n_points"].max()) if len(merged) else 1
-for _, r in merged.iterrows():
+
+
+def _tip(r) -> str:
     sentiment = r.get("sentiment", "")
     shown = i18n.t(f"sent.{sentiment}") if sentiment in sent_color else sentiment
-    tip = (f"<b>{i18n.t('geo_5_nlp.tip_cluster', id=int(r['cluster_id']))}</b> "
-           f"({i18n.t('geo_5_nlp.tip_pts', n=int(r['n_points']))})<br>"
-           f"{i18n.t('geo_5_nlp.tip_tag')}: {r.get('tag', '')}<br>"
-           f"{i18n.t('geo_5_nlp.tip_sentiment')}: {shown} "
-           f"(+{r.get('pos_%', 0)}% / -{r.get('neg_%', 0)}%)<br>"
-           f"{i18n.t('geo_5_nlp.tip_top')}: {r.get('top_terms', '')}")
-    folium.CircleMarker(
-        [r.geometry.y, r.geometry.x],
-        radius=6 + 18 * (r["n_points"] / vmax),
-        color=sent_color.get(sentiment, viz.NU_NAVY),
-        fill=True, fill_opacity=0.65, weight=1.5,
-        tooltip=folium.Tooltip(tip),
-    ).add_to(m)
-st_folium(m, use_container_width=True, height=540, returned_objects=[])
+    # Tag and terms derive from user text, so escape them before they reach the
+    # tooltip's HTML.
+    return (f"<b>{i18n.t('geo_5_nlp.tip_cluster', id=int(r['cluster_id']))}</b> "
+            f"({i18n.t('geo_5_nlp.tip_pts', n=int(r['n_points']))})<br>"
+            f"{i18n.t('geo_5_nlp.tip_tag')}: {_html.escape(str(r.get('tag', '')))}<br>"
+            f"{i18n.t('geo_5_nlp.tip_sentiment')}: {_html.escape(str(shown))} "
+            f"(+{r.get('pos_%', 0)}% / -{r.get('neg_%', 0)}%)<br>"
+            f"{i18n.t('geo_5_nlp.tip_top')}: {_html.escape(str(r.get('top_terms', '')))}")
+
+
+# One row per cluster (a handful), so no sampling; row order matches ``merged``.
+# The tip is HTML, so it is attached here rather than through to_frame's
+# 90-character plain-text ``tip``.
+frame = maps.to_frame(merged, extra_cols=[c for c in ("cluster_id", "n_points", "sentiment")
+                                          if c in merged.columns])
+frame["tip"] = [_tip(r) for _, r in merged.iterrows()]
+st.pydeck_chart(
+    maps.deck([maps.centroid_layer(frame, color_by=sent_color)],
+              maps.view_for(frame), "{tip}"),
+    height=540, width="stretch")

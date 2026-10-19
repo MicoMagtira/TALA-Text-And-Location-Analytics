@@ -31,10 +31,7 @@ centroid_label = i18n.t("geo_3_generalize.centroids")
 method = st.radio(i18n.t("geo_3_generalize.method"),
                   [grid_label, centroid_label], horizontal=True)
 
-from streamlit_folium import st_folium  # noqa: E402
-
-import branca  # noqa: E402
-import folium  # noqa: E402
+from core import maps  # noqa: E402
 
 gen = None
 if method == grid_label:
@@ -43,21 +40,18 @@ if method == grid_label:
     st.session_state[dl.SS_GEN_PARAMS] = ("grid", cell_km * 1000)
     if len(gen):
         vmax = int(gen["n_points"].max())
-        cmap = branca.colormap.LinearColormap(
-            viz.sequential_hexes(ui.seq_palette(), 6), vmin=0, vmax=vmax,
-            caption=i18n.t("geo_3_generalize.legend"))
-        m = geo.base_map(gen)
-        folium.GeoJson(
-            gen.to_json(),
-            style_function=lambda f: {
-                "fillColor": cmap(f["properties"]["n_points"]),
-                "color": "#555", "weight": 0.4, "fillOpacity": 0.7},
-            tooltip=folium.GeoJsonTooltip(
-                fields=["n_points"],
-                aliases=[i18n.t("geo_3_generalize.tooltip_points")]),
-        ).add_to(m)
-        cmap.add_to(m)
-        st_folium(m, use_container_width=True, height=520, returned_objects=[])
+        hexes = viz.sequential_hexes(ui.seq_palette(), 6)
+        tip = f"{i18n.t('geo_3_generalize.tooltip_points')} {{properties.n_points}}"
+        st.pydeck_chart(
+            maps.deck([maps.grid_layer(gen, hexes)],
+                      maps.view_for(maps.bounds_frame(gen)), tip),
+            height=520, width="stretch")
+        # Legend: min to max along the same ramp the cells use.
+        st.caption(f"{i18n.t('geo_3_generalize.legend')}: 1 to {vmax:,}")
+        st.markdown(
+            "<div style='height:10px;border-radius:5px;max-width:320px;"
+            f"background:linear-gradient(to right,{','.join(hexes)})'></div>",
+            unsafe_allow_html=True)
 else:
     exclude = st.checkbox(i18n.t("geo_3_generalize.exclude"), value=True)
     if eps_m is None:
@@ -67,17 +61,14 @@ else:
     st.session_state[dl.SS_GEN_PARAMS] = ("centroids", exclude)
     st.metric(i18n.t("geo_3_generalize.m_centroids"), len(gen))
     if len(gen):
-        m = geo.base_map(gen)
-        vmax = int(gen["n_points"].max())
-        for _, r in gen.iterrows():
-            folium.CircleMarker(
-                [r.geometry.y, r.geometry.x],
-                radius=6 + 18 * (r["n_points"] / vmax),
-                color=viz.NU_NAVY, fill=True, fill_opacity=0.6, weight=1,
-                tooltip=i18n.t("geo_3_generalize.cluster_tip",
-                               id=int(r["cluster_id"]), n=int(r["n_points"])),
-            ).add_to(m)
-        st_folium(m, use_container_width=True, height=520, returned_objects=[])
+        frame = maps.to_frame(
+            gen, extra_cols=("cluster_id", "n_points"),
+            tip=lambda g: [i18n.t("geo_3_generalize.cluster_tip",
+                                  id=int(c), n=int(n))
+                           for c, n in zip(g["cluster_id"], g["n_points"])])
+        st.pydeck_chart(
+            maps.deck([maps.centroid_layer(frame)], maps.view_for(frame), "{tip}"),
+            height=520, width="stretch")
 
 if gen is not None and len(gen):
     st.download_button(i18n.t("geo_3_generalize.dl"),

@@ -15,17 +15,9 @@
     "src": "cdd9e17c75",
     "t": "⚙ Mga setting ng tunog"
   },
-  "audio.gate_hint": {
-    "src": "d1e39ba9ba",
-    "t": "Maililipat sa app ang mga pinili mo. Magsisimula ang tunog pagkatapos ng START."
-  },
   "audio.heading": {
     "src": "5ac4b197b0",
     "t": "🔊 Tunog"
-  },
-  "audio.ios_volume_note": {
-    "src": "845e176ce2",
-    "t": "Sa Safari sa iPhone o iPad, gamitin ang mga button ng volume ng iyong device."
   },
   "audio.music": {
     "src": "131260cbfb",
@@ -86,10 +78,6 @@
   "gate.hint": {
     "src": "0531f63eea",
     "t": "Puwede mo itong palitan mamaya sa sidebar."
-  },
-  "gate.press_start": {
-    "src": "61e0a87e4e",
-    "t": "Pumili ng wika para magsimula"
   },
   "gate.prompt": {
     "src": "bc06fdbb8a",

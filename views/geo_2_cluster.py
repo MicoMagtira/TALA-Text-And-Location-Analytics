@@ -58,10 +58,36 @@ m3.metric(i18n.t("geo_2_cluster.m_clustered"),
 
 st.markdown(i18n.t("geo_2_cluster.map_head"))
 palette = viz.categorical(ui.palette(), max(1, info["n_clusters"]))
-from streamlit_folium import st_folium  # noqa: E402
 
-m = geo.cluster_marker_map(result, palette)
-st_folium(m, use_container_width=True, height=520, returned_objects=[])
+
+@st.fragment
+def _cluster_map(result, palette):
+    """Map + selection readout. A click reruns only this block, not the page."""
+    from core import maps
+
+    frame = maps.cluster_frame(result, palette)
+    layer = maps.cluster_layer(result, palette, frame=frame)
+    event = st.pydeck_chart(
+        maps.deck([layer], maps.view_for(frame), "{tip}"),
+        height=520, width="stretch", on_select="rerun",
+        selection_mode="single-object", key="geo2_map")
+    if frame.attrs.get("sampled"):
+        st.caption(i18n.t("maps.sampled", shown=len(frame),
+                          total=frame.attrs["total"]))
+    picked = (event.selection.objects.get(maps.CLUSTER_LAYER_ID) or [None])[0]
+    if picked is None:
+        st.caption(i18n.t("geo_2_cluster.pick_hint"))
+        return
+    cid = int(picked["cluster_id"])
+    if cid == -1:
+        st.info(i18n.t("geo_2_cluster.picked_noise"))
+        return
+    n = int((result["cluster_id"] == cid).sum())
+    st.info(i18n.t("geo_2_cluster.picked", id=cid, n=n))
+    st.page_link("views/geo_5_nlp.py", label=i18n.t("geo_5_nlp.nav"), icon="➡️")
+
+
+_cluster_map(result, palette)
 
 st.markdown(i18n.t("geo_2_cluster.sizes_head"))
 sizes = (result[result["cluster_id"] != -1]["cluster_id"]

@@ -19,11 +19,19 @@ Two deliberate implementation choices:
   held this session's script-runner thread for the full wait, and a cohort of
   thirty trainees arriving together would then contend for Streamlit's thread
   pool at exactly the wrong moment. Real boot progress drives the first half of
-  the bar; the tail animates through the remainder and fades itself out.
+  the bar; the tail animates through the remainder.
+
+The splash always follows the language gate, so the visitor has already tapped
+the page and browser audio is unlocked: the loading is audible (one tick per bar
+segment, then a chime). At 100% a pixel START button appears. Pressing it is
+client-only (``__talaSound.startPressed()``): it plays the shooting-star cue,
+adds ``tala-boot-complete`` to ``<body>`` and sets the ``tala_booted`` session
+cookie, so a refresh in the same browser session skips the splash. No server
+rerun happens; the page underneath is already rendered. If JS or the engine is
+blocked, a CSS-only animation fades the overlay out 12 s after 100%.
 """
 from __future__ import annotations
 
-import base64
 import random
 import time
 
@@ -146,9 +154,10 @@ body:not(.tala-boot-complete):has(.tala-splash) header[data-testid="stHeader"] {
   opacity: 0;
   pointer-events: none;
   /* A CSP or browser extension must never leave navigation unavailable.
-     The normal controller restores it at the splash finale; this is a
-     one-time, client-only safety release after the longest boot timeline. */
-  animation: tala-show-chrome 0s linear 7s forwards;
+     START restores it through ``tala-boot-complete``; this is a one-time,
+     client-only safety release after the longest boot timeline plus the
+     12 s no-JS fallback below. */
+  animation: tala-show-chrome 0s linear 18s forwards;
 }}
 @keyframes tala-show-chrome {{
   to {{ opacity: 1; pointer-events: auto; }}
@@ -202,14 +211,21 @@ body:not(.tala-boot-complete):has(.tala-splash) header[data-testid="stHeader"] {
   font-family: "Courier New", ui-monospace, monospace;
   /* honour the reduced-motion preference: keep the art, drop the animation */
 }}
+/* Fallback so nobody is trapped: if START never works (JS or the engine is
+   blocked), the overlay fades itself out 12 s after the bar reaches 100%. */
 .tala-splash.is-done {{
-  animation: tala-fade-out .45s ease .05s forwards;
-  pointer-events: none;
+  animation: tala-fade-out .5s ease 12s forwards;
 }}
-/* Closing frame: sit for the remaining --tail, then fade. The delay is what
-   guarantees the splash its minimum screen time without a server-side sleep. */
+/* Closing frame: the bar fills over --tail, then START appears and the overlay
+   waits for it. The delay is what guarantees the splash its minimum screen time
+   without a server-side sleep. */
 .tala-splash.is-closing {{
-  animation: tala-fade-out .5s ease var(--tail) forwards;
+  animation: tala-fade-out .5s ease calc(var(--tail) + 12s) forwards;
+}}
+/* START was pressed: reveal the app at once. */
+body.tala-boot-complete .tala-splash {{
+  animation: tala-fade-out .45s ease forwards;
+  pointer-events: none;
 }}
 
 .tala-starfield {{ position: absolute; inset: 0; }}
@@ -302,17 +318,51 @@ body:not(.tala-boot-complete):has(.tala-splash) header[data-testid="stHeader"] {
   grid-area: 1 / 1; white-space: nowrap;
   opacity: 0; animation: tala-phase-window var(--phase) ease-in-out both;
 }}
+/* The START button holds its space from the first frame (no layout jump) and
+   fades in when the bar is full: at --tail while closing, at once when done. */
+.tala-start {{
+  position: relative; z-index: 3; margin-top: .3rem; cursor: pointer;
+  font-family: inherit; font-weight: 700; font-size: clamp(.85rem, 2.6vw, 1.05rem);
+  letter-spacing: .22em; text-indent: .22em; padding: .75rem 2.2rem;
+  color: #1b2559; border: 3px solid {GOLD}; border-radius: 0;
+  background: linear-gradient(to bottom, {GOLD} 0 45%, {GOLD_DEEP} 45% 100%);
+  box-shadow: 0 0 0 3px rgba(0,0,0,.4), 0 0 18px rgba(245,216,158,.45);
+  opacity: 0; pointer-events: none;
+}}
+.tala-start:hover, .tala-start:focus-visible {{
+  transform: translateY(-2px); outline: 3px solid #fff9de; outline-offset: 3px;
+}}
+@keyframes tala-start-in {{
+  from {{ opacity: 0; transform: translateY(6px); }}
+  to   {{ opacity: 1; transform: none; pointer-events: auto; }}
+}}
+.tala-splash.is-closing .tala-start {{
+  animation: tala-start-in .3s ease var(--tail) forwards;
+}}
+.tala-splash.is-done .tala-start {{
+  animation: tala-start-in .3s ease 0s forwards;
+}}
 /* Blocks that fill during the tail rise in on their own staggered delay. */
 .tala-progress i.fill {{ animation: tala-block-in .3s ease backwards; }}
 
 @media (prefers-reduced-motion: reduce) {{
   .tala-splash *, .tala-splash::after {{ animation: none !important; }}
   .tala-starfield i {{ opacity: .8; }}
+  /* No animation means no fade-in, so show START straight away. */
+  .tala-start {{ opacity: 1; pointer-events: auto; }}
 }}
 </style>
 """
 
 _BLOCKS = 18
+
+
+def _start_button() -> str:
+    """The pixel START button. Plain HTML so the engine's click map can find it by
+    id; it is inert until the CSS fade-in at 100%."""
+    from . import i18n
+
+    return f'<button id="tala-start" class="tala-start" type="button">▶ {i18n.t("gate.start")}</button>'
 
 
 def _frame(pct: int, message: str, done: bool = False) -> str:
@@ -345,6 +395,7 @@ def _frame(pct: int, message: str, done: bool = False) -> str:
         + f'<div class="tala-progress">{blocks}</div>'
         + f'<div class="tala-status"><span class="pct">{pct:3d}%</span>'
           f'{message}<span class="caret">_</span></div>'
+        + _start_button()
         + "</div>"
     )
 
@@ -377,6 +428,14 @@ def _wordmark() -> str:
             f'<span>{i18n.t("app.wordmark_org")}</span></div>')
 
 
+def _segment_delays(from_pct: int, remaining: float) -> list[float]:
+    """CSS fill delay (seconds) of each bar segment filled during the tail. The
+    finale styles the segments with these and the engine ticks on the same list."""
+    lit_from = round(_BLOCKS * max(0, min(100, from_pct)) / 100)
+    to_fill = max(1, _BLOCKS - lit_from)
+    return [remaining * k / to_fill for k in range(_BLOCKS - lit_from)]
+
+
 def _finale(from_pct: int, remaining: float) -> str:
     """The closing frame: fill the bar and cycle status lines over ``remaining``
     seconds, then fade — all client-side.
@@ -386,7 +445,7 @@ def _finale(from_pct: int, remaining: float) -> str:
     thread for the whole wait, and thirty trainees arriving together would then
     contend for Streamlit's thread pool at exactly the worst moment."""
     lit_from = round(_BLOCKS * max(0, min(100, from_pct)) / 100)
-    to_fill = max(1, _BLOCKS - lit_from)
+    delays = _segment_delays(from_pct, remaining)
 
     blocks = []
     for i in range(_BLOCKS):
@@ -394,7 +453,7 @@ def _finale(from_pct: int, remaining: float) -> str:
             blocks.append('<i class="on"></i>')
         else:
             # spread the remaining blocks evenly across the leftover time
-            delay = remaining * (i - lit_from) / to_fill
+            delay = delays[i - lit_from]
             blocks.append(f'<i class="on fill" style="animation-delay:{delay:.2f}s"></i>')
 
     tail = _tail_phases()
@@ -426,6 +485,7 @@ def _finale(from_pct: int, remaining: float) -> str:
         + _wordmark()
         + f'<div class="tala-progress">{"".join(blocks)}</div>'
         + f'<div class="tala-status is-cycling" style="--phase:{slice_s:.2f}s">{phases}</div>'
+        + _start_button()
         + "</div>"
     )
 
@@ -446,71 +506,42 @@ class Splash:
         self._pct = pct
         self._slot.markdown(_frame(pct, message), unsafe_allow_html=True)
 
-    @staticmethod
-    def _reveal_chrome_after(seconds: float) -> None:
-        """Restore the chrome after the browser-side splash fade completes.
-
-        The component's timer runs in the browser, so waiting never occupies a
-        Streamlit script-runner thread. The class also disables the CSS hiding
-        rule above rather than relying on a fragile delayed server rerun.
-        """
-        milliseconds = max(0, round(seconds * 1000))
-        # See ``core.audio`` for the same Streamlit-hosted-browser constraint:
-        # a compact executable bootstrap is retained while controller code is
-        # passed as data. This avoids sanitizer edge cases without using eval.
-        reveal_controller = f"""
-            (() => {{
-              // ``st.html`` runs in the app document. Its parent can be a
-              // cross-origin Community Cloud shell, so only touch this window.
-              const host = window;
-              host.setTimeout(
-                () => host.document.body.classList.add('tala-boot-complete'),
-                {milliseconds},
-              );
-            }})();
-        """
-        encoded_reveal = base64.b64encode(
-            reveal_controller.encode("utf-8")
-        ).decode("ascii")
-        st.html(
-            f"""
-            <script>
-            (() => {{
-              const script = document.createElement("script");
-              script.textContent = atob("{encoded_reveal}");
-              document.head.appendChild(script);
-              script.remove();
-            }})();
-            </script>
-            """,
-            unsafe_allow_javascript=True,
-        )
-
     def finish(self, message: str = "Ready") -> None:
         """Hand the rest of the minimum display time to the browser.
 
         Boot now takes well under a second, so ``MIN_SECONDS`` minus the real
         elapsed time becomes the tail the closing frame animates through. The
         server returns immediately either way: the page underneath is already
-        rendered, and the overlay counts itself down and fades on the client."""
+        rendered, and the overlay fills its bar on the client, then waits for
+        START. The audio timeline is scheduled on the same delays as the bar."""
+        from . import audio
+
         remaining = max(0.0, MIN_SECONDS - (time.monotonic() - self._started))
         if remaining <= 0.05:
             self._slot.markdown(_frame(100, message, done=True),
                                 unsafe_allow_html=True)
-            self._reveal_chrome_after(0.55)
+            audio.boot_timeline(self._pct, 0.0, [])
         else:
             self._slot.markdown(_finale(self._pct, remaining),
                                 unsafe_allow_html=True)
-            # Match the CSS tail plus its half-second fade-out.
-            self._reveal_chrome_after(remaining + 0.55)
+            audio.boot_timeline(self._pct, remaining,
+                                _segment_delays(self._pct, remaining))
 
 
 def boot(force: bool = False) -> Splash | None:
     """Return a :class:`Splash` on a session's first script run, else ``None``.
 
     Reruns triggered by widgets must not flash the splash again, so this is
-    gated on session state."""
-    if not force and st.session_state.get("_tala_booted"):
-        return None
+    gated on session state. START also sets a ``tala_booted`` session cookie, so
+    a refresh in the same browser session (new Streamlit session, same cookie)
+    goes straight to the page, as ARAW does."""
+    if not force:
+        if st.session_state.get("_tala_booted"):
+            return None
+        try:
+            if st.context.cookies.get("tala_booted") == "1":
+                return None
+        except Exception:  # noqa: BLE001 - no request context (tests, bare mode)
+            pass
     st.session_state["_tala_booted"] = True
     return Splash()

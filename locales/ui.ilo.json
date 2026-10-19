@@ -15,17 +15,9 @@
     "src": "cdd9e17c75",
     "t": "⚙ Dagiti setting ti uni"
   },
-  "audio.gate_hint": {
-    "src": "d1e39ba9ba",
-    "t": "Mayala dagiti pilim iti app. Manggirugi ti uni kalpasan ti START."
-  },
   "audio.heading": {
     "src": "5ac4b197b0",
     "t": "🔊 Uni"
-  },
-  "audio.ios_volume_note": {
-    "src": "845e176ce2",
-    "t": "Iti Safari iti iPhone wenno iPad, usarem dagiti buton ti volume ti device mo."
   },
   "audio.music": {
     "src": "131260cbfb",
@@ -86,10 +78,6 @@
   "gate.hint": {
     "src": "0531f63eea",
     "t": "Mabalinmo a sukatan daytoy kalpasan babaen ti sidebar."
-  },
-  "gate.press_start": {
-    "src": "61e0a87e4e",
-    "t": "Agpili iti pagsasao tapno mangrugi"
   },
   "gate.prompt": {
     "src": "bc06fdbb8a",

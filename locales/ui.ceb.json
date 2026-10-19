@@ -15,17 +15,9 @@
     "src": "cdd9e17c75",
     "t": "⚙ Mga setting sa tingog"
   },
-  "audio.gate_hint": {
-    "src": "d1e39ba9ba",
-    "t": "Madala ang imong mga pilion sa app. Mosugod ang tingog human sa START."
-  },
   "audio.heading": {
     "src": "5ac4b197b0",
     "t": "🔊 Tingog"
-  },
-  "audio.ios_volume_note": {
-    "src": "845e176ce2",
-    "t": "Sa Safari sa iPhone o iPad, gamita ang mga buton sa volume sa imong device."
   },
   "audio.music": {
     "src": "131260cbfb",
@@ -86,10 +78,6 @@
   "gate.hint": {
     "src": "0531f63eea",
     "t": "Mabag-o ni nimo unya sa sidebar."
-  },
-  "gate.press_start": {
-    "src": "61e0a87e4e",
-    "t": "Pagpili og pinulongan aron magsugod"
   },
   "gate.prompt": {
     "src": "bc06fdbb8a",

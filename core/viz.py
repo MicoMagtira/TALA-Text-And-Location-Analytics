@@ -131,7 +131,7 @@ def _lerp_hex(a: str, b: str, t: float) -> str:
 
 
 def sequential_hexes(name: str = DEFAULT_SEQUENTIAL, n: int = 6) -> list[str]:
-    """Sample a sequential palette into n hex steps (for branca/folium/Plotly).
+    """Sample a sequential palette into n hex steps (for pydeck/Plotly).
 
     Pure-Python interpolation over the stored stops, so the geo and Plotly pages
     do not drag matplotlib in just to pick colors."""
@@ -144,6 +144,12 @@ def sequential_hexes(name: str = DEFAULT_SEQUENTIAL, n: int = 6) -> list[str]:
         lo = min(int(pos), len(stops) - 2)
         out.append(_lerp_hex(stops[lo], stops[lo + 1], pos - lo))
     return out
+
+
+def hex_to_rgba(hex_color: str, alpha: int = 200) -> list[int]:
+    """``#rrggbb`` -> ``[r, g, b, alpha]`` (0-255), the colour form pydeck wants."""
+    h = hex_color.lstrip("#")
+    return [int(h[i:i + 2], 16) for i in (0, 2, 4)] + [int(alpha)]
 
 
 def figure(figsize=(8, 3.2)):

@@ -62,9 +62,10 @@ dl.ensure_loaded()
 if boot:
     boot.update(44, i18n.t("boot.indexing"))
 ui.sidebar_controls()
-# The component has no visible player. It keeps the browser-side sound manager
-# alive across Streamlit reruns and applies the Music/SFX sidebar preferences.
-audio.mount()
+# No visible player: this sends the synth engine once per session, then each run
+# only the preferences and the area that picks the music. Task C replaces the
+# fixed "home" with the area of the page about to run (tracks.area_for).
+audio.mount("home")
 
 # --- Navigation ---------------------------------------------------------------
 # Titles come from the catalog; the ones that should stay English (Topic
