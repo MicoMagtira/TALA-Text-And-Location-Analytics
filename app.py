@@ -7,14 +7,15 @@ Run:  streamlit run app.py
 
 Boot order matters here. The app targets Streamlit Community Cloud (~1 GB RAM,
 shared CPU), so the module graph is kept deliberately shallow: only streamlit and
-pandas load before the first page renders. sklearn, matplotlib, geopandas, folium
+pandas load before the first page renders. sklearn, matplotlib, geopandas, pydeck
 and NLTK are imported inside the functions that use them, which means a visitor
 who only opens the Home page never pays for the geospatial or modelling stacks.
 
-The session also starts behind a language gate (English, Filipino, Cebuano,
-Ilocano, Hiligaynon). It runs before the boot splash on purpose: the splash is
-then already localized, and a trainee never watches the interface change
-language underneath them mid-load. See core/i18n.py for the translation model.
+A new session starts behind a language gate (English, Filipino, Cebuano,
+Ilocano, Hiligaynon), then the boot splash, then START. The intro order is
+language, splash, START: the first tap unlocks audio, the splash is already
+localized and audible, and a trainee never watches the interface change language
+mid-load. Returning visitors skip it via the saved prefs cookie (core/persist.py). See core/i18n.py for the translation model.
 """
 from __future__ import annotations
 

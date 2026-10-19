@@ -12,51 +12,55 @@ colors.
 
 ## What it does
 
-Two connected tracks over one dataset (`id, text, lon, lat`):
+TALA is aimed at **computer students with a technical background**. It walks them
+through two guided tracks over one dataset (`id, text, lon, lat`). A progress strip,
+**Back / Next** buttons and a "track complete" card keep the path obvious, Home offers
+**Continue** and **Your path**, and nothing ends in a "run the previous page first" dead end.
 
-**Text Analytics** — cleaning with Filipino/Taglish stopwords, word clouds &
-frequencies, VADER sentiment + NRC emotions, n-grams & co-occurrence networks, LDA
+**Text track (8 steps)**: cleaning with Filipino/Taglish stopwords, word clouds and
+frequencies, VADER sentiment + NRC emotions, n-grams and co-occurrence networks, LDA
 topic modeling + stability, RAKE keywords, NLTK noun/POS extraction, readability
 metrics, and TF-IDF K-Means themes.
 
-**Geospatial Analytics** — CRS/bounds validation, DBSCAN clustering (with a
-k-distance elbow), grid/centroid generalization, Philippine land clipping,
-interactive + publication maps, and **privacy-safe NLP per cluster**. The geo pages
-chain their outputs through session state, mirroring the original Colab labs:
+**Geo track (5 steps)**: CRS/bounds validation, DBSCAN clustering (with a k-distance
+elbow), grid/centroid generalization, Philippine land clipping, and privacy-safe NLP per
+cluster. Maps are interactive **pydeck** maps (click a point to see its cluster). The geo pages
+run their upstream steps automatically with sensible defaults, so any page can be opened first:
 
 ```
-Parquet → Ingest (points) → DBSCAN (clusters) → Generalization / NLP-per-cluster → Map & Exports
+Parquet -> Ingest (points) -> DBSCAN (clusters) -> Generalization / NLP-per-cluster -> Map
 ```
 
-Every page has a **Learn** panel (toggle in the sidebar) that shows the concept and
-the equivalent source code — turning the app into live teaching material.
+**Save and resume.** Language, sound settings, palettes, dataset choice, cluster
+parameters, finished steps and the last page are kept in one browser cookie (`tala_prefs`,
+180 days), so a returning visitor skips the language gate and continues where they left
+off. Settings has a **Forget me on this computer** button for shared workshop PCs.
+
+Every page has a collapsed **Learn** panel (toggle in the sidebar) that shows the concept
+and the equivalent source code, which makes the app live teaching material.
 
 ## Sound
 
-TALA can play optional 8-bit sound in the browser. The language gate offers
-**Sound settings** before START, and the sidebar keeps **Music** and **SFX**
-toggles plus independent volume sliders available throughout the app. Music is
-attempted on the start screen and, if browser autoplay is blocked, begins on
-the visitor's first gate interaction. START silences the loop while its cue plays,
-then makes it audible after the cue ends. Other buttons and interactive
-controls—including page navigation, Learn expanders, radio buttons, checkboxes,
-and toggles—use the click cue.
+TALA synthesizes all of its sound in the browser with the Web Audio API
+(`core/sound_engine.js`). There are **no audio files**: nothing to download, no
+licensing, and about 7 MB less per visitor than the old MP3s. Music follows the area
+you are in (language gate and Home, Text track, Geo track), SFX react to clicks, toggles,
+sliders, downloads and compute, and two fanfares mark a finished track and the full sky.
+Music and SFX have independent toggles and volume sliders, plus a melody/ambience style
+choice in Settings.
 
-On iPhone/iPad Safari versions that lock web-media volume, use the device's
-physical volume buttons; TALA hides the ineffective sliders and keeps the Music
-and SFX toggles available.
+The intro is language first: the first tap on a language card unlocks audio (browsers
+require a gesture), then a loading splash plays with sound, then **START**.
 
-Some browsers require that first interaction before unmuted audio can play. The
-optimized runtime files live in `static/audio/`, stream directly from GitHub Raw
-with a same-origin fallback, and do not consume per-session Streamlit memory. See
-[`docs/AUDIO.md`](docs/AUDIO.md) for the asset manifest, rebuild command, and
-licensing reminder.
+Every sound was prototyped and approved in the soundboard,
+[`docs/sound/soundboard.html`](docs/sound/soundboard.html); open it in a browser to audition
+them. See [`docs/AUDIO.md`](docs/AUDIO.md) for the engine, the event map and how to add a sound.
 
 ## Languages
 
-TALA ships in **English, Filipino, Cebuano, Ilocano and Hiligaynon**. A session
-opens on a language gate — pixel-art cards and a START button, in the same 8-bit
-idiom as the boot splash — and the sidebar can switch language mid-session.
+TALA ships in **English, Filipino, Cebuano, Ilocano and Hiligaynon**. A new session
+opens on a language gate (pixel-art cards and a Continue button), then the 8-bit boot
+splash with a START button. The sidebar can switch language mid-session.
 
 There is **one** set of views. Prose is data, not code:
 
@@ -119,7 +123,7 @@ with the repo, so the app works offline.
 
 ## Deploy to Streamlit Community Cloud
 
-1. Push this `tala_app/` folder to a GitHub repo.
+1. Push this repository to GitHub.
 2. On [share.streamlit.io](https://share.streamlit.io), create an app pointing at
    `app.py` on your branch.
 3. `requirements.txt` is picked up automatically. There is **no `packages.txt`** —
@@ -133,7 +137,7 @@ The free tier gives ~1 GB RAM and a shared CPU, which this app is tuned for:
 
 | Technique | Where |
 |---|---|
-| Only `streamlit` + `pandas` on the base import path; sklearn, matplotlib, geopandas, folium and NLTK load inside the functions that use them | `core/*.py` |
+| Only `streamlit` + `pandas` on the base import path; sklearn, matplotlib, geopandas, pydeck and NLTK load inside the functions that use them | `core/*.py` |
 | Multi-page navigation, so a page's code runs only when opened | `app.py` |
 | Parquet instead of CSV (0.5 MB vs 2.5 MB, no text parsing) | `core/data_loader.py` |
 | Coordinates downcast to `float32` | `core/data_loader.py` |
@@ -143,23 +147,42 @@ The free tier gives ~1 GB RAM and a shared CPU, which this app is tuned for:
 | LDA cached on the parameters that change the *fit*, so the display-only "words per topic" slider no longer refits | `core/nlp.py` |
 | NLTK POS tagging instead of spaCy (~150 MB of model + runtime saved) | `core/nlp.py` |
 | Every slow cached function names its work, so waits are legible | `show_spinner=` args |
+| pydeck maps instead of folium: the browser renders the points (WebGL) and the server sends a plain DataFrame, with no HTML map document per rerun | `core/maps.py` |
+| Synth sound instead of MP3s: no audio files to ship, and the 7 MB per visitor is gone | `core/sound_engine.js` |
 | 8-bit boot splash with server-driven progress | `core/splash.py` |
 
 ## Project layout
 
 ```
-tala_app/
+.
 ├── app.py                     # entry point + navigation + boot sequence
 ├── .streamlit/config.toml     # NU theme + runtime tuning
 ├── requirements.txt
 ├── assets/styles.css          # brand + responsive CSS + loading states
 ├── data/                      # Parquet dataset, PH land polygon, stopword lists
+├── docs/                      # AUDIO.md, PLAN_SEAMLESS.md, sound/soundboard.html
 ├── locales/                   # ui.<lang>.json + pages/<lang>/*.md (5 languages)
-├── tools/                     # i18n_tool (check/stamp/export/import), extract, seed
-├── core/                      # data_loader, preprocess, nlp, geo, viz, ui, i18n, gate, splash
-├── tests/                     # concurrency + i18n guards
+├── tools/                     # i18n_tool, extract, seed, smoke_e2e.cjs (browser smoke test)
+├── core/
+│   ├── data_loader, preprocess, nlp, geo, viz   # data + analysis
+│   ├── maps.py                # pydeck layers and decks
+│   ├── tracks.py              # track order, progress, step/track completion
+│   ├── persist.py             # save + resume cookie
+│   ├── sound_engine.js        # Web Audio synth (sounds + songs)
+│   └── ui, i18n, gate, splash, audio
+├── tests/                     # concurrency, i18n, audio, maps, tracks, persist guards
 └── views/                     # one script per page (text_*, geo_*, home)
 ```
+
+### End-to-end smoke test
+
+With the app running (`streamlit run app.py --server.headless true --server.port 8599`):
+
+```bash
+node tools/smoke_e2e.cjs            # needs Playwright; set PLAYWRIGHT_PATH to override
+```
+
+It walks the intro, visits all 13 pages, then checks resume from a saved cookie and reload.
 
 ## Colors
 

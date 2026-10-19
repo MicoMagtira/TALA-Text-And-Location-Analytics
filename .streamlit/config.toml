@@ -32,8 +32,8 @@ magicEnabled = false
 # (LDA, DBSCAN) where a mistimed slider drag would otherwise queue a full recompute.
 fastReruns = true
 
-# We deliberately keep GeoDataFrames in session_state, which are not trivially
-# serializable; leave the check off.
+# Session state holds only keys and parameters (never DataFrames), so this would
+# pass; it stays off to skip the per-run serialization check on a small container.
 enforceSerializableSessionState = false
 
 [client]
