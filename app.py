@@ -45,13 +45,12 @@ if boot:
     boot.update(6, i18n.t("boot.core"))
 
 from core import audio, data_loader as dl  # noqa: E402
-from core import ui  # noqa: E402
+from core import tracks, ui  # noqa: E402
 
 if boot:
     boot.update(18, i18n.t("boot.theme"))
 
 ui.inject_css()
-ui.header()
 
 # Pull the dataset in explicitly rather than letting the first page trigger it,
 # so the read happens while the splash is still up and reports honest progress.
@@ -62,10 +61,6 @@ dl.ensure_loaded()
 if boot:
     boot.update(44, i18n.t("boot.indexing"))
 ui.sidebar_controls()
-# No visible player: this sends the synth engine once per session, then each run
-# only the preferences and the area that picks the music. Task C replaces the
-# fixed "home" with the area of the page about to run (tracks.area_for).
-audio.mount("home")
 
 # --- Navigation ---------------------------------------------------------------
 # Titles come from the catalog; the ones that should stay English (Topic
@@ -98,8 +93,16 @@ nav = st.navigation({
     i18n.t("nav.geo"): geo_pages,
 })
 
+# The music follows the page about to run. url_path is "" for Home.
+area = tracks.area_for(nav.url_path or "")
+audio.mount(area)
+
 if boot:
     boot.update(55, i18n.t("boot.render"))
+
+# Only Home keeps the big banner; track pages carry a compact header instead.
+if area == "home":
+    ui.header()
 
 # The splash must come down even if a page raises, otherwise the overlay would
 # sit on top of the traceback.

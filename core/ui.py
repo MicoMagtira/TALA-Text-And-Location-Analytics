@@ -1,4 +1,4 @@
-"""Shared UI helpers: header, footer, sidebar controls, and 'Learn' panels.
+"""Shared UI helpers: header, footer, sidebar, track flow, and 'Learn' panels.
 
 The 'Learn' expanders turn each page into live teaching material by pairing the
 concept with the equivalent code from the source notebook / lab.
@@ -15,7 +15,7 @@ from pathlib import Path
 import streamlit as st
 
 from . import audio, data_loader as dl
-from . import i18n
+from . import i18n, tracks
 from .viz import categorical_names, sequential_names, load_css
 
 ASSETS = Path(__file__).resolve().parent.parent / "assets"
@@ -81,7 +81,7 @@ def _on_language_change() -> None:
 
 
 def sidebar_controls() -> None:
-    """Global controls rendered on every page (language, palette, teach mode)."""
+    """Global sidebar: language, sound, a Settings expander, then the dataset caption."""
     dl.ensure_loaded()
 
     # Language first: a trainee who picked the wrong card on the gate, or a
@@ -96,24 +96,28 @@ def sidebar_controls() -> None:
 
     audio.sidebar_settings()
 
-    st.sidebar.markdown(f"### {i18n.t('side.appearance')}")
-    st.session_state.setdefault(SS_PALETTE, categorical_names()[0])
-    st.session_state.setdefault(SS_SEQ, sequential_names()[0])
-    st.sidebar.selectbox(i18n.t("side.palette_cat"), categorical_names(), key=SS_PALETTE)
-    st.sidebar.selectbox(i18n.t("side.palette_seq"), sequential_names(), key=SS_SEQ)
+    # Everything a trainee rarely touches lives behind one expander, so the
+    # sidebar is just language, sound and the page list.
+    with st.sidebar.expander(i18n.t("side.settings"), expanded=False):
+        st.session_state.setdefault(SS_PALETTE, categorical_names()[0])
+        st.session_state.setdefault(SS_SEQ, sequential_names()[0])
+        st.selectbox(i18n.t("side.palette_cat"), categorical_names(), key=SS_PALETTE)
+        st.selectbox(i18n.t("side.palette_seq"), sequential_names(), key=SS_SEQ)
 
-    st.sidebar.markdown(f"### {i18n.t('side.stopwords')}")
-    st.session_state.setdefault(SS_USE_TL, True)
-    st.sidebar.checkbox(i18n.t("side.use_tagalog"), key=SS_USE_TL)
-    st.session_state.setdefault(SS_CUSTOM_SW, "")
-    st.sidebar.text_area(
-        i18n.t("side.custom_stopwords"), key=SS_CUSTOM_SW, height=90,
-        placeholder=i18n.t("side.custom_placeholder"),
-    )
+        st.session_state.setdefault(SS_USE_TL, True)
+        st.checkbox(i18n.t("side.use_tagalog"), key=SS_USE_TL)
+        st.session_state.setdefault(SS_CUSTOM_SW, "")
+        st.text_area(
+            i18n.t("side.custom_stopwords"), key=SS_CUSTOM_SW, height=90,
+            placeholder=i18n.t("side.custom_placeholder"),
+        )
 
-    st.sidebar.markdown(f"### {i18n.t('side.training')}")
-    st.session_state.setdefault(SS_TEACH, True)
-    st.sidebar.toggle(i18n.t("side.show_learn"), key=SS_TEACH)
+        st.session_state.setdefault(SS_TEACH, True)
+        st.toggle(i18n.t("side.show_learn"), key=SS_TEACH)
+
+        styles = dict(audio.style_options())
+        st.selectbox(i18n.t("audio.style"), list(styles), key=audio.SS_MUSIC_STYLE,
+                     format_func=lambda v: i18n.t(styles[v]))
 
     st.sidebar.markdown("---")
     st.sidebar.caption(i18n.t("side.data", source=source_label()))
@@ -143,17 +147,139 @@ def stopwords() -> set:
 # Page scaffolding — every page renders through these two calls
 # ---------------------------------------------------------------------------
 def page_header(page: str, section: str) -> None:
-    """Pill + title + blurb, all resolved from the catalog by page name.
+    """Pill + title + blurb, resolved from the catalog by page name.
 
     ``page`` is the view's module stem (``text_3_sentiment``), which is also the
     key prefix and the name of its Learn essay file. One identifier, so a page
-    cannot drift out of sync with its own translations."""
+    cannot drift out of sync with its own translations.
+
+    Track pages get a compact header and the progress strip, and record
+    themselves as the last page visited (Home's "Continue" card reads it). Only
+    Home keeps the big banner (``header()``, drawn by app.py)."""
     st.markdown(f'<span class="tala-pill">{i18n.t(_PILL[section])}</span>',
                 unsafe_allow_html=True)
     st.markdown(f"## {i18n.t(f'{page}.title')}")
+    pos = tracks.position(page)
+    if pos:
+        st.session_state[tracks.SS_LAST_PAGE] = page
+        _progress_strip(page, *pos)
     blurb = i18n.t(f"{page}.blurb")
     if blurb and blurb != f"{page}.blurb":
         st.markdown(blurb)
+
+
+def strip_html(track: str, current: str | None = None) -> str:
+    """Pixel progress segments for a track as static HTML (done / current / todo)."""
+    done = tracks.done_pages()
+    segs = []
+    for p in tracks.TRACKS[track]:
+        state = "current" if p == current else ("done" if p in done else "todo")
+        segs.append(f'<i class="tala-seg tala-seg-{state}"></i>')
+    return f'<div class="tala-segs">{"".join(segs)}</div>'
+
+
+def _progress_strip(page: str, track: str, index: int, total: int) -> None:
+    """``TEXT TRACK . 3 / 8`` plus one clickable pixel segment per page.
+
+    Segments are ``st.page_link`` rather than plain anchors: an anchor would
+    reload the browser tab and start a fresh session, losing the trainee's
+    progress. Each sits in a keyed container so CSS can colour it by state."""
+    st.caption(f"{i18n.t(f'track.label_{track}')} · {index} / {total}")
+    done = tracks.done_pages()
+    with st.container(key="tala-strip"):
+        for col, p in zip(st.columns(total, gap="small"), tracks.TRACKS[track]):
+            state = "current" if p == page else ("done" if p in done else "todo")
+            with col, st.container(key=f"tala-seg-{state}-{p}"):
+                n = tracks.TRACKS[track].index(p) + 1
+                st.page_link(tracks.path_of(p), label=str(n),
+                             help=i18n.t(f"{p}.nav"), disabled=(p == page))
+
+
+def page_done(page: str) -> None:
+    """Mark this page's step finished; if that completed a track, show the card.
+
+    The card is tied to the page that completed the track, so it stays put across
+    reruns of that page instead of vanishing on the first slider touch."""
+    was_done = page in tracks.done_pages()
+    tracks.mark_done(page)
+    if not was_done and tracks.track_of(page):
+        st.toast(i18n.t("track.step_done"), icon="✅")
+    just = st.session_state.get(tracks.SS_JUST_COMPLETED)
+    if just and just[0] == page:
+        _track_complete_card(just[1])
+
+
+def _track_complete_card(track: str) -> None:
+    other = "geo" if track == "text" else "text"
+    with st.container(border=True, key="tala-complete"):
+        st.markdown(f"### {i18n.t(f'track.complete_{track}')}")
+        st.write(i18n.t(f"track.covered_{track}"))
+        c1, c2 = st.columns(2)
+        with c1:
+            if not tracks.track_complete(other):
+                st.page_link(tracks.path_of(tracks.first_todo(other)),
+                             label=i18n.t(f"track.start_{other}"), icon="▶")
+        with c2:
+            st.page_link(tracks.path_of("home"), label=i18n.t("track.go_home"), icon="🏠")
+
+
+def track_footer(page: str) -> None:
+    """Back and Next at the foot of a track page: the page's only way onward.
+
+    On a track's last page Next becomes "start the other track" (while it is
+    unfinished) or "Finish, Home"."""
+    track = tracks.track_of(page)
+    if track is None:
+        return
+    prev, nxt = tracks.neighbours(page)
+    other = "geo" if track == "text" else "text"
+    if nxt:
+        target, label = nxt, i18n.t("track.next")
+    elif not tracks.track_complete(other):
+        target, label = tracks.first_todo(other), i18n.t(f"track.start_{other}")
+    else:
+        target, label = "home", i18n.t("track.finish")
+    with st.container(key="tala-footnav"):
+        left, right = st.columns(2)
+        with left:
+            if prev:
+                st.page_link(tracks.path_of(prev), label=i18n.t("track.back"),
+                             help=i18n.t(f"{prev}.nav"))
+        with right, st.container(key="tala-footnav-next"):
+            st.page_link(tracks.path_of(target), label=label)
+
+
+def warn(msg: str) -> None:
+    """``st.warning`` that also plays the warning sound."""
+    st.warning(msg)
+    audio.cue("warn")
+
+
+def error(msg: str) -> None:
+    """``st.error`` that also plays the error sound."""
+    st.error(msg)
+    audio.cue("error")
+
+
+def info(msg: str) -> None:
+    """``st.info``; silent by design."""
+    st.info(msg)
+
+
+def locked(msg: str, link_page: str, link_label: str) -> None:
+    """A friendly card for a page that genuinely cannot run (no coordinates, say).
+
+    Shows the reason and a link to where it is fixed, plays ``locked``, draws the
+    track footer so the page is never a dead end, then ends the run. Callers do
+    not need their own ``st.stop()``."""
+    audio.cue("locked")
+    with st.container(border=True, key="tala-locked"):
+        st.markdown(f"#### 🔒 {msg}")
+        st.page_link(tracks.path_of(link_page), label=link_label, icon="➡️")
+    last = st.session_state.get(tracks.SS_LAST_PAGE)
+    if last:
+        track_footer(last)
+    st.stop()
 
 
 def learn_page(page: str, code: str | None = None, lang: str = "python") -> None:
@@ -167,8 +293,8 @@ def learn_page(page: str, code: str | None = None, lang: str = "python") -> None
         return
     keys = [k for k in i18n.page_blocks(page) if k != "title"]
     body = "\n\n".join(filter(None, (i18n.tm(page, k) for k in keys)))
-    with st.expander(i18n.t("learn.header", title=i18n.tm(page, "title")),
-                     expanded=True):
+    with st.expander(i18n.t("learn.title", title=i18n.tm(page, "title")),
+                     expanded=False):
         st.markdown(f"> {i18n.t('learn.routine')}")
         st.markdown(i18n.t("learn.understand"))
         st.markdown(body)

@@ -154,3 +154,57 @@ div[data-testid="stProgress"] div[role="progressbar"] > div {
 /* Charts/maps never overflow their container. */
 .stPlotlyChart, .element-container iframe { max-width: 100%; }
 img { max-width: 100%; height: auto; }
+
+/* ---- Guided flow (Task C) -------------------------------------------- */
+/* Cue/engine scripts render into empty element containers: no visible gap. */
+div[data-testid="stElementContainer"]:has(.tala-cue),
+div[data-testid="stElementContainer"]:has(script),
+.stElementContainer:has(.tala-cue),
+.stElementContainer:has(script) { display: none; }
+
+/* Fade the page in on navigation; skipped for reduced motion. */
+@keyframes tala-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: no-preference) {
+  [data-testid="stMainBlockContainer"] > [data-testid="stVerticalBlock"] {
+    animation: tala-fade 180ms ease-out;
+  }
+}
+
+/* Chart and map slots keep their height while they compute. */
+div[data-testid="stDeckGlJsonChart"] { min-height: 520px; }
+.stPlotlyChart { min-height: 300px; }
+
+/* Progress strip: one pixel block per page, never wrapping (not even on phones). */
+.st-key-tala-strip div[data-testid="stHorizontalBlock"] {
+  flex-wrap: nowrap !important; gap: 4px !important; margin-bottom: 0.4rem;
+}
+.st-key-tala-strip div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"],
+.st-key-tala-strip div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+  min-width: 0 !important; flex: 1 1 0 !important;
+}
+.st-key-tala-strip a {
+  display: flex; justify-content: center; padding: 0.15rem 0 !important;
+  border: 2px solid var(--nu-navy); border-radius: 0; min-height: 0;
+  font-family: "Courier New", ui-monospace, monospace; font-size: 0.7rem; font-weight: 700;
+  color: var(--nu-navy); background: #eceef8;
+}
+.st-key-tala-strip a p { font-size: 0.7rem; margin: 0; }
+[class*="st-key-tala-seg-done-"] a { background: var(--nu-gold); border-color: var(--nu-gold-deep); color: var(--nu-dark); }
+[class*="st-key-tala-seg-current-"] a { background: #fff; outline: 2px solid var(--nu-gold-deep); outline-offset: 1px; }
+[class*="st-key-tala-seg-todo-"] a { opacity: 0.6; }
+
+/* Static segments (Home's track cards). */
+.tala-segs { display: flex; gap: 4px; margin: 0.3rem 0 0.5rem; }
+.tala-seg { flex: 1; height: 12px; border: 2px solid var(--nu-navy); background: #eceef8; opacity: 0.6; }
+.tala-seg-done { background: var(--nu-gold); border-color: var(--nu-gold-deep); opacity: 1; }
+.tala-seg-current { background: #fff; opacity: 1; }
+
+/* Back / Next footer. */
+.st-key-tala-footnav { margin-top: 1.6rem; padding-top: 0.8rem; border-top: 2px solid var(--nu-gold); }
+.st-key-tala-footnav a {
+  border: 2px solid var(--nu-navy); border-radius: 0; padding: 0.35rem 0.9rem;
+  font-family: "Courier New", ui-monospace, monospace; font-weight: 700; color: var(--nu-navy);
+}
+.st-key-tala-footnav-next a { background: var(--nu-navy); color: #fff; }
+.st-key-tala-footnav-next { display: flex; justify-content: flex-end; }
+.st-key-tala-complete { background: linear-gradient(120deg, #fff8e6, #fff); border-color: var(--nu-gold-deep) !important; }

@@ -459,10 +459,6 @@
     "src": "9000d00136",
     "t": "- Paglilinis at Filipino/Taglish stopwords\n- Word clouds at mga dalas\n- VADER sentiment + NRC emotions\n- N-grams at co-occurrence networks\n- LDA topics + stability\n- RAKE keywords, nouns/POS\n- Readability metrics at TF-IDF themes"
   },
-  "home.tip": {
-    "src": "854f374f04",
-    "t": "Pumunta sa **Text Analytics → Data & Preprocessing** para mag-upload ng sarili mong data o baguhin ang text column, tapos galugarin ang Text at Geospatial na seksyon sa sidebar. Gamitin ang mga toggle sa sidebar para palitan ang palette, magdagdag ng Filipino stopwords, o itago ang Learn panels kapag may pagsusulit."
-  },
   "home.title": {
     "src": "361fa18c41",
     "t": "Maligayang pagdating sa TALA"
@@ -478,10 +474,6 @@
   "learn.discuss_heading": {
     "src": "2275e190a5",
     "t": "#### Pag-usapan bago magkonklusyon"
-  },
-  "learn.header": {
-    "src": "cb04cbd64a",
-    "t": "📘 Alamin bago subukan — {title}"
   },
   "learn.routine": {
     "src": "eab1804e3c",
@@ -539,10 +531,6 @@
     "src": "c4c6c57253",
     "t": "positibo"
   },
-  "side.appearance": {
-    "src": "be0e75bb44",
-    "t": "🎨 Itsura"
-  },
   "side.custom_placeholder": {
     "src": "9742096c43",
     "t": "hal. clinic, hospital, ospital"
@@ -570,14 +558,6 @@
   "side.show_learn": {
     "src": "84ebb2309c",
     "t": "Ipakita ang mga paliwanag sa 'Learn'"
-  },
-  "side.stopwords": {
-    "src": "20b4adba16",
-    "t": "🈳 Wika / stopwords"
-  },
-  "side.training": {
-    "src": "4baf6547ec",
-    "t": "🎓 Pagsasanay"
   },
   "side.use_tagalog": {
     "src": "e6dd81d47a",
@@ -658,10 +638,6 @@
   "spin.vader": {
     "src": "1aff26da65",
     "t": "Iniiskor ang sentiment gamit ang VADER…"
-  },
-  "text_1_data.activated": {
-    "src": "155dae14dc",
-    "t": "Aktibo na ang dataset. Ito na ang gagamitin ng bawat Text at Geospatial page."
   },
   "text_1_data.blurb": {
     "src": "d708bd66d9",
@@ -778,10 +754,6 @@
   "text_1_data.uploader": {
     "src": "dc26616fa6",
     "t": "Mag-upload ng CSV o Excel (.xlsx). Kailangan ng text column; opsyonal ang `lon`/`lat` para sa geospatial pages."
-  },
-  "text_1_data.use_btn": {
-    "src": "dc86d9db42",
-    "t": "✅ Gamitin ang dataset na ito"
   },
   "text_2_wordcloud.axis_freq": {
     "src": "48a8832d14",

@@ -459,10 +459,6 @@
     "src": "9000d00136",
     "t": "- Paglimpyo ug Filipino/Taglish stopwords\n- Word clouds ug mga kasubsob\n- VADER sentiment + NRC emotions\n- N-grams ug co-occurrence networks\n- LDA topics + stability\n- RAKE keywords, nouns/POS\n- Readability metrics ug TF-IDF themes"
   },
-  "home.tip": {
-    "src": "854f374f04",
-    "t": "Adto sa **Text Analytics → Data & Preprocessing** aron mag-upload sa imong kaugalingong data o mag-usab sa text column, dayon suhira ang Text ug Geospatial nga seksyon sa sidebar. Gamita ang mga toggle sa sidebar aron usbon ang palette, magdugang og Filipino stopwords, o itago ang Learn panels panahon sa pagsulay."
-  },
   "home.title": {
     "src": "361fa18c41",
     "t": "Maayong pag-abot sa TALA"
@@ -478,10 +474,6 @@
   "learn.discuss_heading": {
     "src": "2275e190a5",
     "t": "#### Hisgoti usa sa dili pa mohukom"
-  },
-  "learn.header": {
-    "src": "cb04cbd64a",
-    "t": "📘 Sabta usa sa dili pa mosulay — {title}"
   },
   "learn.routine": {
     "src": "eab1804e3c",
@@ -539,10 +531,6 @@
     "src": "c4c6c57253",
     "t": "positibo"
   },
-  "side.appearance": {
-    "src": "be0e75bb44",
-    "t": "🎨 Hitsura"
-  },
   "side.custom_placeholder": {
     "src": "9742096c43",
     "t": "pananglitan: clinic, hospital, ospital"
@@ -570,14 +558,6 @@
   "side.show_learn": {
     "src": "84ebb2309c",
     "t": "Ipakita ang mga pasabot sa 'Learn'"
-  },
-  "side.stopwords": {
-    "src": "20b4adba16",
-    "t": "🈳 Pinulongan / stopwords"
-  },
-  "side.training": {
-    "src": "4baf6547ec",
-    "t": "🎓 Pagbansay"
   },
   "side.use_tagalog": {
     "src": "e6dd81d47a",
@@ -658,10 +638,6 @@
   "spin.vader": {
     "src": "1aff26da65",
     "t": "Gi-score ang sentiment gamit ang VADER…"
-  },
-  "text_1_data.activated": {
-    "src": "155dae14dc",
-    "t": "Aktibo na ang dataset. Kini na ang gamiton sa matag Text ug Geospatial page."
   },
   "text_1_data.blurb": {
     "src": "d708bd66d9",
@@ -778,10 +754,6 @@
   "text_1_data.uploader": {
     "src": "dc26616fa6",
     "t": "Mag-upload og CSV o Excel (.xlsx). Kinahanglan og text column; opsyonal ang `lon`/`lat` para sa geospatial pages."
-  },
-  "text_1_data.use_btn": {
-    "src": "dc86d9db42",
-    "t": "✅ Gamita kini nga dataset"
   },
   "text_2_wordcloud.axis_freq": {
     "src": "48a8832d14",
