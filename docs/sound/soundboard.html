@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TALA Sound Board</title>
+<style>
+/* Layout: a night-sky banner with TALA's star, bubble and pin sprites and a live pixel oscilloscope, a sticky mixer,
+   then card grids per sound family. Dark on purpose: TALA is the night app (tala = star), so the board matches the
+   gate and boot splash in core/splash.py rather than ARAW's daytime sunrise. No web fonts, so it works offline. */
+:root {
+  --sky-deep: #0b0f2b; --sky-mid: #1b2559; --sky-low: #05071a; --navy: #35408E; --navy-lite: #4a56b0; --edge: #2a3370;
+  --gold: #F5D89E; --gold-deep: #C9962E; --ink: #eef1ff; --muted: #aab3dd; --card: #141a40; --card-2: #1b2252;
+  --playing: #222c6b; --keep: #3fb67a; --cut: #e5636b; --line: #05071a;
+  --px: 4px;
+  --font-pixel: "Courier New", ui-monospace, monospace;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--sky-low); }
+body { margin: 0; color: var(--ink); font: 17px/1.55 var(--font-body);
+  background: radial-gradient(120% 70% at 50% 0%, var(--sky-mid) 0%, var(--sky-deep) 55%, var(--sky-low) 100%) fixed; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+
+/* banner */
+.banner { position: relative; overflow: hidden; background: var(--sky-deep); border-bottom: var(--px) solid var(--line); }
+.sky { position: absolute; inset: 0; pointer-events: none; }
+.sky i { position: absolute; background: var(--gold); opacity: var(--dim); animation: twinkle var(--dur) steps(4) var(--delay) infinite; }
+@keyframes twinkle { 50% { opacity: 1; } }
+.hero { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 28px; align-items: center; padding-block: 30px 26px; }
+.sprites { display: flex; align-items: flex-end; gap: 10px; }
+.sprites canvas { image-rendering: pixelated; display: block; transition: transform 160ms steps(2), filter 160ms steps(2); }
+.sprites .star { width: 90px; height: 90px; }
+.sprites .side { width: 48px; height: auto; margin-bottom: 6px; }
+.sprites canvas.flare { transform: scale(1.14); filter: drop-shadow(0 0 12px var(--gold)); }
+.eyebrow { font: 700 12px/1.6 var(--font-pixel); letter-spacing: .22em; color: var(--gold-deep); text-transform: uppercase; }
+h1 { font: 700 clamp(26px, 4vw, 44px)/1.15 var(--font-pixel); letter-spacing: .14em; color: var(--gold); text-shadow: 4px 4px 0 var(--navy); margin-block: 8px 12px; }
+.lede { max-width: 64ch; color: var(--muted); }
+.lede b { color: var(--ink); }
+.scope { background: var(--line); border: var(--px) solid var(--edge); box-shadow: var(--px) var(--px) 0 var(--line); padding: 8px; display: grid; gap: 6px; }
+.scope canvas { width: 256px; height: 72px; image-rendering: pixelated; display: block; max-width: 100%; }
+.scope span { font: 700 10px/1 var(--font-pixel); color: var(--gold); letter-spacing: .16em; }
+.bands { height: 16px; background: linear-gradient(to bottom, var(--gold-deep) 0 25%, var(--navy) 25% 50%, var(--sky-mid) 50% 100%); }
+
+/* sticky mixer */
+.mixer { position: sticky; top: 0; z-index: 5; background: var(--card); border-bottom: var(--px) solid var(--line); }
+.mixer-in { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding-block: 12px; }
+.fader { display: grid; grid-template-columns: auto 120px 3.5ch; align-items: center; gap: 10px; }
+.fader label, .fader output { font: 700 12px/1 var(--font-pixel); text-transform: uppercase; letter-spacing: .08em; }
+.fader output { text-align: right; font-variant-numeric: tabular-nums; color: var(--gold); }
+.px-range { appearance: none; -webkit-appearance: none; width: 100%; height: 20px; background: var(--sky-deep); border: var(--px) solid var(--line);
+  background-image: linear-gradient(var(--gold-deep), var(--gold-deep)); background-size: var(--fill, 50%) 100%; background-repeat: no-repeat; margin: 0; }
+.px-range::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 28px; background: var(--gold); border: var(--px) solid var(--line); border-radius: 0; box-shadow: 3px 3px 0 var(--line); cursor: pointer; }
+.px-range::-moz-range-thumb { width: 10px; height: 22px; background: var(--gold); border: var(--px) solid var(--line); border-radius: 0; box-shadow: 3px 3px 0 var(--line); cursor: pointer; }
+.mixer .spacer { flex: 1; }
+
+/* pixel buttons */
+.btn { --c: var(--line);
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 10px 16px;
+  border: 0; border-radius: 0; margin: 4px 12px 12px 4px; cursor: pointer;
+  font: 700 13px/1.4 var(--font-pixel); letter-spacing: .08em; text-transform: uppercase; background: var(--navy); color: #fff;
+  box-shadow: 0 -4px 0 0 var(--c), 0 4px 0 0 var(--c), -4px 0 0 0 var(--c), 4px 0 0 0 var(--c),
+    4px 4px 0 0 var(--c), 8px 4px 0 0 var(--c), 4px 8px 0 0 var(--c);
+  transition: transform 120ms steps(2), background-color 120ms steps(2); }
+.btn:hover { background: var(--navy-lite); }
+.btn:active, .btn.is-down { transform: translate(4px, 4px); box-shadow: 0 -4px 0 0 var(--c), 0 4px 0 0 var(--c), -4px 0 0 0 var(--c), 4px 0 0 0 var(--c); }
+.btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 9px; }
+.btn--ghost { background: var(--card-2); color: var(--gold); }
+.btn--ghost:hover { background: var(--playing); }
+.btn--gold { background: var(--gold-deep); color: var(--sky-low); }
+.btn--gold:hover { background: var(--gold); }
+.btn--stop { background: #a83a44; }
+.btn--stop:hover { background: #c4474f; }
+.tri { width: 8px; height: 10px; background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); flex: none; }
+.sq { width: 9px; height: 9px; background: currentColor; flex: none; }
+
+/* section nav */
+.jump { display: flex; flex-wrap: wrap; gap: 4px 6px; padding-block: 20px 4px; }
+.jump a { font: 700 12px/1 var(--font-pixel); letter-spacing: .06em; text-transform: uppercase; color: var(--gold); text-decoration: none; padding: 10px 12px; border: 3px solid var(--edge); background: var(--card); }
+.jump a:hover { background: var(--card-2); border-color: var(--gold-deep); }
+
+/* sections */
+main { padding-bottom: 48px; }
+section { padding-top: 36px; scroll-margin-top: 80px; }
+.sec-head { display: grid; gap: 6px; margin-bottom: 18px; max-width: 72ch; }
+.sec-head h2 { font: 700 18px/1.4 var(--font-pixel); letter-spacing: .12em; color: var(--gold); text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
+.sec-head h2::before { content: ""; width: 12px; height: 12px; background: var(--gold); box-shadow: 4px 4px 0 var(--navy); flex: none; }
+.sec-head p { color: var(--muted); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 268px), 1fr)); gap: 20px; }
+
+/* card */
+.card { background: var(--card); border: var(--px) solid var(--edge); box-shadow: var(--px) var(--px) 0 var(--line);
+  padding: 14px 14px 10px; display: grid; gap: 8px; align-content: start; min-width: 0; position: relative; }
+.card.is-playing { background: var(--playing); }
+.card.is-playing::after { content: ""; position: absolute; inset: -4px; border: var(--px) solid var(--gold); pointer-events: none; }
+.card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.card h3 { font: 700 18px/1.25 var(--font-body); color: var(--ink); }
+.len { font: 700 11px/1 var(--font-pixel); color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.when { font-size: 15px; color: var(--muted); min-height: 2.9em; }
+.card .btn { justify-self: start; }
+.verdict { display: flex; border: 3px solid var(--line); width: fit-content; }
+.verdict button { font: 700 11px/1 var(--font-pixel); text-transform: uppercase; background: var(--card-2); color: var(--ink); border: 0; padding: 0 10px; min-height: 36px; cursor: pointer; }
+.verdict button + button { border-left: 3px solid var(--line); }
+.verdict button:hover { background: var(--playing); }
+.verdict button[aria-pressed="true"][data-v="keep"] { background: var(--keep); color: var(--sky-low); }
+.verdict button[aria-pressed="true"][data-v="tweak"] { background: var(--gold-deep); color: var(--sky-low); }
+.verdict button[aria-pressed="true"][data-v="cut"] { background: var(--cut); color: var(--sky-low); }
+.note { width: 100%; font: 15px/1.4 var(--font-body); padding: 8px 10px; border: 3px solid var(--edge); background: var(--sky-deep); color: var(--ink); border-radius: 0; }
+.note::placeholder { color: var(--muted); }
+.note:focus { outline: 3px solid var(--gold); outline-offset: 2px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 700 10px/1 var(--font-pixel); text-transform: uppercase; padding: 6px 7px; background: var(--card-2); border: 2px solid var(--edge); color: var(--ink); }
+
+/* scenes */
+.scene ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; counter-reset: s; }
+.scene li { font-size: 15px; color: var(--muted); display: flex; gap: 10px; align-items: baseline; counter-increment: s; }
+.scene li::before { content: counter(s); font: 700 11px/1 var(--font-pixel); color: var(--muted); width: 2ch; flex: none; }
+.scene li.on { color: var(--ink); font-weight: 700; }
+.scene li.on::before { color: var(--gold); content: "\25B6"; }
+
+/* track groups */
+.track { background: rgba(5, 7, 26, .45); border: var(--px) solid var(--edge); padding: 18px; display: grid; gap: 14px; }
+
+/* notes */
+.notes { background: var(--card); border: var(--px) solid var(--edge); box-shadow: var(--px) var(--px) 0 var(--line); padding: 20px; display: grid; gap: 14px; }
+.tally { display: flex; flex-wrap: wrap; gap: 10px 24px; font: 700 13px/1.4 var(--font-pixel); text-transform: uppercase; }
+.tally b { font-variant-numeric: tabular-nums; }
+.tally .k { color: var(--keep); } .tally .t { color: var(--gold); } .tally .c { color: var(--cut); }
+#notesOut { width: 100%; min-height: 160px; font: 14px/1.5 ui-monospace, Consolas, monospace; padding: 10px; border: 3px solid var(--edge); border-radius: 0; background: var(--sky-deep); color: var(--ink); resize: vertical; }
+.status { font-size: 15px; color: var(--keep); min-height: 1.5em; }
+footer { border-top: var(--px) solid var(--line); background: var(--card); }
+footer .wrap { padding-block: 18px; font-size: 14px; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero { grid-template-columns: auto minmax(0, 1fr); }
+  .scope { grid-column: 1 / -1; justify-self: stretch; }
+  .scope canvas { width: 100%; }
+}
+@media (max-width: 560px) {
+  .hero { grid-template-columns: 1fr; }
+  .fader { grid-template-columns: 5.5em minmax(0, 1fr) 3.5ch; width: 100%; }
+  .mixer .spacer { display: none; }
+  .mixer { position: static; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn, .sprites canvas { transition: none; }
+  .sky i { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="banner">
+  <div class="sky" id="sky" aria-hidden="true"></div>
+  <div class="wrap hero">
+    <div class="sprites" aria-hidden="true">
+      <canvas class="side" id="spBubble" width="12" height="7"></canvas>
+      <canvas class="star" id="spStar" width="15" height="15"></canvas>
+      <canvas class="side" id="spPin" width="11" height="12"></canvas>
+    </div>
+    <div>
+      <p class="eyebrow">TALA · Sound preview for review</p>
+      <h1>TALA SOUND BOARD</h1>
+      <p class="lede">Every sound here is made live by your browser from four 8-bit voices: two pulse waves, a triangle and a noise channel. On top of that sits a <b>starlight echo</b>, a soft dark delay that gives TALA its night-time space. Nothing is recorded, so the set is original and adds almost nothing to the app's size. Press a button to listen, mark it <b>Keep</b>, <b>Tweak</b> or <b>Cut</b>, then copy your notes at the bottom.</p>
+    </div>
+    <div class="scope" aria-hidden="true"><canvas id="scope" width="128" height="36"></canvas><span>LIVE OUTPUT</span></div>
+  </div>
+  <div class="bands"></div>
+</header>
+
+<div class="mixer">
+  <div class="wrap mixer-in">
+    <div class="fader"><label for="vMaster">Volume</label><input class="px-range" id="vMaster" type="range" min="0" max="100" value="80"><output id="oMaster" for="vMaster">80</output></div>
+    <div class="fader"><label for="vSfx">Effects</label><input class="px-range" id="vSfx" type="range" min="0" max="100" value="90"><output id="oSfx" for="vSfx">90</output></div>
+    <div class="fader"><label for="vMusic">Music</label><input class="px-range" id="vMusic" type="range" min="0" max="100" value="60"><output id="oMusic" for="vMusic">60</output></div>
+    <div class="fader"><label for="vEcho">Echo</label><input class="px-range" id="vEcho" type="range" min="0" max="100" value="55"><output id="oEcho" for="vEcho">55</output></div>
+    <span class="spacer"></span>
+    <button class="btn btn--stop" id="stopAll" type="button"><span class="sq"></span>Stop all</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <nav class="jump" aria-label="Sound families">
+    <a href="#scenes">Scenes</a><a href="#interface">Interface</a><a href="#analysis">Analysis</a><a href="#celebrate">Celebrations</a>
+    <a href="#pages">Page signatures</a><a href="#music">Music</a><a href="#notes">Your notes</a>
+  </nav>
+
+  <section id="scenes">
+    <div class="sec-head"><h2>Scenes</h2><p>Hear the sounds together, the way they follow each other in the app. Start here to judge whether the set feels like one family.</p></div>
+    <div class="grid" id="sceneGrid"></div>
+  </section>
+
+  <section id="interface">
+    <div class="sec-head"><h2>Interface</h2><p>Short and quiet on purpose. A data app reruns a lot, and these play many times in every session, so they should feel like soft glints, never chirps that grab attention.</p></div>
+    <div class="grid" data-group="ui"></div>
+  </section>
+
+  <section id="analysis">
+    <div class="sec-head"><h2>Analysis</h2><p>What the models are doing. A compute starts, results arrive, a pipeline step finishes, or the answer came straight from the cache. Warnings and errors are soft and low, never a harsh buzzer.</p></div>
+    <div class="grid" data-group="an"></div>
+  </section>
+
+  <section id="celebrate">
+    <div class="sec-head"><h2>Celebrations</h2><p>The night-sky moments: the language gate, the shooting-star START, the constellation that forms when TALA is ready, and the fanfares for finishing a track. They resolve from A minor (night) up to C major (first light).</p></div>
+    <div class="grid" data-group="cel"></div>
+  </section>
+
+  <section id="pages">
+    <div class="sec-head"><h2>Page signatures</h2><p>One short sound per page. It plays when that page's main result is computed fresh, in place of the generic "Results ready". Cache hits play the quick "Instant" cue instead. The Text track uses plucky pulse voices (words); the Geo track uses bells and drops (places on a map).</p></div>
+    <div class="track"><div class="sec-head" style="margin:0"><h2>Text track</h2></div><div class="grid" data-group="text"></div></div>
+    <div class="track" style="margin-top:20px"><div class="sec-head" style="margin:0"><h2>Geo track</h2></div><div class="grid" data-group="geo"></div></div>
+  </section>
+
+  <section id="music">
+    <div class="sec-head"><h2>Music</h2><p>Looping night-time tracks, one per area of the app. Only one plays at a time. Today TALA streams a 7 MB MP3 loop. All five of these together are a few KB of code.</p></div>
+    <div class="grid" id="musicGrid"></div>
+  </section>
+
+  <section id="notes">
+    <div class="sec-head"><h2>Your notes</h2><p>Your verdicts are saved in this browser as you go. When you're done, copy them and paste them into Claude Code, and the sounds will be adjusted.</p></div>
+    <div class="notes">
+      <div class="tally"><span class="k">Keep <b id="nKeep">0</b></span><span class="t">Tweak <b id="nTweak">0</b></span><span class="c">Cut <b id="nCut">0</b></span><span>Not rated <b id="nNone">0</b></span></div>
+      <textarea id="notesOut" readonly aria-label="Your notes as text"></textarea>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+        <button class="btn btn--gold" id="copyNotes" type="button">Copy notes</button>
+        <button class="btn btn--ghost" id="clearNotes" type="button">Clear all verdicts</button>
+        <span class="status" id="status" role="status"></span>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">TALA · Text And Location Analytics · Sound draft v1 for review, generated with the Web Audio API. Every sound and melody is original to TALA and shares no assets with ARAW. In the app, every sound is paired with something on screen, so muting never hides information.</div></footer>
+
+<script>
+'use strict';
+/* ============================== SPRITES (from core/splash.py) ============================== */
+const SPRITES = {
+  star: { colors: { '#': '#F5D89E' }, rows: [
+    '.......#.......', '.......#.......', '......###......', '......###......', '..###########..', '.#############.', '..###########..',
+    '...#########...', '....#######....', '....#######....', '....#######....', '...###...###...', '...##.....##...', '...............', '...............'] },
+  bubble: { colors: { '#': '#4a56b0', '+': '#F5D89E' }, rows: [
+    '############', '#..........#', '#.+..+..+..#', '#..........#', '############', '..##........', '..#.........'] },
+  pin: { colors: { '#': '#4a56b0', 'o': '#F5D89E' }, rows: [
+    '...#####...', '..#######..', '.###ooo###.', '.##ooooo##.', '.###ooo###.', '.#########.', '..#######..', '...#####...', '....###....', '.....#.....', '...........', '...ooooo...'] },
+};
+function drawSprite(cv, sp) {
+  const g = cv.getContext('2d');
+  g.clearRect(0, 0, cv.width, cv.height);
+  sp.rows.forEach((row, y) => { for (let x = 0; x < row.length; x++) { const c = sp.colors[row[x]]; if (c) { g.fillStyle = c; g.fillRect(x, y, 1, 1); } } });
+}
+const spriteEls = { star: document.getElementById('spStar'), text: document.getElementById('spBubble'), geo: document.getElementById('spPin') };
+drawSprite(spriteEls.star, SPRITES.star); drawSprite(spriteEls.text, SPRITES.bubble); drawSprite(spriteEls.geo, SPRITES.pin);
+const flareTimers = {};
+function flare(who = 'star', ms = 700) {
+  const cv = spriteEls[who] || spriteEls.star;
+  cv.classList.add('flare'); clearTimeout(flareTimers[who]);
+  flareTimers[who] = setTimeout(() => cv.classList.remove('flare'), Math.max(350, ms));
+}
+(function starfield() { // deterministic scatter, like core/splash.py's _starfield
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const sky = document.getElementById('sky');
+  for (let i = 0; i < 56; i++) {
+    const s = document.createElement('i'), size = [2, 2, 2, 3, 3, 4][Math.floor(rnd() * 6)];
+    s.style.cssText = `left:${(rnd() * 98 + 1).toFixed(2)}%;top:${(rnd() * 94 + 2).toFixed(2)}%;width:${size}px;height:${size}px;` +
+      `--dim:${(0.2 + rnd() * 0.45).toFixed(2)};--dur:${(1.8 + rnd() * 1.8).toFixed(2)}s;--delay:${(rnd() * 3).toFixed(2)}s`;
+    sky.append(s);
+  }
+})();
+
+/* ============================== ENGINE ============================== */
+const FR = 1 / 60; // envelopes move in 60 Hz frames, like the old consoles
+let ctx = null, master, sfxBus, musicBus, sfxSend, musicSend, echoWet, analyser, W = {}, NB = {};
+const vol = { master: 0.8, sfx: 0.9, music: 0.6, echo: 0.55 };
+const live = new Set();
+const timers = new Set();
+
+function later(fn, ms) { const id = setTimeout(() => { timers.delete(id); fn(); }, ms); timers.add(id); return id; }
+
+function pulseWave(c, duty) {
+  const n = 64, re = new Float32Array(n), im = new Float32Array(n);
+  for (let k = 1; k < n; k++) { re[k] = Math.sin(2 * Math.PI * k * duty) / (k * Math.PI); im[k] = (1 - Math.cos(2 * Math.PI * k * duty)) / (k * Math.PI); }
+  return c.createPeriodicWave(re, im);
+}
+function lfsrBuffer(c, short, len) { // console-style noise: a 15-bit linear feedback shift register
+  const buf = c.createBuffer(1, len, c.sampleRate), d = buf.getChannelData(0);
+  let r = 1;
+  for (let i = 0; i < len; i++) { const b = (r ^ (r >> (short ? 6 : 1))) & 1; r = (r >> 1) | (b << 14); d[i] = (r & 1) ? 0.7 : -0.7; }
+  return buf;
+}
+function ensure() {
+  if (ctx) { if (ctx.state === 'suspended') ctx.resume(); return ctx; }
+  const AC = window.AudioContext || window.webkitAudioContext;
+  ctx = new AC();
+  const comp = ctx.createDynamicsCompressor();
+  comp.threshold.value = -15; comp.knee.value = 8; comp.ratio.value = 4; comp.attack.value = 0.003; comp.release.value = 0.15;
+  const soften = ctx.createBiquadFilter(); soften.type = 'lowpass'; soften.frequency.value = 7200; // a touch darker than daytime: night air
+  master = ctx.createGain(); sfxBus = ctx.createGain(); musicBus = ctx.createGain();
+  analyser = ctx.createAnalyser(); analyser.fftSize = 1024;
+  // Starlight echo: a dark feedback delay that voices send into. It is what makes TALA sound like night
+  // rather than daylight, and each send is scaled by its bus volume so muting a bus also mutes its echo.
+  const delay = ctx.createDelay(1); delay.delayTime.value = 0.28;
+  const feedback = ctx.createGain(); feedback.gain.value = 0.36;
+  const damp = ctx.createBiquadFilter(); damp.type = 'lowpass'; damp.frequency.value = 2600;
+  echoWet = ctx.createGain(); sfxSend = ctx.createGain(); musicSend = ctx.createGain();
+  sfxSend.connect(delay); musicSend.connect(delay);
+  delay.connect(damp); damp.connect(feedback); feedback.connect(delay); damp.connect(echoWet); echoWet.connect(master);
+  sfxBus.connect(master); musicBus.connect(master);
+  master.connect(soften); soften.connect(comp); comp.connect(analyser); analyser.connect(ctx.destination);
+  applyVolumes();
+  W = { p12: pulseWave(ctx, 0.125), p25: pulseWave(ctx, 0.25), p50: pulseWave(ctx, 0.5) };
+  NB = { long: lfsrBuffer(ctx, false, 32767), short: lfsrBuffer(ctx, true, 93 * 31 * 4) };
+  return ctx;
+}
+function applyVolumes() {
+  if (!ctx) return;
+  const t = ctx.currentTime;
+  master.gain.setTargetAtTime(vol.master ** 1.6, t, 0.02);
+  sfxBus.gain.setTargetAtTime(vol.sfx ** 1.6, t, 0.02);
+  musicBus.gain.setTargetAtTime(vol.music ** 1.6, t, 0.02);
+  sfxSend.gain.setTargetAtTime(vol.sfx ** 1.6, t, 0.02);
+  musicSend.gain.setTargetAtTime(vol.music ** 1.6, t, 0.02);
+  echoWet.gain.setTargetAtTime(vol.echo, t, 0.02);
+}
+function track(node, bus) { const e = { node, bus }; live.add(e); node.onended = () => live.delete(e); }
+
+function envelope(g, t0, d, v, a, shape) {
+  const n = Math.max(2, Math.ceil(d / FR));
+  g.gain.setValueAtTime(0, t0);
+  for (let k = 1; k <= n; k++) {
+    const tt = Math.min(d, k * FR);
+    let lvl;
+    if (a && tt <= a) lvl = tt / a;
+    else {
+      const p = (tt - (a || 0)) / Math.max(0.001, d - (a || 0));
+      lvl = shape === 'flat' ? 1
+        : shape === 'pluck' ? (1 - p) ** 2
+        : shape === 'swell' ? Math.sin(Math.PI * p)
+        : shape === 'lead' ? (p < 0.12 ? 1 - 2.5 * p : p < 0.85 ? 0.7 : 0.7 * (1 - p) / 0.15)
+        : 1 - 0.8 * p; // 'decay'
+    }
+    lvl = Math.round(Math.max(0, Math.min(1, lvl)) * 15) / 15; // 16 volume steps, 4-bit
+    g.gain.linearRampToValueAtTime(lvl * v, t0 + tt);
+  }
+  g.gain.linearRampToValueAtTime(0, t0 + d + 0.012);
+}
+
+function startTime(o) { return o.at != null ? o.at : ctx.currentTime + 0.012 + (o.t || 0); }
+function sendEcho(c, g, amount, bus) {
+  if (!amount) return;
+  const s = c.createGain(); s.gain.value = amount;
+  g.connect(s); s.connect(bus === musicBus ? musicSend : sfxSend);
+}
+
+function tone(o) {
+  const c = ensure(), t0 = startTime(o), d = o.d || 0.1, f = o.f, f2 = o.f2 ?? f, bus = o.bus || sfxBus;
+  const osc = c.createOscillator();
+  if (o.wave === 'tri') osc.type = 'triangle'; else if (o.wave === 'sine') osc.type = 'sine'; else osc.setPeriodicWave(W[o.wave || 'p50']);
+  const fq = osc.frequency;
+  if (o.arp) {
+    const r = o.arpRate || 1 / 30; let i = 0;
+    for (let tt = 0; tt < d; tt += r, i++) fq.setValueAtTime(f * 2 ** (o.arp[i % o.arp.length] / 12), t0 + tt);
+  } else if (f2 !== f) {
+    if (o.step) { const n = Math.max(1, Math.round(d / FR)); for (let k = 0; k <= n; k++) fq.setValueAtTime(f * (f2 / f) ** (k / n), t0 + (k * d) / n); }
+    else { fq.setValueAtTime(f, t0); fq.exponentialRampToValueAtTime(f2, t0 + d); }
+  } else fq.setValueAtTime(f, t0);
+  if (o.vib) {
+    const lfo = c.createOscillator(), lg = c.createGain();
+    lfo.frequency.value = o.vib[0]; lg.gain.setValueAtTime(0, t0); lg.gain.setValueAtTime(f * o.vib[1], t0 + (o.vibDelay || 0));
+    lfo.connect(lg); lg.connect(fq); lfo.start(t0); lfo.stop(t0 + d + 0.05); track(lfo, bus);
+  }
+  const g = c.createGain();
+  envelope(g, t0, d, o.v ?? 0.15, o.a || 0, o.env || 'decay');
+  osc.connect(g); g.connect(bus); sendEcho(c, g, o.echo, bus);
+  osc.start(t0); osc.stop(t0 + d + 0.03); track(osc, bus);
+}
+
+function noise(o) {
+  const c = ensure(), t0 = startTime(o), d = o.d || 0.1, bus = o.bus || sfxBus;
+  const src = c.createBufferSource(); src.buffer = o.mode === 'short' ? NB.short : NB.long; src.loop = true;
+  const r = o.rate ?? 1, r2 = o.rate2 ?? r;
+  src.playbackRate.setValueAtTime(r, t0); if (r2 !== r) src.playbackRate.exponentialRampToValueAtTime(r2, t0 + d);
+  let last = src;
+  if (o.filter) {
+    const [type, fa, fb, q] = o.filter, bq = c.createBiquadFilter();
+    bq.type = type; bq.frequency.setValueAtTime(fa, t0); if (fb) bq.frequency.exponentialRampToValueAtTime(fb, t0 + d); bq.Q.value = q ?? 0.8;
+    src.connect(bq); last = bq;
+  }
+  const g = c.createGain(); envelope(g, t0, d, o.v ?? 0.15, o.a || 0, o.env || 'decay');
+  last.connect(g); g.connect(bus); sendEcho(c, g, o.echo, bus);
+  src.start(t0, o.mode === 'short' ? 0 : Math.random() * 0.5); src.stop(t0 + d + 0.03); track(src, bus);
+}
+
+const SEMI = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+function N(s) {
+  const m = /^([A-G])([#b]?)(-?\d)$/.exec(s); if (!m) throw new Error('Bad note ' + s);
+  const midi = 12 * (+m[3] + 1) + SEMI[m[1]] + (m[2] === '#' ? 1 : m[2] === 'b' ? -1 : 0);
+  return 440 * 2 ** ((midi - 69) / 12);
+}
+const up = (f, semis) => f * 2 ** (semis / 12);
+
+/* mel('p25', 'A5 C6 . E6*2 A5+C6+E6*4', {u: .08}) : one token per unit, '.' rest, '*n' longer, '+' chord */
+function mel(wave, str, o = {}) {
+  const u = o.u || 0.08; let t = o.t || 0;
+  for (const tok of str.trim().split(/\s+/)) {
+    const [body, mul] = tok.split('*'), len = u * (mul ? +mul : 1);
+    if (body !== '.') for (const nn of body.split('+')) tone({ ...o, wave, f: up(N(nn), o.tr || 0), t, d: len * (o.legato ?? 0.92) });
+    t += len;
+  }
+  return t;
+}
+
+/* TALA's instruments. The star bell is TALA's signature: a triangle with a glassy partial a twelfth up (3x),
+   always sent into the starlight echo. (ARAW's kulintang gong uses a 2.76x partial and no echo.) */
+function bell(f, o = {}) {
+  const v = o.v ?? 0.25, d = o.d ?? 0.6, echo = o.echo ?? 0.35;
+  tone({ ...o, wave: 'tri', f, d, v, env: 'pluck', echo });
+  tone({ ...o, wave: 'sine', f: f * 3, d: Math.min(d, 0.25), v: v * 0.22, env: 'pluck', echo });
+  tone({ ...o, wave: 'p12', f: f * 2, d: 0.03, v: v * 0.12, env: 'pluck' });
+}
+function kick(o = {}) { const v = o.v ?? 0.35; tone({ ...o, wave: 'tri', f: 120, f2: 42, d: 0.12, v, env: 'pluck' }); noise({ ...o, rate: 0.2, d: 0.02, v: v * 0.2 }); }
+function hat(o = {}) { noise({ ...o, rate: 1, d: 0.02, v: o.v ?? 0.035, filter: ['highpass', 7500] }); }
+function brush(o = {}) { noise({ ...o, rate: 0.5, d: 0.09, v: o.v ?? 0.06, env: 'swell', filter: ['bandpass', 3000, null, 0.9] }); }
+function crash(o = {}) { noise({ ...o, rate: 0.8, d: 0.7, v: o.v ?? 0.06, filter: ['highpass', 3500], echo: 0.3 }); }
+function chirp(o = {}) { // kuliglig: a cricket's three quick pulses near 4.3 kHz
+  const base = o.at != null ? null : (o.t || 0);
+  for (let i = 0; i < 3; i++) {
+    const oo = { ...o, wave: 'p12', f: 4300, d: 0.016, v: o.v ?? 0.025, env: 'pluck', echo: 0.2 };
+    if (o.at != null) oo.at = o.at + i * 0.032; else oo.t = base + i * 0.032;
+    tone(oo);
+  }
+}
+const TWINKLE = ['A5', 'C6', 'D6', 'E6', 'G6', 'A6', 'C7', 'D7', 'E7']; // A minor pentatonic, up high
+function twinkleNote(o = {}) { bell(N(TWINKLE[Math.floor(Math.random() * TWINKLE.length)]), { ...o, d: 0.4, v: o.v ?? 0.08, echo: 0.5 }); }
+
+/* ============================== SOUNDS ============================== */
+const S = {
+  // interface
+  click() { tone({ wave: 'tri', f: N('A6'), d: 0.03, v: 0.2, env: 'pluck' }); tone({ wave: 'p12', f: N('E7'), d: 0.02, v: 0.05, env: 'pluck' }); },
+  select() { tone({ wave: 'p25', f: N('E6'), d: 0.035, v: 0.12, env: 'pluck' }); tone({ wave: 'tri', f: N('A6'), t: 0.04, d: 0.07, v: 0.22, env: 'pluck', echo: 0.15 }); },
+  toggleOn() { mel('tri', 'A5 C6 E6', { u: 0.035, v: 0.2, env: 'pluck' }); },
+  toggleOff() { mel('tri', 'E6 C6 A5', { u: 0.035, v: 0.2, env: 'pluck' }); },
+  nav() { noise({ rate: 0.5, rate2: 0.25, d: 0.16, v: 0.08, env: 'swell', filter: ['bandpass', 1800, 700, 0.9] }); bell(N('E6'), { t: 0.06, d: 0.3, v: 0.14, echo: 0.3 }); },
+  learnOpen() { tone({ wave: 'p12', f: N('A5'), arp: [0, 3, 7, 12], arpRate: 1 / 40, d: 0.12, v: 0.09, echo: 0.25 }); },
+  learnClose() { tone({ wave: 'p12', f: N('A5'), arp: [12, 7, 3, 0], arpRate: 1 / 40, d: 0.12, v: 0.09, echo: 0.2 }); },
+  slider() { noise({ mode: 'short', rate: 1.4, d: 0.018, v: 0.1, filter: ['highpass', 2500] }); tone({ wave: 'tri', f: N('D6'), d: 0.03, v: 0.14, env: 'pluck' }); },
+  copy() { [0, 0.06].forEach((t) => tone({ wave: 'p25', f: N('B6'), t, d: 0.025, v: 0.07, env: 'pluck' })); },
+  upload() {
+    mel('p12', 'E5 A5 C6 E6', { u: 0.045, v: 0.08, env: 'flat', legato: 0.7 });
+    noise({ mode: 'short', rate: 0.8, d: 0.03, v: 0.08, t: 0.2 });
+    bell(N('A6'), { t: 0.22, d: 0.3, v: 0.12, echo: 0.3 });
+  },
+  download() {
+    tone({ wave: 'tri', f: N('E6'), f2: N('A4'), step: true, d: 0.16, v: 0.2 });
+    tone({ wave: 'p12', f: N('E6'), f2: N('A4'), step: true, d: 0.14, v: 0.04 });
+    S.thud(0.45, 0.17);
+  },
+  thud(k = 1, t = 0) { noise({ rate: 0.2, d: 0.05, v: 0.25 * k, t, filter: ['lowpass', 1800] }); tone({ wave: 'tri', f: 140, f2: 50, t, d: 0.11, v: 0.45 * k, env: 'pluck' }); },
+  locked() { tone({ wave: 'tri', f: N('E4'), d: 0.12, v: 0.24, env: 'pluck', echo: 0.3 }); tone({ wave: 'tri', f: N('B3'), t: 0.16, d: 0.2, v: 0.22, env: 'pluck', echo: 0.3 }); },
+
+  // analysis
+  run() {
+    noise({ rate: 0.15, rate2: 0.6, d: 0.4, v: 0.06, env: 'swell', filter: ['bandpass', 400, 2000, 1.4] });
+    tone({ wave: 'p12', f: 220, f2: 880, step: true, d: 0.36, v: 0.05, env: 'swell' });
+  },
+  ready() { bell(N('A5'), { v: 0.3 }); bell(N('E6'), { t: 0.08, v: 0.26 }); bell(N('B6'), { t: 0.16, v: 0.22, d: 0.7 }); },
+  cached() { tone({ wave: 'tri', f: N('E6'), arp: [0, 7, 12, 19, 24], arpRate: 1 / 60, d: 0.09, v: 0.2, echo: 0.25 }); },
+  step() { bell(N('E6'), { v: 0.3, d: 0.5 }); tone({ wave: 'p12', f: N('B6'), arp: [0, 5, 7, 12], arpRate: 1 / 45, t: 0.08, d: 0.18, v: 0.04, echo: 0.3 }); },
+  progress(i = 1) { const sc = [0, 3, 5, 7, 10, 12, 15, 17]; tone({ wave: 'p25', f: up(N('A4'), sc[Math.min(Math.max(i, 1), 8) - 1]), d: 0.05, v: 0.08, env: 'pluck' }); },
+  warn() { tone({ wave: 'p25', f: N('F5'), d: 0.09, v: 0.09, env: 'flat' }); tone({ wave: 'p25', f: N('D5'), t: 0.13, d: 0.16, v: 0.09, echo: 0.2 }); },
+  error() {
+    tone({ wave: 'tri', f: N('E4'), f2: N('C4'), d: 0.4, v: 0.26, vib: [6, 0.02], vibDelay: 0.1, echo: 0.2 });
+    tone({ wave: 'p12', f: N('G4'), f2: N('Eb4'), d: 0.3, v: 0.035 });
+  },
+
+  // celebrations
+  twinkle() { for (let i = 0; i < 7; i++) twinkleNote({ t: i * 0.2 + Math.random() * 0.08, v: 0.12 + Math.random() * 0.08 }); },
+  language() { bell(N('E6'), { v: 0.26 }); bell(N('A6'), { t: 0.09, v: 0.24 }); mel('p25', 'A5+C6+E6*3', { t: 0.09, u: 0.07, v: 0.05, env: 'lead', echo: 0.25 }); },
+  start() { // bulalakaw: a shooting star streaks down, then lands on an A minor bell chord
+    tone({ wave: 'p12', f: 2600, f2: 700, step: true, d: 0.42, v: 0.07, env: 'decay', echo: 0.3 });
+    noise({ rate: 1, rate2: 0.4, d: 0.45, v: 0.05, env: 'swell', filter: ['highpass', 5000, 2500] });
+    const t = 0.42;
+    bell(N('A5'), { t, v: 0.3, d: 0.8 }); bell(N('E6'), { t: t + 0.06, v: 0.26, d: 0.8 }); bell(N('C7'), { t: t + 0.12, v: 0.2, d: 0.9 });
+    tone({ wave: 'tri', f: N('A3'), t, d: 0.7, v: 0.25 });
+  },
+  bootReady() { // the constellation forms: stars light one by one, then a held note
+    'A5 C6 D6 E6 G6 A6'.split(' ').forEach((n, i) => bell(N(n), { t: i * 0.13, v: 0.2, d: 0.5 }));
+    ['A4', 'C5', 'E5'].forEach((n) => tone({ wave: 'p12', f: N(n), d: 1.6, v: 0.03, env: 'swell' }));
+    tone({ wave: 'tri', f: N('A2'), d: 1.4, v: 0.28, env: 'swell' });
+    mel('p25', 'E6+A6*6', { t: 0.8, u: 0.1, v: 0.05, env: 'lead', vib: [5, 0.006], vibDelay: 0.2, echo: 0.3 });
+  },
+  trackDone() { // A minor climbs to C major: first light after a night of work
+    const u = 0.085;
+    mel('p25', 'A4 C5 E5 A5*2 G5 A5 C6*8', { u, v: 0.11, env: 'lead', vib: [6, 0.007], vibDelay: 0.15, echo: 0.25 });
+    mel('p12', 'E4 A4 C5 E5*2 D5 E5 G5*8', { u, v: 0.05, env: 'lead' });
+    mel('tri', 'A2*4 . F2 G2 C3*8', { u, v: 0.26 });
+    kick({ t: 0 }); kick({ t: u * 4 }); kick({ t: u * 7 }); crash({ t: u * 7 });
+    ['G6', 'C7', 'E7'].forEach((n, i) => bell(N(n), { t: u * 8 + i * 0.09, v: 0.13 }));
+  },
+  fullSky() { // both tracks done: a short harana phrase under a cascade of stars
+    const u = 0.12;
+    tone({ wave: 'p12', f: 2400, f2: 800, step: true, d: 0.35, v: 0.04, echo: 0.3 });
+    mel('p25', 'E5 A5 B5 C6*3 B5 A5 G5*3 E5 G5 C6*9', { u, v: 0.1, env: 'lead', vib: [5.5, 0.008], vibDelay: 0.15, legato: 0.9, echo: 0.3 });
+    mel('p12', 'C5+E5*6 A4+C5*6 E5+G5*10', { u, v: 0.03, env: 'swell' });
+    mel('tri', 'A2*6 F2*6 C3*10', { u, v: 0.24 });
+    crash({ t: u * 12 });
+    'C6 D6 E6 G6 A6 C7 D7 E7'.split(' ').forEach((n, i) => bell(N(n), { t: u * 12 + i * 0.08, v: 0.14 }));
+  },
+
+  // page signatures: Text track
+  text1() { // Data & cleaning: a scrub, then the clean token
+    noise({ rate: 0.6, rate2: 1.2, d: 0.18, v: 0.08, env: 'swell', filter: ['bandpass', 2500, 5000, 1] });
+    noise({ rate: 0.6, rate2: 1.2, d: 0.14, v: 0.06, t: 0.2, env: 'swell', filter: ['bandpass', 3000, 5500, 1] });
+    tone({ wave: 'tri', f: N('E6'), t: 0.38, d: 0.1, v: 0.18, env: 'pluck', echo: 0.2 });
+  },
+  text2() { ['A5', 'E6', 'C6', 'G6', 'D6', 'A6'].forEach((n, i) => tone({ wave: 'p25', f: N(n), f2: N(n) * 1.5, t: i * 0.065, d: 0.04, v: 0.08, env: 'pluck', echo: 0.15 })); },
+  text3() { // sentiment: a meter needle swings, then settles
+    tone({ wave: 'tri', f: N('A4'), f2: N('E5'), d: 0.18, v: 0.2, env: 'flat' });
+    tone({ wave: 'tri', f: N('E5'), f2: N('C5'), t: 0.18, d: 0.14, v: 0.2, env: 'flat' });
+    tone({ wave: 'tri', f: N('C5'), t: 0.32, d: 0.2, v: 0.2, env: 'pluck', echo: 0.2 });
+    noise({ mode: 'short', rate: 1.3, d: 0.015, v: 0.07, t: 0.32 });
+  },
+  text4() { [['C6', 'E6'], ['D6', 'G6'], ['E6', 'A6']].forEach(([a, b], i) => { const t = i * 0.16;
+    tone({ wave: 'p25', f: N(a), t, d: 0.05, v: 0.09, env: 'pluck' }); tone({ wave: 'p25', f: N(b), t: t + 0.05, d: 0.07, v: 0.09, env: 'pluck', echo: 0.2 }); }); },
+  text5() { ['A4', 'E5', 'C6', 'G6', 'D7'].forEach((n, i) => bell(N(n), { t: i * 0.1, v: 0.18, d: 0.5 })); tone({ wave: 'tri', f: N('A2'), d: 0.8, v: 0.2, env: 'swell' }); },
+  text6() { noise({ rate: 0.35, rate2: 0.7, d: 0.22, v: 0.09, env: 'flat', filter: ['bandpass', 1400, 2600, 1.6] }); bell(N('A6'), { t: 0.24, v: 0.2 }); },
+  text7() {
+    [0, 2, 3, 5, 7].forEach((s, i) => { tone({ wave: 'p50', f: up(N('A5'), s), t: i * 0.07, d: 0.03, v: 0.07, env: 'flat' }); noise({ mode: 'short', rate: 1.5, d: 0.012, v: 0.05, t: i * 0.07 }); });
+    tone({ wave: 'tri', f: N('E6'), t: 0.36, d: 0.12, v: 0.18, env: 'pluck', echo: 0.2 });
+  },
+  text8() { // themes: two voices converge on one centroid
+    tone({ wave: 'tri', f: N('A4'), f2: N('A5'), step: true, d: 0.3, v: 0.2 });
+    tone({ wave: 'p25', f: N('A6'), f2: N('A5'), step: true, d: 0.3, v: 0.06 });
+    bell(N('A5'), { t: 0.32, v: 0.26 });
+  },
+
+  // page signatures: Geo track
+  geo1() { // points land on the map
+    [[0, 'E6'], [0.07, 'A6'], [0.11, 'C6'], [0.2, 'G6'], [0.24, 'D6'], [0.33, 'A5']].forEach(([t, n]) =>
+      tone({ wave: 'tri', f: N(n), f2: N(n) * 0.7, t, d: 0.05, v: 0.16, env: 'pluck', echo: 0.15 }));
+  },
+  geo2() { // DBSCAN: dots connect into two constellations
+    [['E6', 'G6', 'A6'], ['C6', 'D6', 'E6']].forEach((grp, j) => { const t0 = j * 0.42;
+      grp.forEach((n, i) => tone({ wave: 'p12', f: N(n), t: t0 + i * 0.06, d: 0.04, v: 0.06, env: 'pluck' }));
+      bell(N(grp[2]), { t: t0 + 0.2, v: 0.22, d: 0.5 }); });
+    tone({ wave: 'tri', f: N('A3'), t: 0.2, d: 0.8, v: 0.2 });
+  },
+  geo3() { tone({ wave: 'p50', f: N('A4'), arp: [0, 0, 5, 5, 7, 7, 12, 12], arpRate: 1 / 30, d: 0.27, v: 0.06, env: 'flat' }); noise({ mode: 'short', rate: 1, d: 0.02, v: 0.08, t: 0.27 }); },
+  geo4() { // clip to land, then the map is revealed
+    [0, 0.12].forEach((t) => { noise({ mode: 'short', rate: 1.2, d: 0.025, v: 0.14, t, filter: ['highpass', 3000] }); tone({ wave: 'p25', f: N('E7'), t, d: 0.02, v: 0.05, env: 'pluck' }); });
+    tone({ wave: 'p12', f: N('A4'), f2: N('A5'), t: 0.25, d: 0.5, v: 0.05, env: 'swell', echo: 0.3 });
+    bell(N('E6'), { t: 0.7, v: 0.2 });
+  },
+  geo5() { // text meets location: chatter, then a pin
+    [0, 0.09].forEach((t) => tone({ wave: 'p25', f: N('C6'), arp: [0, 4], arpRate: 1 / 30, t, d: 0.07, v: 0.07 }));
+    tone({ wave: 'tri', f: N('E6'), f2: N('A5'), t: 0.22, d: 0.08, v: 0.2, env: 'pluck' });
+    bell(N('A6'), { t: 0.3, v: 0.15 });
+  },
+};
+
+/* ============================== MUSIC ============================== */
+const bars = (...b) => b.join(' ');
+const rep = (s, n) => Array(n).fill(s).join(' ');
+const SONGS = {
+  gabi: {
+    name: 'Gabi', where: 'Language gate, boot splash and Home', bpm: 80, key: 'A minor', prog: 'Am – F – C – E', meter: '4/4',
+    tracks: [
+      { inst: 'bell', v: 0.16, echo: 0.4, pat: bars('E5 - - - A5 - B5 C6', 'A5 - - - - - G5 F5', 'E5 - - - G5 - C6 -', 'B5 - - - G#5 - - .', 'C6 - B5 A5 E5 - - A5', 'C6 - - - D6 - C6 A5', 'G5 - E5 - C5 - E5 G5', 'B4 - - - - - - .') },
+      { wave: 'p12', v: 0.03, env: 'pluck', echo: 0.2, pat: rep(bars('A3 E4 A4 C5 E5 C5 A4 E4', 'F3 C4 F4 A4 C5 A4 F4 C4', 'C4 G4 C5 E5 G5 E5 C5 G4', 'E3 B3 E4 G#4 B4 G#4 E4 B3'), 2) },
+      { wave: 'tri', v: 0.22, env: 'lead', pat: rep(bars('A2 - - - - - E2 -', 'F2 - - - - - C3 -', 'C3 - - - - - G2 -', 'E2 - - - - - B2 -'), 2) },
+    ],
+    drums: rep('. . . . t . . . . . r . . . . .', 4), voices: 'music box, crickets',
+  },
+  buwan: {
+    name: 'Buwan', where: 'Text track pages, while reading and tuning', bpm: 92, key: 'D Dorian', prog: 'Dm – G – Dm – C', meter: '4/4',
+    tracks: [
+      { wave: 'tri', v: 0.2, env: 'lead', echo: 0.25, pat: bars('D5 - - - F5 - - -', 'E5 - D5 - B4 - - -', 'A4 - - - D5 - F5 -', 'E5 - - - C5 - - -', 'F5 - - - A5 - G5 -', 'B5 - - - G5 - - -', 'A5 - F5 - D5 - E5 -', 'C5 - - - - - - .') },
+      { wave: 'p12', v: 0.028, env: 'pluck', pat: rep(bars(rep('D4 A4 F5 A4', 2), rep('G3 D4 B4 D4', 2), rep('D4 A4 F5 A4', 2), rep('C4 G4 E5 G4', 2)), 2) },
+      { wave: 'tri', v: 0.2, env: 'lead', pat: rep(bars('D3 - - - - - - -', 'G2 - - - - - - -', 'D3 - - - - - - -', 'C3 - - - - - - -'), 2) },
+    ],
+    drums: null, voices: '3 voices, no drums',
+  },
+  bituin: {
+    name: 'Bituin', where: 'Geo track pages: ingest, cluster, map', bpm: 108, key: 'E minor', prog: 'Em – C – G – D', meter: '4/4',
+    tracks: [
+      { wave: 'p25', v: 0.085, env: 'lead', vib: [5.5, 0.006], echo: 0.3, pat: bars('E5 - G5 - B5 - - A5', 'G5 - E5 - C5 - - -', 'D5 - G5 - B5 - D6 -', 'C6 - B5 - A5 - - -', 'E5 - G5 - B5 - E6 -', 'D6 - C6 - G5 - E5 -', 'D5 - G5 - B5 - A5 G5', 'F#5 - - - - - - .') },
+      { wave: 'p12', v: 0.035, env: 'pluck', pat: rep(bars(rep('E4 G4 B4 G4', 2), rep('C4 E4 G4 E4', 2), rep('G3 B3 D4 B3', 2), rep('D4 F#4 A4 F#4', 2)), 2) },
+      { wave: 'tri', v: 0.26, env: 'pluck', pat: rep(bars('E2 - E3 - E2 - E3 -', 'C2 - C3 - C2 - C3 -', 'G2 - G3 - G2 - G3 -', 'D2 - D3 - D2 - D3 -'), 2) },
+    ],
+    drums: bars(rep('k . h . b . h .', 7), 'k . h . b . t t'), voices: '4 voices, soft drums',
+  },
+  harana: {
+    name: 'Harana', where: 'After you finish a track', bpm: 88, key: 'G minor → B♭ major', prog: 'Gm – Cm – D – Gm | B♭ – E♭ – F – B♭', meter: '3/4',
+    tracks: [
+      { wave: 'p25', v: 0.1, env: 'lead', vib: [5.5, 0.008], echo: 0.3, pat: bars('D5 - - G5 A5 Bb5', 'C6 - - Bb5 A5 G5', 'F#5 - - A5 - D5', 'G5 - - - - .', 'F5 - - Bb5 C6 D6', 'Eb6 - - D6 C6 Bb5', 'A5 - - C6 - A5', 'Bb5 - - - - .') },
+      { wave: 'tri', v: 0.24, env: 'pluck', pat: bars('G2 - . . . .', 'C3 - . . . .', 'D3 - . . . .', 'G2 - . . . .', 'Bb2 - . . . .', 'Eb3 - . . . .', 'F2 - . . . .', 'Bb2 - . . . .') },
+      { wave: 'p12', v: 0.022, env: 'pluck', pat: bars('. . G4+Bb4+D5 . G4+Bb4+D5 .', '. . G4+C5+Eb5 . G4+C5+Eb5 .', '. . F#4+A4+D5 . F#4+A4+D5 .', '. . G4+Bb4+D5 . G4+Bb4+D5 .', '. . F4+Bb4+D5 . F4+Bb4+D5 .', '. . G4+Bb4+Eb5 . G4+Bb4+Eb5 .', '. . F4+A4+C5 . F4+A4+C5 .', '. . F4+Bb4+D5 . F4+Bb4+D5 .') },
+    ],
+    drums: null, voices: 'waltz, no drums',
+  },
+  kuliglig: {
+    name: 'Kuliglig', where: 'Optional ambience: no melody, for deep focus', bpm: 70, key: 'A drone', prog: 'A – E', meter: 'free',
+    tracks: [
+      { wave: 'tri', v: 0.08, env: 'swell', pat: 'A2 ' + rep('-', 23) + ' E2 ' + rep('-', 23) },
+    ],
+    drums: rep('r . . r . . . . . . t . . . r . . . . . . . . .', 2), voices: 'crickets, stars, drone',
+  },
+};
+function parseTrack(str) {
+  const toks = str.trim().split(/\s+/), by = new Map(); let last = null;
+  toks.forEach((tk, i) => {
+    if (tk === '-') { if (last && last.end === i) { last.len++; last.end++; } }
+    else if (tk === '.') last = null;
+    else { last = { n: tk, len: 1, end: i + 1 }; by.set(i, last); }
+  });
+  return { total: toks.length, by };
+}
+const songSteps = (s) => s.tracks.length ? s.tracks[0].pat.trim().split(/\s+/).length : s.drums.trim().split(/\s+/).length;
+let song = null;
+function playSong(id) {
+  stopSong();
+  const c = ensure(), s = SONGS[id], stepDur = 60 / s.bpm / 2;
+  const tracks = s.tracks.map((tr) => ({ ...tr, ev: parseTrack(tr.pat) }));
+  const drums = s.drums ? s.drums.trim().split(/\s+/) : null;
+  const st = { id, next: c.currentTime + 0.08, step: 0 };
+  st.timer = setInterval(() => {
+    while (st.next < c.currentTime + 0.2) {
+      for (const tr of tracks) {
+        const e = tr.ev.by.get(st.step % tr.ev.total);
+        if (!e) continue;
+        for (const nn of e.n.split('+')) {
+          const o = { at: st.next, d: e.len * stepDur * 0.94, v: tr.v, bus: musicBus, echo: tr.echo };
+          if (tr.inst === 'bell') bell(N(nn), o);
+          else tone({ ...o, wave: tr.wave, f: N(nn), env: tr.env, vib: tr.vib, vibDelay: 0.12 });
+        }
+      }
+      if (drums) {
+        const dk = drums[st.step % drums.length], o = { at: st.next, bus: musicBus };
+        if (dk === 'k') kick({ ...o, v: 0.3 }); else if (dk === 'h') hat(o); else if (dk === 'b') brush(o);
+        else if (dk === 'c') crash(o); else if (dk === 'r') chirp(o); else if (dk === 't') twinkleNote(o);
+      }
+      st.next += stepDur; st.step++;
+    }
+  }, 25);
+  song = st;
+}
+function stopSong() {
+  if (!song) return;
+  clearInterval(song.timer); song = null;
+  for (const e of live) if (e.bus === musicBus) { try { e.node.stop(); } catch (_) { /* already stopped */ } }
+}
+function stopAll() {
+  stopSong();
+  for (const id of timers) clearTimeout(id); timers.clear();
+  for (const e of live) { try { e.node.stop(); } catch (_) { /* already stopped */ } }
+  document.querySelectorAll('.card.is-playing').forEach((c) => c.classList.remove('is-playing'));
+  document.querySelectorAll('[data-song]').forEach(setSongButton);
+  document.querySelectorAll('.scene li.on').forEach((li) => li.classList.remove('on'));
+}
+
+/* ============================== CATALOG ============================== */
+// [id, name, when it plays in TALA, length in seconds, which sprite flares]
+const GROUPS = {
+  ui: [
+    ['click', 'Click', 'Any ordinary button or sidebar link', 0.04],
+    ['select', 'Select', 'Radio buttons, select boxes, the palette pickers', 0.11],
+    ['toggleOn', 'Switch on', 'Sidebar toggles: Learn panels, Music, SFX, Filipino stopwords', 0.11],
+    ['toggleOff', 'Switch off', 'The same toggles turned off', 0.11],
+    ['nav', 'Change page', 'Moving to another page from the sidebar or a Next button', 0.36],
+    ['learnOpen', 'Learn opens', 'Opening a Learn panel or the "See the code" expander', 0.12],
+    ['learnClose', 'Learn closes', 'Closing a Learn panel', 0.12],
+    ['slider', 'Slider set', 'Letting go of a slider: eps, k, topics, threshold', 0.04],
+    ['copy', 'Copy code', 'Copying a code snippet from a Learn panel', 0.09],
+    ['upload', 'File loaded', 'A CSV, XLSX or Parquet upload finishes parsing', 0.52],
+    ['download', 'Download', 'CSV, GeoJSON and metadata download buttons', 0.3],
+    ['locked', 'Can\'t run here', 'A page that cannot run, e.g. a geo page on a dataset with no coordinates', 0.36],
+  ],
+  an: [
+    ['run', 'Analysis starts', 'A slow model begins: LDA, DBSCAN, K-Means, POS tagging', 0.4],
+    ['ready', 'Results ready', 'Generic "done" for a fresh result (pages without a signature)', 0.86],
+    ['cached', 'Instant (cache)', 'Same settings as before, so the result came straight from the cache', 0.09],
+    ['step', 'Step done', 'A pipeline step finishes, e.g. Ingest, then Clustering', 0.5],
+    ['progress', 'Boot progress', 'Each segment of the boot-splash progress bar; climbs as it fills', 0.05],
+    ['warn', 'Warning', 'A yellow warning box appears', 0.3],
+    ['error', 'Error', 'A red error box appears: low and soft, never a buzzer', 0.42],
+  ],
+  cel: [
+    ['twinkle', 'Gate twinkle', 'Stars glinting while the language gate waits', 1.6],
+    ['language', 'Language picked', 'Choosing a language card on the gate', 0.36],
+    ['start', 'START: shooting star', 'Pressing START. A bulalakaw streaks down and lands on a chord', 1.3],
+    ['bootReady', 'TALA is ready', 'The boot splash finishes and the constellation forms', 1.6],
+    ['trackDone', 'Track complete', 'Finishing every page of the Text track or the Geo track', 1.9],
+    ['fullSky', 'Full sky', 'Both tracks complete: the biggest moment', 3.3],
+  ],
+  text: [
+    ['text1', '1 · Data & cleaning', 'A scrub, then a clean token: the preprocessing preview', 0.48, 'text'],
+    ['text2', '2 · Word cloud', 'Words pop into the cloud', 0.4, 'text'],
+    ['text3', '3 · Sentiment', 'A meter needle swings and settles', 0.52, 'text'],
+    ['text4', '4 · N-grams', 'Words link up in pairs', 0.44, 'text'],
+    ['text5', '5 · Topics', 'Each topic rings its own bell', 0.9, 'text'],
+    ['text6', '6 · Keywords', 'A highlighter swipe, then a ding', 0.6, 'text'],
+    ['text7', '7 · Readability', 'Ruler ticks climbing a scale', 0.48, 'text'],
+    ['text8', '8 · Themes (K-Means)', 'Two voices converge on one centroid', 0.8, 'text'],
+  ],
+  geo: [
+    ['geo1', '1 · Ingest', 'Points drop onto the map', 0.42, 'geo'],
+    ['geo2', '2 · Clustering (DBSCAN)', 'Dots connect into constellations', 1.0, 'geo'],
+    ['geo3', '3 · Generalization', 'Points snap to a grid', 0.3, 'geo'],
+    ['geo4', '4 · Map & exports', 'Snip to land, then the map is revealed', 1.2, 'geo'],
+    ['geo5', '5 · NLP per cluster', 'Text chatter, then a map pin', 0.7, 'geo'],
+  ],
+};
+const SCENES = [
+  ['scene-boot', 'First visit', [[0, 'twinkle', 'Stars twinkle on the language gate'], [1600, 'language', 'You pick a language'], [2400, 'start', 'You press START: a shooting star'],
+    [3500, 'progress:1', 'Boot bar: loading core'], [3800, 'progress:3', 'Boot bar: reading the dataset'], [4100, 'progress:5', 'Boot bar: drawing the page'], [4500, 'bootReady', 'TALA is ready']]],
+  ['scene-topics', 'Tuning a topic model', [[0, 'slider', 'You set 6 topics'], [300, 'run', 'LDA starts fitting'], [1500, 'text5', 'Topics found'],
+    [2700, 'download', 'You download the CSV'], [3500, 'slider', 'You go back to 5 topics'], [3800, 'cached', 'Instant: it came from the cache']]],
+  ['scene-geo', 'Walking the geo pipeline', [[0, 'nav', 'Open Ingest'], [400, 'geo1', 'Points plotted'], [1100, 'step', 'Step 1 done'],
+    [1900, 'nav', 'Open Clustering'], [2300, 'run', 'DBSCAN runs'], [3300, 'geo2', 'Clusters found'], [4400, 'step', 'Step 2 done']]],
+  ['scene-jump', 'Jumping ahead', [[0, 'nav', 'Open Map & Exports directly'], [400, 'run', 'TALA runs Ingest and Clustering for you'],
+    [1500, 'step', 'Earlier steps done automatically'], [2200, 'geo4', 'Clipped to land, map revealed']]],
+  ['scene-done', 'Finishing the Text track', [[0, 'text8', 'Themes clustered'], [1000, 'step', 'Last step done'], [1700, 'trackDone', 'Text track complete'],
+    [4000, 'fullSky', 'Both tracks complete: full sky']]],
+];
+const WHO = {};
+for (const g of Object.values(GROUPS)) for (const [id, , , , who] of g) WHO[id] = who || 'star';
+
+/* ============================== VERDICTS ============================== */
+const STORE_KEY = 'tala-soundboard-v1';
+let notes = {};
+try { notes = JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; } catch (_) { notes = {}; }
+function saveNotes() { try { localStorage.setItem(STORE_KEY, JSON.stringify(notes)); } catch (_) { /* storage blocked: verdicts live for this visit only */ } renderNotes(); }
+const ALL = []; // [id, label] for every reviewable sound
+
+/* ============================== UI ============================== */
+const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+function playBtn(label, kind) {
+  const b = el('button', 'btn' + (kind ? ' ' + kind : '')); b.type = 'button';
+  b.append(el('span', 'tri'), document.createTextNode(label)); return b;
+}
+function flash(card, secs) { card.classList.add('is-playing'); later(() => card.classList.remove('is-playing'), Math.max(250, secs * 1000 + 150)); }
+function verdictBlock(id, name) {
+  ALL.push([id, name]);
+  const wrap = el('div'); wrap.style.display = 'grid'; wrap.style.gap = '8px';
+  const grp = el('div', 'verdict'); grp.setAttribute('role', 'group'); grp.setAttribute('aria-label', 'Your verdict on ' + name);
+  const input = el('input', 'note'); input.id = 'note-' + id; input.type = 'text'; input.placeholder = 'What should change?'; input.setAttribute('aria-label', 'Note for ' + name);
+  const sync = () => {
+    const v = notes[id]?.v;
+    grp.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
+    input.hidden = !(v === 'tweak' || v === 'cut'); input.value = notes[id]?.note || '';
+  };
+  for (const [v, t] of [['keep', 'Keep'], ['tweak', 'Tweak'], ['cut', 'Cut']]) {
+    const b = el('button', null, t); b.type = 'button'; b.dataset.v = v;
+    b.addEventListener('click', () => { const cur = notes[id]?.v; notes[id] = { ...(notes[id] || {}), v: cur === v ? undefined : v }; if (!notes[id].v && !notes[id].note) delete notes[id]; sync(); saveNotes(); if (!input.hidden) input.focus(); });
+    grp.append(b);
+  }
+  input.addEventListener('input', () => { notes[id] = { ...(notes[id] || {}), note: input.value }; saveNotes(); });
+  sync(); wrap.append(grp, input); return wrap;
+}
+function soundCard([id, name, when, len, who]) {
+  const card = el('article', 'card'); card.dataset.id = id;
+  const top = el('div', 'card-top'); top.append(el('h3', null, name), el('span', 'len', len.toFixed(2).replace(/0$/, '') + ' s'));
+  const btn = playBtn(id === 'progress' ? 'Play 1/8' : 'Play');
+  let seg = 0;
+  btn.addEventListener('click', () => {
+    ensure();
+    if (id === 'progress') { seg = seg % 8 + 1; S.progress(seg); btn.lastChild.textContent = 'Play ' + (seg % 8 + 1) + '/8'; }
+    else S[id]();
+    flare(who || 'star', len * 1000);
+    flash(card, len);
+  });
+  card.append(top, el('p', 'when', when), btn, verdictBlock(id, name));
+  return card;
+}
+for (const [g, list] of Object.entries(GROUPS)) { const grid = document.querySelector(`[data-group="${g}"]`); list.forEach((s) => grid.append(soundCard(s))); }
+
+// Music
+const musicGrid = document.getElementById('musicGrid');
+function setSongButton(b) {
+  const on = song && song.id === b.dataset.song;
+  b.replaceChildren(el('span', on ? 'sq' : 'tri'), document.createTextNode(on ? 'Stop' : 'Play loop'));
+  b.classList.toggle('btn--stop', !!on); b.setAttribute('aria-pressed', String(!!on));
+  b.closest('.card')?.classList.toggle('is-playing', !!on);
+}
+for (const [id, s] of Object.entries(SONGS)) {
+  const card = el('article', 'card');
+  const secs = songSteps(s) * 30 / s.bpm;
+  const top = el('div', 'card-top'); top.append(el('h3', null, s.name), el('span', 'len', secs.toFixed(1) + ' s loop'));
+  const chips = el('div', 'chips');
+  [s.bpm + ' BPM', s.meter, s.key, s.prog, s.voices].forEach((t) => chips.append(el('span', 'chip', t)));
+  const btn = el('button', 'btn'); btn.type = 'button'; btn.dataset.song = id; setSongButton(btn);
+  btn.addEventListener('click', () => {
+    if (song && song.id === id) stopSong(); else { playSong(id); flare('star', 1200); }
+    document.querySelectorAll('[data-song]').forEach(setSongButton);
+  });
+  card.append(top, el('p', 'when', s.where), chips, btn, verdictBlock('music-' + id, 'Music: ' + s.name));
+  musicGrid.append(card);
+}
+
+// Scenes
+const sceneGrid = document.getElementById('sceneGrid');
+function runStep(key) {
+  if (key.startsWith('progress:')) { S.progress(+key.split(':')[1]); flare('star', 300); return; }
+  S[key](); flare(WHO[key] || 'star', 900);
+}
+for (const [id, name, steps] of SCENES) {
+  const card = el('article', 'card scene');
+  const total = steps[steps.length - 1][0] / 1000 + 1.6;
+  const top = el('div', 'card-top'); top.append(el('h3', null, name), el('span', 'len', '~' + total.toFixed(1) + ' s'));
+  const ol = el('ol'); const lis = steps.map(([, , cap]) => { const li = el('li', null, cap); ol.append(li); return li; });
+  const btn = playBtn('Play scene', 'btn--gold');
+  btn.addEventListener('click', () => {
+    ensure();
+    steps.forEach(([ms, key], i) => later(() => { lis.forEach((l, j) => l.classList.toggle('on', j === i)); runStep(key); }, ms));
+    later(() => lis.forEach((l) => l.classList.remove('on')), total * 1000);
+    flash(card, total);
+  });
+  card.append(top, ol, btn, verdictBlock(id, 'Scene: ' + name));
+  sceneGrid.append(card);
+}
+
+// Notes panel
+function renderNotes() {
+  const by = { keep: [], tweak: [], cut: [] }; let none = 0;
+  for (const [id, name] of ALL) { const n = notes[id]; if (n?.v) by[n.v].push([id, name, n.note]); else none++; }
+  document.getElementById('nKeep').textContent = by.keep.length;
+  document.getElementById('nTweak').textContent = by.tweak.length;
+  document.getElementById('nCut').textContent = by.cut.length;
+  document.getElementById('nNone').textContent = none;
+  const line = ([id, name, note]) => `- ${name} [${id}]` + (note ? `: ${note}` : '');
+  const parts = ['TALA sound board v1 notes'];
+  if (by.tweak.length) parts.push('', 'TWEAK', ...by.tweak.map(line));
+  if (by.cut.length) parts.push('', 'CUT', ...by.cut.map(line));
+  if (by.keep.length) parts.push('', 'KEEP', ...by.keep.map(line));
+  if (none) parts.push('', `Not rated: ${none}`);
+  document.getElementById('notesOut').value = parts.join('\n');
+}
+renderNotes();
+document.getElementById('copyNotes').addEventListener('click', () => {
+  const ta = document.getElementById('notesOut'), status = document.getElementById('status');
+  const fallback = () => { ta.focus(); ta.select(); status.textContent = 'Copying is blocked here. The text is selected: press Ctrl+C.'; };
+  try { navigator.clipboard.writeText(ta.value).then(() => { status.textContent = 'Copied. Paste it into Claude Code.'; }, fallback); } catch (_) { fallback(); }
+});
+let clearArmed = false;
+document.getElementById('clearNotes').addEventListener('click', () => {
+  const btn = document.getElementById('clearNotes'), status = document.getElementById('status');
+  if (!clearArmed) {
+    clearArmed = true; btn.textContent = 'Press again to clear'; status.textContent = '';
+    setTimeout(() => { clearArmed = false; btn.textContent = 'Clear all verdicts'; }, 4000);
+    return;
+  }
+  clearArmed = false; notes = {}; saveNotes(); btn.textContent = 'Clear all verdicts';
+  document.querySelectorAll('.verdict button').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+  document.querySelectorAll('.note').forEach((i) => { i.value = ''; i.hidden = true; });
+  status.textContent = 'All verdicts cleared.';
+});
+
+// Mixer
+for (const [id, key, out] of [['vMaster', 'master', 'oMaster'], ['vSfx', 'sfx', 'oSfx'], ['vMusic', 'music', 'oMusic'], ['vEcho', 'echo', 'oEcho']]) {
+  const r = document.getElementById(id), o = document.getElementById(out);
+  const upd = () => { vol[key] = r.value / 100; o.textContent = r.value; r.style.setProperty('--fill', r.value + '%'); applyVolumes(); };
+  r.addEventListener('input', upd); upd();
+}
+document.getElementById('stopAll').addEventListener('click', stopAll);
+
+// Pixel oscilloscope
+const scope = document.getElementById('scope'), sg = scope.getContext('2d');
+let wave = null;
+(function drawScope() {
+  sg.fillStyle = '#05071a'; sg.fillRect(0, 0, scope.width, scope.height);
+  sg.fillStyle = '#1b2559'; for (let x = 0; x < scope.width; x += 16) sg.fillRect(x, 0, 1, scope.height); sg.fillRect(0, scope.height / 2, scope.width, 1);
+  sg.fillStyle = '#F5D89E';
+  if (analyser) {
+    if (!wave) wave = new Uint8Array(analyser.fftSize);
+    analyser.getByteTimeDomainData(wave);
+    let start = 0; for (let i = 1; i < wave.length / 2; i++) if (wave[i - 1] < 128 && wave[i] >= 128) { start = i; break; } // steady trigger
+    let prev = null;
+    for (let x = 0; x < scope.width; x++) {
+      const v = (wave[start + x * 3] - 128) / 128;
+      const y = Math.round(scope.height / 2 - v * (scope.height / 2 - 3));
+      if (prev != null) { const a = Math.min(prev, y), b = Math.max(prev, y); sg.fillRect(x, a, 1, b - a + 1); } else sg.fillRect(x, y, 1, 1);
+      prev = y;
+    }
+  } else sg.fillRect(0, scope.height / 2, scope.width, 1);
+  requestAnimationFrame(drawScope);
+})();
+</script>
+</body>
+</html>
