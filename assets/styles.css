@@ -270,7 +270,9 @@ section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] { color: #aa
   transition: transform 140ms steps(2), background-color 140ms steps(2);
 }
 .st-key-tala-strip a[data-testid="stPageLink-NavLink"]:hover::before { transform: scale(1.18); --star-c: var(--nu-navy); }
-[class*="st-key-tala-seg-done-"] { --star-c: var(--nu-gold-deep); }
+/* Gold means "you are here" and nothing else. Done steps are solid navy, steps
+   still to do are faint: three states that can't be mistaken for each other. */
+[class*="st-key-tala-seg-done-"] { --star-c: var(--nu-navy); }
 [class*="st-key-tala-seg-current-"] { --star-c: var(--nu-gold-deep); }
 [class*="st-key-tala-seg-current-"] a[data-testid="stPageLink-NavLink"]::before {
   width: 34px; height: 30px; filter: drop-shadow(0 0 6px rgba(201, 150, 46, 0.75));
@@ -293,7 +295,8 @@ section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] { color: #aa
 }
 .tala-star::before { width: 22px; height: 19px; }
 .tala-star-todo { --star-c: rgba(53, 64, 142, 0.28); }
-.tala-star-done, .tala-star-current { --star-c: var(--nu-gold-deep); }
+.tala-star-done { --star-c: var(--nu-navy); }
+.tala-star-current { --star-c: var(--nu-gold-deep); }
 
 /* ---- Buttons: one gold pixel style for every "go somewhere" link ----- */
 .st-key-tala-footnav { margin-top: 1.8rem; padding-top: 1.1rem; border-top: 2px solid var(--nu-gold); }
