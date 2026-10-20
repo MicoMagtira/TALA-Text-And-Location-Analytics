@@ -3,9 +3,33 @@
     "src": "88d01cde1c",
     "t": "National University Manila · Para iti panagsanay iti data science / NLP / geospatial."
   },
+  "app.subtitle": {
+    "src": "354e4232f0",
+    "t": "Tunggal komento, maysa a bituen. Kitaen ti ibagbaga dagiti tattao — ken no sadino ti pangibagbagaanda."
+  },
   "app.wordmark_org": {
     "src": "18ce5c7202",
     "t": "Maysa nga inisiatiba ti NU DOST-NICER Program"
+  },
+  "asp.access": {
+    "src": "2f81a22de0",
+    "t": "Pannakadanon"
+  },
+  "asp.cost": {
+    "src": "64ae43e8fe",
+    "t": "Gastos"
+  },
+  "asp.facilities": {
+    "src": "9d0a833e88",
+    "t": "Pasilidad"
+  },
+  "asp.medicine": {
+    "src": "cd8c2df26c",
+    "t": "Agas"
+  },
+  "asp.waiting": {
+    "src": "33d3063284",
+    "t": "Panaguray"
   },
   "audio.gate_heading": {
     "src": "175245275e",
@@ -19,13 +43,33 @@
     "src": "131260cbfb",
     "t": "Musika"
   },
-  "audio.sfx": {
-    "src": "db939a93b4",
-    "t": "SFX"
+  "audio.style": {
+    "src": "21f0b1b1ba",
+    "t": "Estilo ti musika"
+  },
+  "audio.style_ambience": {
+    "src": "6aed7616ab",
+    "t": "Ambience (awan ti melodia)"
+  },
+  "audio.style_melody": {
+    "src": "448d5097e6",
+    "t": "Melodia"
   },
   "audio.volume": {
     "src": "7f5b291aa5",
     "t": "Kadagsen ti {name}"
+  },
+  "auto.open": {
+    "src": "b5f51d0e1b",
+    "t": "Lukatan ti addang {n}: {title}"
+  },
+  "auto.ran_many": {
+    "src": "992deab64a",
+    "t": "Saan pay a nalukatan dagiti Addang {steps}, isu a pinatarayen ti TALA dagitoy iti default a setting."
+  },
+  "auto.ran_one": {
+    "src": "64b26effb0",
+    "t": "Saan pay a nalukatan ti Addang {steps}, isu a pinatarayen ti TALA daytoy iti default a setting."
   },
   "boot.caches": {
     "src": "7b0785b2a5",
@@ -63,6 +107,22 @@
     "src": "41b4afdb20",
     "t": "Isagsagana dagiti map tiles"
   },
+  "ch2.few_places": {
+    "src": "1cb0a02e8c",
+    "t": "Basbassit ngem dua a lugar ti nasarakan, isu nga awan ti maidilig."
+  },
+  "ch2.locked": {
+    "src": "3890a277b5",
+    "t": "Masapul daytoy nga addang ti text column ken dagiti longitude/latitude column."
+  },
+  "ch2.locked_link": {
+    "src": "031f787cbd",
+    "t": "Mapan iti Data"
+  },
+  "ch2.no_places": {
+    "src": "474c464c10",
+    "t": "Awan ti komento a naikabil iti lugar."
+  },
   "data.bundled_label": {
     "src": "9e8f97ed39",
     "t": "Bundled a pagarigan: PH Health Services Sentiments"
@@ -71,9 +131,17 @@
     "src": "4f65694b3b",
     "t": "Nag-expire iti shared cache ti na-upload a dataset-mo. Agsubli iti bundled a pagarigan — ag-upload manen tapno maituloy ti bukodmo a file."
   },
+  "gate.continue": {
+    "src": "2e02623966",
+    "t": "Ituloy"
+  },
   "gate.hint": {
     "src": "0531f63eea",
     "t": "Mabalin mo a sukatan daytoy kalpasan babaen ti sidebar."
+  },
+  "gate.press_continue": {
+    "src": "e9ae0f380c",
+    "t": "Agpili iti pagsasao tapno maituloy"
   },
   "gate.prompt": {
     "src": "bc06fdbb8a",
@@ -87,37 +155,73 @@
     "src": "7196e7c29d",
     "t": "RUGIAN"
   },
+  "home.about": {
+    "src": "b7cf86d9cd",
+    "t": "Maipapan iti TALA"
+  },
+  "home.continue_btn": {
+    "src": "2e02623966",
+    "t": "Ituloy"
+  },
+  "home.continue_step": {
+    "src": "0100aab8f0",
+    "t": "Ituloy: {title} (addang {n} iti {total})"
+  },
+  "home.how_link": {
+    "src": "4ac1cec2d4",
+    "t": "Baro ka ditoy? Kasano nga agandar ti TALA"
+  },
   "home.intro": {
     "src": "52d4d440c1",
     "t": "Ti **TALA — Text And Location Analytics** ket maysa a hands-on a training app a mangpagtipon iti klasiko a **Natural Language Processing** ken iti intero a **geospatial** a workflow, tapno makaakar dagiti kameng manipud iti gubsang a komento agingga iti *ania ti ibagbaga dagiti tattao* **ken** *sadino ti pangibagbagaanda*.\n\nTi *tala* ket Filipino para iti **bituen** ken para iti **listaan / nota** — maitutop iti maysa nga alikamen a mangpagbalin kadagiti nota nga insight."
-  },
-  "home.m_cols": {
-    "src": "cf723c59b6",
-    "t": "Columns"
   },
   "home.m_hasgeo": {
     "src": "e0b2ce1d23",
     "t": "Adda coordinates"
   },
-  "home.m_rows": {
-    "src": "52d0b35277",
-    "t": "Rows"
-  },
-  "home.m_textcol": {
-    "src": "58ee9f9831",
-    "t": "Text column"
-  },
   "home.no": {
     "src": "816c52fd2b",
     "t": "Awan"
+  },
+  "home.peek": {
+    "src": "a440b0baa1",
+    "t": "Silipen ti data"
+  },
+  "home.resume": {
+    "src": "2e02623966",
+    "t": "Ituloy"
+  },
+  "home.review": {
+    "src": "e29a79fe0c",
+    "t": "Kitaen manen"
   },
   "home.source": {
     "src": "86728b17ad",
     "t": "Naggapuan: {source}"
   },
+  "home.start": {
+    "src": "952f375412",
+    "t": "Rugian"
+  },
+  "home.tour": {
+    "src": "8693cfe8ca",
+    "t": "Buyaen ti 1-minuto a tour"
+  },
+  "home.what_line": {
+    "src": "0796ede262",
+    "t": "Idilig dagiti lugar babaen dagiti sao, rikna, tema ken hotspot dagitoy."
+  },
+  "home.where_line": {
+    "src": "1489baabe0",
+    "t": "Idilig ti lugar a nadakamat iti tunggal komento iti bukodna a GPS, sa bunggoyen dagiti komento kas lugar."
+  },
   "home.yes": {
     "src": "5397e0583f",
     "t": "Wen"
+  },
+  "learn.attribution": {
+    "src": "91a270909c",
+    "t": "Dagiti nagan ti lugar ken coordinates: GeoNames (geonames.org), CC BY 4.0."
   },
   "learn.discuss_body": {
     "src": "50926aed30",
@@ -126,6 +230,14 @@
   "learn.discuss_heading": {
     "src": "2275e190a5",
     "t": "#### Pagsaritaan sakbay nga agkonklusion"
+  },
+  "learn.nav": {
+    "src": "f6f73da18d",
+    "t": "Kasano nga agandar ti TALA"
+  },
+  "learn.page_title": {
+    "src": "f6f73da18d",
+    "t": "Kasano nga agandar ti TALA"
   },
   "learn.routine": {
     "src": "eab1804e3c",
@@ -147,6 +259,34 @@
     "src": "8e175403de",
     "t": "#### Ammuen ti pamay-an"
   },
+  "nav.hint_any": {
+    "src": "8d70deabcf",
+    "t": "aniaman nga urnos"
+  },
+  "nav.hint_ordered": {
+    "src": "33f6a18ad7",
+    "t": "agsasaruno"
+  },
+  "nav.learn": {
+    "src": "f6f73da18d",
+    "t": "Kasano nga agandar ti TALA"
+  },
+  "nav.q_what": {
+    "src": "55842deea0",
+    "t": "Ania ti ibagbaga ti tunggal lugar?"
+  },
+  "nav.q_where": {
+    "src": "7285d620e0",
+    "t": "Sadino ti ayan dagiti tattao?"
+  },
+  "p1_data.active": {
+    "src": "66df1af7f2",
+    "t": "Aktibo a dataset: **{source}**."
+  },
+  "p1_data.blurb": {
+    "src": "8d0e123db1",
+    "t": "I-load dagiti komento ken ibaga iti TALA no ania a column ti aglaon iti text ken iti coordinates."
+  },
   "p1_data.cleaned": {
     "src": "c4b9b4a27a",
     "t": "**Nadalusan**"
@@ -167,25 +307,9 @@
     "src": "3e096d77dc",
     "t": "Sukimaten ti maysa a sample row"
   },
-  "p1_data.lat_col": {
-    "src": "633713d87c",
-    "t": "Latitude column"
-  },
-  "p1_data.lon_col": {
-    "src": "7a3d4d0214",
-    "t": "Longitude column"
-  },
-  "p1_data.m_cols": {
-    "src": "cf723c59b6",
-    "t": "Columns"
-  },
-  "p1_data.m_coords": {
-    "src": "8ebebca019",
-    "t": "Coordinates"
-  },
-  "p1_data.m_rows": {
-    "src": "52d0b35277",
-    "t": "Rows"
+  "p1_data.need_coords": {
+    "src": "b2a78170bb",
+    "t": "Agpili iti longitude ken latitude column tapno malukatan dagiti sumaruno nga addang."
   },
   "p1_data.no_tokens": {
     "src": "cf3b9e0018",
@@ -211,49 +335,653 @@
     "src": "454a8bf181",
     "t": "Mangi-upload iti file"
   },
-  "p1_data.text_col": {
-    "src": "58ee9f9831",
-    "t": "Text column"
+  "p1_data.step1": {
+    "src": "ee062ce6bc",
+    "t": "### Agpili iti paggapuan ti data"
+  },
+  "p1_data.step2": {
+    "src": "93bdd57ce4",
+    "t": "### Ipares dagiti column"
+  },
+  "p1_data.step3": {
+    "src": "2c3500ea54",
+    "t": "### Dalusan ti text"
+  },
+  "p1_data.sw_caption": {
+    "src": "0184f2f987",
+    "t": "Saan nga ibilbilang ti **{count}** a gagangay a sao."
+  },
+  "p1_data.toast_bundled": {
+    "src": "13923c2b75",
+    "t": "Nagsukat iti bundled a pagarigan."
+  },
+  "p1_data.toast_upload": {
+    "src": "c3727e4388",
+    "t": "Na-load ti {name}. Napattapatta laeng dagiti column; sukatan iti baba no masapul."
   },
   "p1_data.tokens": {
     "src": "d66c482850",
     "t": "**Tokens (naikkat dagiti stopwords)**"
   },
-  "p1_data.upload_name": {
-    "src": "51d1c48d68",
-    "t": "Upload: {name}"
+  "p1_data.upload_hint": {
+    "src": "a0953f59e9",
+    "t": "Mangi-upload iti file tapno isu ti usaren. Agingga iti dayta, aktibo latta ti agdama a dataset."
+  },
+  "p1_data.uploader": {
+    "src": "3d71a385b9",
+    "t": "Mangi-upload iti CSV wenno Excel (.xlsx). Masapul ti text column; nayonan iti `lon`/`lat` a columns para kadagiti mapa."
+  },
+  "p2_textgps.blurb": {
+    "src": "1beb0468d2",
+    "t": "Basaen ti TALA ti lugar a nadakamat iti tunggal komento ken idilig daytoy iti GPS point."
+  },
+  "p2_textgps.gone": {
+    "src": "a610d09117",
+    "t": "Nagbaliw ti dataset. Agpili manen kadagiti column."
+  },
+  "p2_textgps.km": {
+    "src": "2111b968b1",
+    "t": "Agtunos no saan nga ad-adayo ngem (km)"
+  },
+  "p2_textgps.km_help": {
+    "src": "f126699a1e",
+    "t": "Ti kaadayo nga ipalubos iti nagbaetan ti GPS point ken ti lugar a nadakamat iti komento."
+  },
+  "p2_textgps.lesson": {
+    "src": "2da6a7db6e",
+    "t": "**Agarup {pct}% kadagitoy a coordinates ti biddut.** Ti text ti mangibaga no sadino ti rumbeng a yanda."
+  },
+  "p2_textgps.lg_agree": {
+    "src": "c9600527f4",
+    "t": "agtunos"
+  },
+  "p2_textgps.lg_disagree": {
+    "src": "d651e9b4c8",
+    "t": "saan nga agtunos (ti linia ket agturong iti nadakamat a lugar)"
+  },
+  "p2_textgps.lg_invalid": {
+    "src": "32075d2575",
+    "t": "invalid a GPS"
+  },
+  "p2_textgps.lg_other": {
+    "src": "3d5d878e23",
+    "t": "awan ti nalawag a lugar"
+  },
+  "p2_textgps.lines_sampled": {
+    "src": "8ce2a646fb",
+    "t": "Naiguhit dagiti linia para iti {shown} kadagiti {total} a saan nga agtunos."
+  },
+  "p2_textgps.m_agree": {
+    "src": "16473dd25d",
+    "t": "Agtunos ti GPS"
+  },
+  "p2_textgps.m_disagree": {
+    "src": "63ad121788",
+    "t": "Saan nga agtunos ti GPS"
+  },
+  "p2_textgps.m_invalid": {
+    "src": "016837f332",
+    "t": "Invalid ti GPS"
+  },
+  "p2_textgps.m_named": {
+    "src": "5c97473718",
+    "t": "Nangdakamat iti lugar"
+  },
+  "p2_textgps.mode": {
+    "src": "7d3b6e1dc5",
+    "t": "Ania a lokasion ti usaren dagiti sumaruno nga addang?"
+  },
+  "p2_textgps.mode_agree": {
+    "src": "dd2b40efb6",
+    "t": "No agtunos laeng ti dua"
+  },
+  "p2_textgps.mode_gps": {
+    "src": "b9a684dc04",
+    "t": "GPS laeng ti pagtalkan"
+  },
+  "p2_textgps.mode_repaired": {
+    "src": "af16e3228d",
+    "t": "Tarimaanen manipud iti text (mairekomenda)"
+  },
+  "p2_textgps.no_geo": {
+    "src": "068aa7b219",
+    "t": "Awan pay ti coordinates daytoy a dataset."
+  },
+  "p2_textgps.pick_coords": {
+    "src": "e20a2ae61c",
+    "t": "Agpili kadagiti longitude ken latitude column"
+  },
+  "p2_textgps.show_invalid": {
+    "src": "c03105bbc6",
+    "t": "Ipakita dagiti GPS point nga adda iti ruar ti Filipinas"
+  },
+  "p2_textgps.t_dist": {
+    "src": "90b7986c9c",
+    "t": "Kaadayo (km)"
+  },
+  "p2_textgps.t_place": {
+    "src": "55f527b308",
+    "t": "Nadakamat a lugar"
+  },
+  "p2_textgps.t_province": {
+    "src": "f5e192238a",
+    "t": "Probinsia"
+  },
+  "p2_textgps.table_head": {
+    "src": "d8d9c212ce",
+    "t": "Kadakkelan a di panagtunos"
+  },
+  "p2_textgps.use_caption": {
+    "src": "99f98460d2",
+    "t": "Dagiti sumaruno nga addang ket agusar iti {gps} a GPS point ken {fixed} a lokasion a natarimaan manipud iti text; {none} a komento ti awan ti mausar a lokasion."
+  },
+  "p3_places.bar_head": {
+    "src": "b72147e2d8",
+    "t": "#### Komento iti tunggal lugar (top {n})"
+  },
+  "p3_places.bar_x": {
+    "src": "fce06e20e5",
+    "t": "Komento"
+  },
+  "p3_places.blurb": {
+    "src": "0451cf8ff8",
+    "t": "Bunggoyen dagiti komento kas lugar, babaen ti rehion wenno babaen ti density cluster."
+  },
+  "p3_places.defaults": {
+    "src": "ddefe47d69",
+    "t": "Isubli iti default"
+  },
+  "p3_places.eps": {
+    "src": "18142531af",
+    "t": "Radius ti kaarrubaan, eps (km)"
+  },
+  "p3_places.gone": {
+    "src": "a610d09117",
+    "t": "Nagbaliw ti dataset. Agpili manen kadagiti column."
+  },
+  "p3_places.k": {
+    "src": "d647e495d5",
+    "t": "k (kaarruba)"
+  },
+  "p3_places.kd_none": {
+    "src": "dd72d8cedc",
+    "t": "Kurang dagiti point nga addaan lokasion para iti daytoy a chart."
+  },
+  "p3_places.kd_x": {
+    "src": "cef4e3df99",
+    "t": "Points, naurnos babaen ti kaadayo"
+  },
+  "p3_places.kd_y": {
+    "src": "89aee27f64",
+    "t": "Kaadayo iti maika-{k} a kaarruba (km)"
+  },
+  "p3_places.kdist_head": {
+    "src": "d5fbd6da32",
+    "t": "Panagpili iti eps: ti siko (elbow) ti k-distance"
+  },
+  "p3_places.m_assigned": {
+    "src": "8a9b623841",
+    "t": "Komento nga addaan lugar"
+  },
+  "p3_places.m_none": {
+    "src": "b086905fa8",
+    "t": "Awan ti lugar wenno noise"
+  },
+  "p3_places.m_places": {
+    "src": "0cd3597453",
+    "t": "Dagiti lugar"
+  },
+  "p3_places.map_head": {
+    "src": "6ec8002214",
+    "t": "#### No sadino dagiti lugar"
+  },
+  "p3_places.min_samples": {
+    "src": "28b45b3b76",
+    "t": "Minimum a komento iti tunggal cluster"
+  },
+  "p3_places.nav": {
+    "src": "0cd3597453",
+    "t": "Dagiti lugar"
+  },
+  "p3_places.no_geo": {
+    "src": "068aa7b219",
+    "t": "Awan pay ti coordinates daytoy a dataset."
+  },
+  "p3_places.no_places": {
+    "src": "992dfd83db",
+    "t": "Awan ti nasarakan a lugar. Padasen ti dakdakkel nga eps wenno basbassit a komento iti tunggal cluster."
+  },
+  "p3_places.pick_coords": {
+    "src": "e20a2ae61c",
+    "t": "Agpili kadagiti longitude ken latitude column"
+  },
+  "p3_places.title": {
+    "src": "0cd3597453",
+    "t": "Dagiti lugar"
+  },
+  "p3_places.unit": {
+    "src": "3f213bd5db",
+    "t": "Bunggoyen dagiti komento babaen ti"
+  },
+  "p3_places.unit_region": {
+    "src": "0f21717994",
+    "t": "Rehion"
+  },
+  "p4_apart.axis": {
+    "src": "e3793362b9",
+    "t": "z-score (kinaisangsangayan)"
+  },
+  "p4_apart.blurb": {
+    "src": "aa0eef29fe",
+    "t": "Ania dagiti sao a mangidumduma iti maysa a lugar kadagiti dadduma?"
+  },
+  "p4_apart.caption": {
+    "src": "17d7a0bea0",
+    "t": "Dagiti term ket maymaysa a sao ken dua-a-sao a phrase; dagiti bilang ket manipud iti amin a komento."
+  },
+  "p4_apart.hide_help": {
+    "src": "eed931cf07",
+    "t": "Nalaka unay a pagidumdumaan dagiti lugar dagiti naganda. Ilemmeng dagitoy tapno makita no ania ti ibagbaga dagiti tattao."
+  },
+  "p4_apart.hide_places": {
+    "src": "687964cef6",
+    "t": "Ilemmeng dagiti nagan ti lugar"
+  },
+  "p4_apart.min_count": {
+    "src": "ffd783b968",
+    "t": "Minimum a bilang ti panagparang ti term"
+  },
+  "p4_apart.more_typical": {
+    "src": "bf85ef5514",
+    "t": "ad-adda a gagangay iti"
+  },
+  "p4_apart.nav": {
+    "src": "0514627d56",
+    "t": "Ania ti mangidumduma iti lugar"
+  },
+  "p4_apart.none": {
+    "src": "48abbbfb1d",
+    "t": "Awan ti term a dumanon iti minimum a bilang. Ibaba daytoy tapno ad-adu ti makita."
+  },
+  "p4_apart.place_a": {
+    "src": "0e776c6314",
+    "t": "Lugar A"
+  },
+  "p4_apart.place_b": {
+    "src": "719f56a6e7",
+    "t": "Idilig iti"
+  },
+  "p4_apart.rest": {
+    "src": "eedbc7fbaa",
+    "t": "Amin a sabali a lugar"
+  },
+  "p4_apart.title": {
+    "src": "0514627d56",
+    "t": "Ania ti mangidumduma iti lugar"
+  },
+  "p5_feel.axis": {
+    "src": "97335e9cf7",
+    "t": "% dagiti komento a negatibo"
+  },
+  "p5_feel.blurb": {
+    "src": "5d116323f5",
+    "t": "Ania dagiti lugar a kasla kaaduan ti saan a mapnek, ken kasano kasigurado daytoy?"
+  },
+  "p5_feel.capped": {
+    "src": "4f30bd48c7",
+    "t": "Maipakita dagiti {n} a kadakkelan a lugar."
+  },
+  "p5_feel.enough": {
+    "src": "1ee44b1262",
+    "t": "Umdas a komento"
+  },
+  "p5_feel.legend": {
+    "src": "b05fc476ef",
+    "t": "Kolor = % negatibo. Kadakkel ti bubble = bilang ti komento. Grey = kurang unay ti komento."
+  },
+  "p5_feel.m_greyed": {
+    "src": "12a8a04ade",
+    "t": "Naka-grey (kurang unay)"
+  },
+  "p5_feel.m_overall": {
+    "src": "54ee1bd823",
+    "t": "Negatibo iti pakabuklan"
+  },
+  "p5_feel.m_places": {
+    "src": "a8c435b44c",
+    "t": "Lugar a naipakita"
+  },
+  "p5_feel.min_n": {
+    "src": "6563cbd5f2",
+    "t": "Minimum a komento iti tunggal lugar"
+  },
+  "p5_feel.nav": {
+    "src": "c1dc06c1e2",
+    "t": "Kasano ti rikna ti tunggal lugar"
   },
   "p5_feel.negative": {
     "src": "cb47297f54",
     "t": "negatibo"
   },
+  "p5_feel.rank_head": {
+    "src": "228c2b0bc9",
+    "t": "% negatibo iti tunggal lugar, agraman ti 95% interval"
+  },
+  "p5_feel.reason": {
+    "src": "26e72b31b3",
+    "t": "basbassit ngem {min_n} a komento"
+  },
+  "p5_feel.title": {
+    "src": "c1dc06c1e2",
+    "t": "Kasano ti rikna ti tunggal lugar"
+  },
+  "p6_aspects.blurb": {
+    "src": "1746baac7a",
+    "t": "Ania ti idaydayaw wenno ireklamo dagiti tattao iti tunggal lugar: panaguray, staff, gastos, agas?"
+  },
+  "p6_aspects.caption": {
+    "src": "bcc05bc4d2",
+    "t": "Ti tunggal cell ket ti % dagiti sentence maipapan iti dayta nga aspect a negatibo ti basana. n = dagiti nagtunos a sentence; blanko = basbassit ngem ti minimum."
+  },
+  "p6_aspects.cbar": {
+    "src": "2323733c81",
+    "t": "% negatibo"
+  },
+  "p6_aspects.legend": {
+    "src": "47c01c1d23",
+    "t": "Kolor = % negatibo maipapan iti daytoy nga aspect. Kadakkel = bilang ti sentence. Grey = kurang unay."
+  },
+  "p6_aspects.map_head": {
+    "src": "0c1173a15c",
+    "t": "Maysa nga aspect iti mapa"
+  },
+  "p6_aspects.min_n": {
+    "src": "7a787c2063",
+    "t": "Minimum a sentence iti tunggal cell"
+  },
+  "p6_aspects.nav": {
+    "src": "320f6a9041",
+    "t": "Ania ti maidaydayaw wenno mareklamo"
+  },
   "p6_aspects.negative": {
     "src": "cb47297f54",
     "t": "negatibo"
+  },
+  "p6_aspects.none": {
+    "src": "775ea58be2",
+    "t": "Awan ti sentence a nangdakamat iti aspect."
+  },
+  "p6_aspects.sentences": {
+    "src": "93ee904fb2",
+    "t": "a sentence"
+  },
+  "p6_aspects.title": {
+    "src": "320f6a9041",
+    "t": "Ania ti maidaydayaw wenno mareklamo"
+  },
+  "p7_themes.axis": {
+    "src": "3c061c1925",
+    "t": "% dagiti komento ti lugar"
+  },
+  "p7_themes.blurb": {
+    "src": "b4e8587d33",
+    "t": "Ania dagiti topic a rumrumuar kadagiti komento, ken ania a lugar ti mangsarsarita iti ania?"
+  },
+  "p7_themes.card_n": {
+    "src": "d1b9e2a1cd",
+    "t": "{n} a komento ({pct}%)"
+  },
+  "p7_themes.drop_help": {
+    "src": "dd84762a69",
+    "t": "No mabati, agbalin a bukod a tema dagiti nagan ti probinsia."
+  },
+  "p7_themes.drop_places": {
+    "src": "687964cef6",
+    "t": "Ilemmeng dagiti nagan ti lugar"
+  },
+  "p7_themes.k": {
+    "src": "77102a3f2a",
+    "t": "Bilang dagiti tema (k)"
+  },
+  "p7_themes.nav": {
+    "src": "8e0f128b69",
+    "t": "Ania dagiti pagsasaritaan"
+  },
+  "p7_themes.not_enough": {
+    "src": "5f36427684",
+    "t": "Kurang ti text tapno makasarak kadagiti tema."
+  },
+  "p7_themes.share_head": {
+    "src": "939735832f",
+    "t": "Bingay ti tema iti tunggal lugar"
+  },
+  "p7_themes.sil_help": {
+    "src": "cea2a396ff",
+    "t": "Manipud -1 agingga iti 1. No nangatngato ngem 0.5, nalawag ti panagsisina; no nababbaba ngem 0.25, nakaro ti panagsasampaw dagiti tema. Kadawyan a nababa ti score dagiti ababa a komento."
+  },
+  "p7_themes.silhouette": {
+    "src": "5592d1356e",
+    "t": "Silhouette (panagsisina dagiti cluster)"
+  },
+  "p7_themes.title": {
+    "src": "8e0f128b69",
+    "t": "Ania dagiti pagsasaritaan"
+  },
+  "p8_hotspots.all": {
+    "src": "831776c18d",
+    "t": "Amin a komento: paset a negatibo"
+  },
+  "p8_hotspots.aspect_neg": {
+    "src": "b04bba4981",
+    "t": "{aspect}: paset a negatibo"
+  },
+  "p8_hotspots.blurb": {
+    "src": "23f7b7e804",
+    "t": "Sadino ti nakabunggoy dagiti reklamo nga ad-adu ngem iti mabalin nga ilawlawag ti gasat laeng?"
   },
   "p8_hotspots.cell": {
     "src": "1bf56007b2",
     "t": "Kadakkel ti grid cell (km)"
   },
+  "p8_hotspots.leg_cold": {
+    "src": "278c6af2ff",
+    "t": "Cold (kurang a negatibo)"
+  },
+  "p8_hotspots.leg_hot": {
+    "src": "adbd60a59b",
+    "t": "Hot (ad-adda a negatibo ngem iti gasat laeng)"
+  },
+  "p8_hotspots.leg_level": {
+    "src": "61f0d183bd",
+    "t": "{level}% a confidence"
+  },
+  "p8_hotspots.leg_ns": {
+    "src": "a6ec3ea837",
+    "t": "Saan a significant"
+  },
+  "p8_hotspots.m_cells": {
+    "src": "e9b0b79705",
+    "t": "Cells a nasubok"
+  },
+  "p8_hotspots.m_cold": {
+    "src": "fe7e7dc02d",
+    "t": "Dagiti cold cell"
+  },
+  "p8_hotspots.m_hot": {
+    "src": "f6447f5a99",
+    "t": "Dagiti hot cell"
+  },
+  "p8_hotspots.m_hot99": {
+    "src": "4b21fe32af",
+    "t": "Hot iti 99%"
+  },
+  "p8_hotspots.min_n": {
+    "src": "62b4ad93e3",
+    "t": "Minimum a komento iti tunggal cell"
+  },
+  "p8_hotspots.nav": {
+    "src": "7480c0126f",
+    "t": "Sadino ti nakabunggoy dagiti reklamo"
+  },
   "p8_hotspots.negative": {
     "src": "cb47297f54",
     "t": "negatibo"
+  },
+  "p8_hotspots.none": {
+    "src": "d970e408a7",
+    "t": "Kurang dagiti cell nga addaan {n} a komento. Ibaba ti minimum wenno padakkelen dagiti cell."
+  },
+  "p8_hotspots.ns": {
+    "src": "9d34e46ed1",
+    "t": "saan a significant"
+  },
+  "p8_hotspots.radius": {
+    "src": "7c80194941",
+    "t": "Radius ti kaarrubaan (km)"
+  },
+  "p8_hotspots.safe99": {
+    "src": "be5e444534",
+    "t": "Adu a cell ti sabay a masubok, isu a mapakpakadaan a sumagmamano a 90% a cell ket gapu laeng iti gasat. Ad-adda a pagtalkan dagiti 99% a cell."
+  },
+  "p8_hotspots.small_radius": {
+    "src": "9b1c0efdfe",
+    "t": "Agarup maysa a cell ti radius, isu a gistay saan a maidilig ti tunggal cell kadagiti kaarrubana. Padasen ti radius a saan a basbassit ngem dua a cell."
+  },
+  "p8_hotspots.strongest": {
+    "src": "150a296977",
+    "t": "Kapigsaan a hotspot: asideg iti {place} (z = {z:.1f}, {share}% negatibo iti {n} a komento)."
+  },
+  "p8_hotspots.title": {
+    "src": "7480c0126f",
+    "t": "Sadino ti nakabunggoy dagiti reklamo"
+  },
+  "p8_hotspots.value": {
+    "src": "9c2114e319",
+    "t": "Ania ti ipakita iti mapa"
+  },
+  "p9_report.blurb": {
+    "src": "2909ae62c6",
+    "t": "Maysa a privacy-safe a buod iti tunggal lugar, nakasagana a mai-share."
+  },
+  "p9_report.c_hot": {
+    "src": "8128ad4865",
+    "t": "Hotspot ti reklamo"
   },
   "p9_report.c_neg": {
     "src": "c70827c69d",
     "t": "Negatibo"
   },
+  "p9_report.c_terms": {
+    "src": "c8cdaa9795",
+    "t": "Naisangsangayan a sao"
+  },
+  "p9_report.c_theme": {
+    "src": "70373f8a82",
+    "t": "Kangrunaan a tema"
+  },
+  "p9_report.c_worst": {
+    "src": "c48ac56bc0",
+    "t": "Kaaduan a mareklamo"
+  },
+  "p9_report.cards_head": {
+    "src": "0a91c86639",
+    "t": "Dagiti report card"
+  },
   "p9_report.cell": {
     "src": "1bf56007b2",
     "t": "Kadakkel ti grid cell (km)"
+  },
+  "p9_report.centroids": {
+    "src": "be8264a716",
+    "t": "Dagiti centroid ti lugar"
   },
   "p9_report.comments": {
     "src": "5b17a6c606",
     "t": "dagiti komento"
   },
+  "p9_report.dl_csv": {
+    "src": "ab0c94ca93",
+    "t": "I-download ti buod ti lugar (CSV)"
+  },
+  "p9_report.dl_geojson": {
+    "src": "1e22de6406",
+    "t": "I-download ti GeoJSON"
+  },
+  "p9_report.dl_meta": {
+    "src": "de71e9743e",
+    "t": "I-download ti metadata.json"
+  },
+  "p9_report.empty": {
+    "src": "cad86033b3",
+    "t": "Awan ti nabati kalpasan ti panangilemmeng kadagiti babassit a grupo. Ibaba ti minimum."
+  },
+  "p9_report.grid": {
+    "src": "fb836b9b33",
+    "t": "Dagiti grid cell"
+  },
+  "p9_report.hot_no": {
+    "src": "904cbae74c",
+    "t": "Awan ti hotspot"
+  },
+  "p9_report.in_hot": {
+    "src": "0835963a87",
+    "t": "dagiti komento ti adda kadagiti hot cell"
+  },
+  "p9_report.k_min": {
+    "src": "95364707a2",
+    "t": "Ilemmeng dagiti grupo a basbassit ngem"
+  },
+  "p9_report.legend": {
+    "src": "56f553109e",
+    "t": "Komento iti tunggal cell"
+  },
+  "p9_report.map_head": {
+    "src": "b69b91091c",
+    "t": "Mapa a saan a makaitudo iti maysa a tao"
+  },
+  "p9_report.method": {
+    "src": "1ab3cc00f0",
+    "t": "I-generalize ti mapa kas"
+  },
+  "p9_report.nav": {
+    "src": "eda1e29b97",
+    "t": "Report ti lugar"
+  },
   "p9_report.negative": {
     "src": "cb47297f54",
     "t": "negatibo"
+  },
+  "p9_report.privacy": {
+    "src": "c1ec8a7904",
+    "t": ":material/lock: Bilang ken porsiento laeng ti maipakita wenno ma-export; ti tunggal marker ket mangibagi iti saan a basbassit ngem {k} a komento."
+  },
+  "p9_report.tip_neg": {
+    "src": "2323733c81",
+    "t": "% negatibo"
+  },
+  "p9_report.tip_points": {
+    "src": "fce06e20e5",
+    "t": "Komento"
+  },
+  "p9_report.title": {
+    "src": "eda1e29b97",
+    "t": "Report ti lugar"
+  },
+  "p9_report.top_n": {
+    "src": "d347cc576d",
+    "t": "Lugar nga addaan card"
+  },
+  "persist.forget": {
+    "src": "aeb298d45a",
+    "t": "Lipatennak iti daytoy a computer"
+  },
+  "persist.forget_help": {
+    "src": "c36f88823f",
+    "t": "Mangikkat iti naidulin a pagsasao, dagiti setting ken progreso iti daytoy a browser, sa agsubli iti rugi."
+  },
+  "pill.learn": {
+    "src": "f6f73da18d",
+    "t": "Kasano nga agandar ti TALA"
   },
   "side.custom_placeholder": {
     "src": "9742096c43",
@@ -270,6 +998,18 @@
   "side.language_pick": {
     "src": "01e1787a9e",
     "t": "Pagsasao ti app"
+  },
+  "side.learning": {
+    "src": "1016fcb2b4",
+    "t": "Panagadal"
+  },
+  "side.rows": {
+    "src": "c57db34a95",
+    "t": "{rows} a rows · text column: `{column}`"
+  },
+  "side.settings": {
+    "src": "c7f73bb54d",
+    "t": "Dagiti setting"
   },
   "side.show_learn": {
     "src": "84ebb2309c",
@@ -294,5 +1034,89 @@
   "spin.points": {
     "src": "e06ceeae11",
     "t": "Va-validate ti coordinates ken bumbangonen dagiti points…"
+  },
+  "tour.c1": {
+    "src": "a2ef3dc11d",
+    "t": "Basaen ti TALA ti 12,000 a komento maipapan iti health services: ti ibagbaga dagiti tattao, ken no sadino."
+  },
+  "tour.c2": {
+    "src": "f138bd6bbc",
+    "t": "Adu a komento ti mangdakamat iti lugar. Idilig daytoy ti TALA iti GPS."
+  },
+  "tour.c3": {
+    "src": "7f718bb80a",
+    "t": "Tarimaanen dagiti biddut a coordinates manipud iti insurat dagiti tattao."
+  },
+  "tour.c4": {
+    "src": "c51307c99a",
+    "t": "Bunggoyen dagiti komento kas lugar."
+  },
+  "tour.c5": {
+    "src": "f558d5e1e5",
+    "t": "Kitaen no ania a sasao ti mangidumduma iti maysa a lugar."
+  },
+  "tour.c6": {
+    "src": "e4c5e056e7",
+    "t": "Idilig ti rikna ti tunggal lugar."
+  },
+  "tour.c7": {
+    "src": "207a1dab95",
+    "t": "Biruken no sadino ti nakabunggoy dagiti reklamo nga ad-adu ngem iti gasat."
+  },
+  "tour.c8": {
+    "src": "ce6d728ab4",
+    "t": "Tunggal nalpas nga addang ket mangsilaw iti maysa a bituen. Mapanka iti aniaman a paset, iti aniaman nga oras."
+  },
+  "tour.c9": {
+    "src": "73ad0f2126",
+    "t": "Kayatmo ti teoria? Lukatam ti Learn iti aniaman a panid, wenno ti Kasano nga agandar ti TALA."
+  },
+  "track.back": {
+    "src": "b52b36b726",
+    "t": "Agsubli"
+  },
+  "track.complete_what": {
+    "src": "7715c54864",
+    "t": "Nalpas ti Salita: ammo mo itan no ania ti ibagbaga ti tunggal lugar"
+  },
+  "track.complete_where": {
+    "src": "528ebea6d4",
+    "t": "Nalpas ti Lugar: ammo mo itan no sadino ti ayan dagiti tattao"
+  },
+  "track.covered_what": {
+    "src": "d616fb57e3",
+    "t": "Indilig mo dagiti lugar babaen dagiti naisangsangayan a sao, sentiment, aspect ken tema, nasarakam dagiti hotspot ti reklamo, ken binangon mo ti report ti lugar."
+  },
+  "track.covered_where": {
+    "src": "6ab3ade4b3",
+    "t": "In-load ken dinalusam ti data, indilig mo ti text iti GPS, ken binunggoy mo dagiti komento kas lugar."
+  },
+  "track.finish": {
+    "src": "b74bdee9c3",
+    "t": "Leppasen"
+  },
+  "track.go_home": {
+    "src": "19445d7286",
+    "t": "Mapan iti Home"
+  },
+  "track.next": {
+    "src": "bc981983e7",
+    "t": "Sumaruno"
+  },
+  "track.start_what": {
+    "src": "06f212084a",
+    "t": "Rugian ti Salita"
+  },
+  "track.start_where": {
+    "src": "846feff538",
+    "t": "Rugian ti Lugar"
+  },
+  "track.step_done": {
+    "src": "1fa5d2c1a8",
+    "t": "Nalpas ti addang"
+  },
+  "track.step_of": {
+    "src": "78cee4b898",
+    "t": "Addang {n} iti {total}"
   }
 }

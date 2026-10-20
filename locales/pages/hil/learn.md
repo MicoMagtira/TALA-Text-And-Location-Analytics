@@ -1,20 +1,28 @@
---- key: p1 src: 1517eeab2a
-Kalabanan sa analytics tools nagasabat lang sang isa: *ano ang ginahambal sang mga tawo* ukon *diin ini nagakatabo*. Ginhimo ang TALA agod ipakita kon ngaa mas maluya ina nga duha ka pamangkot kon bulag. Isa ka dataset nga 12,000 ka komento parte sa health services ang may `text` column kag may `lon`/`lat` man, kag ang kada page isa ka lain nga paagi sang pagbasa sa amo man nga 12,000 rows.
+--- key: title src: f6f73da18d
+Paano nagatrabaho ang TALA
 
---- key: p2 src: e5bd9874b9
-**Ngaa importante ang pagpares.** Ang text lang magasugid sa imo nga 1,448 ka komento ang nagsambit sang oras sang paghulat, pero indi magasugid kon isa lang bala ka pasilidad nga puno gid ukon pattern na sa bug-os nga pungsod. Ang location lang magapakita sang mabaskog nga cluster nga 1,750 ka points, pero indi magasugid nga ang ginaestoryahan sa sulod sini amo ang panghikot sang staff kag indi ang suplay sang bulong. Ang katapusan nga geospatial page nagasumpay sa duha: keywords kag sentiment nga ginakwenta *kada cluster* — isa ka butang nga indi masarangan ihambal sang bisan diin sa duha ka track nga isahanon.
+--- key: what src: 8d6ec00963
+### Ano ang ginahimo sang TALA
+Ginabasa sang TALA ang isa ka set sang mga komento nga ang kada isa may text kag isa ka pares sang coordinates, kag isa lang ang iya ginapamangkot: **ano ang ginahambal sang mga tawo, kag diin nila ini ginahambal?** Ang bundled nga halimbawa may 12,000 ka komento parte sa health services. Imbes nga padalagan ang isa ka pamaagi sa tanan nga komento sing dungan, **mga lugar** ang ginatrabaho sang TALA: ginasusi niya kon diin naghalin ang kada komento, dayon ginapaanggid ang mga lugar sa isa kag isa.
 
---- key: p3 src: d699ee1c44
-**Duha ka lain nga porma sang trabaho.** Ang walo ka text pages bulag-bulag nga lente — buksi sa bisan ano nga sunod. Ang lima ka geospatial pages isa ka *pipeline*, nga ang kada tikang nagagamit sang halin sa nauna:
+--- key: chapters src: 5ed4c46751
+### Duha ka kapitulo, siyam ka tikang
+Ang **Lugar** (Filipino para sa *place*) nagapamangkot **Diin ang mga tawo?** kag may tatlo ka tikang nga sunod-sunod, kay ang kada isa nagapakaon sa masunod: **1 Data** (i-load ang file kag i-map ang iya mga column), **2 Text vs GPS** (pangitaon ang lugar nga ginasambit sang kada komento kag ipaanggid ini sa iya GPS point), kag **3 Mga Lugar** (igrupo ang mga komento paagi sa rehiyon, ukon paagi sa cluster).
 
---- key: p4 src: 296c22204c
-`Ingest → DBSCAN → Generalization → NLP kada cluster → Mapa kag exports`
+Ang **Salita** (Filipino para sa *word*) nagapamangkot **Ano ang ginahambal sang kada lugar?** kag may anom ka tikang nga mabuksan mo sa bisan ano nga sunod: **4 Ano ang nagapabulag sa isa ka lugar**, **5 Ano ang balatyagon sang kada lugar**, **6 Ano ang ginadayaw ukon ginareklamo**, **7 Ano ang ila ginaestoryahan**, **8 Diin nagatipon ang mga reklamo** kag **9 Report sang lugar**. Kon buksan mo ang isa sa ila antes matapos ang Lugar, ginapadalagan sang TALA ang nauna nga mga tikang gamit ang default nga settings kag ginasugid ini sa ibabaw sang page.
 
---- key: p5 src: af3bbf8f25
-Indi lang ini sunod sang UI. Indi masukat ang kalayuon tubtob wala ma-validate kag ma-project ang coordinates; wala sing makita nga cluster kon wala sing kalayuon; kinahanglan sang per-cluster text ang clusters agod may basihan sang paggrupo. Kon maglaktaw ka, may magaguwa gihapon nga numero — indi mo lang ini masarangan depensahan.
+--- key: why src: 47756a40db
+### Ngaa lugar anay
+Ang word count sa tanan nga komento nagasugid kon ano ang komon, pero indi kon diin. Kon igrupo ang mga komento suno sa lugar, ang kada masunod nga tikang makasabat sang isa ka pagpaanggid: diin nga mga pulong ang nagapabulag sa isa ka lugar sa iban, diin nga mga lugar ang nagahilig sa negatibo kon ginkabig na ang sample size, kag diin nagatipon ang mga reklamo nga labaw sa mapaathag sang tsamba. Ang lugar amo ang unit of analysis sang tikang 4 tubtob 9, kag ikaw ang magapili sini sa tikang 3: **Rehiyon** (halin sa listahan sang mga ngalan sang lugar, mahapos basahon) ukon **Cluster** (ginapangita halin sa coordinates gamit ang DBSCAN).
 
---- key: p6 src: b97d314425
-**May hungod nga siod diri.** Hungod nga mahigko ang coordinates nga upod sa dataset — may pila nga nahulog sa London kag California. Wala sing nagakuha sini tubtob makaabot sa land-clip sa katapusan nga page, nga nagakuha sang 3,467 sa 11,715 ka points. Halos ikatlo sang dataset sayop sa paagi nga wala sing error message nga magasugid sa imo, kag daw matuod gihapon ang kada mapa sa tunga. Ang pagtalupangod sini amo gid ang punto.
+--- key: dirty src: e7b2956f61
+### Ang hungod nga leksyon sang mahigko nga coordinates
+Hungod nga sayop ang coordinates sa bundled nga data, kag sa Tikang 2 ini makita. Mga **31%** sang GPS points ang invalid (gwa sa range, ukon wala sa duta sang Pilipinas), kag mga **8%** ang nagatudlo sa malayo halin sa lugar nga ginasambit mismo sang komento. Mga **99.5%** sang mga ngalan sang lugar sa text ang matugma sa isa ka kilala nga lugar. Gani may tatlo ka ginhalinan sang location nga ginatanyag ang TALA: **Gin-ayo** (GPS kon nagauyon ini ukon kon wala sing lugar nga ginsambit, kon indi, ang ginsambit nga lugar), **GPS lang**, ukon **Nagauyon lang**. Talupangda kon daw ano kadaku ang ginabag-o sang mapa suno sa imo pinili: ang pag-usisa sang data antes ini i-analyze kabahin sang pamaagi.
 
---- key: p7 src: 5d07be679f
-**Nagaabot sa tanan nga page ang mga kontrol sa sidebar.** Global ang palettes, ang toggle para sa Filipino stopwords, kag ang imo kaugalingon nga stopwords — gani ang pagbag-o sa isa ka page hipos nga nagabaylo sang resulta sa iban. Ipahamtang ini nga hungod antes ka magpaanggid sang mga output.
+--- key: langs src: 8ec9aa5ef0
+### Lima ka lenguahe
+Ang bug-os nga interface available sa English, Filipino, Cebuano, Ilocano kag Hiligaynon. Magbalhin bisan san-o paagi sa mga language chip sa Home ukon sa Mga Setting; ang imo mga resulta kag pinili nga lugar indi magbag-o, kay ang text lang sa screen ang nagabaylo. Ang mga ngalan sang kapitulo (Lugar kag Salita) kag ang mga code sample wala ginabadbad.
+
+--- key: tips src: c3c91e1881
+### Paggamit sang mga page
+Ang kada page nagasugod sa isa ka sentence parte sa iya ginapakita. Ang iya **Learn** panel, nga nakasira sa default, may sulod nga pamaagi kag code sa likod sini, kag mapatay ini sa Mga Setting. Ang mga bituon sa sidebar nagapuno samtang ginatapos mo ang mga tikang, kag makalukso ka sa bisan ano nga tikang bisan san-o. Ang progreso ginatipigan sa sini nga browser; ginapanas ini sang **Kalimti ako** sa Mga Setting.

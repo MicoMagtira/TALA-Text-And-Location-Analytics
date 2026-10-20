@@ -309,5 +309,15 @@
   "home.tour": "Watch the 1-minute tour",
   "home.peek": "Peek at the data",
   "home.how_link": "New here? How TALA works",
-  "learn.attribution": "Place names and coordinates: GeoNames (geonames.org), CC BY 4.0."
+  "learn.attribution": "Place names and coordinates: GeoNames (geonames.org), CC BY 4.0.",
+
+  "tour.c1": "TALA reads 12,000 health-service comments: what people say, and where.",
+  "tour.c2": "Many comments name a place. TALA checks it against the GPS.",
+  "tour.c3": "Wrong coordinates are repaired from what people wrote.",
+  "tour.c4": "Group comments into places.",
+  "tour.c5": "See which words make a place different.",
+  "tour.c6": "Compare how each place feels.",
+  "tour.c7": "Find where complaints cluster beyond chance.",
+  "tour.c8": "Each finished step lights a star. Jump anywhere, any time.",
+  "tour.c9": "Want the theory? Open Learn on any page, or How TALA works."
 }

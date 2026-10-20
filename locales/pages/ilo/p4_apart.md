@@ -1,0 +1,16 @@
+--- key: title src: 8c5bbd5d86
+Dagiti contrastive keyword: weighted log-odds
+
+--- key: p1 src: 510e357d91
+**Apay a saan laeng nga agbilang iti sao?** Dagiti kasansanan a sao iti aniaman a lugar ket isu met laeng dagiti kasansanan a sao iti amin a lugar ("staff", "hospital"). Tapno makita no ania ti mangpagbalin iti maysa a lugar a *naidumduma*, idilig mo daytoy iti reference group ken isaludsod no ania a sao ti agsandig iti maysa a bangir. Saan met nga umdas dagiti gubsang a ratio: ti sao a namindua a nakita iti lugar A ken saan a pulos iti sabali ket addaan infinite a ratio.
+
+--- key: p2 src: 32e35980c0
+**Ti method (Monroe, Colaresi & Quinn 2008).** Para iti tunggal term w, ti y_a ken y_b ket dagiti bilangna kadagiti grupo A ken B, ti n_a ken n_b ket ti dagup a sao iti tunggal maysa, ken ti alpha_w ket Dirichlet prior a proporsional iti bilang ti sao iti *amin* a komento, naiskala tapno ti dagup dagiti alpha ket a0 = 500. Kalpasan na, delta = log((y_a + alpha_w) / (n_a + a0 - y_a - alpha_w)) - log((y_b + alpha_w) / (n_b + a0 - y_b - alpha_w)), ti variance-na ket 1/(y_a + alpha_w) + 1/(y_b + alpha_w), ken z = delta / sqrt(variance). Ti positibo a z ket kayat na a sawen nga ad-adda a gagangay iti A, ti negatibo ket iti B. No sukatan ti A ken B, eksakto a mabaliktad ti sign.
+
+**Ania ti ar-aramiden ti prior.** Guyuden na dagiti saan a gagangay a sao nga agturong iti pakabuklan a rate-da, isu a ti sao a namitlo laeng a nakita ket saan a makauna iti chart. Ti dakdakkel a prior ket ad-adda a naannad. Ti panangbingay iti standard deviation ket mangpagbalin iti "kasano kaduma" nga "kasano kasigurado": dagiti gagangay a sao nga addaan bassit a sandig ket mabalin a nangatngato ti ranggoda ngem dagiti saan a gagangay a sao nga addaan dakkel a sandig.
+
+--- key: p3 src: cc51916d54
+**Mangabak dagiti nagan ti lugar malaksid no ilemmeng mo ida.** Para iti Central Luzon, dagiti kangrunaan a term ket *nueva*, *central*, *fernando*, *bulacan*, *zambales* (z manipud 21 agingga iti 11), gapu ta idakamat dagiti tattao sadiay ti bukodda a probinsia. Pudno dayta ngem saan a baro a damag, isu nga ilemmeng ti page dagiti nagan ti lugar a kas default (sao manipud kadagiti nagan ti rehion, probinsia ken siudad, agraman ti tunggal lugar a nasarakan ti geoparser). Ti nabati ket nalinlinak unay: dagiti kapigsaan a nabati a term ket addaan iti z nga agarup 4. Iti daytoy a dataset, dagiti komento ket agsurot kadagiti agpada a template, isu a bassit laeng ti pagdudumaan dagiti lugar iti ibagbaga da. Ti panangbasa iti "awan unay ti mangidumduma iti daytoy a lugar" ket resulta, saan a pannakapaay.
+
+--- key: p4 src: d0ab8fed44
+**Dagiti limitasion.** Dagiti term ket maymaysa a sao ken dua-a-sao a phrase kalpasan ti panangikkat kadagiti stopword, isu nga agparang dagiti phrase kas pares ("handled lab"). Ti minimum-count slider (saan a pulos a nababbaba ngem 5) ket mangtipeng iti term tapno saan a mangiladawan iti maysa wenno dua laeng a tao. Iti 17 a rehion ken rinibu a kandidato a term, adda sumagmamano a nangato a z value a rumuar gapu iti gasat; ibilang a makapainteres ti z a nangatngato ngem agarup 3, ken paneknekan babaen dagiti naurnong a bilang, saan a pulos babaen ti panagbasa kadagiti indibidual a komento.

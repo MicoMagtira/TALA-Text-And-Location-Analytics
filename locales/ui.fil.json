@@ -3,9 +3,29 @@
     "src": "88d01cde1c",
     "t": "National University Manila · Para sa pagsasanay sa data science / NLP / geospatial."
   },
+  "app.subtitle": {
+    "src": "354e4232f0",
+    "t": "Bawat komento ay isang tala. Alamin ang sinasabi ng mga tao, at kung saan nila ito sinasabi."
+  },
   "app.wordmark_org": {
     "src": "18ce5c7202",
     "t": "Isang inisyatiba ng NU DOST-NICER Program"
+  },
+  "asp.cost": {
+    "src": "64ae43e8fe",
+    "t": "Gastos"
+  },
+  "asp.facilities": {
+    "src": "9d0a833e88",
+    "t": "Pasilidad"
+  },
+  "asp.medicine": {
+    "src": "cd8c2df26c",
+    "t": "Gamot"
+  },
+  "asp.waiting": {
+    "src": "33d3063284",
+    "t": "Paghihintay"
   },
   "audio.gate_heading": {
     "src": "175245275e",
@@ -19,13 +39,33 @@
     "src": "131260cbfb",
     "t": "Musika"
   },
-  "audio.sfx": {
-    "src": "db939a93b4",
-    "t": "SFX"
+  "audio.style": {
+    "src": "21f0b1b1ba",
+    "t": "Istilo ng musika"
+  },
+  "audio.style_ambience": {
+    "src": "6aed7616ab",
+    "t": "Ambience (walang himig)"
+  },
+  "audio.style_melody": {
+    "src": "448d5097e6",
+    "t": "May himig"
   },
   "audio.volume": {
     "src": "7f5b291aa5",
     "t": "{name} na volume"
+  },
+  "auto.open": {
+    "src": "b5f51d0e1b",
+    "t": "Buksan ang hakbang {n}: {title}"
+  },
+  "auto.ran_many": {
+    "src": "992deab64a",
+    "t": "Hindi mo pa nabubuksan ang mga hakbang {steps}, kaya pinatakbo ang mga ito ng TALA gamit ang default na settings."
+  },
+  "auto.ran_one": {
+    "src": "64b26effb0",
+    "t": "Hindi mo pa nabubuksan ang hakbang {steps}, kaya pinatakbo ito ng TALA gamit ang default na settings."
   },
   "boot.caches": {
     "src": "7b0785b2a5",
@@ -63,6 +103,22 @@
     "src": "41b4afdb20",
     "t": "Inihahanda ang map tiles"
   },
+  "ch2.few_places": {
+    "src": "1cb0a02e8c",
+    "t": "Wala pang dalawang lugar ang nahanap, kaya walang maihahambing."
+  },
+  "ch2.locked": {
+    "src": "3890a277b5",
+    "t": "Kailangan ng hakbang na ito ng text column at longitude/latitude column."
+  },
+  "ch2.locked_link": {
+    "src": "031f787cbd",
+    "t": "Pumunta sa Data"
+  },
+  "ch2.no_places": {
+    "src": "474c464c10",
+    "t": "Walang komentong nailagay sa kahit anong lugar."
+  },
   "data.bundled_label": {
     "src": "9e8f97ed39",
     "t": "Bundled na halimbawa: PH Health Services Sentiments"
@@ -71,9 +127,17 @@
     "src": "4f65694b3b",
     "t": "Nag-expire sa shared cache ang na-upload mong dataset. Babalik muna sa bundled na halimbawa — mag-upload ulit para ituloy ang sarili mong file."
   },
+  "gate.continue": {
+    "src": "2e02623966",
+    "t": "Magpatuloy"
+  },
   "gate.hint": {
     "src": "0531f63eea",
     "t": "Puwede mo itong palitan mamaya sa sidebar."
+  },
+  "gate.press_continue": {
+    "src": "e9ae0f380c",
+    "t": "Pumili ng wika para makapagpatuloy"
   },
   "gate.prompt": {
     "src": "bc06fdbb8a",
@@ -87,37 +151,73 @@
     "src": "7196e7c29d",
     "t": "SIMULAN"
   },
+  "home.about": {
+    "src": "b7cf86d9cd",
+    "t": "Tungkol sa TALA"
+  },
+  "home.continue_btn": {
+    "src": "2e02623966",
+    "t": "Magpatuloy"
+  },
+  "home.continue_step": {
+    "src": "0100aab8f0",
+    "t": "Ituloy: {title} (hakbang {n} ng {total})"
+  },
+  "home.how_link": {
+    "src": "4ac1cec2d4",
+    "t": "Bago ka rito? Paano gumagana ang TALA"
+  },
   "home.intro": {
     "src": "52d4d440c1",
     "t": "Ang **TALA — Text And Location Analytics** ay isang hands-on na training app na pinagsasama ang klasikong **Natural Language Processing** at buong **geospatial** na workflow, para makapunta ang mga kalahok mula sa hilaw na komento papunta sa *ano ang sinasabi ng mga tao* **at** *saan nila ito sinasabi*.\n\nAng *tala* ay Filipino para sa **bituin** at para sa **talaan / nota** — bagay sa isang tool na ginagawang insight ang mga nota."
-  },
-  "home.m_cols": {
-    "src": "cf723c59b6",
-    "t": "Columns"
   },
   "home.m_hasgeo": {
     "src": "e0b2ce1d23",
     "t": "May coordinates"
   },
-  "home.m_rows": {
-    "src": "52d0b35277",
-    "t": "Rows"
-  },
-  "home.m_textcol": {
-    "src": "58ee9f9831",
-    "t": "Text column"
-  },
   "home.no": {
     "src": "816c52fd2b",
     "t": "Wala"
+  },
+  "home.peek": {
+    "src": "a440b0baa1",
+    "t": "Silipin ang data"
+  },
+  "home.resume": {
+    "src": "2e02623966",
+    "t": "Ituloy"
+  },
+  "home.review": {
+    "src": "e29a79fe0c",
+    "t": "Balikan"
   },
   "home.source": {
     "src": "86728b17ad",
     "t": "Pinagkunan: {source}"
   },
+  "home.start": {
+    "src": "952f375412",
+    "t": "Simulan"
+  },
+  "home.tour": {
+    "src": "8693cfe8ca",
+    "t": "Panoorin ang 1-minutong tour"
+  },
+  "home.what_line": {
+    "src": "0796ede262",
+    "t": "Paghambingin ang mga lugar ayon sa kanilang salita, damdamin, tema at hotspot."
+  },
+  "home.where_line": {
+    "src": "1489baabe0",
+    "t": "Tingnan kung tugma sa GPS ang lugar na sinasabi ng bawat komento, tapos pangkatin ang mga komento sa mga lugar."
+  },
   "home.yes": {
     "src": "5397e0583f",
     "t": "Oo"
+  },
+  "learn.attribution": {
+    "src": "91a270909c",
+    "t": "Mga pangalan ng lugar at coordinates: GeoNames (geonames.org), CC BY 4.0."
   },
   "learn.discuss_body": {
     "src": "50926aed30",
@@ -126,6 +226,14 @@
   "learn.discuss_heading": {
     "src": "2275e190a5",
     "t": "#### Pag-usapan bago magkonklusyon"
+  },
+  "learn.nav": {
+    "src": "f6f73da18d",
+    "t": "Paano gumagana ang TALA"
+  },
+  "learn.page_title": {
+    "src": "f6f73da18d",
+    "t": "Paano gumagana ang TALA"
   },
   "learn.routine": {
     "src": "eab1804e3c",
@@ -147,6 +255,34 @@
     "src": "8e175403de",
     "t": "#### Unawain ang paraan"
   },
+  "nav.hint_any": {
+    "src": "8d70deabcf",
+    "t": "kahit anong ayos"
+  },
+  "nav.hint_ordered": {
+    "src": "33f6a18ad7",
+    "t": "sunud-sunod"
+  },
+  "nav.learn": {
+    "src": "f6f73da18d",
+    "t": "Paano gumagana ang TALA"
+  },
+  "nav.q_what": {
+    "src": "55842deea0",
+    "t": "Ano ang sinasabi ng bawat lugar?"
+  },
+  "nav.q_where": {
+    "src": "7285d620e0",
+    "t": "Nasaan ang mga tao?"
+  },
+  "p1_data.active": {
+    "src": "66df1af7f2",
+    "t": "Gamit na dataset: **{source}**."
+  },
+  "p1_data.blurb": {
+    "src": "8d0e123db1",
+    "t": "I-load ang mga komento mo at sabihin sa TALA kung aling mga column ang may text at may coordinates."
+  },
   "p1_data.cleaned": {
     "src": "c4b9b4a27a",
     "t": "**Nalinis**"
@@ -167,25 +303,9 @@
     "src": "3e096d77dc",
     "t": "Suriin ang isang sample row"
   },
-  "p1_data.lat_col": {
-    "src": "633713d87c",
-    "t": "Latitude column"
-  },
-  "p1_data.lon_col": {
-    "src": "7a3d4d0214",
-    "t": "Longitude column"
-  },
-  "p1_data.m_cols": {
-    "src": "cf723c59b6",
-    "t": "Columns"
-  },
-  "p1_data.m_coords": {
-    "src": "8ebebca019",
-    "t": "Coordinates"
-  },
-  "p1_data.m_rows": {
-    "src": "52d0b35277",
-    "t": "Rows"
+  "p1_data.need_coords": {
+    "src": "b2a78170bb",
+    "t": "Pumili ng longitude at latitude column para mabuksan ang mga susunod na hakbang."
   },
   "p1_data.no_tokens": {
     "src": "cf3b9e0018",
@@ -211,49 +331,649 @@
     "src": "454a8bf181",
     "t": "Mag-upload ng file"
   },
-  "p1_data.text_col": {
-    "src": "58ee9f9831",
-    "t": "Text column"
+  "p1_data.step1": {
+    "src": "ee062ce6bc",
+    "t": "### Pumili ng pagkukunan ng data"
+  },
+  "p1_data.step2": {
+    "src": "93bdd57ce4",
+    "t": "### I-map ang mga column"
+  },
+  "p1_data.step3": {
+    "src": "2c3500ea54",
+    "t": "### Linisin ang text"
+  },
+  "p1_data.sw_caption": {
+    "src": "0184f2f987",
+    "t": "Hindi pinapansin ang **{count}** karaniwang salita."
+  },
+  "p1_data.toast_bundled": {
+    "src": "13923c2b75",
+    "t": "Lumipat sa bundled na halimbawa."
+  },
+  "p1_data.toast_upload": {
+    "src": "c3727e4388",
+    "t": "Na-load ang {name}. Hinulaan lang ang mga column; palitan sa ibaba kung kailangan."
   },
   "p1_data.tokens": {
     "src": "d66c482850",
     "t": "**Tokens (tanggal ang stopwords)**"
   },
-  "p1_data.upload_name": {
-    "src": "51d1c48d68",
-    "t": "Upload: {name}"
+  "p1_data.upload_hint": {
+    "src": "a0953f59e9",
+    "t": "Mag-upload ng file para lumipat dito. Habang wala pa, ang kasalukuyang dataset pa rin ang gamit."
+  },
+  "p1_data.uploader": {
+    "src": "3d71a385b9",
+    "t": "Mag-upload ng CSV o Excel (.xlsx). Kailangan ng text column; magdagdag ng `lon`/`lat` na column para sa mga mapa."
+  },
+  "p2_textgps.blurb": {
+    "src": "1beb0468d2",
+    "t": "Binabasa ng TALA ang lugar na binabanggit ng bawat komento at tinitingnan kung tugma ito sa GPS point."
+  },
+  "p2_textgps.gone": {
+    "src": "a610d09117",
+    "t": "Nagbago ang dataset. Pumili ulit ng mga column."
+  },
+  "p2_textgps.km": {
+    "src": "2111b968b1",
+    "t": "Tugma kung nasa loob ng (km)"
+  },
+  "p2_textgps.km_help": {
+    "src": "f126699a1e",
+    "t": "Gaano kalayo puwedeng mapunta ang GPS point mula sa lugar na binanggit ng komento."
+  },
+  "p2_textgps.lesson": {
+    "src": "2da6a7db6e",
+    "t": "**Mga {pct}% ng mga coordinate na ito ang mali.** Sinasabi ng text kung saan talaga sila dapat."
+  },
+  "p2_textgps.lg_agree": {
+    "src": "c9600527f4",
+    "t": "tugma"
+  },
+  "p2_textgps.lg_disagree": {
+    "src": "d651e9b4c8",
+    "t": "hindi tugma (tumuturo ang linya sa binanggit na lugar)"
+  },
+  "p2_textgps.lg_invalid": {
+    "src": "32075d2575",
+    "t": "invalid na GPS"
+  },
+  "p2_textgps.lg_other": {
+    "src": "3d5d878e23",
+    "t": "walang malinaw na lugar"
+  },
+  "p2_textgps.lines_sampled": {
+    "src": "8ce2a646fb",
+    "t": "May linya lang ang {shown} sa {total} na hindi tugma."
+  },
+  "p2_textgps.m_agree": {
+    "src": "16473dd25d",
+    "t": "Tugma ang GPS"
+  },
+  "p2_textgps.m_disagree": {
+    "src": "63ad121788",
+    "t": "Hindi tugma ang GPS"
+  },
+  "p2_textgps.m_invalid": {
+    "src": "016837f332",
+    "t": "Invalid ang GPS"
+  },
+  "p2_textgps.m_named": {
+    "src": "5c97473718",
+    "t": "May binanggit na lugar"
+  },
+  "p2_textgps.mode": {
+    "src": "7d3b6e1dc5",
+    "t": "Aling mga lokasyon ang gagamitin ng mga susunod na hakbang?"
+  },
+  "p2_textgps.mode_agree": {
+    "src": "dd2b40efb6",
+    "t": "Kung saan lang tugma ang dalawa"
+  },
+  "p2_textgps.mode_gps": {
+    "src": "b9a684dc04",
+    "t": "GPS lang ang paniwalaan"
+  },
+  "p2_textgps.mode_repaired": {
+    "src": "af16e3228d",
+    "t": "Ayusin gamit ang text (inirerekomenda)"
+  },
+  "p2_textgps.no_geo": {
+    "src": "068aa7b219",
+    "t": "Wala pang coordinates ang dataset na ito."
+  },
+  "p2_textgps.pick_coords": {
+    "src": "e20a2ae61c",
+    "t": "Piliin ang longitude at latitude column"
+  },
+  "p2_textgps.show_invalid": {
+    "src": "c03105bbc6",
+    "t": "Ipakita ang mga GPS point na nasa labas ng Pilipinas"
+  },
+  "p2_textgps.t_dist": {
+    "src": "90b7986c9c",
+    "t": "Layo (km)"
+  },
+  "p2_textgps.t_place": {
+    "src": "55f527b308",
+    "t": "Binanggit na lugar"
+  },
+  "p2_textgps.t_province": {
+    "src": "f5e192238a",
+    "t": "Probinsya"
+  },
+  "p2_textgps.table_head": {
+    "src": "d8d9c212ce",
+    "t": "Pinakamalalaking hindi pagtutugma"
+  },
+  "p2_textgps.use_caption": {
+    "src": "99f98460d2",
+    "t": "Gagamitin ng mga susunod na hakbang ang {gps} GPS point at {fixed} lokasyong inayos mula sa text; {none} komento ang walang magagamit na lokasyon."
+  },
+  "p3_places.bar_head": {
+    "src": "b72147e2d8",
+    "t": "#### Bilang ng komento kada lugar (top {n})"
+  },
+  "p3_places.bar_x": {
+    "src": "fce06e20e5",
+    "t": "Komento"
+  },
+  "p3_places.blurb": {
+    "src": "0451cf8ff8",
+    "t": "Pangkatin ang mga komento sa mga lugar, ayon sa rehiyon o sa density cluster."
+  },
+  "p3_places.defaults": {
+    "src": "ddefe47d69",
+    "t": "Ibalik sa default"
+  },
+  "p3_places.eps": {
+    "src": "18142531af",
+    "t": "Radius ng kapitbahayan, eps (km)"
+  },
+  "p3_places.gone": {
+    "src": "a610d09117",
+    "t": "Nagbago ang dataset. Pumili ulit ng mga column."
+  },
+  "p3_places.k": {
+    "src": "d647e495d5",
+    "t": "k (mga kapitbahay)"
+  },
+  "p3_places.kd_none": {
+    "src": "dd72d8cedc",
+    "t": "Kulang ang mga point na may lokasyon para sa chart na ito."
+  },
+  "p3_places.kd_x": {
+    "src": "cef4e3df99",
+    "t": "Mga point, nakaayos ayon sa layo"
+  },
+  "p3_places.kd_y": {
+    "src": "89aee27f64",
+    "t": "Layo sa ika-{k} na kapitbahay (km)"
+  },
+  "p3_places.kdist_head": {
+    "src": "d5fbd6da32",
+    "t": "Pagpili ng eps: ang k-distance elbow"
+  },
+  "p3_places.m_assigned": {
+    "src": "8a9b623841",
+    "t": "Komentong may lugar"
+  },
+  "p3_places.m_none": {
+    "src": "b086905fa8",
+    "t": "Walang lugar o noise"
+  },
+  "p3_places.m_places": {
+    "src": "0cd3597453",
+    "t": "Mga lugar"
+  },
+  "p3_places.map_head": {
+    "src": "6ec8002214",
+    "t": "#### Nasaan ang mga lugar"
+  },
+  "p3_places.min_samples": {
+    "src": "28b45b3b76",
+    "t": "Minimum na komento kada cluster"
+  },
+  "p3_places.nav": {
+    "src": "0cd3597453",
+    "t": "Mga lugar"
+  },
+  "p3_places.no_geo": {
+    "src": "068aa7b219",
+    "t": "Wala pang coordinates ang dataset na ito."
+  },
+  "p3_places.no_places": {
+    "src": "992dfd83db",
+    "t": "Walang nahanap na lugar. Subukan ang mas malaking eps o mas kaunting komento kada cluster."
+  },
+  "p3_places.pick_coords": {
+    "src": "e20a2ae61c",
+    "t": "Piliin ang longitude at latitude column"
+  },
+  "p3_places.title": {
+    "src": "0cd3597453",
+    "t": "Mga lugar"
+  },
+  "p3_places.unit": {
+    "src": "3f213bd5db",
+    "t": "Pangkatin ang mga komento ayon sa"
+  },
+  "p3_places.unit_region": {
+    "src": "0f21717994",
+    "t": "Rehiyon"
+  },
+  "p4_apart.axis": {
+    "src": "e3793362b9",
+    "t": "z-score (pagiging natatangi)"
+  },
+  "p4_apart.blurb": {
+    "src": "aa0eef29fe",
+    "t": "Anong mga salita ang nagpapaiba sa isang lugar kumpara sa iba pa?"
+  },
+  "p4_apart.caption": {
+    "src": "17d7a0bea0",
+    "t": "Ang mga term ay iisang salita o pariralang may dalawang salita; binilang ang mga ito sa lahat ng komento."
+  },
+  "p4_apart.hide_help": {
+    "src": "eed931cf07",
+    "t": "Halatang pinaghihiwalay ng pangalan ng lugar ang mga lugar. Itago ang mga ito para makita kung ano talaga ang sinasabi ng mga tao."
+  },
+  "p4_apart.hide_places": {
+    "src": "687964cef6",
+    "t": "Itago ang mga pangalan ng lugar"
+  },
+  "p4_apart.min_count": {
+    "src": "ffd783b968",
+    "t": "Ilang beses man lang dapat lumabas ang term"
+  },
+  "p4_apart.more_typical": {
+    "src": "bf85ef5514",
+    "t": "mas karaniwan sa"
+  },
+  "p4_apart.nav": {
+    "src": "0514627d56",
+    "t": "Ano ang nagpapaiba sa isang lugar"
+  },
+  "p4_apart.none": {
+    "src": "48abbbfb1d",
+    "t": "Walang term na umabot sa minimum na bilang. Ibaba ito para makakita ng mas marami."
+  },
+  "p4_apart.place_a": {
+    "src": "0e776c6314",
+    "t": "Lugar A"
+  },
+  "p4_apart.place_b": {
+    "src": "719f56a6e7",
+    "t": "Ihambing sa"
+  },
+  "p4_apart.rest": {
+    "src": "eedbc7fbaa",
+    "t": "Lahat ng ibang lugar"
+  },
+  "p4_apart.title": {
+    "src": "0514627d56",
+    "t": "Ano ang nagpapaiba sa isang lugar"
+  },
+  "p5_feel.axis": {
+    "src": "97335e9cf7",
+    "t": "% ng komentong negatibo"
+  },
+  "p5_feel.blurb": {
+    "src": "5d116323f5",
+    "t": "Aling mga lugar ang pinakadismayado, at gaano tayo kasigurado?"
+  },
+  "p5_feel.capped": {
+    "src": "4f30bd48c7",
+    "t": "Ipinapakita ang {n} pinakamalalaking lugar."
+  },
+  "p5_feel.enough": {
+    "src": "1ee44b1262",
+    "t": "Sapat ang komento"
+  },
+  "p5_feel.legend": {
+    "src": "b05fc476ef",
+    "t": "Kulay = % negatibo. Laki ng bubble = bilang ng komento. Gray = masyadong kaunti ang komento."
+  },
+  "p5_feel.m_greyed": {
+    "src": "12a8a04ade",
+    "t": "Naka-gray (masyadong kaunti)"
+  },
+  "p5_feel.m_overall": {
+    "src": "54ee1bd823",
+    "t": "Negatibo sa kabuuan"
+  },
+  "p5_feel.m_places": {
+    "src": "a8c435b44c",
+    "t": "Mga lugar na ipinapakita"
+  },
+  "p5_feel.min_n": {
+    "src": "6563cbd5f2",
+    "t": "Minimum na komento kada lugar"
+  },
+  "p5_feel.nav": {
+    "src": "c1dc06c1e2",
+    "t": "Damdamin ng bawat lugar"
   },
   "p5_feel.negative": {
     "src": "cb47297f54",
     "t": "negatibo"
   },
+  "p5_feel.rank_head": {
+    "src": "228c2b0bc9",
+    "t": "% negatibo kada lugar, may 95% interval"
+  },
+  "p5_feel.reason": {
+    "src": "26e72b31b3",
+    "t": "kulang sa {min_n} komento"
+  },
+  "p5_feel.title": {
+    "src": "c1dc06c1e2",
+    "t": "Damdamin ng bawat lugar"
+  },
+  "p6_aspects.blurb": {
+    "src": "1746baac7a",
+    "t": "Ano ang pinupuri o inirereklamo ng mga tao sa bawat lugar: paghihintay, staff, gastos, gamot?"
+  },
+  "p6_aspects.caption": {
+    "src": "bcc05bc4d2",
+    "t": "Ang bawat cell ay ang % ng mga pangungusap tungkol sa aspect na iyon na negatibo ang dating. n = katugmang pangungusap; blangko = mas kaunti sa minimum."
+  },
+  "p6_aspects.cbar": {
+    "src": "2323733c81",
+    "t": "% negatibo"
+  },
+  "p6_aspects.legend": {
+    "src": "47c01c1d23",
+    "t": "Kulay = % negatibo tungkol sa aspect na ito. Laki = bilang ng pangungusap. Gray = masyadong kaunti."
+  },
+  "p6_aspects.map_head": {
+    "src": "0c1173a15c",
+    "t": "Isang aspect sa mapa"
+  },
+  "p6_aspects.min_n": {
+    "src": "7a787c2063",
+    "t": "Minimum na pangungusap kada cell"
+  },
+  "p6_aspects.nav": {
+    "src": "320f6a9041",
+    "t": "Ano ang pinupuri o inirereklamo"
+  },
   "p6_aspects.negative": {
     "src": "cb47297f54",
     "t": "negatibo"
+  },
+  "p6_aspects.none": {
+    "src": "775ea58be2",
+    "t": "Walang pangungusap na bumabanggit ng kahit anong aspect."
+  },
+  "p6_aspects.sentences": {
+    "src": "93ee904fb2",
+    "t": "pangungusap"
+  },
+  "p6_aspects.title": {
+    "src": "320f6a9041",
+    "t": "Ano ang pinupuri o inirereklamo"
+  },
+  "p7_themes.axis": {
+    "src": "3c061c1925",
+    "t": "% ng mga komento ng lugar"
+  },
+  "p7_themes.blurb": {
+    "src": "b4e8587d33",
+    "t": "Anong mga paksa ang lumalabas sa mga komento, at saang lugar pinag-uusapan ang alin?"
+  },
+  "p7_themes.card_n": {
+    "src": "d1b9e2a1cd",
+    "t": "{n} komento ({pct}%)"
+  },
+  "p7_themes.drop_help": {
+    "src": "dd84762a69",
+    "t": "Kapag hindi tinanggal, nagiging sariling tema ang mga pangalan ng probinsya."
+  },
+  "p7_themes.drop_places": {
+    "src": "687964cef6",
+    "t": "Itago ang mga pangalan ng lugar"
+  },
+  "p7_themes.k": {
+    "src": "77102a3f2a",
+    "t": "Bilang ng tema (k)"
+  },
+  "p7_themes.nav": {
+    "src": "8e0f128b69",
+    "t": "Ano ang pinag-uusapan nila"
+  },
+  "p7_themes.not_enough": {
+    "src": "5f36427684",
+    "t": "Kulang ang text para makahanap ng mga tema."
+  },
+  "p7_themes.share_head": {
+    "src": "939735832f",
+    "t": "Bahagi ng bawat tema kada lugar"
+  },
+  "p7_themes.sil_help": {
+    "src": "cea2a396ff",
+    "t": "Mula -1 hanggang 1. Kapag lampas 0.5, malinaw ang paghihiwalay; kapag mas mababa sa 0.25, malaki ang pagsasapawan ng mga tema. Kadalasang mababa ang score ng maiikling komento."
+  },
+  "p7_themes.silhouette": {
+    "src": "5592d1356e",
+    "t": "Silhouette (paghihiwalay ng mga cluster)"
+  },
+  "p7_themes.title": {
+    "src": "8e0f128b69",
+    "t": "Ano ang pinag-uusapan nila"
+  },
+  "p8_hotspots.all": {
+    "src": "831776c18d",
+    "t": "Lahat ng komento: bahaging negatibo"
+  },
+  "p8_hotspots.aspect_neg": {
+    "src": "b04bba4981",
+    "t": "{aspect}: bahaging negatibo"
+  },
+  "p8_hotspots.blurb": {
+    "src": "23f7b7e804",
+    "t": "Saan nagkukumpol ang mga reklamo nang higit sa kayang ipaliwanag ng tsamba?"
   },
   "p8_hotspots.cell": {
     "src": "1bf56007b2",
     "t": "Laki ng grid cell (km)"
   },
+  "p8_hotspots.leg_cold": {
+    "src": "278c6af2ff",
+    "t": "Cold (mas kaunti ang negatibo)"
+  },
+  "p8_hotspots.leg_hot": {
+    "src": "adbd60a59b",
+    "t": "Hot (mas negatibo kaysa sa inaasahan sa tsamba)"
+  },
+  "p8_hotspots.leg_ns": {
+    "src": "a6ec3ea837",
+    "t": "Hindi significant"
+  },
+  "p8_hotspots.m_cells": {
+    "src": "e9b0b79705",
+    "t": "Mga cell na sinuri"
+  },
+  "p8_hotspots.m_cold": {
+    "src": "fe7e7dc02d",
+    "t": "Mga cold cell"
+  },
+  "p8_hotspots.m_hot": {
+    "src": "f6447f5a99",
+    "t": "Mga hot cell"
+  },
+  "p8_hotspots.m_hot99": {
+    "src": "4b21fe32af",
+    "t": "Hot sa 99%"
+  },
+  "p8_hotspots.min_n": {
+    "src": "62b4ad93e3",
+    "t": "Minimum na komento kada cell"
+  },
+  "p8_hotspots.nav": {
+    "src": "7480c0126f",
+    "t": "Saan nagkukumpol ang reklamo"
+  },
   "p8_hotspots.negative": {
     "src": "cb47297f54",
     "t": "negatibo"
+  },
+  "p8_hotspots.none": {
+    "src": "d970e408a7",
+    "t": "Kulang ang mga cell na may {n} komento. Ibaba ang minimum o palakihin ang mga cell."
+  },
+  "p8_hotspots.ns": {
+    "src": "9d34e46ed1",
+    "t": "hindi significant"
+  },
+  "p8_hotspots.radius": {
+    "src": "7c80194941",
+    "t": "Radius ng kapitbahayan (km)"
+  },
+  "p8_hotspots.safe99": {
+    "src": "be5e444534",
+    "t": "Maraming cell ang sabay-sabay na sinusuri, kaya asahan nang may ilang 90% cell na lalabas dahil sa tsamba lang. Pinakapagkatiwalaan ang mga 99% cell."
+  },
+  "p8_hotspots.small_radius": {
+    "src": "9b1c0efdfe",
+    "t": "Mga isang cell lang ang radius, kaya halos hindi naihahambing ang bawat cell sa mga kapitbahay nito. Subukan ang radius na hindi bababa sa 2 cell."
+  },
+  "p8_hotspots.strongest": {
+    "src": "150a296977",
+    "t": "Pinakamalakas na hotspot: malapit sa {place} (z = {z:.1f}, {share}% negatibo sa {n} komento)."
+  },
+  "p8_hotspots.title": {
+    "src": "7480c0126f",
+    "t": "Saan nagkukumpol ang reklamo"
+  },
+  "p8_hotspots.value": {
+    "src": "9c2114e319",
+    "t": "Ano ang ilalagay sa mapa"
+  },
+  "p9_report.blurb": {
+    "src": "2909ae62c6",
+    "t": "Isang buod kada lugar na ligtas sa privacy, handa nang i-share."
+  },
+  "p9_report.c_hot": {
+    "src": "8128ad4865",
+    "t": "Hotspot ng reklamo"
   },
   "p9_report.c_neg": {
     "src": "c70827c69d",
     "t": "Negatibo"
   },
+  "p9_report.c_terms": {
+    "src": "c8cdaa9795",
+    "t": "Natatanging salita"
+  },
+  "p9_report.c_theme": {
+    "src": "70373f8a82",
+    "t": "Pangunahing tema"
+  },
+  "p9_report.c_worst": {
+    "src": "c48ac56bc0",
+    "t": "Pinakainirereklamo"
+  },
+  "p9_report.cards_head": {
+    "src": "0a91c86639",
+    "t": "Mga report card"
+  },
   "p9_report.cell": {
     "src": "1bf56007b2",
     "t": "Laki ng grid cell (km)"
+  },
+  "p9_report.centroids": {
+    "src": "be8264a716",
+    "t": "Centroid ng mga lugar"
   },
   "p9_report.comments": {
     "src": "5b17a6c606",
     "t": "mga komento"
   },
+  "p9_report.dl_csv": {
+    "src": "ab0c94ca93",
+    "t": "I-download ang buod ng mga lugar (CSV)"
+  },
+  "p9_report.dl_geojson": {
+    "src": "1e22de6406",
+    "t": "I-download ang GeoJSON"
+  },
+  "p9_report.dl_meta": {
+    "src": "de71e9743e",
+    "t": "I-download ang metadata.json"
+  },
+  "p9_report.empty": {
+    "src": "cad86033b3",
+    "t": "Wala nang natira pagkatapos itago ang maliliit na grupo. Ibaba ang minimum."
+  },
+  "p9_report.grid": {
+    "src": "fb836b9b33",
+    "t": "Mga grid cell"
+  },
+  "p9_report.hot_no": {
+    "src": "904cbae74c",
+    "t": "Walang hotspot"
+  },
+  "p9_report.in_hot": {
+    "src": "0835963a87",
+    "t": "ng komento ay nasa hot cell"
+  },
+  "p9_report.k_min": {
+    "src": "95364707a2",
+    "t": "Itago ang mga grupong mas maliit sa"
+  },
+  "p9_report.legend": {
+    "src": "56f553109e",
+    "t": "Komento kada cell"
+  },
+  "p9_report.map_head": {
+    "src": "b69b91091c",
+    "t": "Mapang hindi makakaturo sa isang tao"
+  },
+  "p9_report.method": {
+    "src": "1ab3cc00f0",
+    "t": "I-generalize ang mapa bilang"
+  },
+  "p9_report.nav": {
+    "src": "eda1e29b97",
+    "t": "Ulat ng lugar"
+  },
   "p9_report.negative": {
     "src": "cb47297f54",
     "t": "negatibo"
+  },
+  "p9_report.privacy": {
+    "src": "c1ec8a7904",
+    "t": ":material/lock: Bilang at porsyento lang ang ipinapakita o ine-export; bawat marker ay kumakatawan sa hindi bababa sa {k} komento."
+  },
+  "p9_report.tip_neg": {
+    "src": "2323733c81",
+    "t": "% negatibo"
+  },
+  "p9_report.tip_points": {
+    "src": "fce06e20e5",
+    "t": "Komento"
+  },
+  "p9_report.title": {
+    "src": "eda1e29b97",
+    "t": "Ulat ng lugar"
+  },
+  "p9_report.top_n": {
+    "src": "d347cc576d",
+    "t": "Mga lugar na may card"
+  },
+  "persist.forget": {
+    "src": "aeb298d45a",
+    "t": "Kalimutan ako sa computer na ito"
+  },
+  "persist.forget_help": {
+    "src": "c36f88823f",
+    "t": "Binubura ang naka-save na wika, settings at progress sa browser na ito, at ibinabalik ka sa simula."
+  },
+  "pill.learn": {
+    "src": "f6f73da18d",
+    "t": "Paano gumagana ang TALA"
   },
   "side.custom_placeholder": {
     "src": "9742096c43",
@@ -270,6 +990,18 @@
   "side.language_pick": {
     "src": "01e1787a9e",
     "t": "Wika ng app"
+  },
+  "side.learning": {
+    "src": "1016fcb2b4",
+    "t": "Pag-aaral"
+  },
+  "side.rows": {
+    "src": "c57db34a95",
+    "t": "{rows} na row · text column: `{column}`"
+  },
+  "side.settings": {
+    "src": "c7f73bb54d",
+    "t": "Mga Setting"
   },
   "side.show_learn": {
     "src": "84ebb2309c",
@@ -294,5 +1026,89 @@
   "spin.points": {
     "src": "e06ceeae11",
     "t": "Bina-validate ang coordinates at binubuo ang points…"
+  },
+  "tour.c1": {
+    "src": "a2ef3dc11d",
+    "t": "Binabasa ng TALA ang 12,000 komento tungkol sa health services: ano ang sinasabi ng mga tao, at saan."
+  },
+  "tour.c2": {
+    "src": "f138bd6bbc",
+    "t": "Maraming komento ang bumabanggit ng lugar. Tinitingnan ng TALA kung tugma ito sa GPS."
+  },
+  "tour.c3": {
+    "src": "7f718bb80a",
+    "t": "Inaayos ang maling coordinates gamit ang mismong isinulat ng mga tao."
+  },
+  "tour.c4": {
+    "src": "c51307c99a",
+    "t": "Pangkatin ang mga komento sa mga lugar."
+  },
+  "tour.c5": {
+    "src": "f558d5e1e5",
+    "t": "Tingnan kung aling mga salita ang nagpapaiba sa isang lugar."
+  },
+  "tour.c6": {
+    "src": "e4c5e056e7",
+    "t": "Ihambing ang damdamin ng bawat lugar."
+  },
+  "tour.c7": {
+    "src": "207a1dab95",
+    "t": "Hanapin kung saan nagkukumpol ang mga reklamo nang higit sa tsamba."
+  },
+  "tour.c8": {
+    "src": "ce6d728ab4",
+    "t": "Bawat natapos na hakbang ay nagpapailaw ng isang tala. Lumipat kahit saan, kahit kailan."
+  },
+  "tour.c9": {
+    "src": "73ad0f2126",
+    "t": "Gusto mo ang teorya? Buksan ang Learn sa kahit anong pahina, o ang Paano gumagana ang TALA."
+  },
+  "track.back": {
+    "src": "b52b36b726",
+    "t": "Bumalik"
+  },
+  "track.complete_what": {
+    "src": "7715c54864",
+    "t": "Tapos na ang Salita: alam mo na kung ano ang sinasabi ng bawat lugar"
+  },
+  "track.complete_where": {
+    "src": "528ebea6d4",
+    "t": "Tapos na ang Lugar: alam mo na kung nasaan ang mga tao"
+  },
+  "track.covered_what": {
+    "src": "d616fb57e3",
+    "t": "Pinaghambing mo ang mga lugar ayon sa natatanging salita, sentiment, aspect at tema, nahanap mo ang mga hotspot ng reklamo, at binuo mo ang ulat ng lugar."
+  },
+  "track.covered_where": {
+    "src": "6ab3ade4b3",
+    "t": "Nag-load at naglinis ka ng data, tiningnan mo kung tugma ang text sa GPS, at pinangkat mo ang mga komento sa mga lugar."
+  },
+  "track.finish": {
+    "src": "b74bdee9c3",
+    "t": "Tapusin"
+  },
+  "track.go_home": {
+    "src": "19445d7286",
+    "t": "Bumalik sa Home"
+  },
+  "track.next": {
+    "src": "bc981983e7",
+    "t": "Susunod"
+  },
+  "track.start_what": {
+    "src": "06f212084a",
+    "t": "Simulan ang Salita"
+  },
+  "track.start_where": {
+    "src": "846feff538",
+    "t": "Simulan ang Lugar"
+  },
+  "track.step_done": {
+    "src": "1fa5d2c1a8",
+    "t": "Tapos na ang hakbang"
+  },
+  "track.step_of": {
+    "src": "78cee4b898",
+    "t": "Hakbang {n} ng {total}"
   }
 }
