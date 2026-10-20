@@ -1,5 +1,5 @@
 {
-  "app.wordmark_org": "Isa ka inisyatiba sang NU DOST-NICER Program",
+  "app.wordmark_org": "Isa ka learning module sang AIKasalig",
   "gate.prompt": "Magpili sang lenguahe",
   "gate.hint": "Mabag-o mo ini sa ulihi sa sidebar.",
   "gate.start": "SUGDAN",
@@ -271,5 +271,16 @@
   "tour.c6": "Ipaanggid ang balatyagon sang kada lugar.",
   "tour.c7": "Pangitaa kon diin nagatipon ang mga reklamo nga labaw sa tsamba.",
   "tour.c8": "Ang kada natapos nga tikang nagasiga sang isa ka bituon. Lukso bisan diin, bisan san-o.",
-  "tour.c9": "Gusto mo ang teorya? Buksi ang Learn sa bisan ano nga pahina, ukon ang Paano nagatrabaho ang TALA."
+  "tour.c9": "Gusto mo ang teorya? Buksi ang Learn sa bisan ano nga pahina, ukon ang Paano nagatrabaho ang TALA.",
+  "nav.about": "Parte sa proyekto",
+  "about.title": "Parte sa proyekto",
+  "about.blurb": "Ang TALA isa ka hands-on nga learning module sang AIKasalig, isa ka proyekto parte sa responsible AI sa health care sang Pilipinas.",
+  "brand.module_line": "Isa ka learning module sang proyekto nga AIKasalig",
+  "footer.line": "Isa ka learning module sang AIKasalig, DOST-NICER R&D Center on Natural Language Processing for Health Applications, National University",
+  "footer.dev": "Ginhimo ni {name}",
+  "learn.about_link": "Parte sa proyekto: ang AIKasalig, ang iya mga partner kag mga credit",
+  "tour.button": "Tan-awa ang tour",
+  "tour.title": "Tan-awa ang tour",
+  "tour.lang": "Lenguahe sang tour",
+  "tour.note": "May caption, wala sing tunog. Ang video lang ang ginabag-o sang picker, indi ang lenguahe sang app."
 }

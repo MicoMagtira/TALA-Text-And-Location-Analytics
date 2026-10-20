@@ -17,7 +17,11 @@
     "p4_apart.min_count": "'Minimum times a term must appear' as 'Ilang beses man lang dapat lumabas ang term'. Confirm it is understood as a slider label.",
     "p3_places:p6": "'Rural comments' rendered as 'komento mula sa probinsya' (everyday sense of rural). Confirm, or use 'komento mula sa liblib na lugar'.",
     "p9_report:p3": "'rule of thumb' rendered as 'Gabay lang ang flag, hindi pormal na test' (meaning, not a calque). Confirm tone.",
-    "tour.c1": "Tour captions c1–c9 were translated by the orchestrator after the main pass; review all nine together for tone (they are burned into the tour video, so a change means re-recording)."
+    "tour.c1": "Tour captions c1–c9 were translated by the orchestrator after the main pass; review all nine together for tone (they are burned into the tour video, so a change means re-recording).",
+    "app.wordmark_org": "'learning module' kept in English ('Isang learning module ng AIKasalig'), same in brand.module_line, footer.line and about.blurb. Confirm this beats 'modyul sa pag-aaral' for students.",
+    "footer.dev": "'Developed by' rendered as 'Binuo ni {name}'. Natural on a footer credit, or prefer 'Gawa ni {name}'?",
+    "about:aikasalig": "English project title kept, followed by a Filipino gloss in parentheses; 'health misinformation' given as 'maling impormasyon tungkol sa kalusugan' with the English after it. Confirm the gloss is not too long.",
+    "about:glance": "Month names localized (Enero/Disyembre) and 'Implementing agency' rendered 'Nagpapatupad na ahensiya'. Keep these, or leave the fact-sheet labels in English?"
   },
   "ceb": {
     "gate.start": "'SUGDI' vs 'SUGOD' as a game-style START button. Which reads better?",
@@ -37,7 +41,11 @@
     "learn:chapters": "This says Lugar is 'place' in Filipino 'and in Bisaya too', and Salita is 'pulong sa Bisaya'. Confirm that this aside is welcome and accurate.",
     "p4_apart:p2": "Dense formula paragraph. I kept the math tokens verbatim and translated only the connective text. Check that it reads clearly to CS students.",
     "p3_places:p6": "I rendered 'Rural comments' as 'mga komento gikan sa kabaryohan'. I avoided 'probinsya' because it would be confused with the administrative 'province'. Confirm.",
-    "tour.c1": "Tour captions c1–c9 were translated by the orchestrator after the main pass; review all nine together for tone (they are burned into the tour video, so a change means re-recording)."
+    "tour.c1": "Tour captions c1–c9 were translated by the orchestrator after the main pass; review all nine together for tone (they are burned into the tour video, so a change means re-recording).",
+    "nav.about": "'About the project' rendered 'Bahin sa proyekto'. Because 'bahin' also means 'part', the essay heading 'Part of a DOST-NICER program' uses 'Kabahin sa...' to avoid a clash. Confirm both read clearly.",
+    "footer.dev": "'Developed by' rendered 'Gihimo ni {name}'. Or 'Gibuhat ni {name}'?",
+    "about:tala": "Heading 'Where TALA fits' rendered 'Asa mosulod ang TALA' (where TALA comes in). Natural?",
+    "about:aikasalig": "'informed by communities' rendered 'giumol uban sa mga komunidad' (shaped with communities), and health given as 'panglawas'. Confirm the register is everyday, not too deep."
   },
   "ilo": {
     "gate.start": "'RUGIAN' as a START button. Natural imperative, or 'MANGRUGI'?",
@@ -61,7 +69,11 @@
     "learn:what": "(Applies to all essays and UI) Following commit c47fedb, pronoun enclitics after verbs/modals are written separately (biruken na, idilig tayo, saan da, sungbatan da, malpas mo). I extended this to -da/-tayo, which c47fedb did not show. Possessives on nouns stay attached (saludsodna, kaarrubana), with a hyphen after English nouns (GPS-na, interval-na, write-up-mo).",
     "p8_hotspots:p3": "'kanatalgedan a basa' for 'the safest reading', and 'Lehitimo a natakuatan dayta' for 'That is a legitimate finding'. Please check the register.",
     "p2_textgps:p1": "'swapped' (GPS) rendered as 'nabaliktad' (reversed), read as lat/lon swapped; 'default to a device's last fix' rendered loosely. Please check the meaning.",
-    "tour.c1": "Tour captions c1–c9 were translated by the orchestrator after the main pass; review all nine together for tone (they are burned into the tour video, so a change means re-recording)."
+    "tour.c1": "Tour captions c1–c9 were translated by the orchestrator after the main pass; review all nine together for tone (they are burned into the tour video, so a change means re-recording).",
+    "footer.dev": "'Developed by' rendered 'Inaramid ni {name}'. Or 'Pinarsua ni {name}'?",
+    "learn.about_link": "Enclitic attached to an English loan: 'dagiti partnerna'. Is that how it is written, or 'dagiti partner-na' / 'dagiti kadua na'?",
+    "about:tala": "Heading 'Where TALA fits' rendered 'Sadino ti ayan ti TALA' (where TALA stands). Does it keep the 'fits into the project' sense?",
+    "about:aikasalig": "'informed by communities' rendered 'nabukel a kadua dagiti komunidad', and health as 'salun-at'. Confirm both read naturally."
   },
   "hil": {
     "gate.prompt": "'lenguahe' vs 'hambal' for language throughout. Which do Ilonggo speakers actually use in an app?",
@@ -83,6 +95,10 @@
     "home.peek": "'Tan-awa sing dali ang data' for 'Peek at the data' — Tagalog 'silip' avoided. Is there a more natural Ilonggo word for a quick look?",
     "learn:dirty": "Location-source names rendered as **Gin-ayo**, **GPS lang**, **Nagauyon lang**, while the UI radio options (p2_textgps.mode_*) are longer phrases ('Ayuhon halin sa text (rekomendado)', etc.). The English has the same mismatch; check readers can still map them.",
     "p2_textgps:p6": "'ginapilit ang komento sa centroid' for 'snapping a comment to a place centroid'. Confirm 'pilit' (stick/force) conveys snapping without sounding like coercion.",
-    "tour.c1": "Tour captions c1–c9 were translated by the orchestrator after the main pass; review all nine together for tone (they are burned into the tour video, so a change means re-recording)."
+    "tour.c1": "Tour captions c1–c9 were translated by the orchestrator after the main pass; review all nine together for tone (they are burned into the tour video, so a change means re-recording).",
+    "about:aikasalig": "'goal' rendered 'tulumuron' and health as 'ikaayong-lawas'. Are these too formal? Alternatives: 'tuyo', 'panglawas'.",
+    "footer.dev": "'Developed by' rendered 'Ginhimo ni {name}'. Natural on a credit line?",
+    "about:tala": "Heading 'Where TALA fits' rendered 'Diin nagasulod ang TALA' (where TALA comes in). Natural?",
+    "about:glance": "'Duration' rendered 'Kalawigon' and 'Implementing agency' 'Ahensya nga nagapatuman'. Confirm, or keep fact-sheet labels in English?"
   }
 }

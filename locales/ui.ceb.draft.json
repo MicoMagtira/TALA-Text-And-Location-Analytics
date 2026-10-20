@@ -1,6 +1,6 @@
 {
   "app.subtitle": "Bitoon ang matag komento. Tan-awa ang gisulti sa mga tawo, ug kung asa nila kini gisulti.",
-  "app.wordmark_org": "Usa ka inisyatiba sa NU DOST-NICER Program",
+  "app.wordmark_org": "Usa ka learning module sa AIKasalig",
   "gate.prompt": "Pilia ang pinulongan",
   "gate.hint": "Mabag-o ni nimo unya sa sidebar.",
   "gate.start": "SUGDI",
@@ -272,5 +272,16 @@
   "tour.c6": "Itandi ang bati sa matag lugar.",
   "tour.c7": "Pangitaa kung asa nagpundok ang mga reklamo labaw pa sa sulagma.",
   "tour.c8": "Ang matag nahuman nga lakang modan-ag og usa ka bitoon. Ambak bisan asa, bisan kanus-a.",
-  "tour.c9": "Gusto nimo ang teorya? Ablihi ang Learn sa bisan unsang panid, o ang Giunsa pagtrabaho sa TALA."
+  "tour.c9": "Gusto nimo ang teorya? Ablihi ang Learn sa bisan unsang panid, o ang Giunsa pagtrabaho sa TALA.",
+  "nav.about": "Bahin sa proyekto",
+  "about.title": "Bahin sa proyekto",
+  "about.blurb": "Ang TALA usa ka hands-on nga learning module sa AIKasalig, usa ka proyekto bahin sa responsible AI sa health care sa Pilipinas.",
+  "brand.module_line": "Usa ka learning module sa proyekto nga AIKasalig",
+  "footer.line": "Usa ka learning module sa AIKasalig, DOST-NICER R&D Center on Natural Language Processing for Health Applications, National University",
+  "footer.dev": "Gihimo ni {name}",
+  "learn.about_link": "Bahin sa proyekto: ang AIKasalig, ang mga partner niini ug mga credit",
+  "tour.button": "Tan-awa ang tour",
+  "tour.title": "Tan-awa ang tour",
+  "tour.lang": "Pinulongan sa tour",
+  "tour.note": "Adunay caption, walay tingog. Ang video ra ang usbon sa picker, dili ang pinulongan sa app."
 }

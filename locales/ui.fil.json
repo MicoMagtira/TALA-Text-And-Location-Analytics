@@ -1,11 +1,19 @@
 {
+  "about.blurb": {
+    "src": "c17a967898",
+    "t": "Ang TALA ay isang hands-on na learning module ng AIKasalig, isang proyekto tungkol sa responsible AI sa health care ng Pilipinas."
+  },
+  "about.title": {
+    "src": "e1a8448a94",
+    "t": "Tungkol sa proyekto"
+  },
   "app.subtitle": {
     "src": "354e4232f0",
     "t": "Bawat komento ay isang tala. Alamin ang sinasabi ng mga tao, at kung saan nila ito sinasabi."
   },
   "app.wordmark_org": {
-    "src": "18ce5c7202",
-    "t": "Isang inisyatiba ng NU DOST-NICER Program"
+    "src": "07870d1b45",
+    "t": "Isang learning module ng AIKasalig"
   },
   "asp.cost": {
     "src": "64ae43e8fe",
@@ -99,6 +107,10 @@
     "src": "41b4afdb20",
     "t": "Inihahanda ang map tiles"
   },
+  "brand.module_line": {
+    "src": "d1798582b5",
+    "t": "Isang learning module ng proyektong AIKasalig"
+  },
   "ch2.few_places": {
     "src": "1cb0a02e8c",
     "t": "Wala pang dalawang lugar ang nahanap, kaya walang maihahambing."
@@ -122,6 +134,14 @@
   "data.upload_expired": {
     "src": "4f65694b3b",
     "t": "Nag-expire sa shared cache ang na-upload mong dataset. Babalik muna sa bundled na halimbawa — mag-upload ulit para ituloy ang sarili mong file."
+  },
+  "footer.dev": {
+    "src": "f16eac693d",
+    "t": "Binuo ni {name}"
+  },
+  "footer.line": {
+    "src": "d2abffe0a6",
+    "t": "Isang learning module ng AIKasalig, DOST-NICER R&D Center on Natural Language Processing for Health Applications, National University"
   },
   "gate.continue": {
     "src": "2e02623966",
@@ -211,6 +231,10 @@
     "src": "5397e0583f",
     "t": "Oo"
   },
+  "learn.about_link": {
+    "src": "4a23c9d423",
+    "t": "Tungkol sa proyekto: ang AIKasalig, mga partner nito at mga credit"
+  },
   "learn.attribution": {
     "src": "91a270909c",
     "t": "Mga pangalan ng lugar at coordinates: GeoNames (geonames.org), CC BY 4.0."
@@ -250,6 +274,10 @@
   "learn.understand": {
     "src": "8e175403de",
     "t": "#### Unawain ang paraan"
+  },
+  "nav.about": {
+    "src": "e1a8448a94",
+    "t": "Tungkol sa proyekto"
   },
   "nav.hint_any": {
     "src": "8d70deabcf",
@@ -1023,6 +1051,10 @@
     "src": "e06ceeae11",
     "t": "Bina-validate ang coordinates at binubuo ang points…"
   },
+  "tour.button": {
+    "src": "cf2bc757b7",
+    "t": "Panoorin ang tour"
+  },
   "tour.c1": {
     "src": "a2ef3dc11d",
     "t": "Binabasa ng TALA ang 12,000 komento tungkol sa health services: ano ang sinasabi ng mga tao, at saan."
@@ -1058,6 +1090,18 @@
   "tour.c9": {
     "src": "73ad0f2126",
     "t": "Gusto mo ang teorya? Buksan ang Learn sa kahit anong pahina, o ang Paano gumagana ang TALA."
+  },
+  "tour.lang": {
+    "src": "b1d2aa0810",
+    "t": "Wika ng tour"
+  },
+  "tour.note": {
+    "src": "57711544bc",
+    "t": "May caption, walang tunog. Ang video lang ang pinapalitan ng picker, hindi ang wika ng app."
+  },
+  "tour.title": {
+    "src": "cf2bc757b7",
+    "t": "Panoorin ang tour"
   },
   "track.back": {
     "src": "b52b36b726",

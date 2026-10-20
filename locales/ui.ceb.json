@@ -1,11 +1,19 @@
 {
+  "about.blurb": {
+    "src": "c17a967898",
+    "t": "Ang TALA usa ka hands-on nga learning module sa AIKasalig, usa ka proyekto bahin sa responsible AI sa health care sa Pilipinas."
+  },
+  "about.title": {
+    "src": "e1a8448a94",
+    "t": "Bahin sa proyekto"
+  },
   "app.subtitle": {
     "src": "354e4232f0",
     "t": "Bitoon ang matag komento. Tan-awa ang gisulti sa mga tawo, ug kung asa nila kini gisulti."
   },
   "app.wordmark_org": {
-    "src": "18ce5c7202",
-    "t": "Usa ka inisyatiba sa NU DOST-NICER Program"
+    "src": "07870d1b45",
+    "t": "Usa ka learning module sa AIKasalig"
   },
   "asp.cost": {
     "src": "64ae43e8fe",
@@ -99,6 +107,10 @@
     "src": "41b4afdb20",
     "t": "Giandam ang map tiles"
   },
+  "brand.module_line": {
+    "src": "d1798582b5",
+    "t": "Usa ka learning module sa proyekto nga AIKasalig"
+  },
   "ch2.few_places": {
     "src": "1cb0a02e8c",
     "t": "Kulang sa duha ka lugar ang nakit-an, busa walay matandi."
@@ -122,6 +134,14 @@
   "data.upload_expired": {
     "src": "4f65694b3b",
     "t": "Ni-expire sa shared cache ang imong gi-upload nga dataset. Mobalik sa bundled nga pananglitan — i-upload pag-usab aron magpadayon sa imong kaugalingong file."
+  },
+  "footer.dev": {
+    "src": "f16eac693d",
+    "t": "Gihimo ni {name}"
+  },
+  "footer.line": {
+    "src": "d2abffe0a6",
+    "t": "Usa ka learning module sa AIKasalig, DOST-NICER R&D Center on Natural Language Processing for Health Applications, National University"
   },
   "gate.continue": {
     "src": "2e02623966",
@@ -211,6 +231,10 @@
     "src": "5397e0583f",
     "t": "Oo"
   },
+  "learn.about_link": {
+    "src": "4a23c9d423",
+    "t": "Bahin sa proyekto: ang AIKasalig, ang mga partner niini ug mga credit"
+  },
   "learn.attribution": {
     "src": "91a270909c",
     "t": "Mga ngalan sa lugar ug coordinates: GeoNames (geonames.org), CC BY 4.0."
@@ -250,6 +274,10 @@
   "learn.understand": {
     "src": "8e175403de",
     "t": "#### Sabta ang pamaagi"
+  },
+  "nav.about": {
+    "src": "e1a8448a94",
+    "t": "Bahin sa proyekto"
   },
   "nav.hint_any": {
     "src": "8d70deabcf",
@@ -1011,6 +1039,10 @@
     "src": "e06ceeae11",
     "t": "Gi-validate ang coordinates ug gitukod ang points…"
   },
+  "tour.button": {
+    "src": "cf2bc757b7",
+    "t": "Tan-awa ang tour"
+  },
   "tour.c1": {
     "src": "a2ef3dc11d",
     "t": "Basahon sa TALA ang 12,000 ka komento bahin sa health services: unsay gisulti sa mga tawo, ug asa."
@@ -1046,6 +1078,18 @@
   "tour.c9": {
     "src": "73ad0f2126",
     "t": "Gusto nimo ang teorya? Ablihi ang Learn sa bisan unsang panid, o ang Giunsa pagtrabaho sa TALA."
+  },
+  "tour.lang": {
+    "src": "b1d2aa0810",
+    "t": "Pinulongan sa tour"
+  },
+  "tour.note": {
+    "src": "57711544bc",
+    "t": "Adunay caption, walay tingog. Ang video ra ang usbon sa picker, dili ang pinulongan sa app."
+  },
+  "tour.title": {
+    "src": "cf2bc757b7",
+    "t": "Tan-awa ang tour"
   },
   "track.back": {
     "src": "b52b36b726",

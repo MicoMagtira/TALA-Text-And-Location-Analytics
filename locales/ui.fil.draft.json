@@ -1,6 +1,6 @@
 {
   "app.subtitle": "Bawat komento ay isang tala. Alamin ang sinasabi ng mga tao, at kung saan nila ito sinasabi.",
-  "app.wordmark_org": "Isang inisyatiba ng NU DOST-NICER Program",
+  "app.wordmark_org": "Isang learning module ng AIKasalig",
   "gate.prompt": "Pumili ng wika",
   "gate.hint": "Puwede mo itong palitan mamaya sa sidebar.",
   "gate.start": "SIMULAN",
@@ -275,5 +275,16 @@
   "tour.c6": "Ihambing ang damdamin ng bawat lugar.",
   "tour.c7": "Hanapin kung saan nagkukumpol ang mga reklamo nang higit sa tsamba.",
   "tour.c8": "Bawat natapos na hakbang ay nagpapailaw ng isang tala. Lumipat kahit saan, kahit kailan.",
-  "tour.c9": "Gusto mo ang teorya? Buksan ang Learn sa kahit anong pahina, o ang Paano gumagana ang TALA."
+  "tour.c9": "Gusto mo ang teorya? Buksan ang Learn sa kahit anong pahina, o ang Paano gumagana ang TALA.",
+  "nav.about": "Tungkol sa proyekto",
+  "about.title": "Tungkol sa proyekto",
+  "about.blurb": "Ang TALA ay isang hands-on na learning module ng AIKasalig, isang proyekto tungkol sa responsible AI sa health care ng Pilipinas.",
+  "brand.module_line": "Isang learning module ng proyektong AIKasalig",
+  "footer.line": "Isang learning module ng AIKasalig, DOST-NICER R&D Center on Natural Language Processing for Health Applications, National University",
+  "footer.dev": "Binuo ni {name}",
+  "learn.about_link": "Tungkol sa proyekto: ang AIKasalig, mga partner nito at mga credit",
+  "tour.button": "Panoorin ang tour",
+  "tour.title": "Panoorin ang tour",
+  "tour.lang": "Wika ng tour",
+  "tour.note": "May caption, walang tunog. Ang video lang ang pinapalitan ng picker, hindi ang wika ng app."
 }

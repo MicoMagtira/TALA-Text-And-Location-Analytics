@@ -1,11 +1,19 @@
 {
+  "about.blurb": {
+    "src": "c17a967898",
+    "t": "Ti TALA ket maysa a hands-on a learning module ti AIKasalig, maysa a proyekto maipapan iti responsible AI iti health care ti Filipinas."
+  },
+  "about.title": {
+    "src": "e1a8448a94",
+    "t": "Maipapan iti proyekto"
+  },
   "app.subtitle": {
     "src": "354e4232f0",
     "t": "Tunggal komento, maysa a bituen. Kitaen ti ibagbaga dagiti tattao — ken no sadino ti pangibagbagaanda."
   },
   "app.wordmark_org": {
-    "src": "18ce5c7202",
-    "t": "Maysa nga inisiatiba ti NU DOST-NICER Program"
+    "src": "07870d1b45",
+    "t": "Maysa a learning module ti AIKasalig"
   },
   "asp.access": {
     "src": "2f81a22de0",
@@ -103,6 +111,10 @@
     "src": "41b4afdb20",
     "t": "Isagsagana dagiti map tiles"
   },
+  "brand.module_line": {
+    "src": "d1798582b5",
+    "t": "Maysa a learning module ti proyekto nga AIKasalig"
+  },
   "ch2.few_places": {
     "src": "1cb0a02e8c",
     "t": "Basbassit ngem dua a lugar ti nasarakan, isu nga awan ti maidilig."
@@ -126,6 +138,14 @@
   "data.upload_expired": {
     "src": "4f65694b3b",
     "t": "Nag-expire iti shared cache ti na-upload a dataset-mo. Agsubli iti bundled a pagarigan — ag-upload manen tapno maituloy ti bukodmo a file."
+  },
+  "footer.dev": {
+    "src": "f16eac693d",
+    "t": "Inaramid ni {name}"
+  },
+  "footer.line": {
+    "src": "d2abffe0a6",
+    "t": "Maysa a learning module ti AIKasalig, DOST-NICER R&D Center on Natural Language Processing for Health Applications, National University"
   },
   "gate.continue": {
     "src": "2e02623966",
@@ -215,6 +235,10 @@
     "src": "5397e0583f",
     "t": "Wen"
   },
+  "learn.about_link": {
+    "src": "4a23c9d423",
+    "t": "Maipapan iti proyekto: ti AIKasalig, dagiti partnerna ken dagiti credit"
+  },
   "learn.attribution": {
     "src": "91a270909c",
     "t": "Dagiti nagan ti lugar ken coordinates: GeoNames (geonames.org), CC BY 4.0."
@@ -254,6 +278,10 @@
   "learn.understand": {
     "src": "8e175403de",
     "t": "#### Ammuen ti pamay-an"
+  },
+  "nav.about": {
+    "src": "e1a8448a94",
+    "t": "Maipapan iti proyekto"
   },
   "nav.hint_any": {
     "src": "8d70deabcf",
@@ -1031,6 +1059,10 @@
     "src": "e06ceeae11",
     "t": "Va-validate ti coordinates ken bumbangonen dagiti points…"
   },
+  "tour.button": {
+    "src": "cf2bc757b7",
+    "t": "Buyaen ti tour"
+  },
   "tour.c1": {
     "src": "a2ef3dc11d",
     "t": "Basaen ti TALA ti 12,000 a komento maipapan iti health services: ti ibagbaga dagiti tattao, ken no sadino."
@@ -1066,6 +1098,18 @@
   "tour.c9": {
     "src": "73ad0f2126",
     "t": "Kayatmo ti teoria? Lukatam ti Learn iti aniaman a panid, wenno ti Kasano nga agandar ti TALA."
+  },
+  "tour.lang": {
+    "src": "b1d2aa0810",
+    "t": "Pagsasao ti tour"
+  },
+  "tour.note": {
+    "src": "57711544bc",
+    "t": "Addaan caption, awan ti uni. Ti video laeng ti sukatan ti picker, saan a ti pagsasao ti app."
+  },
+  "tour.title": {
+    "src": "cf2bc757b7",
+    "t": "Buyaen ti tour"
   },
   "track.back": {
     "src": "b52b36b726",

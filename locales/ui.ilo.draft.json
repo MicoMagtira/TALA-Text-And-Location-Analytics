@@ -1,5 +1,5 @@
 {
-  "app.wordmark_org": "Maysa nga inisiatiba ti NU DOST-NICER Program",
+  "app.wordmark_org": "Maysa a learning module ti AIKasalig",
   "gate.prompt": "Agpili iti pagsasao",
   "gate.hint": "Mabalin mo a sukatan daytoy kalpasan babaen ti sidebar.",
   "gate.start": "RUGIAN",
@@ -277,5 +277,16 @@
   "tour.c6": "Idilig ti rikna ti tunggal lugar.",
   "tour.c7": "Biruken no sadino ti nakabunggoy dagiti reklamo nga ad-adu ngem iti gasat.",
   "tour.c8": "Tunggal nalpas nga addang ket mangsilaw iti maysa a bituen. Mapanka iti aniaman a paset, iti aniaman nga oras.",
-  "tour.c9": "Kayatmo ti teoria? Lukatam ti Learn iti aniaman a panid, wenno ti Kasano nga agandar ti TALA."
+  "tour.c9": "Kayatmo ti teoria? Lukatam ti Learn iti aniaman a panid, wenno ti Kasano nga agandar ti TALA.",
+  "nav.about": "Maipapan iti proyekto",
+  "about.title": "Maipapan iti proyekto",
+  "about.blurb": "Ti TALA ket maysa a hands-on a learning module ti AIKasalig, maysa a proyekto maipapan iti responsible AI iti health care ti Filipinas.",
+  "brand.module_line": "Maysa a learning module ti proyekto nga AIKasalig",
+  "footer.line": "Maysa a learning module ti AIKasalig, DOST-NICER R&D Center on Natural Language Processing for Health Applications, National University",
+  "footer.dev": "Inaramid ni {name}",
+  "learn.about_link": "Maipapan iti proyekto: ti AIKasalig, dagiti partnerna ken dagiti credit",
+  "tour.button": "Buyaen ti tour",
+  "tour.title": "Buyaen ti tour",
+  "tour.lang": "Pagsasao ti tour",
+  "tour.note": "Addaan caption, awan ti uni. Ti video laeng ti sukatan ti picker, saan a ti pagsasao ti app."
 }

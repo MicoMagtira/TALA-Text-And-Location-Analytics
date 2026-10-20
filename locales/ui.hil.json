@@ -1,11 +1,19 @@
 {
+  "about.blurb": {
+    "src": "c17a967898",
+    "t": "Ang TALA isa ka hands-on nga learning module sang AIKasalig, isa ka proyekto parte sa responsible AI sa health care sang Pilipinas."
+  },
+  "about.title": {
+    "src": "e1a8448a94",
+    "t": "Parte sa proyekto"
+  },
   "app.subtitle": {
     "src": "354e4232f0",
     "t": "Bituon ang kada komento. Tan-awa kon ano ang ginahambal sang mga tawo, kag kon diin."
   },
   "app.wordmark_org": {
-    "src": "18ce5c7202",
-    "t": "Isa ka inisyatiba sang NU DOST-NICER Program"
+    "src": "07870d1b45",
+    "t": "Isa ka learning module sang AIKasalig"
   },
   "asp.cost": {
     "src": "64ae43e8fe",
@@ -99,6 +107,10 @@
     "src": "41b4afdb20",
     "t": "Ginahanda ang map tiles"
   },
+  "brand.module_line": {
+    "src": "d1798582b5",
+    "t": "Isa ka learning module sang proyekto nga AIKasalig"
+  },
   "ch2.few_places": {
     "src": "1cb0a02e8c",
     "t": "Kulang sa duha ang nakita nga lugar, gani wala sing mapaanggid."
@@ -122,6 +134,14 @@
   "data.upload_expired": {
     "src": "4f65694b3b",
     "t": "Nag-expire sa shared cache ang imo gin-upload nga dataset. Magabalik sa bundled nga halimbawa — mag-upload liwat agod ipadayon ang imo kaugalingon nga file."
+  },
+  "footer.dev": {
+    "src": "f16eac693d",
+    "t": "Ginhimo ni {name}"
+  },
+  "footer.line": {
+    "src": "d2abffe0a6",
+    "t": "Isa ka learning module sang AIKasalig, DOST-NICER R&D Center on Natural Language Processing for Health Applications, National University"
   },
   "gate.continue": {
     "src": "2e02623966",
@@ -211,6 +231,10 @@
     "src": "5397e0583f",
     "t": "Huo"
   },
+  "learn.about_link": {
+    "src": "4a23c9d423",
+    "t": "Parte sa proyekto: ang AIKasalig, ang iya mga partner kag mga credit"
+  },
   "learn.attribution": {
     "src": "91a270909c",
     "t": "Mga ngalan sang lugar kag coordinates: GeoNames (geonames.org), CC BY 4.0."
@@ -250,6 +274,10 @@
   "learn.understand": {
     "src": "8e175403de",
     "t": "#### Intiendiha ang pamaagi"
+  },
+  "nav.about": {
+    "src": "e1a8448a94",
+    "t": "Parte sa proyekto"
   },
   "nav.hint_any": {
     "src": "8d70deabcf",
@@ -1007,6 +1035,10 @@
     "src": "e06ceeae11",
     "t": "Gina-validate ang coordinates kag ginatukod ang points…"
   },
+  "tour.button": {
+    "src": "cf2bc757b7",
+    "t": "Tan-awa ang tour"
+  },
   "tour.c1": {
     "src": "a2ef3dc11d",
     "t": "Ginabasa sang TALA ang 12,000 ka komento parte sa health services: ano ang ginahambal sang mga tawo, kag diin."
@@ -1042,6 +1074,18 @@
   "tour.c9": {
     "src": "73ad0f2126",
     "t": "Gusto mo ang teorya? Buksi ang Learn sa bisan ano nga pahina, ukon ang Paano nagatrabaho ang TALA."
+  },
+  "tour.lang": {
+    "src": "b1d2aa0810",
+    "t": "Lenguahe sang tour"
+  },
+  "tour.note": {
+    "src": "57711544bc",
+    "t": "May caption, wala sing tunog. Ang video lang ang ginabag-o sang picker, indi ang lenguahe sang app."
+  },
+  "tour.title": {
+    "src": "cf2bc757b7",
+    "t": "Tan-awa ang tour"
   },
   "track.back": {
     "src": "b52b36b726",
