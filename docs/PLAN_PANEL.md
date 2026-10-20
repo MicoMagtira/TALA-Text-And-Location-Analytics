@@ -331,3 +331,31 @@ safe). Pending: meteor constants from `docs/motion/start_meteor.html`.
 ## 18. Out of scope
 
 Leaving Streamlit, voice-over, per-step clips, region polygons/choropleths, and new sounds.
+
+---
+
+## 19. Addendum (2026-10-20): project identity, About page, tours everywhere
+
+Evaluator comment: TALA comes from the **AIKasalig** project, but it looks like a personal project. It needs the project's
+logos and description, and a more pronounced TALA banner. The user also asked for logos on the loading screen, a dedicated
+About page, and clean per-language access to the tour videos, all responsive on web and mobile.
+
+**Context** (from the proposal and MOA, kept out of git): AIKasalig is *Project 4* of the DOST **NICER** program "R&D Center
+on Natural Language Processing for Health Applications" (RDC-NLPHA) at **National University**. Its full title is "Advancing
+Responsible AI in Philippine Healthcare: A Multi-Year NLP-Driven Roadmap for Trust, Transparency, and Ethical AI", and it runs
+from January 2026 to December 2028. Its goal is a multilingual AI Trust Toolkit (NLP in Filipino, Cebuano, Ilocano,
+Hiligaynon and English), with AI-literacy modules among its outputs. TALA fits as a hands-on learning module in the same five
+languages. The other projects in the program are HealthPH+, AdvocAid PH and Bantay Lamok PH.
+
+**Logo order (fixed):** DOST, DOST-PCHRD, National University, NICER (DOST), NICER RDC-NLPHA, AIKasalig. The assets are in
+`assets/logos/` (built by `tools/build_logos.py`, in `lg` and `sm` sizes) and rendered only through `core/brand.py`
+(`strip_html(size)`, a white strip with optical sizing via `--logo-h`).
+
+| # | Change | Where |
+|---|---|---|
+| 1 | **Loading screen:** a white logo strip at the bottom of the splash, with the line "AIKasalig · DOST-NICER RDC-NLPHA · National University". It uses the `lg` logos, sent once per session. Mobile: 3×2 wrap. | `core/splash.py` |
+| 2 | **More pronounced TALA banner:** a taller hero, a larger wordmark with a gold glow, a bigger and brighter archipelago constellation, an "AIKasalig · DOST-NICER" eyebrow pill, and a white partner band directly under the hero (`sm` logos plus "A learning module of the AIKasalig project"). Mobile: text over a dimmed constellation, logos wrap. | `ui.header()`, `views/home.py`, CSS |
+| 3 | **About the project page** (`views/about.py`, in the sidebar under How TALA works): the AIKasalig and program description, how TALA fits, a logo wall on a white card (`lg`), the four sister projects, the implementing agency and duration, and credits (project leader, TALA developer). The prose lives in `locales/pages/<lang>/about.md`. | new page |
+| 4 | **Project footer on every page:** replace the personal-looking footer with a compact white `sm` logo strip and one line naming AIKasalig, NICER RDC-NLPHA and National University, plus a small developer credit. | `ui.footer()` |
+| 5 | **Tours everywhere:** a sidebar "Watch the tour" button opens a `st.dialog` with the video. It defaults to the UI language, with a language picker inside the dialog that switches only the video. Home keeps its tour section. | `core/ui.py` |
+| 6 | Translations for new strings and `about.md` (Opus); re-record the five tours (the UI changed); update the README and screenshots. | — |
