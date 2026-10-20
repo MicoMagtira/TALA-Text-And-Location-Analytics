@@ -29,3 +29,8 @@ TALA_translation_review.xlsx
 # browser-served runtime files in static/audio/ belong in the repository.
 assets/Sound Loop/
 assets/Start Button/
+
+# Raw partner logos and private project paperwork (proposal, notarized MOA).
+# Only the processed, web-sized logos in assets/logos/ are committed; rebuild
+# them with: python tools/build_logos.py
+/logos/
