@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TALA · START meteor board</title>
+<!--
+  Prototype board for the START transition (docs/PLAN_PANEL.md, Wave 0).
+
+  Open this file in a browser (double-click is fine). It loads the real synth engine from
+  ../../core/sound_engine.js, so the START press plays the production "bulalakaw" cue and the
+  meteor is timed against it. Tune the controls, press START, and copy the readout at the bottom
+  into the plan once a combination is approved. Task F ports those constants into core/splash.py.
+
+  How the wipe works: the splash carries two CSS mask layers that are unioned (mask-composite: add).
+    1. "sweep"  opaque ahead of the meteor head, transparent behind it (--p moves along the path)
+    2. "band"   transparent within --w of the meteor's path, opaque outside it
+  The splash is hidden only where both are transparent: behind the head AND near the path. So the
+  meteor slices the night open, then the slice widens (--w grows) until Home is fully revealed.
+  "Sweep only" mode skips the band, so the whole night behind the head clears at once.
+-->
+<style>
+@property --p { syntax: "<length>"; inherits: false; initial-value: -9999px; }
+@property --w { syntax: "<length>"; inherits: false; initial-value: 0px; }
+
+:root {
+  --sky-deep: #0b0f2b; --sky-mid: #1b2559; --navy: #35408E; --navy-dark: #232a5e;
+  --gold: #F5D89E; --gold-deep: #C9962E; --ink: #c8d0f0;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; font-family: system-ui, "Segoe UI", sans-serif; }
+body { background: #111; color: #222; display: grid; grid-template-columns: 1fr 300px; }
+
+/* ---------- stage: mock Home underneath, mock splash on top ---------- */
+.stage { position: relative; overflow: hidden; height: 100vh; }
+
+.home { position: absolute; inset: 0; background: #fff; display: grid; grid-template-columns: 220px 1fr; }
+.home .side { background: #10153a; color: #e6e9f8; padding: 18px 14px; font-size: 13px; line-height: 2; }
+.home .side b { color: var(--gold); letter-spacing: .08em; font-size: 11px; display: block; margin-top: 10px; }
+.home .main { padding: 22px 28px; }
+.home .hero { background: linear-gradient(120deg, var(--sky-mid), var(--sky-deep)); color: #fff;
+  border-radius: 14px; padding: 26px 28px; border-bottom: 4px solid var(--gold); }
+.home .hero h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: .04em; }
+.home .hero p { margin: 0; color: var(--gold); }
+.home .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
+.home .card { border: 1px solid #dde1f2; border-radius: 12px; padding: 18px; }
+.home .card h3 { margin: 0 0 8px; color: var(--navy); }
+
+.splash {
+  position: absolute; inset: 0; z-index: 5;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.1rem;
+  background: radial-gradient(120% 90% at 50% 8%, var(--sky-mid) 0%, var(--sky-deep) 62%, #05071a 100%);
+  font-family: "Courier New", ui-monospace, monospace; color: var(--ink);
+  --p: -9999px; --w: 0px; --ang: 114deg; --nang: 24deg; --soft: 90px;
+}
+.splash.wiping {
+  -webkit-mask-image:
+    linear-gradient(var(--ang), transparent calc(var(--p) - var(--soft)), #000 var(--p)),
+    linear-gradient(var(--nang), #000 calc(50% - var(--w) - var(--soft)), transparent calc(50% - var(--w)),
+                                 transparent calc(50% + var(--w)), #000 calc(50% + var(--w) + var(--soft)));
+          mask-image:
+    linear-gradient(var(--ang), transparent calc(var(--p) - var(--soft)), #000 var(--p)),
+    linear-gradient(var(--nang), #000 calc(50% - var(--w) - var(--soft)), transparent calc(50% - var(--w)),
+                                 transparent calc(50% + var(--w)), #000 calc(50% + var(--w) + var(--soft)));
+  -webkit-mask-composite: source-over; mask-composite: add;
+}
+.splash.wiping.sweep-only {
+  -webkit-mask-image: linear-gradient(var(--ang), transparent calc(var(--p) - var(--soft)), #000 var(--p));
+          mask-image: linear-gradient(var(--ang), transparent calc(var(--p) - var(--soft)), #000 var(--p));
+}
+.splash.gone { visibility: hidden; }
+.splash.fade { transition: opacity .45s ease; opacity: 0; }
+
+.starfield { position: absolute; inset: 0; }
+.starfield i { position: absolute; display: block; background: #fff; border-radius: 0;
+  animation: twinkle ease-in-out infinite; opacity: var(--dim); }
+@keyframes twinkle { 0%,100% { opacity: var(--dim); transform: scale(1); } 50% { opacity: 1; transform: scale(1.35); } }
+
+.wordmark { position: relative; z-index: 2; display: flex; align-items: center; gap: 18px; }
+.wordmark span { font-size: 54px; font-weight: 700; color: #fff; letter-spacing: .18em; text-shadow: 4px 4px 0 #000; }
+.wordmark svg { filter: drop-shadow(0 0 14px var(--gold)); }
+.bar { position: relative; z-index: 2; width: min(420px, 70%); height: 16px; border: 3px solid var(--gold);
+  background: repeating-linear-gradient(90deg, var(--gold) 0 18px, transparent 18px 22px); }
+.tala-start {
+  position: relative; z-index: 3; margin-top: .3rem; cursor: pointer;
+  font-family: inherit; font-weight: 700; font-size: 1.05rem;
+  letter-spacing: .22em; text-indent: .22em; padding: .75rem 2.2rem;
+  color: #1b2559; border: 3px solid var(--gold); border-radius: 0;
+  background: linear-gradient(to bottom, var(--gold) 0 45%, var(--gold-deep) 45% 100%);
+  box-shadow: 0 0 0 3px rgba(0,0,0,.4), 0 0 18px rgba(245,216,158,.45);
+}
+.tala-start:hover, .tala-start:focus-visible { transform: translateY(-2px); outline: 3px solid #fff9de; outline-offset: 3px; }
+.tala-tri { display: inline-block; width: .55em; height: .65em; margin-right: .6em;
+  background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+
+/* ---------- the meteor: a head plus a tapering tail, drawn along +x and rotated ---------- */
+.meteor { position: absolute; left: 0; top: 0; z-index: 10; pointer-events: none;
+  width: var(--tail, 520px); height: 4px; transform-origin: 100% 50%; opacity: 0; }
+.meteor::before { /* tail */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(245,216,158,0) 0%, rgba(245,216,158,.35) 55%, rgba(255,249,222,.95) 96%, #fff 100%);
+  clip-path: polygon(0 45%, 100% 0, 100% 100%, 0 55%);
+}
+.meteor::after { /* head */
+  content: ""; position: absolute; right: -7px; top: 50%; width: 14px; height: 14px; margin-top: -7px;
+  border-radius: 50%; background: #fff;
+  box-shadow: 0 0 10px 4px #fff9de, 0 0 28px 10px rgba(245,216,158,.75), 0 0 70px 26px rgba(201,150,46,.35);
+}
+.meteor.noglow::after { box-shadow: 0 0 6px 2px #fff9de; }
+
+.spark { position: absolute; z-index: 9; width: 3px; height: 3px; background: #fff9de; pointer-events: none;
+  box-shadow: 0 0 6px 1px rgba(245,216,158,.9); }
+
+/* ---------- control panel ---------- */
+.panel { background: #171b33; color: #dfe3f5; padding: 16px 18px; overflow-y: auto; font-size: 13px; }
+.panel h2 { font-size: 15px; margin: 0 0 4px; color: var(--gold); }
+.panel p.note { margin: 0 0 14px; color: #9aa3cc; line-height: 1.45; }
+.panel label { display: block; margin: 12px 0 2px; }
+.panel label output { float: right; color: var(--gold); font-variant-numeric: tabular-nums; }
+.panel input[type=range] { width: 100%; }
+.panel .row { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+.panel select { width: 100%; padding: 4px; background: #0f1330; color: #dfe3f5; border: 1px solid #3a4277; }
+.panel button { margin-top: 14px; width: 100%; padding: 8px; background: var(--gold); color: #1b2559;
+  border: 0; font-weight: 700; cursor: pointer; }
+.panel pre { background: #0f1330; padding: 10px; white-space: pre-wrap; font-size: 12px; color: #f5d89e; margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="home" aria-hidden="true">
+    <div class="side">✦ Home<br>✦ How TALA works<b>WHERE ARE PEOPLE?</b>☆ 1 Data<br>☆ 2 Text vs GPS<br>☆ 3 Places
+      <b>WHAT IS EACH PLACE SAYING?</b>☆ 4 What sets a place apart<br>☆ 5 How each place feels<br>☆ …</div>
+    <div class="main">
+      <div class="hero"><h1>✦ TALA</h1><p>Every comment is a star. See what people say, and where they say it.</p></div>
+      <div class="cards">
+        <div class="card"><h3>Where are people?</h3>☆☆☆ · 0/3 · in order<br><br><u>Start →</u></div>
+        <div class="card"><h3>What is each place saying?</h3>☆☆☆☆☆☆ · 0/6 · any order<br><br><u>Start →</u></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="splash" id="splash">
+    <div class="starfield" id="starfield"></div>
+    <div class="wordmark"><span id="star-slot"></span><span>TALA</span></div>
+    <div class="bar"></div>
+    <button id="tala-start" class="tala-start" type="button"><i class="tala-tri" aria-hidden="true"></i>START</button>
+  </div>
+  <div class="meteor" id="meteor"></div>
+</div>
+
+<aside class="panel">
+  <h2>START meteor board</h2>
+  <p class="note">Press START (or Replay). The sound is the real engine's <code>start</code> cue, whose streak lasts
+    0.42 s before the bell chord lands. Tune until the reveal feels right, then send me the readout.</p>
+
+  <label>Wipe style
+    <select id="style">
+      <option value="slice">Slice &amp; open (the meteor cuts, the cut widens)</option>
+      <option value="sweep">Sweep (the night clears behind the head)</option>
+    </select>
+  </label>
+  <label>Meteor crossing <output id="o-dur"></output><input id="dur" type="range" min="300" max="1200" step="10" value="560"></label>
+  <label>Open (slice widens) <output id="o-open"></output><input id="open" type="range" min="200" max="1200" step="10" value="520"></label>
+  <label>Open starts at % of crossing <output id="o-at"></output><input id="at" type="range" min="0" max="100" step="5" value="45"></label>
+  <label>Angle below horizontal <output id="o-ang"></output><input id="ang" type="range" min="5" max="60" step="1" value="24"></label>
+  <label>Tail length <output id="o-tail"></output><input id="tail" type="range" min="160" max="900" step="10" value="520"></label>
+  <label>Edge softness <output id="o-soft"></output><input id="soft" type="range" min="0" max="240" step="5" value="90"></label>
+  <label>Sparkle dust <output id="o-spark"></output><input id="spark" type="range" min="0" max="60" step="1" value="22"></label>
+  <label>Easing
+    <select id="ease">
+      <option value="cubic-bezier(.55,0,.8,.3)">Accelerating (falls in)</option>
+      <option value="cubic-bezier(.3,.1,.3,1)">Smooth</option>
+      <option value="linear">Linear</option>
+    </select>
+  </label>
+  <div class="row"><input id="glow" type="checkbox" checked><span>Glowing head</span></div>
+  <div class="row"><input id="snd" type="checkbox" checked><span>Sound (engine <code>start</code> cue)</span></div>
+  <div class="row"><input id="rm" type="checkbox"><span>Simulate reduced motion (plain fade)</span></div>
+  <button id="replay" type="button">Replay</button>
+  <pre id="readout"></pre>
+</aside>
+
+<script src="../../core/sound_engine.js"></script>
+<script>
+(() => {
+'use strict';
+const $ = (id) => document.getElementById(id);
+const stage = $('stage'), splash = $('splash'), meteor = $('meteor');
+const STAR = ['.......#.......', '.......#.......', '......###......', '......###......', '..###########..',
+  '.#############.', '..###########..', '...#########...', '....#######....', '....#######....',
+  '....#######....', '...###...###...', '...##.....##...'];
+
+// Pixel star, same art as core/splash.py, drawn as merged horizontal runs.
+(function drawStar() {
+  const px = 5, rects = [];
+  STAR.forEach((row, y) => {
+    let x = 0;
+    while (x < row.length) {
+      if (row[x] !== '#') { x++; continue; }
+      const s = x; while (x < row.length && row[x] === '#') x++;
+      rects.push(`<rect x="${s}" y="${y}" width="${x - s}" height="1" fill="#F5D89E"/>`);
+    }
+  });
+  $('star-slot').outerHTML = `<svg width="${15 * px}" height="${13 * px}" viewBox="0 0 15 13" shape-rendering="crispEdges">${rects.join('')}</svg>`;
+})();
+
+// Deterministic starfield (like splash._starfield): square pixels, varied size and twinkle speed.
+(function drawStars() {
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  let html = '';
+  for (let i = 0; i < 70; i++) {
+    const s = rnd() < 0.15 ? 3 : 2;
+    html += `<i style="left:${(rnd() * 100).toFixed(2)}%;top:${(rnd() * 100).toFixed(2)}%;width:${s}px;height:${s}px;` +
+            `animation-duration:${(2 + rnd() * 3).toFixed(2)}s;--dim:${(0.25 + rnd() * 0.5).toFixed(2)}"></i>`;
+  }
+  $('starfield').innerHTML = html;
+})();
+
+// The preview should not start background music after START; only the cue matters here.
+if (window.__talaSound) window.__talaSound.setPrefs({ musicOn: false });
+
+const ctl = ['dur', 'open', 'at', 'ang', 'tail', 'soft', 'spark'];
+const units = { dur: ' ms', open: ' ms', at: ' %', ang: '°', tail: ' px', soft: ' px', spark: '' };
+function cfg() {
+  const c = {};
+  ctl.forEach((k) => { c[k] = +$(k).value; $('o-' + k).textContent = $(k).value + units[k]; });
+  c.style = $('style').value; c.ease = $('ease').value; c.glow = $('glow').checked;
+  return c;
+}
+function readout() {
+  const c = cfg();
+  $('readout').textContent =
+    `METEOR = {\n  style: "${c.style}",\n  crossing_ms: ${c.dur},\n  open_ms: ${c.open},\n  open_at: ${c.at / 100},\n` +
+    `  angle_deg: ${c.ang},\n  tail_px: ${c.tail},\n  soft_px: ${c.soft},\n  sparks: ${c.spark},\n` +
+    `  easing: "${c.ease}",\n  glow: ${c.glow},\n}`;
+}
+document.querySelectorAll('.panel input, .panel select').forEach((el) => el.addEventListener('input', readout));
+readout();
+
+let anims = [];
+function reset() {
+  anims.forEach((a) => a.cancel()); anims = [];
+  stage.querySelectorAll('.spark').forEach((s) => s.remove());
+  splash.className = 'splash';
+  splash.style.opacity = '';
+  meteor.style.opacity = 0;
+  document.body.classList.remove('tala-boot-complete');
+}
+
+function run() {
+  const c = cfg();
+  const reduced = $('rm').checked || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) { splash.classList.add('fade'); setTimeout(() => splash.classList.add('gone'), 460); return; }
+
+  const W = stage.clientWidth, H = stage.clientHeight;
+  const a = c.ang * Math.PI / 180, dx = Math.cos(a), dy = Math.sin(a);
+  // A CSS linear-gradient at (90 + angle)deg runs along (dx, dy) through the centre; its line length is L.
+  const L = W * dx + H * dy;
+  const cx = W / 2, cy = H / 2;
+  const at = (f) => [cx + (f * L - L / 2) * dx, cy + (f * L - L / 2) * dy];
+  const f0 = -0.08, f1 = 1.08;
+
+  splash.style.setProperty('--ang', (90 + c.ang) + 'deg');
+  splash.style.setProperty('--nang', c.ang + 'deg');      // normal to the path, for the band layer
+  splash.style.setProperty('--soft', c.soft + 'px');
+  splash.classList.add('wiping');
+  if (c.style === 'sweep') splash.classList.add('sweep-only');
+
+  meteor.style.setProperty('--tail', c.tail + 'px');
+  meteor.classList.toggle('noglow', !c.glow);
+  meteor.style.opacity = 1;
+
+  const timing = { duration: c.dur, easing: c.ease, fill: 'forwards' };
+  const [x0, y0] = at(f0), [x1, y1] = at(f1);
+  // The meteor's right edge is its head, so shift left by the tail length before rotating about the head.
+  const tf = (x, y) => `translate(${x - c.tail}px, ${y - 2}px) rotate(${c.ang}deg)`;
+  anims.push(meteor.animate([{ transform: tf(x0, y0) }, { transform: tf(x1, y1) }], timing));
+  anims.push(splash.animate([{ '--p': (f0 * L) + 'px' }, { '--p': (f1 * L + c.soft) + 'px' }], timing));
+
+  // Band (slice) widens from the path outwards until it covers the far corner.
+  const reach = Math.hypot(W, H) / 2 + c.soft;
+  if (c.style === 'slice') {
+    anims.push(splash.animate([{ '--w': '0px' }, { '--w': reach + 'px' }],
+      { duration: c.open, delay: c.dur * c.at / 100, easing: 'cubic-bezier(.2,.6,.3,1)', fill: 'forwards' }));
+  }
+
+  // Sparkle dust: dropped along the path as the head passes, drifting down and fading.
+  for (let i = 0; i < c.spark; i++) {
+    const f = f0 + (f1 - f0) * (i + Math.random() * 0.6) / c.spark;
+    const [sx, sy] = at(f);
+    const s = document.createElement('i');
+    s.className = 'spark';
+    s.style.left = sx + 'px'; s.style.top = sy + 'px'; s.style.opacity = 0;
+    stage.appendChild(s);
+    const when = c.dur * Math.min(1, Math.max(0, (f - f0) / (f1 - f0)));
+    anims.push(s.animate([
+      { opacity: 0, transform: 'translate(0,0) scale(1)' },
+      { opacity: 1, transform: 'translate(0,0) scale(1.3)', offset: 0.08 },
+      { opacity: 0, transform: `translate(${(Math.random() - 0.5) * 30}px, ${20 + Math.random() * 40}px) scale(.4)` },
+    ], { duration: 700 + Math.random() * 500, delay: when, easing: 'ease-out', fill: 'both' }));
+  }
+
+  const end = c.style === 'slice' ? Math.max(c.dur, c.dur * c.at / 100 + c.open) : c.dur;
+  setTimeout(() => { meteor.style.opacity = 0; splash.classList.add('gone'); }, end + 30);
+}
+
+// The engine already handles the click on #tala-start in the capture phase (plays the cue,
+// adds tala-boot-complete). This bubble-phase listener only runs the visuals.
+// A window capture listener fires before the engine's document capture listener, so the sound
+// checkbox can mute the cue for this press only.
+window.addEventListener('click', (ev) => {
+  if (!(ev.target instanceof Element) || !ev.target.closest('#tala-start') || !window.__talaSound) return;
+  window.__talaSound.setPrefs({ sfxOn: $('snd').checked });
+}, true);
+$('tala-start').addEventListener('click', run);
+$('replay').addEventListener('click', () => {
+  reset();
+  // Re-press START after the splash is back, so the replay is heard as well as seen.
+  setTimeout(() => $('tala-start').click(), 350);
+});
+})();
+</script>
+</body>
+</html>
