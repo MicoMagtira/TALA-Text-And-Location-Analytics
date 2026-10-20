@@ -343,7 +343,7 @@ About page, and clean per-language access to the tour videos, all responsive on 
 **Context** (from the proposal and MOA, kept out of git): AIKasalig is *Project 4* of the DOST **NICER** program "R&D Center
 on Natural Language Processing for Health Applications" (RDC-NLPHA) at **National University**. Its full title is "Advancing
 Responsible AI in Philippine Healthcare: A Multi-Year NLP-Driven Roadmap for Trust, Transparency, and Ethical AI", and it runs
-from January 2026 to December 2028. Its goal is a multilingual AI Trust Toolkit (NLP in Filipino, Cebuano, Ilocano,
+from February 2026 to January 2029 (dates confirmed by the user; the proposal said January–December). Its goal is a multilingual AI Trust Toolkit (NLP in Filipino, Cebuano, Ilocano,
 Hiligaynon and English), with AI-literacy modules among its outputs. TALA fits as a hands-on learning module in the same five
 languages. The other projects in the program are HealthPH+, AdvocAid PH and Bantay Lamok PH.
 

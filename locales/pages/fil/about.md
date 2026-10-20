@@ -17,12 +17,12 @@ Ang AIKasalig ang Project 4 ng programang **Research and Development Center on N
 ### Saan pumapasok ang TALA
 Ang TALA ay isang hands-on na **learning module** ng AIKasalig. Itinuturo nito ang text-and-location analytics na nasa likod ng mga toolkit na tulad nito: pagbasa sa lugar na binabanggit ng isang komento, pag-check nito laban sa GPS point, paghahambing ng sentiment at mga aspect bawat lugar, at paghahanap ng mga hotspot. Gumagana ito sa mga komento tungkol sa health services, sa parehong limang wika ng proyekto.
 
---- key: glance src: 41874588ff
+--- key: glance src: bddf5dad36
 #### Sa isang tingin
 - **Nagpapatupad na ahensiya:** National University, Manila
 - **Programa:** DOST-NICER R&D Center on Natural Language Processing for Health Applications (RDC-NLPHA)
 - **Proyekto:** AIKasalig (Project 4)
-- **Tagal:** Enero 2026 hanggang Disyembre 2028 (36 na buwan)
+- **Tagal:** Pebrero 2026 hanggang Enero 2029 (36 na buwan)
 
 --- key: sisters src: 08a8cac282
 #### Mga kapatid na proyekto sa programa

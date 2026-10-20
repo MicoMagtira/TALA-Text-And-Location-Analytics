@@ -22,7 +22,7 @@ TALA is a hands-on **learning module** of AIKasalig. It teaches the text-and-loc
 - **Implementing agency:** National University, Manila
 - **Program:** DOST-NICER R&D Center on Natural Language Processing for Health Applications (RDC-NLPHA)
 - **Project:** AIKasalig (Project 4)
-- **Duration:** January 2026 to December 2028 (36 months)
+- **Duration:** February 2026 to January 2029 (36 months)
 
 --- key: sisters
 #### Sister projects in the program

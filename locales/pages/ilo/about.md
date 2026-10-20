@@ -17,12 +17,12 @@ Ti AIKasalig ket ti Project 4 ti programa a **Research and Development Center on
 ### Sadino ti ayan ti TALA
 Ti TALA ket maysa a hands-on a **learning module** ti AIKasalig. Isursurona ti text-and-location analytics iti likudan dagiti toolkit a kas iti daytoy: panagbasa iti lugar a dakdakamaten ti maysa a komento, panangidilig iti dayta iti GPS point, panangikompara ti sentiment ken dagiti aspect iti tunggal lugar, ken panagbiruk kadagiti hotspot. Agtrabaho daytoy kadagiti komento maipapan iti health services, iti isu met laeng a lima a pagsasao ti proyekto.
 
---- key: glance src: 41874588ff
+--- key: glance src: bddf5dad36
 #### Iti maysa a kita
 - **Ahensia a mangipatpatungpal:** National University, Manila
 - **Programa:** DOST-NICER R&D Center on Natural Language Processing for Health Applications (RDC-NLPHA)
 - **Proyekto:** AIKasalig (Project 4)
-- **Kabayag:** Enero 2026 agingga Disiembre 2028 (36 a bulan)
+- **Kabayag:** Pebrero 2026 agingga Enero 2029 (36 a bulan)
 
 --- key: sisters src: 08a8cac282
 #### Dagiti kakabsat a proyekto iti programa
