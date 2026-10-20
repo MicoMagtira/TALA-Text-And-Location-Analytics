@@ -202,8 +202,8 @@ def boot_timeline(from_pct: int, seconds: float, segments: list[float]) -> None:
 def result(sig: str, params: tuple):
     """Wrap a page's main compute and play the sound its outcome deserves.
 
-    >>> with audio.result("text5", (n_topics, seed, min_df)):
-    ...     topics = nlp.lda_topics(...)
+    >>> with audio.result(tracks.SIGNATURE["p7_themes"], (k, seed)):
+    ...     themes = nlp.tfidf_kmeans(...)
 
     Unchanged ``(sig, params)`` since the last run is a plain rerun: silence.
     Changed and slow plays the page signature ``sig``; changed but fast (a cache

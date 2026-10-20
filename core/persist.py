@@ -169,18 +169,18 @@ def apply(data: dict) -> None:
         elif gen[0] == "centroids" and isinstance(gen[1], bool):
             ss[dl.SS_GEN_PARAMS] = ("centroids", gen[1])
 
-    known = {p for pages in tracks.TRACKS.values() for p in pages}
+    known = set(tracks.ALL_PAGES)   # pages from older releases (text_*, geo_*) are dropped
     done = data.get("done")
     if isinstance(done, list):
         ss[tracks.SS_DONE] = sorted({p for p in done if isinstance(p, str) and p in known})
     last = data.get("last")
     if isinstance(last, str) and last in known:
         ss[tracks.SS_LAST_PAGE] = last
-    # A returning visitor has already had the celebration for finished tracks.
-    finished = [t for t in tracks.TRACKS if tracks.track_complete(t)]
+    # A returning visitor has already had the celebration for finished chapters.
+    finished = [c for c in tracks.CHAPTERS if tracks.track_complete(c)]
     if finished:
         celebrated = set(ss.get(tracks.SS_CELEBRATED, ())) | set(finished)
-        if len(finished) == len(tracks.TRACKS):
+        if len(finished) == len(tracks.CHAPTERS):
             celebrated.add("sky")
         ss[tracks.SS_CELEBRATED] = sorted(celebrated)
 

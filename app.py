@@ -66,38 +66,28 @@ dl.ensure_loaded()
 
 if boot:
     boot.update(44, i18n.t("boot.indexing"))
-ui.sidebar_controls()
 
 # --- Navigation ---------------------------------------------------------------
-# Titles come from the catalog; the ones that should stay English (Topic
-# Modeling, Clustering (DBSCAN), Generalization) simply have no translation and
-# fall through to the English source. See core/i18n.py.
+# Streamlit's own page list is hidden; ui.sidebar_nav draws the constellation
+# (Home, How TALA works, two chapters, nine steps). The pages are still
+# registered here so routing, URLs and st.page_link work. Titles come from the
+# catalog with English fallbacks (ui.nav_title). See core/i18n.py.
 home = st.Page("views/home.py", title=i18n.t("home.nav"), icon=":material/home:", default=True)
-
-text_pages = [
-    st.Page("views/text_1_data.py", title=i18n.t("text_1_data.nav"), icon=":material/cleaning_services:"),
-    st.Page("views/text_2_wordcloud.py", title=i18n.t("text_2_wordcloud.nav"), icon=":material/cloud:"),
-    st.Page("views/text_3_sentiment.py", title=i18n.t("text_3_sentiment.nav"), icon=":material/sentiment_satisfied:"),
-    st.Page("views/text_4_ngrams.py", title=i18n.t("text_4_ngrams.nav"), icon=":material/hub:"),
-    st.Page("views/text_5_topics.py", title=i18n.t("text_5_topics.nav"), icon=":material/category:"),
-    st.Page("views/text_6_keywords.py", title=i18n.t("text_6_keywords.nav"), icon=":material/key:"),
-    st.Page("views/text_7_metrics.py", title=i18n.t("text_7_metrics.nav"), icon=":material/straighten:"),
-    st.Page("views/text_8_themes.py", title=i18n.t("text_8_themes.nav"), icon=":material/scatter_plot:"),
+learn = st.Page("views/learn.py", title=ui._t("learn.nav", "How TALA works"),
+                icon=":material/menu_book:")
+journey = [
+    st.Page(tracks.path_of(p), title=ui.nav_title(p))
+    for p in tracks.ALL_PAGES
 ]
+nav = st.navigation([home, learn, *journey], position="hidden")
 
-geo_pages = [
-    st.Page("views/geo_1_ingest.py", title=i18n.t("geo_1_ingest.nav"), icon=":material/satellite_alt:"),
-    st.Page("views/geo_2_cluster.py", title=i18n.t("geo_2_cluster.nav"), icon=":material/bubble_chart:"),
-    st.Page("views/geo_3_generalize.py", title=i18n.t("geo_3_generalize.nav"), icon=":material/grid_on:"),
-    st.Page("views/geo_4_map.py", title=i18n.t("geo_4_map.nav"), icon=":material/map:"),
-    st.Page("views/geo_5_nlp.py", title=i18n.t("geo_5_nlp.nav"), icon=":material/pin_drop:"),
-]
-
-nav = st.navigation({
-    i18n.t("nav.overview"): [home],
-    i18n.t("nav.text"): text_pages,
-    i18n.t("nav.geo"): geo_pages,
-}, expanded=True)  # all 14 pages visible; no "View more" fold hiding the geo track
+# The nav slot sits above Settings. It is drawn now (so it is there while a slow
+# page computes) and redrawn after the page runs if a step was just completed.
+nav_slot = st.sidebar.empty()
+with nav_slot.container():
+    ui.sidebar_nav(nav.url_path or "")
+done_before = tracks.done_pages()
+ui.sidebar_controls()
 
 # The music follows the page about to run. url_path is "" for Home.
 area = tracks.area_for(nav.url_path or "")
@@ -106,7 +96,7 @@ audio.mount(area)
 if boot:
     boot.update(55, i18n.t("boot.render"))
 
-# Only Home keeps the big banner; track pages carry a compact header instead.
+# Only Home keeps the big banner; journey pages carry a compact header instead.
 if area == "home":
     ui.header()
 
@@ -115,6 +105,9 @@ if area == "home":
 try:
     nav.run()
 finally:
+    if tracks.done_pages() != done_before:
+        with nav_slot.container():
+            ui.sidebar_nav(nav.url_path or "", redraw=True)
     if boot:
         boot.finish(i18n.t("boot.ready"))
     persist.save()

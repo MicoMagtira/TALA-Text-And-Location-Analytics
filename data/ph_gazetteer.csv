@@ -1,0 +1,1750 @@
+name,aliases,kind,province,region,lon,lat,pop
+Autonomous Region in Muslim Mindanao,BARMM|ARMM,region,,Autonomous Region in Muslim Mindanao,124.27734,7.53676,0
+Northern Mindanao,Region X,region,,Northern Mindanao,125.22669,8.52620,0
+Mimaropa,Region IV-B|MIMAROPA,region,,Mimaropa,121.13403,12.87014,0
+Cagayan Valley,Region II,region,,Cagayan Valley,121.73333,17.65667,0
+Soccsksargen,Region XII,region,,Soccsksargen,124.90356,6.47361,0
+Caraga,Region XIII,region,,Caraga,125.74167,9.00000,0
+Cordillera,CAR|Cordillera,region,,Cordillera,121.03322,17.08520,0
+Ilocos Region,Region I,region,,Ilocos Region,120.52083,16.97917,0
+Calabarzon,Region IV-A|CALABARZON,region,,Calabarzon,121.09000,14.31000,0
+Western Visayas,Region VI,region,,Western Visayas,122.53000,11.13000,0
+Central Luzon,Region III,region,,Central Luzon,120.79762,15.30714,0
+Central Visayas,Region VII,region,,Central Visayas,123.87085,10.35815,0
+Eastern Visayas,Region VIII,region,,Eastern Visayas,124.96204,11.51649,0
+Zamboanga Peninsula,Region IX,region,,Zamboanga Peninsula,123.13477,7.89603,0
+Davao Region,Region XI,region,,Davao Region,125.92499,7.54734,0
+Bicol Region,Region V,region,,Bicol Region,123.56389,13.31389,0
+National Capital Region,NCR|Metro Manila|Manila Metropolitan Area,region,,National Capital Region,121.04599,14.57775,0
+Zamboanga del Sur,,province,Zamboanga del Sur,Zamboanga Peninsula,123.31940,7.90430,0
+Zamboanga del Norte,,province,Zamboanga del Norte,Zamboanga Peninsula,122.66667,8.00000,0
+Zambales,,province,Zambales,Central Luzon,120.16667,15.33333,0
+Tawi-Tawi,,province,Tawi-Tawi,Autonomous Region in Muslim Mindanao,120.02650,5.20570,0
+Tarlac,,province,Tarlac,Central Luzon,120.50000,15.50000,0
+Surigao del Sur,,province,Surigao del Sur,Caraga,126.12854,8.80908,0
+Surigao del Norte,,province,Surigao del Norte,Caraga,125.52704,9.66303,0
+Sulu,,province,Sulu,Autonomous Region in Muslim Mindanao,121.00000,6.00000,0
+Sultan Kudarat,,province,Sultan Kudarat,Soccsksargen,124.28333,6.55000,0
+Southern Leyte,,province,Southern Leyte,Eastern Visayas,125.08333,10.33333,0
+South Cotabato,,province,South Cotabato,Soccsksargen,125.00060,6.25218,0
+Sorsogon,,province,Sorsogon,Bicol Region,123.91667,12.83333,0
+Siquijor,,province,Siquijor,Central Visayas,123.56667,9.18333,0
+Samar,,province,Samar,Eastern Visayas,125.00000,11.83333,0
+Romblon,,province,Romblon,Mimaropa,122.28206,12.55499,0
+Rizal,,province,Rizal,Calabarzon,121.16667,14.58333,0
+Quirino,,province,Quirino,Cagayan Valley,121.58333,16.28333,0
+Quezon,,province,Quezon,Calabarzon,121.50000,14.66667,0
+Pangasinan,,province,Pangasinan,Ilocos Region,120.33333,15.91667,0
+Pampanga,,province,Pampanga,Central Luzon,120.66667,15.06667,0
+Palawan,,province,Palawan,Mimaropa,118.75000,10.00000,0
+Nueva Vizcaya,,province,Nueva Vizcaya,Cagayan Valley,121.33333,16.33333,0
+Nueva Ecija,,province,Nueva Ecija,Central Luzon,121.00000,15.58333,0
+Northern Samar,,province,Northern Samar,Eastern Visayas,124.66667,12.33333,0
+Cotabato,,province,Cotabato,Soccsksargen,125.08333,7.01667,0
+Negros Oriental,,province,Negros Oriental,Central Visayas,123.00000,9.75000,0
+Negros Occidental,,province,Negros Occidental,Western Visayas,123.00000,10.41667,0
+Mountain Province,,province,Mountain Province,Cordillera,121.16667,17.08333,0
+Misamis Oriental,,province,Misamis Oriental,Northern Mindanao,125.00000,8.75000,0
+Misamis Occidental,,province,Misamis Occidental,Northern Mindanao,123.70000,8.33333,0
+Oriental Mindoro,,province,Oriental Mindoro,Mimaropa,121.26803,13.15555,0
+Occidental Mindoro,,province,Occidental Mindoro,Mimaropa,120.91667,13.00000,0
+Masbate,,province,Masbate,Bicol Region,123.58333,12.16667,0
+Marinduque,,province,Marinduque,Mimaropa,121.95000,13.41667,0
+Leyte,,province,Leyte,Eastern Visayas,124.82666,11.08138,0
+La Union,,province,La Union,Ilocos Region,120.41667,16.50000,0
+Lanao del Sur,,province,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.45862,7.85250,0
+Lanao del Norte,,province,Lanao del Norte,Northern Mindanao,124.00000,8.00000,0
+Laguna,,province,Laguna,Calabarzon,121.33333,14.16667,0
+Isabela,,province,Isabela,Cagayan Valley,122.00000,17.00000,0
+Iloilo,,province,Iloilo,Western Visayas,122.66667,11.00000,0
+Ilocos Sur,,province,Ilocos Sur,Ilocos Region,120.54199,17.19852,0
+Ilocos Norte,,province,Ilocos Norte,Ilocos Region,120.75000,18.16667,0
+Ifugao,,province,Ifugao,Cordillera,121.16667,16.83333,0
+Eastern Samar,,province,Eastern Samar,Eastern Visayas,125.47647,11.53054,0
+Dinagat Islands,,province,Dinagat Islands,Caraga,125.55725,10.12301,0
+Davao Oriental,,province,Davao Oriental,Davao Region,126.33333,7.16667,0
+Davao del Sur,,province,Davao del Sur,Davao Region,125.30182,6.79281,0
+Davao del Norte,,province,Davao del Norte,Davao Region,125.81543,7.45099,0
+Davao de Oro,,province,Davao de Oro,Davao Region,126.11667,7.68333,0
+Cebu,,province,Cebu,Central Visayas,123.78021,10.39597,0
+Cavite,,province,Cavite,Calabarzon,120.83333,14.25000,0
+Catanduanes,,province,Catanduanes,Bicol Region,124.25000,13.83333,0
+Capiz,,province,Capiz,Western Visayas,122.56667,11.40000,0
+Camiguin,,province,Camiguin,Northern Mindanao,124.75000,9.16667,0
+Camarines Sur,,province,Camarines Sur,Bicol Region,123.33333,13.66667,0
+Camarines Norte,,province,Camarines Norte,Bicol Region,122.75000,14.16667,0
+Cagayan,,province,Cagayan,Cagayan Valley,121.83333,18.00000,0
+Bulacan,,province,Bulacan,Central Luzon,121.08333,15.00000,0
+Bukidnon,,province,Bukidnon,Northern Mindanao,125.00000,8.00000,0
+Bohol,,province,Bohol,Central Visayas,124.16667,9.83333,0
+Biliran,,province,Biliran,Eastern Visayas,124.48333,11.48333,0
+Benguet,,province,Benguet,Cordillera,120.66667,16.50000,0
+Batangas,,province,Batangas,Calabarzon,121.08333,13.91667,0
+Batanes,,province,Batanes,Cagayan Valley,121.99410,20.45798,0
+Bataan,,province,Bataan,Central Luzon,120.41667,14.66667,0
+Basilan,,province,Basilan,Autonomous Region in Muslim Mindanao,122.11853,6.54729,0
+Aurora,,province,Aurora,Central Luzon,121.58020,15.98773,0
+Antique,,province,Antique,Western Visayas,122.08333,11.16667,0
+Albay,,province,Albay,Bicol Region,123.55000,13.21667,0
+Aklan,,province,Aklan,Western Visayas,122.33333,11.66667,0
+Agusan del Sur,,province,Agusan del Sur,Caraga,125.83333,8.50000,0
+Agusan del Norte,,province,Agusan del Norte,Caraga,125.57098,8.99360,0
+Abra,,province,Abra,Cordillera,120.75000,17.58333,0
+Kalinga,,province,Kalinga,Cordillera,121.41609,17.42599,0
+Apayao,,province,Apayao,Cordillera,121.17920,18.03359,0
+Zamboanga Sibugay,,province,Zamboanga Sibugay,Zamboanga Peninsula,122.54356,7.76270,0
+Guimaras,,province,Guimaras,Western Visayas,122.62621,10.58092,0
+Sarangani,,province,Sarangani,Soccsksargen,125.27528,5.87472,0
+Davao Occidental,,province,Davao Occidental,Davao Region,125.67000,6.08000,0
+Maguindanao del Sur,Maguindanao,province,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.49211,6.93597,0
+Maguindanao del Norte,Maguindanao,province,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.31359,7.34477,0
+Alaminos City,Alaminos,city,Pangasinan,Ilocos Region,119.96667,16.15000,100430
+Batac City,Batac,city,Ilocos Norte,Ilocos Region,120.58175,18.03730,56781
+Candon City,Candon,city,Ilocos Sur,Ilocos Region,120.45000,17.20000,61315
+Dagupan City,Dagupan,city,Pangasinan,Ilocos Region,120.33333,16.05000,174777
+Laoag City,Laoag,city,Ilocos Norte,Ilocos Region,120.58260,18.20698,112117
+San Carlos City,San Carlos,city,Pangasinan,Ilocos Region,120.33333,15.91667,208330
+San Fernando City,San Fernando,city,La Union,Ilocos Region,120.36667,16.60000,124809
+Urdaneta City,Urdaneta,city,Pangasinan,Ilocos Region,120.59101,15.97944,145935
+Vigan City,Vigan,city,Ilocos Sur,Ilocos Region,120.39071,17.56275,54498
+Cauayan City,Cauayan,city,Isabela,Cagayan Valley,121.80000,16.90000,143539
+Ilagan City,Ilagan,city,Isabela,Cagayan Valley,122.06667,17.16667,164020
+Santiago City,Santiago,city,Isabela,Cagayan Valley,121.55678,16.67847,150313
+Tuguegarao City,Tuguegarao,city,Cagayan,Cagayan Valley,121.75000,17.61667,167297
+Angeles City,Angeles,city,Pampanga,Central Luzon,120.58594,15.14538,483452
+Balanga City,Balanga,city,Bataan,Central Luzon,120.49430,14.66695,109931
+Cabanatuan City,Cabanatuan,city,Nueva Ecija,Central Luzon,120.99166,15.49127,343672
+Gapan City,Gapan,city,Nueva Ecija,Central Luzon,120.98333,15.28333,129610
+Mabalacat City,Mabalacat,city,Pampanga,Central Luzon,120.55000,15.21667,306594
+Malolos City,Malolos,city,Bulacan,Central Luzon,120.83713,14.82978,269809
+Meycauayan City,Meycauayan,city,Bulacan,Central Luzon,120.96794,14.75238,228023
+Muñoz City,Muñoz,city,Nueva Ecija,Central Luzon,120.88333,15.73333,85061
+Olongapo City,Olongapo,city,Zambales,Central Luzon,120.30647,14.82679,264903
+Palayan City,Palayan,city,Nueva Ecija,Central Luzon,121.08333,15.55000,47883
+San Fernando City,San Fernando,city,Pampanga,Central Luzon,120.70373,15.04574,377534
+San Jose City,San Jose,city,Nueva Ecija,Central Luzon,120.98333,15.80000,156714
+San Jose del Monte City,San Jose del Monte,city,Bulacan,Central Luzon,121.11667,14.81667,685688
+Tarlac City,,city,Tarlac,Central Luzon,120.61616,15.48562,401892
+Iriga City,Iriga,city,Camarines Sur,Bicol Region,123.41667,13.41667,115306
+Legaspi City,Legaspi,city,Albay,Bicol Region,123.74073,13.14125,179481
+Legazpi City,Legazpi,city,Albay,Bicol Region,123.73333,13.13333,210616
+Ligao City,Ligao,city,Albay,Bicol Region,123.55000,13.23333,119779
+Masbate City,,city,Masbate,Bicol Region,123.58333,12.33333,104011
+Naga City,Naga,city,Camarines Sur,Bicol Region,123.18333,13.61667,210545
+Sorsogon City,,city,Sorsogon,Bicol Region,123.98333,12.98333,187670
+Tabaco City,Tabaco,city,Albay,Bicol Region,123.71667,13.33333,140779
+Bacolod City,Bacolod,city,Negros Occidental,Western Visayas,122.99297,10.64706,624787
+Bago City,Bago,city,Negros Occidental,Western Visayas,122.98687,10.50029,192993
+Cadiz City,Cadiz,city,Negros Occidental,Western Visayas,123.25280,10.85149,161558
+Escalante City,Escalante,city,Negros Occidental,Western Visayas,123.50000,10.81667,97050
+Himamaylan City,Himamaylan,city,Negros Occidental,Western Visayas,122.91667,10.06667,117286
+Iloilo City,,city,Iloilo,Western Visayas,122.55000,10.75000,473728
+Kabankalan City,Kabankalan,city,Negros Occidental,Western Visayas,122.83333,9.88333,210893
+La Carlota City,La Carlota,city,Negros Occidental,Western Visayas,122.91667,10.41667,67740
+Passi City,Passi,city,Iloilo,Western Visayas,122.65000,11.15000,90313
+Roxas City,Roxas,city,Capiz,Western Visayas,122.75111,11.58528,185236
+Sagay City,Sagay,city,Negros Occidental,Western Visayas,123.38333,10.86667,152543
+San Carlos City,San Carlos,city,Negros Occidental,Western Visayas,123.41667,10.50000,133175
+Silay City,Silay,city,Negros Occidental,Western Visayas,122.96667,10.80000,136802
+Sipalay City,Sipalay,city,Negros Occidental,Western Visayas,122.50000,9.75000,73847
+Talisay City,Talisay,city,Negros Occidental,Western Visayas,123.08333,10.70000,109204
+Victorias City,Victorias,city,Negros Occidental,Western Visayas,123.13333,10.83333,90290
+Bais City,Bais,city,Negros Oriental,Central Visayas,123.11667,9.58333,88050
+Bayawan City,Bayawan,city,Negros Oriental,Central Visayas,122.80000,9.50000,126744
+Bogo City,Bogo,city,Cebu,Central Visayas,123.99838,11.02886,90187
+Canlaon City,Canlaon,city,Negros Oriental,Central Visayas,123.20000,10.36667,62785
+Carcar City,Carcar,city,Cebu,Central Visayas,123.63333,10.11667,140308
+Cebu City,,city,Cebu,Central Visayas,123.90000,10.30000,965332
+Danao City,Danao,city,Cebu,Central Visayas,123.94034,10.54006,161307
+Dumaguete City,Dumaguete,city,Negros Oriental,Central Visayas,123.29954,9.30010,142171
+Guihulngan City,Guihulngan,city,Negros Oriental,Central Visayas,123.20000,10.18333,106576
+Lapu-Lapu City,Lapu-Lapu,city,Cebu,Central Visayas,123.98878,10.26889,497604
+Mandaue City,Mandaue,city,Cebu,Central Visayas,123.93333,10.33333,364482
+Naga City,Naga,city,Cebu,Central Visayas,123.71667,10.25000,138727
+Tagbilaran City,Tagbilaran,city,Bohol,Central Visayas,123.86933,9.67210,106120
+Talisay City,Talisay,city,Cebu,Central Visayas,123.81667,10.30000,263832
+Tanjay City,Tanjay,city,Negros Oriental,Central Visayas,123.05000,9.53333,84593
+Toledo City,Toledo,city,Cebu,Central Visayas,123.69614,10.35879,207314
+Baybay City,Baybay,city,Leyte,Eastern Visayas,124.83333,10.68333,114708
+Borongan City,Borongan,city,Eastern Samar,Eastern Visayas,125.35869,11.59825,71431
+Calbayog City,Calbayog,city,Samar,Eastern Visayas,124.60000,12.06667,187848
+Catbalogan City,Catbalogan,city,Samar,Eastern Visayas,124.91667,11.85000,107896
+Maasin City,Maasin,city,Southern Leyte,Eastern Visayas,124.85494,10.18616,85486
+Ormoc City,Ormoc,city,Leyte,Eastern Visayas,124.61667,11.00000,238545
+Tacloban City,Tacloban,city,Leyte,Eastern Visayas,124.95536,11.27135,259353
+Dapitan City,Dapitan,city,Zamboanga del Norte,Zamboanga Peninsula,123.43680,8.59290,87699
+Dipolog City,Dipolog,city,Zamboanga del Norte,Zamboanga Peninsula,123.35290,8.58650,136528
+Pagadian City,Pagadian,city,Zamboanga del Sur,Zamboanga Peninsula,123.41667,7.81667,206483
+Zamboanga City,Zamboanga,city,Zamboanga del Sur,Zamboanga Peninsula,122.06961,6.91348,1018849
+Cagayan de Oro City,Cagayan de Oro|CDO,city,Misamis Oriental,Northern Mindanao,124.68889,8.46917,741617
+El Salvador City,El Salvador,city,Misamis Oriental,Northern Mindanao,124.49915,8.51362,62126
+Gingoog City,Gingoog,city,Misamis Oriental,Northern Mindanao,125.11667,8.83333,138895
+Iligan City,Iligan,city,Lanao del Norte,Northern Mindanao,124.26104,8.23137,342618
+Malaybalay City,Malaybalay,city,Bukidnon,Northern Mindanao,125.14225,8.13989,195046
+Oroquieta City,Oroquieta,city,Misamis Occidental,Northern Mindanao,123.71110,8.44460,71373
+Ozamiz City,Ozamiz|Ozamis,city,Misamis Occidental,Northern Mindanao,123.76890,8.15130,143620
+Tangub City,Tangub,city,Misamis Occidental,Northern Mindanao,123.68970,8.09190,68419
+Valencia City,Valencia,city,Bukidnon,Northern Mindanao,125.00000,7.95000,223620
+Davao City,Davao,city,Davao del Sur,Davao Region,125.43949,7.19219,1848947
+Digos City,Digos,city,Davao del Sur,Davao Region,125.35000,6.83333,192063
+Mati City,Mati,city,Davao Oriental,Davao Region,126.24592,6.75381,148672
+Panabo City,Panabo,city,Davao del Norte,Davao Region,125.60607,7.33038,211242
+Samal City,Samal,city,Davao del Norte,Davao Region,125.75000,7.08333,119701
+Tagum City,Tagum,city,Davao del Norte,Davao Region,125.83333,7.40000,300042
+General Santos City,General Santos,city,South Cotabato,Soccsksargen,125.16667,6.11667,722059
+Kidapawan City,Kidapawan,city,Cotabato,Soccsksargen,125.08333,7.03333,160864
+Koronadal City,Koronadal,city,South Cotabato,Soccsksargen,124.88840,6.49162,201844
+Tacurong City,Tacurong,city,Sultan Kudarat,Soccsksargen,124.67300,6.69133,116945
+Bayugan City,Bayugan,city,Agusan del Sur,Caraga,125.78175,8.78564,110313
+Bislig City,Bislig,city,Surigao del Sur,Caraga,126.30947,8.20996,99872
+Butuan City,Butuan,city,Agusan del Norte,Caraga,125.53333,8.95000,385530
+Cabadbaran City,Cabadbaran,city,Agusan del Norte,Caraga,125.65543,9.13748,82343
+Surigao City,Surigao,city,Surigao del Norte,Caraga,125.50000,9.75000,177333
+Tandag City,Tandag,city,Surigao del Sur,Caraga,126.08333,9.08333,63098
+Cotabato City,,city,,Autonomous Region in Muslim Mindanao,124.24639,7.22361,383383
+Dinaig City,Dinaig,city,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.20836,7.16985,116768
+Isabela City,,city,Basilan,Autonomous Region in Muslim Mindanao,121.96781,6.69973,151297
+Lamitan City,Lamitan,city,Basilan,Autonomous Region in Muslim Mindanao,122.10000,6.63333,116652
+Marawi City,Marawi,city,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.29585,8.02769,259993
+Baguio City,Baguio,city,Benguet,Cordillera,120.60000,16.41667,368426
+Tabuk City,Tabuk,city,Kalinga,Cordillera,121.40000,17.41667,122771
+Antipolo City,Antipolo,city,Rizal,Calabarzon,121.12530,14.62245,913712
+Bacoor City,Bacoor,city,Cavite,Calabarzon,120.97184,14.41854,661381
+Batangas City,,city,Batangas,Calabarzon,121.05000,13.75000,358267
+Biñan City,Biñan,city,Laguna,Calabarzon,121.07654,14.30506,584479
+Cabuyao City,Cabuyao,city,Laguna,Calabarzon,121.11141,14.23905,365202
+Calamba City,Calamba,city,Laguna,Calabarzon,121.11704,14.19504,575046
+Dasmariñas City,Dasmariñas,city,Cavite,Calabarzon,120.96452,14.32090,744511
+General Trias City,General Trias,city,Cavite,Calabarzon,120.90000,14.33333,482453
+Imus City,Imus,city,Cavite,Calabarzon,120.93333,14.40000,481949
+Lipa City,Lipa,city,Batangas,Calabarzon,121.16667,13.95000,387392
+Lucena City,Lucena,city,Quezon,Calabarzon,121.61667,13.93333,280331
+San Pablo City,San Pablo,city,Laguna,Calabarzon,121.31667,14.06667,300166
+San Pedro City,San Pedro,city,Laguna,Calabarzon,121.03837,14.35182,348968
+Santa Rosa City,Santa Rosa,city,Laguna,Calabarzon,121.09314,14.27297,430920
+Tagaytay City,Tagaytay,city,Cavite,Calabarzon,120.93372,14.10594,87811
+Tanauan City,Tanauan,city,Batangas,Calabarzon,121.10042,14.10127,209697
+Tayabas City,Tayabas,city,Quezon,Calabarzon,121.61667,14.05000,115318
+Trece Martires City,Trece Martires,city,Cavite,Calabarzon,120.87161,14.27861,227892
+Calapan City,Calapan,city,Oriental Mindoro,Mimaropa,121.16667,13.35000,148558
+Puerto Princesa City,Puerto Princesa,city,Palawan,Mimaropa,118.73333,9.73333,316384
+Caloocan City,Caloocan,city,Metro Manila,National Capital Region,120.96667,14.65000,1712945
+Las Piñas City,Las Piñas,city,Metro Manila,National Capital Region,120.98333,14.48333,615549
+Makati City,Makati,city,Metro Manila,National Capital Region,121.01930,14.55480,309770
+Malabon City,Malabon,city,Metro Manila,National Capital Region,120.96531,14.66651,389929
+Mandaluyong City,Mandaluyong,city,Metro Manila,National Capital Region,121.03333,14.58333,465902
+Manila City,Manila,city,Metro Manila,National Capital Region,120.98220,14.60420,1600000
+Marikina City,Marikina,city,Metro Manila,National Capital Region,121.10000,14.63333,471323
+Muntinlupa City,Muntinlupa,city,Metro Manila,National Capital Region,121.05000,14.38333,552225
+Navotas City,Navotas,city,Metro Manila,National Capital Region,120.94110,14.66871,252878
+Parañaque City,Parañaque,city,Metro Manila,National Capital Region,120.98333,14.50000,703245
+Pasay City,Pasay,city,Metro Manila,National Capital Region,121.00000,14.55000,453186
+Pasig City,Pasig,city,Metro Manila,National Capital Region,121.08333,14.58333,853050
+Quezon City,QC,city,Metro Manila,National Capital Region,121.03333,14.63333,3084270
+San Juan City,San Juan,city,Metro Manila,National Capital Region,121.03670,14.60247,134312
+Taguig City,Taguig,city,Metro Manila,National Capital Region,121.06667,14.53333,1308085
+Valenzuela City,Valenzuela,city,Metro Manila,National Capital Region,120.96667,14.71667,725173
+Rodriguez,,municipality,Rizal,Calabarzon,121.23333,14.78333,451383
+Taytay,,municipality,Rizal,Calabarzon,121.15000,14.55000,397111
+Cainta,,municipality,Rizal,Calabarzon,121.11667,14.58333,386321
+Buldon,,municipality,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.45000,7.55000,383383
+Tanza,,municipality,Cavite,Calabarzon,120.83867,14.34243,339308
+Santa Maria,,municipality,Bulacan,Central Luzon,121.00000,14.83333,322525
+Binangonan,,municipality,Rizal,Calabarzon,121.20117,14.48043,321281
+Silang,,municipality,Cavite,Calabarzon,120.99408,14.22046,313145
+San Mateo,,municipality,Rizal,Calabarzon,121.15000,14.68333,276449
+Marilao,,municipality,Bulacan,Central Luzon,120.95000,14.76667,263507
+Naic,,municipality,Cavite,Calabarzon,120.79790,14.29622,236978
+Santo Tomas,,municipality,Batangas,Calabarzon,121.18742,14.07219,226772
+Lubao,,municipality,Pampanga,Central Luzon,120.55000,14.91667,190355
+Mexico,,municipality,Pampanga,Central Luzon,120.68333,15.11667,187597
+San Miguel,,municipality,Bulacan,Central Luzon,121.01028,15.17354,179792
+Concepcion,,municipality,Tarlac,Central Luzon,120.66667,15.33333,178549
+Polomolok,,municipality,South Cotabato,Soccsksargen,125.08333,6.28333,176671
+Baliuag,,municipality,Bulacan,Central Luzon,120.88333,14.93333,174194
+Sariaya,,municipality,Quezon,Calabarzon,121.50000,13.95000,172018
+Liloan,,municipality,Cebu,Central Visayas,123.97167,10.42156,158387
+Mariveles,,municipality,Bataan,Central Luzon,120.48333,14.48333,156200
+Minglanilla,,municipality,Cebu,Central Visayas,123.76667,10.26667,155934
+Gen. Mariano Alvarez,,municipality,Cavite,Calabarzon,121.01447,14.31016,155143
+Consolacion,,municipality,Cebu,Central Visayas,123.94810,10.39758,153931
+Jolo,,municipality,Sulu,Autonomous Region in Muslim Mindanao,121.00422,6.05300,152067
+Arayat,,municipality,Pampanga,Central Luzon,120.76670,15.18330,150949
+Santiago,,municipality,Ilocos Sur,Ilocos Region,120.46667,17.28333,150313
+Floridablanca,,municipality,Pampanga,Central Luzon,120.48333,15.00000,146095
+Tanay,,municipality,Rizal,Calabarzon,121.35000,14.56667,145597
+Malasiqui,,municipality,Pangasinan,Ilocos Region,120.46667,15.90000,144344
+San Jose,,municipality,Occidental Mindoro,Mimaropa,121.11667,12.45000,143495
+La Trinidad,,municipality,Benguet,Cordillera,120.59523,16.47448,142925
+Nasugbu,,municipality,Batangas,Calabarzon,120.68333,14.10000,141063
+Porac,,municipality,Pampanga,Central Luzon,120.50000,15.10000,140751
+Norzagaray,,municipality,Bulacan,Central Luzon,121.18197,14.87807,140697
+Capas,,municipality,Tarlac,Central Luzon,120.46667,15.35000,140202
+Daraga,,municipality,Albay,Bicol Region,123.68333,13.13333,138000
+Guagua,,municipality,Pampanga,Central Luzon,120.60000,14.98333,137948
+Candelaria,,municipality,Quezon,Calabarzon,121.40000,13.95000,137933
+Talavera,,municipality,Nueva Ecija,Central Luzon,120.93333,15.61667,137444
+Hagonoy,,municipality,Bulacan,Central Luzon,120.71667,14.80000,136673
+Santa Cruz,,municipality,Metro Manila,National Capital Region,120.98265,14.61174,132193
+Bongao,,municipality,Tawi-Tawi,Autonomous Region in Muslim Mindanao,119.78333,5.08333,131887
+Guimba,,municipality,Nueva Ecija,Central Luzon,120.76667,15.66667,131468
+Santo Tomas,,municipality,Davao del Norte,Davao Region,125.60000,7.51667,131100
+Bayambang,,municipality,Pangasinan,Ilocos Region,120.43333,15.78333,129506
+Santa Cruz,,municipality,Laguna,Calabarzon,121.41060,14.27370,126844
+Sultan Kudarat,,municipality,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.31667,7.23333,124965
+Magalang,,municipality,Pampanga,Central Luzon,120.68333,15.23333,124188
+Dinalupihan,,municipality,Bataan,Central Luzon,120.44801,14.87072,124188
+Candaba,,municipality,Pampanga,Central Luzon,120.87408,15.10375,124019
+Kawit,,municipality,Cavite,Calabarzon,120.90153,14.44605,123631
+Parang,,municipality,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.30000,7.33333,123209
+San Ildefonso,,municipality,Bulacan,Central Luzon,120.98330,15.06670,123140
+Calumpit,,municipality,Bulacan,Central Luzon,120.77993,14.89263,122187
+Apalit,,municipality,Pampanga,Central Luzon,120.78333,14.95000,121057
+Plaridel,,municipality,Bulacan,Central Luzon,120.88362,14.88129,120939
+Bocaue,,municipality,Bulacan,Central Luzon,120.94193,14.78985,119675
+Malita,,municipality,Davao Occidental,Davao Region,125.53333,6.35000,118438
+Manolo Fortich,,municipality,Bukidnon,Northern Mindanao,124.86667,8.38333,118075
+Midsayap,,municipality,Cotabato,Soccsksargen,124.50000,7.11667,117365
+Los Baños,,municipality,Laguna,Calabarzon,121.22193,14.15700,117030
+Glan,,municipality,Sarangani,Soccsksargen,125.33333,5.78333,117017
+Subic,,municipality,Zambales,Central Luzon,120.23333,14.90000,116788
+Datu Odin Sinsuat,,municipality,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.26667,7.08333,116768
+Rosario,,municipality,Batangas,Calabarzon,121.25000,13.83333,116764
+San Juan,,municipality,Batangas,Calabarzon,121.36667,13.75000,115118
+Quezon,,municipality,Bukidnon,Northern Mindanao,125.13333,7.73333,114521
+Mangaldan,,municipality,Pangasinan,Ilocos Region,120.40000,16.06667,113302
+Angono,,municipality,Rizal,Calabarzon,121.16667,14.53333,113283
+Libmanan,,municipality,Camarines Sur,Bicol Region,122.98333,13.66667,112994
+Rosario,,municipality,Cavite,Calabarzon,120.86035,14.41621,112572
+Carmona,,municipality,Cavite,Calabarzon,121.03979,14.30279,112140
+Pulilan,,municipality,Bulacan,Central Luzon,120.85623,14.91379,111384
+Cauayan,,municipality,Negros Occidental,Western Visayas,122.55000,9.90000,110899
+Maramag,,municipality,Bukidnon,Northern Mindanao,124.95000,7.81667,109864
+Naujan,,municipality,Oriental Mindoro,Mimaropa,121.20000,13.25000,109122
+Lingayen,,municipality,Pangasinan,Ilocos Region,120.23333,16.01667,108510
+Malungon,,municipality,Sarangani,Soccsksargen,125.29194,6.30583,108429
+Labo,,municipality,Camarines Norte,Bicol Region,122.75000,14.13333,108319
+San Rafael,,municipality,Bulacan,Central Luzon,120.96674,14.99330,108256
+Talipao,,municipality,Sulu,Autonomous Region in Muslim Mindanao,121.11667,5.98333,107901
+Tiaong,,municipality,Quezon,Calabarzon,121.31667,13.96667,107666
+Daet,,municipality,Camarines Norte,Bicol Region,122.95363,14.10707,106465
+Indanan,,municipality,Sulu,Autonomous Region in Muslim Mindanao,120.96028,5.99429,105384
+T'Boli,,municipality,South Cotabato,Soccsksargen,124.78333,6.15000,105296
+Sindangan,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.02450,8.22400,104514
+Pili,,municipality,Camarines Sur,Bicol Region,123.30000,13.58333,101668
+Isulan,,municipality,Sultan Kudarat,Soccsksargen,124.43333,6.63333,101455
+Calasiao,,municipality,Pangasinan,Ilocos Region,120.35000,16.00000,100686
+Siasi,,municipality,Sulu,Autonomous Region in Muslim Mindanao,120.86000,5.54230,100076
+Bulan,,municipality,Sorsogon,Bicol Region,123.93333,12.66667,100076
+Oton,,municipality,Iloilo,Western Visayas,122.46667,10.73333,99920
+Guiguinto,,municipality,Bulacan,Central Luzon,120.90000,14.85000,99730
+Cavite,,municipality,Cavite,Calabarzon,120.88974,14.47948,98673
+M'Lang,,municipality,Cotabato,Soccsksargen,124.93333,6.95000,98195
+Balamban,,municipality,Cebu,Central Visayas,123.78333,10.46667,98170
+Gerona,,municipality,Tarlac,Central Luzon,120.56667,15.58333,97937
+Catarman,,municipality,Northern Samar,Eastern Visayas,124.63333,12.40000,97738
+Balayan,,municipality,Batangas,Calabarzon,120.73200,13.96640,96939
+Monkayo,,municipality,Davao de Oro,Davao Region,126.10000,7.86667,96405
+Ipil,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.58579,7.77988,96363
+Lopez,,municipality,Quezon,Calabarzon,122.28333,13.83333,96006
+Daanbantayan,,municipality,Cebu,Central Visayas,124.01667,11.21667,95080
+Lemery,,municipality,Batangas,Calabarzon,120.88333,13.96667,94736
+Bauan,,municipality,Batangas,Calabarzon,120.97046,13.79982,94016
+Lebak,,municipality,Sultan Kudarat,Soccsksargen,124.15000,6.68333,93312
+Paniqui,,municipality,Tarlac,Central Luzon,120.56667,15.66667,92606
+Patikul,,municipality,Sulu,Autonomous Region in Muslim Mindanao,121.10000,6.06667,92600
+Santa Barbara,,municipality,Pangasinan,Ilocos Region,120.41667,15.98333,92420
+Calaca,,municipality,Batangas,Calabarzon,120.81667,13.98333,92281
+Banga,,municipality,South Cotabato,Soccsksargen,124.75648,6.44869,91536
+Surallah,,municipality,South Cotabato,Soccsksargen,124.71915,6.33740,91412
+Pantukan,,municipality,Davao de Oro,Davao Region,125.95000,7.15000,91312
+Baras,,municipality,Rizal,Calabarzon,121.26667,14.53333,91099
+Santa Cruz,,municipality,Davao del Sur,Davao Region,125.38333,6.90000,90987
+Baggao,,municipality,Cagayan,Cagayan Valley,121.96667,17.91667,90723
+Hinigaran,,municipality,Negros Occidental,Western Visayas,122.90000,10.26667,90403
+Prosperidad,,municipality,Agusan del Sur,Caraga,125.90798,8.64652,90162
+Murcia,,municipality,Negros Occidental,Western Visayas,123.10000,10.58333,90123
+Alabel,,municipality,Sarangani,Soccsksargen,125.35722,6.14667,90120
+Solana,,municipality,Cagayan,Cagayan Valley,121.66667,17.70000,89840
+Calauan,,municipality,Laguna,Calabarzon,121.30726,14.15127,89670
+Cabiao,,municipality,Nueva Ecija,Central Luzon,120.83330,15.21670,89497
+Compostela,,municipality,Davao de Oro,Davao Region,126.15468,7.68872,89224
+Polangui,,municipality,Albay,Bicol Region,123.48333,13.31667,89176
+Aroroy,,municipality,Masbate,Bicol Region,123.36667,12.46667,89154
+Pandi,,municipality,Bulacan,Central Luzon,120.96683,14.87462,89075
+Calabanga,,municipality,Camarines Sur,Bicol Region,123.23333,13.71667,88918
+Makilala,,municipality,Cotabato,Soccsksargen,125.16667,6.90000,88522
+Binmaley,,municipality,Pangasinan,Ilocos Region,120.30000,16.00000,88006
+San Fabian,,municipality,Pangasinan,Ilocos Region,120.45000,16.15000,87714
+Maco,,municipality,Davao de Oro,Davao Region,125.93333,7.40000,87680
+Lake Sebu,,municipality,South Cotabato,Soccsksargen,124.58994,6.24442,87442
+Bantayan,,municipality,Cebu,Central Visayas,123.73333,11.20000,87394
+Camiling,,municipality,Tarlac,Central Luzon,120.41667,15.70000,87319
+Nabua,,municipality,Camarines Sur,Bicol Region,123.33333,13.38333,86458
+Pinamalayan,,municipality,Oriental Mindoro,Mimaropa,121.41667,13.00000,86172
+Nabunturan,,municipality,Davao de Oro,Davao Region,126.01667,7.58333,85949
+Maimbung,,municipality,Sulu,Autonomous Region in Muslim Mindanao,121.03333,5.93333,85681
+Carmen,,municipality,Davao del Norte,Davao Region,125.68333,7.40000,85423
+Taytay,,municipality,Palawan,Mimaropa,119.51486,10.81729,85258
+San Antonio,,municipality,Nueva Ecija,Central Luzon,120.81667,15.35000,84958
+Bolinao,,municipality,Pangasinan,Ilocos Region,119.88333,16.33333,84658
+Guinobatan,,municipality,Albay,Bicol Region,123.56667,13.16667,84420
+Siaton,,municipality,Negros Oriental,Central Visayas,123.03333,9.11667,84169
+Jaen,,municipality,Nueva Ecija,Central Luzon,120.90000,15.36667,83895
+Calatrava,,municipality,Negros Occidental,Western Visayas,123.36667,10.65000,83813
+Palimbang,,municipality,Sultan Kudarat,Soccsksargen,124.21667,6.31667,83633
+Laak,,municipality,Davao de Oro,Davao Region,125.83333,7.86667,83632
+Sablayan,,municipality,Occidental Mindoro,Mimaropa,121.03333,12.88333,83169
+Bulakan,,municipality,Bulacan,Central Luzon,120.87614,14.76627,83101
+Parang,,municipality,Sulu,Autonomous Region in Muslim Mindanao,120.92114,5.93672,83092
+Mabinay,,municipality,Negros Oriental,Central Visayas,122.88333,9.70000,82953
+Macabebe,,municipality,Pampanga,Central Luzon,120.71774,14.89835,82933
+Malapatan,,municipality,Sarangani,Soccsksargen,125.40000,6.00000,82577
+La Castellana,,municipality,Negros Occidental,Western Visayas,123.06667,10.35000,82500
+Barili,,municipality,Cebu,Central Visayas,123.53333,10.11667,82427
+Ubay,,municipality,Bohol,Central Visayas,124.46667,10.00000,82179
+Pagbilao,,municipality,Quezon,Calabarzon,121.73333,13.98333,82132
+Limay,,municipality,Bataan,Central Luzon,120.55000,14.53333,81960
+Talakag,,municipality,Bukidnon,Northern Mindanao,124.73333,8.13333,81932
+Matalam,,municipality,Cotabato,Soccsksargen,124.91667,7.20000,81355
+San Jose,,municipality,Batangas,Calabarzon,121.08333,13.88333,81170
+Kapalong,,municipality,Davao del Norte,Davao Region,125.57397,7.83669,80731
+Lambunao,,municipality,Iloilo,Western Visayas,122.40000,11.11667,80724
+Kalibo,,municipality,Aklan,Western Visayas,122.36667,11.68333,80605
+Narra,,municipality,Palawan,Mimaropa,118.40000,9.31667,80572
+Hermosa,,municipality,Bataan,Central Luzon,120.45609,14.81694,80557
+Tagoloan,,municipality,Misamis Oriental,Northern Mindanao,124.78333,8.51667,80424
+Santa Catalina,,municipality,Negros Oriental,Central Visayas,122.96667,9.25000,80382
+Palo,,municipality,Leyte,Eastern Visayas,124.96667,11.13333,80291
+Santa Rosa,,municipality,Nueva Ecija,Central Luzon,121.00000,15.45000,80258
+San Francisco,,municipality,Agusan del Sur,Caraga,125.93333,8.50000,79718
+Mangatarem,,municipality,Pangasinan,Ilocos Region,120.26667,15.73333,79648
+Carmen,,municipality,Cotabato,Soccsksargen,124.76667,7.38333,79140
+Echague,,municipality,Isabela,Cagayan Valley,121.83333,16.63333,79094
+Umingan,,municipality,Pangasinan,Ilocos Region,120.79996,15.91103,78940
+Pototan,,municipality,Iloilo,Western Visayas,122.63187,10.92957,78919
+Tupi,,municipality,South Cotabato,Soccsksargen,124.95000,6.31667,78599
+Argao,,municipality,Cebu,Central Visayas,123.53333,9.88333,78111
+Buhi,,municipality,Camarines Sur,Bicol Region,123.51667,13.43333,78104
+Kabacan,,municipality,Cotabato,Soccsksargen,124.81667,7.11667,77945
+Infanta,,municipality,Quezon,Calabarzon,121.65000,14.73333,77676
+Bauang,,municipality,La Union,Ilocos Region,120.36667,16.50000,77670
+Bongabong,,municipality,Oriental Mindoro,Mimaropa,121.36667,12.71667,77540
+Tumauini,,municipality,Isabela,Cagayan Valley,121.88333,17.26667,77153
+Balagtas,,municipality,Bulacan,Central Luzon,120.92247,14.82924,77018
+Lambayong,,municipality,Sultan Kudarat,Soccsksargen,124.65000,6.73333,77013
+Pilar,,municipality,Sorsogon,Bicol Region,123.68333,12.96667,76908
+Balingasag,,municipality,Misamis Oriental,Northern Mindanao,124.83333,8.75000,76877
+Pinamungahan,,municipality,Cebu,Central Visayas,123.61667,10.26667,76568
+Catanauan,,municipality,Quezon,Calabarzon,122.31667,13.63333,76250
+San Fernando,,municipality,Cebu,Central Visayas,123.66667,10.20000,76110
+Manaoag,,municipality,Pangasinan,Ilocos Region,120.48333,16.03333,76045
+Bugallon,,municipality,Pangasinan,Ilocos Region,120.18333,15.91667,76027
+Bula,,municipality,Camarines Sur,Bicol Region,123.25000,13.46667,75943
+Dalaguete,,municipality,Cebu,Central Visayas,123.48333,9.78333,75937
+Bataraza,,municipality,Palawan,Mimaropa,117.46667,8.51667,75468
+Dumangas,,municipality,Iloilo,Western Visayas,122.71667,10.81667,75239
+Pozorrubio,,municipality,Pangasinan,Ilocos Region,120.56667,16.13333,75143
+Virac,,municipality,Catanduanes,Bicol Region,124.21667,13.63333,75135
+Libon,,municipality,Albay,Bicol Region,123.38333,13.26667,75073
+Alicia,,municipality,Isabela,Cagayan Valley,121.66667,16.81667,74699
+Pavia,,municipality,Iloilo,Western Visayas,122.53448,10.76958,74594
+Malvar,,municipality,Batangas,Calabarzon,121.15108,14.03557,74565
+Carles,,municipality,Iloilo,Western Visayas,123.18446,11.52049,74177
+Esperanza,,municipality,Sultan Kudarat,Soccsksargen,124.43731,6.68835,73822
+Don Carlos,,municipality,Bukidnon,Northern Mindanao,124.96667,7.71667,73592
+Camalig,,municipality,Albay,Bicol Region,123.63769,13.13994,73087
+Orani,,municipality,Bataan,Central Luzon,120.50000,14.80000,72941
+Cordova,,municipality,Cebu,Central Visayas,123.95000,10.25000,72915
+Bayombong,,municipality,Nueva Vizcaya,Cagayan Valley,121.13333,16.48333,72890
+Kapatagan,,municipality,Lanao del Norte,Northern Mindanao,123.73490,7.87420,72762
+Binalbagan,,municipality,Negros Occidental,Western Visayas,122.99338,10.13320,72594
+Jose Abad Santos,,municipality,Davao Occidental,Davao Region,125.51667,5.83333,72552
+Pililla,,municipality,Rizal,Calabarzon,121.33333,14.45000,72503
+Gumaca,,municipality,Quezon,Calabarzon,122.11667,13.86667,72454
+Bacacay,,municipality,Albay,Bicol Region,123.78333,13.30000,72298
+Morong,,municipality,Rizal,Calabarzon,121.21667,14.53333,72262
+Aliaga,,municipality,Nueva Ecija,Central Luzon,120.86667,15.51667,72134
+Rizal,,municipality,Nueva Ecija,Central Luzon,121.10000,15.68333,71749
+Goa,,municipality,Camarines Sur,Bicol Region,123.41667,13.71667,71651
+Alamada,,municipality,Cotabato,Soccsksargen,124.60000,7.48333,71523
+Victoria,,municipality,Tarlac,Central Luzon,120.70000,15.58333,71495
+Talibon,,municipality,Bohol,Central Visayas,124.28333,10.11667,71450
+Buenavista,,municipality,Agusan del Norte,Caraga,125.40000,8.86667,70691
+Mauban,,municipality,Quezon,Calabarzon,121.70000,14.31667,70135
+Castillejos,,municipality,Zambales,Central Luzon,120.20000,14.93333,70105
+Indang,,municipality,Cavite,Calabarzon,120.87283,14.19128,70092
+Tinambac,,municipality,Camarines Sur,Bicol Region,123.35000,13.85000,69860
+Bagumbayan,,municipality,Sultan Kudarat,Soccsksargen,124.48454,6.45075,69830
+Roxas,,municipality,Palawan,Mimaropa,119.35000,10.33333,69729
+San Jose,,municipality,Antique,Western Visayas,121.95000,10.76667,69522
+Bamban,,municipality,Tarlac,Central Luzon,120.46693,15.24531,69466
+Coron,,municipality,Palawan,Mimaropa,120.20000,11.93333,69439
+San Pascual,,municipality,Batangas,Calabarzon,121.03145,13.81758,69419
+Bongabon,,municipality,Nueva Ecija,Central Luzon,121.23333,15.66667,69376
+Solano,,municipality,Nueva Vizcaya,Cagayan Valley,121.20000,16.53333,69296
+San Leonardo,,municipality,Nueva Ecija,Central Luzon,120.95000,15.36667,69180
+Sibulan,,municipality,Negros Oriental,Central Visayas,123.13333,9.36667,69092
+Calauag,,municipality,Quezon,Calabarzon,122.28000,14.05445,68999
+Lantapan,,municipality,Bukidnon,Northern Mindanao,125.05000,8.01667,68777
+Kiamba,,municipality,Sarangani,Soccsksargen,124.70000,6.01667,68745
+Lupon,,municipality,Davao Oriental,Davao Region,126.12989,7.08141,68717
+Cawayan,,municipality,Masbate,Bicol Region,123.75726,12.01873,68510
+Santa Barbara,,municipality,Iloilo,Western Visayas,122.55000,10.85000,68467
+Aparri,,municipality,Cagayan,Cagayan Valley,121.61667,18.33333,68368
+Tuburan,,municipality,Cebu,Central Visayas,123.86667,10.71667,68307
+Miagao,,municipality,Iloilo,Western Visayas,122.18333,10.70000,68163
+Oas,,municipality,Albay,Bicol Region,123.35000,13.15000,67960
+Maasim,,municipality,Sarangani,Soccsksargen,124.93333,5.93333,67907
+Angat,,municipality,Bulacan,Central Luzon,121.00880,14.93041,67862
+San Remigio,,municipality,Cebu,Central Visayas,123.93333,11.00000,67850
+Lala,,municipality,Lanao del Norte,Northern Mindanao,123.76280,7.95520,67727
+Rosales,,municipality,Pangasinan,Ilocos Region,120.62335,15.88765,67510
+Janiuay,,municipality,Iloilo,Western Visayas,122.42009,10.99627,67509
+Teresa,,municipality,Rizal,Calabarzon,121.23333,14.58333,67454
+Pateros,,municipality,Metro Manila,National Capital Region,121.06948,14.54510,67319
+Pikit,,municipality,Cotabato,Soccsksargen,124.63333,7.10000,67220
+Sibalom,,municipality,Antique,Western Visayas,122.06667,10.76667,67155
+Bustos,,municipality,Bulacan,Central Luzon,120.93333,14.93333,67039
+Moncada,,municipality,Tarlac,Central Luzon,120.54870,15.75832,66925
+Opol,,municipality,Misamis Oriental,Northern Mindanao,124.50000,8.41667,66836
+Hilongos,,municipality,Leyte,Eastern Visayas,124.81667,10.38333,66774
+San Mateo,,municipality,Isabela,Cagayan Valley,121.58333,16.86667,66663
+Santa Cruz,,municipality,Zambales,Central Luzon,120.03333,15.76667,66647
+Roxas,,municipality,Isabela,Cagayan Valley,121.61667,17.11667,66593
+Brooke'S Point,,municipality,Palawan,Mimaropa,117.81615,8.85077,66374
+Nagcarlan,,municipality,Laguna,Calabarzon,121.41667,14.13333,66351
+Tuao,,municipality,Cagayan,Cagayan Valley,121.51667,17.70000,66147
+San Simon,,municipality,Pampanga,Central Luzon,120.80000,15.00000,65760
+Enrique B. Magalona,,municipality,Negros Occidental,Western Visayas,123.05000,10.83333,65730
+Sultan Naga Dimaporo,,municipality,Lanao del Norte,Northern Mindanao,123.74420,7.78350,65656
+Atimonan,,municipality,Quezon,Calabarzon,121.88333,13.96667,65552
+San Fernando,,municipality,Bukidnon,Northern Mindanao,125.35167,7.81302,65494
+Lutayan,,municipality,Sultan Kudarat,Soccsksargen,124.87885,6.59981,65425
+Isabela,,municipality,Negros Occidental,Western Visayas,123.03333,10.18333,65399
+Sipocot,,municipality,Camarines Sur,Bicol Region,122.95000,13.76667,65286
+Agoo,,municipality,La Union,Ilocos Region,120.36667,16.33333,65256
+Tigbauan,,municipality,Iloilo,Western Visayas,122.38333,10.71667,65245
+Villasis,,municipality,Pangasinan,Ilocos Region,120.56739,15.89955,65086
+Cuyapo,,municipality,Nueva Ecija,Central Luzon,120.71667,15.76667,65039
+Bansalan,,municipality,Davao del Sur,Davao Region,125.21667,6.81667,64816
+Malay,,municipality,Aklan,Western Visayas,121.95000,11.88333,64723
+San Luis,,municipality,Pampanga,Central Luzon,120.80000,15.05000,64674
+La Paz,,municipality,Tarlac,Central Luzon,120.71667,15.43333,64017
+Calinog,,municipality,Iloilo,Western Visayas,122.50000,11.13333,63896
+San Francisco,,municipality,Quezon,Calabarzon,122.55000,13.31667,63789
+Santo Domingo,,municipality,Nueva Ecija,Central Luzon,120.88333,15.61667,63750
+Governor Generoso,,municipality,Davao Oriental,Davao Region,126.11667,6.53333,63695
+Santa Ana,,municipality,Pampanga,Central Luzon,120.75000,15.11667,63431
+Asuncion,,municipality,Davao del Norte,Davao Region,125.76667,7.58333,62929
+Matanao,,municipality,Davao del Sur,Davao Region,125.16769,6.66065,62773
+Cabatuan,,municipality,Iloilo,Western Visayas,122.50000,10.88333,62717
+Medellin,,municipality,Cebu,Central Visayas,123.96667,11.11667,62163
+Bay,,municipality,Laguna,Calabarzon,121.27098,14.17759,62143
+Tulunan,,municipality,Cotabato,Soccsksargen,124.96667,6.81667,61901
+San Mariano,,municipality,Isabela,Cagayan Valley,122.16667,16.85000,61876
+Maragusan,,municipality,Davao de Oro,Davao Region,126.16464,7.33819,61876
+Abuyog,,municipality,Leyte,Eastern Visayas,125.05000,10.66667,61854
+Tigaon,,municipality,Camarines Sur,Bicol Region,123.45000,13.63333,61790
+Taal,,municipality,Batangas,Calabarzon,120.93333,13.90000,61559
+Baao,,municipality,Camarines Sur,Bicol Region,123.35000,13.48333,61357
+Castilla,,municipality,Sorsogon,Bicol Region,123.83333,12.95000,61308
+Gubat,,municipality,Sorsogon,Bicol Region,124.10000,12.93333,61095
+San Francisco,,municipality,Cebu,Central Visayas,124.33333,10.65000,61092
+Obando,,municipality,Bulacan,Central Luzon,120.93330,14.71670,61073
+Quezon,,municipality,Palawan,Mimaropa,118.03868,9.25348,60980
+Laoang,,municipality,Northern Samar,Eastern Visayas,125.01667,12.50000,60980
+Buluan,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.80891,6.69663,60931
+Kananga,,municipality,Leyte,Eastern Visayas,124.56667,11.16667,60885
+Jose Panganiban,,municipality,Camarines Norte,Bicol Region,122.65954,14.25316,60626
+Mansalay,,municipality,Oriental Mindoro,Mimaropa,121.40000,12.51667,60597
+Alfonso,,municipality,Cavite,Calabarzon,120.85228,14.11600,60583
+New Corella,,municipality,Davao del Norte,Davao Region,125.86667,7.60000,60454
+Calatagan,,municipality,Batangas,Calabarzon,120.65000,13.88333,60420
+Pangantucan,,municipality,Bukidnon,Northern Mindanao,124.81667,7.78333,60162
+Bambang,,municipality,Nueva Vizcaya,Cagayan Valley,121.10000,16.38333,60146
+Dumanjug,,municipality,Cebu,Central Visayas,123.46667,10.03333,59954
+Baganga,,municipality,Davao Oriental,Davao Region,126.40000,7.60000,59796
+Itogon,,municipality,Benguet,Cordillera,120.70584,16.32528,59736
+Gattaran,,municipality,Cagayan,Cagayan Valley,121.90000,18.06667,59704
+Iba,,municipality,Zambales,Central Luzon,120.03333,15.36667,59580
+Irosin,,municipality,Sorsogon,Bicol Region,124.03333,12.75000,59540
+Palompon,,municipality,Leyte,Eastern Visayas,124.41667,11.03333,59486
+Bacolor,,municipality,Pampanga,Central Luzon,120.65915,15.03381,59361
+Naval,,municipality,Biliran,Eastern Visayas,124.45000,11.58333,59236
+Barotac Nuevo,,municipality,Iloilo,Western Visayas,122.73333,10.91667,59184
+Esperanza,,municipality,Agusan del Sur,Caraga,125.46210,8.61136,59065
+Alangalang,,municipality,Leyte,Eastern Visayas,124.86667,11.21667,59063
+Rizal,,municipality,Palawan,Mimaropa,117.58942,8.83283,59040
+Upi,,municipality,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.11641,6.95964,59004
+Santa Maria,,municipality,Davao Occidental,Davao Region,125.45083,6.49639,58886
+Ragay,,municipality,Camarines Sur,Bicol Region,122.76667,13.83333,58843
+Rosario,,municipality,La Union,Ilocos Region,120.45000,16.25000,58797
+Hagonoy,,municipality,Davao del Sur,Davao Region,125.33333,6.68333,58689
+Ibaan,,municipality,Batangas,Calabarzon,121.13333,13.83333,58673
+Paombong,,municipality,Bulacan,Central Luzon,120.79515,14.80479,58453
+Roxas,,municipality,Oriental Mindoro,Mimaropa,121.45142,12.61987,58428
+Paracale,,municipality,Camarines Norte,Bicol Region,122.83333,14.25000,58391
+Baloi,,municipality,Lanao del Norte,Northern Mindanao,124.22361,8.08056,58383
+Malabang,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.10000,7.61667,58377
+Asingan,,municipality,Pangasinan,Ilocos Region,120.66667,16.00000,58349
+Diffun,,municipality,Quirino,Cagayan Valley,121.46667,16.60000,58254
+Compostela,,municipality,Cebu,Central Visayas,123.96667,10.47607,58178
+Jasaan,,municipality,Misamis Oriental,Northern Mindanao,124.78333,8.65000,58098
+General Tinio,,municipality,Nueva Ecija,Central Luzon,121.04773,15.35075,58093
+Magsaysay,,municipality,Davao del Sur,Davao Region,125.11900,6.75647,57936
+Pila,,municipality,Laguna,Calabarzon,121.36667,14.23333,57776
+Libungan,,municipality,Cotabato,Soccsksargen,124.56667,7.30000,57776
+Botolan,,municipality,Zambales,Central Luzon,120.21667,15.26667,57707
+Tapaz,,municipality,Capiz,Western Visayas,122.40000,11.21667,57684
+Basey,,municipality,Samar,Eastern Visayas,125.15000,11.41667,57645
+Ramon,,municipality,Isabela,Cagayan Valley,121.51667,16.80000,57412
+Ilog,,municipality,Negros Occidental,Western Visayas,122.73333,9.78333,57389
+Kitaotao,,municipality,Bukidnon,Northern Mindanao,125.06667,7.61667,57364
+Milagros,,municipality,Masbate,Bicol Region,123.49869,12.23601,57362
+Masantol,,municipality,Pampanga,Central Luzon,120.70000,14.85000,57207
+Lagonoy,,municipality,Camarines Sur,Bicol Region,123.48333,13.80000,57044
+San Manuel,,municipality,Pangasinan,Ilocos Region,120.66667,16.10000,56876
+Tiwi,,municipality,Albay,Bicol Region,123.61667,13.46667,56871
+Hinoba-An,,municipality,Negros Occidental,Western Visayas,122.60000,9.56667,56819
+Lian,,municipality,Batangas,Calabarzon,120.65000,14.00000,56788
+Placer,,municipality,Masbate,Bicol Region,123.86667,11.93333,56658
+Binalonan,,municipality,Pangasinan,Ilocos Region,120.58333,16.05000,56560
+Uson,,municipality,Masbate,Bicol Region,123.75000,12.18333,56410
+Urbiztondo,,municipality,Pangasinan,Ilocos Region,120.35000,15.81667,56349
+Carigara,,municipality,Leyte,Eastern Visayas,124.68333,11.25000,56060
+Orion,,municipality,Bataan,Central Luzon,120.53333,14.58333,56002
+Impasug-Ong,,municipality,Bukidnon,Northern Mindanao,125.11694,8.41222,55901
+Manapla,,municipality,Negros Occidental,Western Visayas,123.13333,10.91667,55882
+Zaragoza,,municipality,Nueva Ecija,Central Luzon,120.78333,15.45000,55657
+Titay,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.43333,7.78333,55534
+Cabagan,,municipality,Isabela,Cagayan Valley,121.75000,17.43333,55445
+San Isidro,,municipality,Nueva Ecija,Central Luzon,120.90000,15.28333,55108
+Tanauan,,municipality,Leyte,Eastern Visayas,125.00000,11.11667,55021
+Pontevedra,,municipality,Negros Occidental,Western Visayas,122.95000,10.33333,54941
+Estancia,,municipality,Iloilo,Western Visayas,123.15000,11.46667,54882
+Asturias,,municipality,Cebu,Central Visayas,123.81667,10.60000,54777
+Tagkawayan,,municipality,Quezon,Calabarzon,122.53333,14.01667,54709
+Sara,,municipality,Iloilo,Western Visayas,123.00000,11.31667,54637
+Burauen,,municipality,Leyte,Eastern Visayas,124.85000,10.96667,54635
+Hamtic,,municipality,Antique,Western Visayas,122.01667,10.66667,54455
+Boac,,municipality,Marinduque,Mimaropa,121.90000,13.40000,54365
+Buenavista,,municipality,Guimaras,Western Visayas,122.68333,10.70000,54352
+Lucban,,municipality,Quezon,Calabarzon,121.56667,14.10000,54134
+Ajuy,,municipality,Iloilo,Western Visayas,123.01667,11.15000,54100
+Mulanay,,municipality,Quezon,Calabarzon,122.43333,13.53333,53976
+Omar,,municipality,Sulu,Autonomous Region in Muslim Mindanao,121.39331,5.98858,53903
+Dauis,,municipality,Bohol,Central Visayas,123.82601,9.61056,53864
+Kiblawan,,municipality,Davao del Sur,Davao Region,125.21667,6.61667,53757
+Barobo,,municipality,Surigao del Sur,Caraga,126.20000,8.55000,53729
+Mercedes,,municipality,Camarines Norte,Bicol Region,123.07118,13.92873,53702
+Santa Ignacia,,municipality,Tarlac,Central Luzon,120.45000,15.58333,53620
+Pigkawayan,,municipality,Cotabato,Soccsksargen,124.43333,7.26667,53593
+Alaminos,,municipality,Laguna,Calabarzon,121.26977,14.09426,53589
+Padre Garcia,,municipality,Batangas,Calabarzon,121.21667,13.90000,53526
+Naguilian,,municipality,La Union,Ilocos Region,120.41667,16.53333,53443
+Ibajay,,municipality,Aklan,Western Visayas,122.15000,11.76667,53399
+San Narciso,,municipality,Quezon,Calabarzon,122.53333,13.56667,53375
+Magpet,,municipality,Cotabato,Soccsksargen,125.17740,7.13221,52800
+Leon,,municipality,Iloilo,Western Visayas,122.33333,10.83333,52777
+San Joaquin,,municipality,Iloilo,Western Visayas,122.08333,10.60000,52773
+Guiuan,,municipality,Eastern Samar,Eastern Visayas,125.73338,11.03556,52749
+Aurora,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.58510,7.94720,52746
+Claveria,,municipality,Misamis Oriental,Northern Mindanao,125.05000,8.66667,52718
+Bani,,municipality,Pangasinan,Ilocos Region,119.85000,16.20000,52715
+Molave,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.49251,8.09798,52540
+Gloria,,municipality,Oriental Mindoro,Mimaropa,121.36667,12.91667,52296
+Kalamansig,,municipality,Sultan Kudarat,Soccsksargen,124.15000,6.51667,52257
+Victoria,,municipality,Oriental Mindoro,Mimaropa,121.26667,13.15000,52175
+Bato,,municipality,Camarines Sur,Bicol Region,123.33333,13.31667,52021
+Pontevedra,,municipality,Capiz,Western Visayas,122.88333,11.43333,51956
+Minalabac,,municipality,Camarines Sur,Bicol Region,123.20000,13.51667,51841
+Donsol,,municipality,Sorsogon,Bicol Region,123.56667,12.98333,51781
+Dumarao,,municipality,Capiz,Western Visayas,122.80000,11.26667,51633
+Santa Cruz,,municipality,Marinduque,Mimaropa,122.01667,13.46667,51594
+Arakan,,municipality,Cotabato,Soccsksargen,125.17662,7.35328,51584
+Libona,,municipality,Bukidnon,Northern Mindanao,124.75000,8.31667,51555
+Cardona,,municipality,Rizal,Calabarzon,121.23619,14.34157,51493
+Sison,,municipality,Pangasinan,Ilocos Region,120.56667,16.18333,51439
+Carmen,,municipality,Cebu,Central Visayas,123.96667,10.58333,51325
+President Roxas,,municipality,Cotabato,Soccsksargen,125.02991,7.37336,51245
+Siocon,,municipality,Zamboanga del Norte,Zamboanga Peninsula,122.21667,7.73333,51239
+Rosario,,municipality,Agusan del Sur,Caraga,126.01667,8.35000,51207
+Trento,,municipality,Agusan del Sur,Caraga,126.13333,8.05000,51179
+Cataingan,,municipality,Masbate,Bicol Region,123.95000,12.00000,51165
+Wao,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.68333,7.68333,51081
+Bunawan,,municipality,Agusan del Sur,Caraga,126.08333,8.16667,50999
+Panay,,municipality,Capiz,Western Visayas,122.81722,11.53056,50946
+Amulung,,municipality,Cagayan,Cagayan Valley,121.70000,17.83333,50903
+Peñablanca,,municipality,Cagayan,Cagayan Valley,121.98333,17.68333,50856
+Aringay,,municipality,La Union,Ilocos Region,120.40000,16.40000,50786
+Dulag,,municipality,Leyte,Eastern Visayas,125.01667,10.95000,50728
+Pasacao,,municipality,Camarines Sur,Bicol Region,122.98333,13.55000,50708
+Ayungon,,municipality,Negros Oriental,Central Visayas,123.06667,9.86667,50688
+Caramoan,,municipality,Camarines Sur,Bicol Region,123.83333,13.78333,50433
+Carmen,,municipality,Bohol,Central Visayas,124.20000,9.86667,50249
+New Bataan,,municipality,Davao de Oro,Davao Region,126.17280,7.52818,50212
+Minalin,,municipality,Pampanga,Central Luzon,120.70000,14.96667,50126
+Mabini,,municipality,Batangas,Calabarzon,120.91260,13.73189,49876
+Barotac Viejo,,municipality,Iloilo,Western Visayas,122.88333,11.06667,49736
+Malinao,,municipality,Albay,Bicol Region,123.65000,13.40000,49570
+Ocampo,,municipality,Camarines Sur,Bicol Region,123.38333,13.56667,49535
+Tubigon,,municipality,Bohol,Central Visayas,123.96667,9.91667,49275
+Tuba,,municipality,Benguet,Cordillera,120.56454,16.31994,49268
+Inabanga,,municipality,Bohol,Central Visayas,124.09512,10.00571,49133
+Alcala,,municipality,Pangasinan,Ilocos Region,120.52274,15.84754,48908
+Sogod,,municipality,Southern Leyte,Eastern Visayas,124.98333,10.46667,48815
+Pilar,,municipality,Capiz,Western Visayas,123.01667,11.46667,48789
+Pio Duran,,municipality,Albay,Bicol Region,123.45000,13.06667,48713
+Mahayag,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.43200,8.14230,48695
+Tantangan,,municipality,South Cotabato,Soccsksargen,124.75569,6.58062,48570
+Talisay,,municipality,Batangas,Calabarzon,121.01977,14.11092,48499
+Norala,,municipality,South Cotabato,Soccsksargen,124.66901,6.53086,48499
+Dumingag,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.28550,8.16610,48495
+Lal-Lo,,municipality,Cagayan,Cagayan Valley,121.85536,18.15394,48404
+Kabasalan,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.78333,7.83333,48366
+Bangued,,municipality,Abra,Cordillera,120.58333,17.61667,48331
+Odiongan,,municipality,Romblon,Mimaropa,122.03333,12.40000,48133
+Tungawan,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.36667,7.53333,48013
+Banisilan,,municipality,Cotabato,Soccsksargen,124.71685,7.48268,48013
+Masinloc,,municipality,Zambales,Central Luzon,120.05000,15.53333,47719
+Albuera,,municipality,Leyte,Eastern Visayas,124.71410,10.92363,47333
+Tuy,,municipality,Batangas,Calabarzon,120.72833,14.01056,47199
+Lupao,,municipality,Nueva Ecija,Central Luzon,120.91667,15.85000,47175
+Tubod,,municipality,Lanao del Norte,Northern Mindanao,123.87360,7.99910,47165
+Pilar,,municipality,Bataan,Central Luzon,120.53333,14.63333,47107
+Senator Ninoy Aquino,,municipality,Sultan Kudarat,Soccsksargen,124.34433,6.43022,46882
+Isabel,,municipality,Leyte,Eastern Visayas,124.45000,10.95000,46858
+Kasibu,,municipality,Nueva Vizcaya,Cagayan Valley,121.33333,16.35000,46845
+Cordon,,municipality,Isabela,Cagayan Valley,121.46667,16.66667,46688
+Montevista,,municipality,Davao de Oro,Davao Region,126.00000,7.68333,46581
+Manjuyod,,municipality,Negros Oriental,Central Visayas,123.06150,9.70188,46461
+Culasi,,municipality,Antique,Western Visayas,122.11667,11.43333,46442
+Bulalacao,,municipality,Oriental Mindoro,Mimaropa,121.33333,12.33333,46439
+Nasipit,,municipality,Agusan del Norte,Caraga,125.31667,8.95000,46382
+Pagalungan,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.73921,6.96904,46277
+Narvacan,,municipality,Ilocos Sur,Ilocos Region,120.48333,17.43333,46265
+Marantao,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.22910,7.96238,46233
+Banaybanay,,municipality,Davao Oriental,Davao Region,126.02188,7.05020,46231
+Noveleta,,municipality,Cavite,Calabarzon,120.87828,14.43324,46172
+Jones,,municipality,Isabela,Cagayan Valley,121.78333,16.55000,46160
+Maitum,,municipality,Sarangani,Soccsksargen,124.46667,6.11667,46120
+Dingle,,municipality,Iloilo,Western Visayas,122.66634,11.01177,46032
+Maria Aurora,,municipality,Aurora,Central Luzon,121.43333,15.78333,45972
+Angadanan,,municipality,Isabela,Cagayan Valley,121.76667,16.76667,45970
+Concepcion,,municipality,Iloilo,Western Visayas,123.09563,11.21006,45737
+Buguias,,municipality,Benguet,Cordillera,120.81670,16.75000,45703
+Don Marcelino,,municipality,Davao Occidental,Davao Region,125.63333,6.11667,45681
+Barira,,municipality,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.31667,7.51667,45676
+Cateel,,municipality,Davao Oriental,Davao Region,126.33333,7.78333,45623
+Pagsanjan,,municipality,Laguna,Calabarzon,121.44873,14.25203,45602
+Tayug,,municipality,Pangasinan,Ilocos Region,120.73333,16.00000,45476
+Guinayangan,,municipality,Quezon,Calabarzon,122.41667,13.93333,45375
+Aguilar,,municipality,Pangasinan,Ilocos Region,120.20000,15.83333,45363
+Labangan,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.37620,7.94090,45343
+Dolores,,municipality,Eastern Samar,Eastern Visayas,125.33333,12.05000,45314
+Victoria,,municipality,Laguna,Calabarzon,121.31667,14.21667,45230
+Bacnotan,,municipality,La Union,Ilocos Region,120.38333,16.73333,45203
+Vinzons,,municipality,Camarines Norte,Bicol Region,122.88333,14.20000,45173
+New Washington,,municipality,Aklan,Western Visayas,122.38941,11.64753,45007
+Aritao,,municipality,Nueva Vizcaya,Cagayan Valley,121.01667,16.26667,45000
+Toboso,,municipality,Negros Occidental,Western Visayas,123.45000,10.73333,44973
+Abucay,,municipality,Bataan,Central Luzon,120.48722,14.72164,44846
+Laurel,,municipality,Batangas,Calabarzon,120.90846,14.05429,44791
+Luuk,,municipality,Sulu,Autonomous Region in Muslim Mindanao,121.31979,5.96636,44741
+Roseller Lim,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.43068,7.70202,44735
+San Jacinto,,municipality,Pangasinan,Ilocos Region,120.45000,16.06667,44713
+San Jose,,municipality,Camarines Sur,Bicol Region,123.53333,13.68333,44688
+Baler,,municipality,Aurora,Central Luzon,121.60000,15.71667,44684
+Jaro,,municipality,Leyte,Eastern Visayas,124.76667,11.16667,44643
+San Pascual,,municipality,Masbate,Bicol Region,123.05000,13.06667,44641
+Badian,,municipality,Cebu,Central Visayas,123.43333,9.85000,44626
+Llanera,,municipality,Nueva Ecija,Central Luzon,121.00000,15.66667,44620
+Labason,,municipality,Zamboanga del Norte,Zamboanga Peninsula,122.53241,8.03580,44615
+Mamburao,,municipality,Occidental Mindoro,Mimaropa,120.66667,13.25000,44554
+Hinatuan,,municipality,Surigao del Sur,Caraga,126.31667,8.40000,44475
+Bansud,,municipality,Oriental Mindoro,Mimaropa,121.36667,12.83333,44396
+Santo Tomas,,municipality,Pampanga,Central Luzon,120.71507,15.00043,44376
+President Quirino,,municipality,Sultan Kudarat,Soccsksargen,124.76667,6.70000,44344
+Panitan,,municipality,Capiz,Western Visayas,122.76667,11.45000,44246
+Amadeo,,municipality,Cavite,Calabarzon,120.92493,14.19131,44190
+Panglima Sugala,,municipality,Tawi-Tawi,Autonomous Region in Muslim Mindanao,120.06180,5.19080,44184
+Mandaon,,municipality,Masbate,Bicol Region,123.31033,12.22586,44177
+Kalilangan,,municipality,Bukidnon,Northern Mindanao,124.73065,7.77970,44108
+Mabini,,municipality,Davao de Oro,Davao Region,125.93333,7.30000,43971
+Bacong,,municipality,Negros Oriental,Central Visayas,123.26667,9.25000,43889
+Loon,,municipality,Bohol,Central Visayas,123.83333,9.80000,43857
+Nueva Valencia,,municipality,Guimaras,Western Visayas,122.56667,10.48333,43822
+General Mamerto Natividad,,municipality,Nueva Ecija,Central Luzon,121.03333,15.56667,43779
+Loreto,,municipality,Agusan del Sur,Caraga,125.62583,8.14278,43761
+Carranglan,,municipality,Nueva Ecija,Central Luzon,121.05286,15.91379,43694
+Kibawe,,municipality,Bukidnon,Northern Mindanao,125.00661,7.52138,43491
+Katipunan,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.27890,8.41130,43427
+Basud,,municipality,Camarines Norte,Bicol Region,122.97804,13.99237,43388
+Talayan,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.30557,6.94599,43301
+Palauig,,municipality,Zambales,Central Luzon,120.05000,15.45000,43250
+Siay,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.88333,7.80000,43233
+South Upi,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.16667,6.76667,43197
+Mondragon,,municipality,Northern Samar,Eastern Visayas,124.76667,12.41667,43116
+Veruela,,municipality,Agusan del Sur,Caraga,125.90607,8.03475,43085
+Ma-Ayon,,municipality,Capiz,Western Visayas,122.85000,11.36667,42997
+Villaba,,municipality,Leyte,Eastern Visayas,124.40000,11.21667,42981
+San Nicolas,,municipality,Metro Manila,National Capital Region,120.96802,14.59905,42957
+Santa Rita,,municipality,Pampanga,Central Luzon,120.61743,15.00936,42915
+Caluya,,municipality,Antique,Western Visayas,121.55000,11.91667,42895
+Kalingalan Caluang,,municipality,Sulu,Autonomous Region in Muslim Mindanao,121.27910,5.91480,42845
+Madridejos,,municipality,Cebu,Central Visayas,123.73333,11.26667,42828
+Santo Tomas,,municipality,La Union,Ilocos Region,120.41667,16.28333,42777
+La Libertad,,municipality,Negros Oriental,Central Visayas,123.16667,10.06667,42721
+Anda,,municipality,Pangasinan,Ilocos Region,119.96667,16.28333,42688
+Tukuran,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.53840,7.90650,42683
+Balabac,,municipality,Palawan,Mimaropa,117.06667,7.98333,42662
+Quezon,,municipality,Nueva Ecija,Central Luzon,120.83333,15.60000,42621
+Santa Elena,,municipality,Camarines Norte,Bicol Region,122.38333,14.20000,42585
+Siniloan,,municipality,Laguna,Calabarzon,121.47892,14.45197,42533
+Villanueva,,municipality,Misamis Oriental,Northern Mindanao,124.78333,8.56667,42456
+Matnog,,municipality,Sorsogon,Bicol Region,124.03333,12.60000,42444
+Vallehermoso,,municipality,Negros Oriental,Central Visayas,123.30000,10.31667,42421
+Santa Rita,,municipality,Samar,Eastern Visayas,125.01667,11.45000,42397
+Tampakan,,municipality,South Cotabato,Soccsksargen,125.06667,6.48333,42304
+Puerto Galera,,municipality,Oriental Mindoro,Mimaropa,120.93572,13.46051,42301
+Sitangkai,,municipality,Tawi-Tawi,Autonomous Region in Muslim Mindanao,119.40246,4.74873,42172
+Tabogon,,municipality,Cebu,Central Visayas,123.98333,10.93333,42066
+Lasam,,municipality,Cagayan,Cagayan Valley,121.55000,18.06667,42042
+Gonzaga,,municipality,Cagayan,Cagayan Valley,122.11667,18.28333,41994
+Maragondon,,municipality,Cavite,Calabarzon,120.71667,14.23333,41977
+San Miguel,,municipality,Surigao del Sur,Caraga,125.98333,8.83333,41942
+Daram,,municipality,Samar,Eastern Visayas,124.78333,11.63333,41932
+Liloy,,municipality,Zamboanga del Norte,Zamboanga Peninsula,122.66667,8.10000,41881
+Maddela,,municipality,Quirino,Cagayan Valley,121.78247,16.35392,41867
+Mambajao,,municipality,Camiguin,Northern Mindanao,124.71667,9.21667,41782
+Mambusao,,municipality,Capiz,Western Visayas,122.60000,11.41667,41768
+Panglao,,municipality,Bohol,Central Visayas,123.78333,9.58333,41760
+Sumisip,,municipality,Basilan,Autonomous Region in Muslim Mindanao,121.96667,6.45000,41730
+Socorro,,municipality,Oriental Mindoro,Mimaropa,121.35000,13.05000,41612
+Tagudin,,municipality,Ilocos Sur,Ilocos Region,120.46667,16.93333,41606
+El Nido,,municipality,Palawan,Mimaropa,119.43333,11.25000,41606
+Languyan,,municipality,Tawi-Tawi,Autonomous Region in Muslim Mindanao,120.07240,5.25330,41587
+Pangutaran,,municipality,Sulu,Autonomous Region in Muslim Mindanao,120.55400,6.30500,41575
+Nabas,,municipality,Aklan,Western Visayas,122.03333,11.85000,41568
+Bindoy,,municipality,Negros Oriental,Central Visayas,123.07513,9.76093,41543
+Alcala,,municipality,Cagayan,Cagayan Valley,121.66667,17.90000,41468
+Moises Padilla,,municipality,Negros Occidental,Western Visayas,123.08333,10.25000,41386
+Taysan,,municipality,Batangas,Calabarzon,121.20000,13.76667,41332
+San Juan,,municipality,La Union,Ilocos Region,120.36667,16.66667,41319
+Bayang,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.18190,7.77963,41319
+Santa Cruz,,municipality,Ilocos Sur,Ilocos Region,120.49111,17.05716,41296
+Lobo,,municipality,Batangas,Calabarzon,121.25000,13.66667,41251
+Pamplona,,municipality,Negros Oriental,Central Visayas,123.04601,9.42842,41209
+Mobo,,municipality,Masbate,Bicol Region,123.66667,12.28333,41199
+Banga,,municipality,Aklan,Western Visayas,122.35000,11.60000,41188
+Tagbina,,municipality,Surigao del Sur,Caraga,126.20000,8.45000,41157
+Northern Kabuntalan,,municipality,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.40000,7.13333,41146
+Kabuntalan,,municipality,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.36751,7.11852,41146
+Malilipot,,municipality,Albay,Bicol Region,123.71667,13.30000,41066
+Mawab,,municipality,Davao de Oro,Davao Region,125.93333,7.50000,41050
+Santo Niño,,municipality,South Cotabato,Soccsksargen,124.66819,6.45733,41026
+Old Panamao,,municipality,Sulu,Autonomous Region in Muslim Mindanao,121.25000,5.98333,40998
+Magsaysay,,municipality,Occidental Mindoro,Mimaropa,121.20000,12.33333,40987
+Siayan,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.12220,8.15540,40937
+Samal,,municipality,Bataan,Central Luzon,120.48333,14.76667,40843
+Sogod,,municipality,Cebu,Central Visayas,123.96667,10.76667,40746
+Claveria,,municipality,Masbate,Bicol Region,123.25000,12.86667,40733
+Agoncillo,,municipality,Batangas,Calabarzon,120.92736,13.96779,40662
+Jordan,,municipality,Guimaras,Western Visayas,122.61667,10.60000,40647
+Maluso,,municipality,Basilan,Autonomous Region in Muslim Mindanao,121.89493,6.53813,40646
+Leyte,,municipality,Leyte,Eastern Visayas,124.50000,11.36667,40622
+Piagapo,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.16664,7.99189,40558
+Valladolid,,municipality,Negros Occidental,Western Visayas,122.83333,10.46667,40487
+Polanco,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.38440,8.49640,40485
+Jamindan,,municipality,Capiz,Western Visayas,122.43333,11.36667,40472
+Balaoan,,municipality,La Union,Ilocos Region,120.40000,16.81667,40440
+Plaridel,,municipality,Misamis Occidental,Northern Mindanao,123.68940,8.60780,40321
+Rizal,,municipality,Occidental Mindoro,Mimaropa,121.00000,12.48333,40319
+Malalag,,municipality,Davao del Sur,Davao Region,125.33333,6.50000,40280
+Balud,,municipality,Masbate,Bicol Region,123.21667,12.03333,40236
+Gabaldon,,municipality,Nueva Ecija,Central Luzon,121.31667,15.53333,40223
+Cabatuan,,municipality,Isabela,Cagayan Valley,121.65000,16.91667,40223
+Laur,,municipality,Nueva Ecija,Central Luzon,121.15000,15.50000,40185
+Dingras,,municipality,Ilocos Norte,Ilocos Region,120.72984,18.07556,40176
+Baco,,municipality,Oriental Mindoro,Mimaropa,121.06667,13.31667,40159
+San Nicolas,,municipality,Pangasinan,Ilocos Region,120.78333,16.10000,40144
+Sulop,,municipality,Davao del Sur,Davao Region,125.36667,6.61667,40134
+Tago,,municipality,Surigao del Sur,Caraga,126.15000,8.96667,40097
+Borbon,,municipality,Cebu,Central Visayas,124.00000,10.83333,40097
+Patnongon,,municipality,Antique,Western Visayas,122.01667,10.93333,40070
+Balindong,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.20000,7.91667,40047
+Santa Cruz,,municipality,Occidental Mindoro,Mimaropa,120.83333,13.13333,40010
+Valencia,,municipality,Negros Oriental,Central Visayas,123.18333,9.25000,39986
+Liliw,,municipality,Laguna,Calabarzon,121.45000,14.11667,39976
+Aborlan,,municipality,Palawan,Mimaropa,118.45000,9.51667,39972
+Claver,,municipality,Surigao del Norte,Caraga,125.78333,9.50000,39882
+Sirawai,,municipality,Zamboanga del Norte,Zamboanga Peninsula,122.16500,7.53611,39836
+Alimodian,,municipality,Iloilo,Western Visayas,122.36667,10.86667,39814
+Caraga,,municipality,Davao Oriental,Davao Region,126.43333,7.35000,39630
+San Marcelino,,municipality,Zambales,Central Luzon,120.31667,15.01667,39542
+Alicia,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.93333,7.53333,39484
+San Dionisio,,municipality,Iloilo,Western Visayas,123.08333,11.35000,39423
+Bato,,municipality,Leyte,Eastern Visayas,124.83983,10.33379,39275
+Manay,,municipality,Davao Oriental,Davao Region,126.41667,7.18333,39271
+San Fernando,,municipality,Camarines Sur,Bicol Region,123.10000,13.51667,39206
+Sultan sa Barongis,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.63333,6.93333,39182
+Baungon,,municipality,Bukidnon,Northern Mindanao,124.70000,8.21667,39151
+Bagabag,,municipality,Nueva Vizcaya,Cagayan Valley,121.26667,16.60000,39138
+San Nicolas,,municipality,Ilocos Norte,Ilocos Region,120.58333,18.15000,39116
+Tayasan,,municipality,Negros Oriental,Central Visayas,123.08333,9.95000,39005
+Romblon,,municipality,Romblon,Mimaropa,122.28333,12.53333,39004
+Cabugao,,municipality,Ilocos Sur,Ilocos Region,120.45000,17.80000,38981
+Tabuan-Lasa,,municipality,Basilan,Autonomous Region in Muslim Mindanao,122.02094,6.33390,38964
+Maasin,,municipality,Iloilo,Western Visayas,122.38333,10.91667,38761
+Buug,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,123.05000,7.75410,38730
+Pres. Manuel A. Roxas,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.20590,8.44300,38649
+Mankayan,,municipality,Benguet,Cordillera,120.80000,16.85000,38647
+Sual,,municipality,Pangasinan,Ilocos Region,120.03333,16.08333,38625
+San Antonio,,municipality,Zambales,Central Luzon,120.10000,14.88333,38617
+Pamplona,,municipality,Camarines Sur,Bicol Region,123.08333,13.58333,38556
+Naga,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.70966,7.84199,38547
+Datu Paglas,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.86667,6.76667,38446
+San Andres,,municipality,Quezon,Calabarzon,122.65000,13.35000,38407
+Cabanglasan,,municipality,Bukidnon,Northern Mindanao,125.30000,8.10000,38365
+Mapandan,,municipality,Pangasinan,Ilocos Region,120.45000,16.01667,38228
+Bangar,,municipality,La Union,Ilocos Region,120.43333,16.88333,38190
+Luna,,municipality,La Union,Ilocos Region,120.38333,16.85000,38076
+Magallanes,,municipality,Sorsogon,Bicol Region,123.90000,12.81667,38072
+Aleosan,,municipality,Cotabato,Soccsksargen,124.62074,7.16889,38023
+Moalboal,,municipality,Cebu,Central Visayas,123.43333,9.91667,37993
+Sibuco,,municipality,Zamboanga del Norte,Zamboanga Peninsula,122.10000,7.30000,37883
+Basista,,municipality,Pangasinan,Ilocos Region,120.40000,15.85000,37840
+Talacogon,,municipality,Agusan del Sur,Caraga,125.80000,8.41667,37744
+Clarin,,municipality,Misamis Occidental,Northern Mindanao,123.75460,8.20550,37548
+Gutalac,,municipality,Zamboanga del Norte,Zamboanga Peninsula,122.33333,7.93333,37512
+Rajah Buayan,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.56640,6.91857,37437
+Numancia,,municipality,Aklan,Western Visayas,122.33333,11.71667,37428
+Las Navas,,municipality,Northern Samar,Eastern Visayas,125.01667,12.31667,37425
+Tambulig,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.55362,8.06182,37400
+San Enrique,,municipality,Iloilo,Western Visayas,122.71684,11.10524,37381
+Pandan,,municipality,Antique,Western Visayas,122.10000,11.75000,37325
+Pagagawan,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.75000,7.05000,37314
+Maguing,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.50000,7.91667,37292
+Trinidad,,municipality,Bohol,Central Visayas,124.33333,10.06667,37191
+Aurora,,municipality,Isabela,Cagayan Valley,121.61667,16.96667,37191
+Tamparan,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.33333,7.88333,37190
+San Andres,,municipality,Catanduanes,Bicol Region,124.11667,13.66667,37157
+Panglima Estino,,municipality,Sulu,Autonomous Region in Muslim Mindanao,121.18333,5.96667,37157
+Bantay,,municipality,Ilocos Sur,Ilocos Region,120.44996,17.59682,37088
+Sagñay,,municipality,Camarines Sur,Bicol Region,123.48333,13.55000,37087
+Magsaysay,,municipality,Misamis Oriental,Northern Mindanao,125.20560,8.97107,37084
+San Luis,,municipality,Batangas,Calabarzon,120.95000,13.83333,36841
+Gandara,,municipality,Samar,Eastern Visayas,124.81667,12.08333,36826
+Masiu,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.33333,7.81667,36803
+Dagami,,municipality,Leyte,Eastern Visayas,124.85000,11.06667,36700
+Medina,,municipality,Misamis Oriental,Northern Mindanao,124.96667,8.88333,36692
+Jagna,,municipality,Bohol,Central Visayas,124.35000,9.70000,36674
+Leganes,,municipality,Iloilo,Western Visayas,122.60000,10.80000,36542
+Mendez,,municipality,Cavite,Calabarzon,120.89836,14.12975,36518
+Enrile,,municipality,Cagayan,Cagayan Valley,121.66667,17.56667,36481
+Casiguran,,municipality,Sorsogon,Bicol Region,124.03333,12.86667,36464
+Cuenca,,municipality,Batangas,Calabarzon,121.05000,13.90000,36453
+San Antonio,,municipality,Quezon,Calabarzon,121.30000,13.88333,36451
+Munai,,municipality,Lanao del Norte,Northern Mindanao,124.05764,8.02134,36449
+Rapu-Rapu,,municipality,Albay,Bicol Region,124.05000,13.23333,36281
+San Luis,,municipality,Agusan del Sur,Caraga,125.50889,8.47472,36264
+San Jose,,municipality,Tarlac,Central Luzon,120.33379,15.43651,36253
+San Remigio,,municipality,Antique,Western Visayas,122.11667,10.88333,36170
+Lumba-Bayabao,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.50000,7.78333,36151
+Braulio E. Dujali,,municipality,Davao del Norte,Davao Region,125.68121,7.43969,36092
+Bugasong,,municipality,Antique,Western Visayas,122.13314,11.09385,36060
+Matanog,,municipality,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.25000,7.46667,36034
+Margosatubig,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.18333,7.55000,36025
+Oras,,municipality,Eastern Samar,Eastern Visayas,125.40000,12.15000,35997
+San Isidro,,municipality,Davao Oriental,Davao Region,126.13333,6.76667,35984
+Real,,municipality,Quezon,Calabarzon,121.56667,14.48333,35979
+Juban,,municipality,Sorsogon,Bicol Region,123.98333,12.81667,35978
+Allacapan,,municipality,Cagayan,Cagayan Valley,121.55000,18.20000,35946
+Pola,,municipality,Oriental Mindoro,Mimaropa,121.44000,13.14361,35771
+Canaman,,municipality,Camarines Sur,Bicol Region,123.15000,13.65000,35766
+Bautista,,municipality,Pangasinan,Ilocos Region,120.52849,15.80450,35728
+Manukan,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.12200,8.43980,35669
+Midsalip,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.25690,8.02860,35643
+Simunul,,municipality,Tawi-Tawi,Autonomous Region in Muslim Mindanao,119.81667,4.86667,35616
+Dupax del Norte,,municipality,Nueva Vizcaya,Cagayan Valley,121.25000,16.20000,35509
+Kadingilan,,municipality,Bukidnon,Northern Mindanao,124.88333,7.55000,35432
+Lugus,,municipality,Sulu,Autonomous Region in Muslim Mindanao,120.83700,5.68686,35412
+Alubijid,,municipality,Misamis Oriental,Northern Mindanao,124.45000,8.53333,35411
+Dinas,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.33720,7.63160,35409
+Barugo,,municipality,Leyte,Eastern Visayas,124.76667,11.31667,35402
+Pandami,,municipality,Sulu,Autonomous Region in Muslim Mindanao,120.77133,5.53124,35369
+Abulug,,municipality,Cagayan,Cagayan Valley,121.43011,18.39549,35347
+Gasan,,municipality,Marinduque,Mimaropa,121.88333,13.31667,35315
+Paranas,,municipality,Samar,Eastern Visayas,125.15000,11.85000,35281
+Datu Abdullah Sangki,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.53226,6.81797,35274
+Datu Anggal Midtimbang,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.35013,7.00140,35243
+Lingig,,municipality,Surigao del Sur,Caraga,126.38333,8.10000,35203
+Balasan,,municipality,Iloilo,Western Visayas,123.08333,11.46667,35193
+Guimbal,,municipality,Iloilo,Western Visayas,122.30000,10.70000,35129
+Vintar,,municipality,Ilocos Norte,Ilocos Region,120.78850,18.31863,35051
+Pinukpuk,,municipality,Kalinga,Cordillera,121.36667,17.60000,35033
+Aloguinsan,,municipality,Cebu,Central Visayas,123.58333,10.18333,34990
+Santo Domingo,,municipality,Albay,Bicol Region,123.75000,13.26667,34967
+Palapag,,municipality,Northern Samar,Eastern Visayas,125.11667,12.53333,34954
+Bonifacio,,municipality,Misamis Occidental,Northern Mindanao,123.59940,8.08780,34942
+Dueñas,,municipality,Iloilo,Western Visayas,122.58333,11.05000,34941
+Jala-Jala,,municipality,Rizal,Calabarzon,121.33333,14.33333,34901
+Santa Fe,,municipality,Cebu,Central Visayas,123.78333,11.16667,34834
+Alfonso Lista,,municipality,Ifugao,Cordillera,121.46667,16.93333,34810
+San Manuel,,municipality,Isabela,Cagayan Valley,121.61667,17.03333,34740
+Cabarroguis,,municipality,Quirino,Cagayan Valley,121.48333,16.46667,34720
+Tandubas,,municipality,Tawi-Tawi,Autonomous Region in Muslim Mindanao,120.27790,5.21350,34702
+Guindulman,,municipality,Bohol,Central Visayas,124.46667,9.78333,34660
+Catmon,,municipality,Cebu,Central Visayas,123.95000,10.66667,34608
+Santa Ana,,municipality,Cagayan,Cagayan Valley,122.23333,18.38333,34595
+Ballesteros,,municipality,Cagayan,Cagayan Valley,121.50692,18.36052,34562
+Laoac,,municipality,Pangasinan,Ilocos Region,120.55000,16.03333,34550
+Naguilian,,municipality,Isabela,Cagayan Valley,121.86667,17.01667,34520
+Santa Maria,,municipality,Pangasinan,Ilocos Region,120.69960,15.97854,34452
+Initao,,municipality,Misamis Oriental,Northern Mindanao,124.33333,8.50000,34445
+Tobias Fornier,,municipality,Antique,Western Visayas,121.96667,10.51667,34411
+Capoocan,,municipality,Leyte,Eastern Visayas,124.58333,11.25000,34388
+San Quintin,,municipality,Pangasinan,Ilocos Region,120.81667,15.98333,34322
+Lianga,,municipality,Surigao del Sur,Caraga,126.08333,8.65000,34213
+Dumalinao,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.38060,7.77920,34188
+Olutanga,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.85000,7.33333,34124
+Santa Maria,,municipality,Laguna,Calabarzon,121.41667,14.50000,34102
+Mayantoc,,municipality,Tarlac,Central Luzon,120.31667,15.56667,34091
+Cantilan,,municipality,Surigao del Sur,Caraga,125.90000,9.30000,34060
+Salvador,,municipality,Lanao del Norte,Northern Mindanao,123.86440,7.90840,34053
+Batan,,municipality,Aklan,Western Visayas,122.48333,11.56667,33932
+Ganassi,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.10148,7.80663,33897
+Tabango,,municipality,Leyte,Eastern Visayas,124.40000,11.33333,33888
+Santiago,,municipality,Agusan del Norte,Caraga,125.64497,9.25859,33877
+Dao,,municipality,Capiz,Western Visayas,122.73333,11.38333,33842
+Banate,,municipality,Iloilo,Western Visayas,122.78333,11.05000,33790
+San Vicente,,municipality,Palawan,Mimaropa,119.26667,10.51667,33768
+Milaor,,municipality,Camarines Sur,Bicol Region,123.16667,13.58333,33680
+Dipaculao,,municipality,Aurora,Central Luzon,121.61667,16.00000,33597
+Marogong,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.18333,7.66667,33595
+Bayog,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.02740,7.89720,33591
+Getafe,,municipality,Bohol,Central Visayas,124.18756,10.11070,33485
+Lupi,,municipality,Camarines Sur,Bicol Region,122.90000,13.81667,33474
+Datu Saudi-Ampatuan,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.43654,6.95464,33374
+Columbio,,municipality,Sultan Kudarat,Soccsksargen,125.01667,6.68333,33337
+Poona Bayabao,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.35000,7.83333,33307
+Sibagat,,municipality,Agusan del Sur,Caraga,125.77501,8.96852,33271
+Malangas,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,123.00000,7.61667,33194
+Payao,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.83333,7.56667,33156
+Dimataling,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.31430,7.53340,33156
+Salug,,municipality,Zamboanga del Norte,Zamboanga Peninsula,122.80510,8.07820,33060
+Peñaranda,,municipality,Nueva Ecija,Central Luzon,121.01667,15.33333,33043
+Calape,,municipality,Bohol,Central Visayas,123.88333,9.88333,33022
+Claveria,,municipality,Cagayan,Cagayan Valley,121.10331,18.57149,32997
+Jimalalud,,municipality,Negros Oriental,Central Visayas,123.11667,9.98333,32996
+Sofronio Española,,municipality,Palawan,Mimaropa,118.01479,9.06483,32876
+Ivisan,,municipality,Capiz,Western Visayas,122.69083,11.52167,32853
+Lemery,,municipality,Iloilo,Western Visayas,122.91667,11.23333,32836
+Badoc,,municipality,Ilocos Norte,Ilocos Region,120.48333,17.90000,32832
+Mamasapano,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.51544,6.92088,32831
+Capalonga,,municipality,Camarines Norte,Bicol Region,122.48333,14.23333,32800
+Bagac,,municipality,Bataan,Central Luzon,120.41667,14.58333,32799
+Lumban,,municipality,Laguna,Calabarzon,121.48333,14.30000,32793
+Bacarra,,municipality,Ilocos Norte,Ilocos Region,120.61667,18.25000,32734
+Pantabangan,,municipality,Nueva Ecija,Central Luzon,121.16667,15.80000,32694
+Catubig,,municipality,Northern Samar,Eastern Visayas,125.06667,12.40000,32688
+Dolores,,municipality,Quezon,Calabarzon,121.38333,14.00000,32645
+Sigma,,municipality,Capiz,Western Visayas,122.70000,11.45000,32628
+Mogpog,,municipality,Marinduque,Mimaropa,121.88333,13.50000,32577
+Pantao Ragat,,municipality,Lanao del Norte,Northern Mindanao,124.16621,8.05041,32557
+Mallig,,municipality,Isabela,Cagayan Valley,121.61667,17.20000,32509
+Igbaras,,municipality,Iloilo,Western Visayas,122.25000,10.76667,32442
+President Roxas,,municipality,Capiz,Western Visayas,122.96667,11.41667,32436
+Diplahan,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.95921,7.78628,32423
+Las Nieves,,municipality,Agusan del Norte,Caraga,125.50105,8.73480,32402
+Merida,,municipality,Leyte,Eastern Visayas,124.50000,10.98333,32373
+Candelaria,,municipality,Zambales,Central Luzon,120.08333,15.65000,32182
+San Narciso,,municipality,Zambales,Central Luzon,120.11667,15.01667,32180
+Buguey,,municipality,Cagayan,Cagayan Valley,121.81667,18.26667,32148
+Padada,,municipality,Davao del Sur,Davao Region,125.36667,6.65000,32117
+Bontoc,,municipality,Southern Leyte,Eastern Visayas,124.93333,10.36667,32082
+Sasmuan,,municipality,Pampanga,Central Luzon,120.62035,14.88476,32081
+Calubian,,municipality,Leyte,Eastern Visayas,124.36667,11.48333,31990
+Magsingal,,municipality,Ilocos Sur,Ilocos Region,120.45166,17.68384,31970
+Pulupandan,,municipality,Negros Occidental,Western Visayas,122.81667,10.51667,31942
+Mataasnakahoy,,municipality,Batangas,Calabarzon,121.10000,13.98333,31912
+Abra de Ilog,,municipality,Occidental Mindoro,Mimaropa,120.75000,13.38333,31910
+Tubao,,municipality,La Union,Ilocos Region,120.43333,16.35000,31868
+Dasol,,municipality,Pangasinan,Ilocos Region,119.86667,15.96667,31842
+Polillo,,municipality,Quezon,Calabarzon,121.96667,14.75000,31737
+Aglipay,,municipality,Quirino,Cagayan Valley,121.63333,16.41667,31596
+Ampatuan,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.42379,6.78553,31560
+Buenavista,,municipality,Quezon,Calabarzon,122.45000,13.73333,31550
+Bauko,,municipality,Mountain Province,Cordillera,120.88330,16.95000,31470
+Dapa,,municipality,Surigao del Norte,Caraga,126.05000,9.76667,31392
+Iguig,,municipality,Cagayan,Cagayan Valley,121.76667,17.75000,31342
+Pandag,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.80042,6.75244,31329
+Gen. S.K. Pendatun,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.74382,6.84092,31263
+Balabagan,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.14746,7.53816,31227
+Sergio Osmeña Sr.,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.38070,8.28070,31187
+Salay,,municipality,Misamis Oriental,Northern Mindanao,124.81667,8.88333,31128
+Buenavista,,municipality,Bohol,Central Visayas,124.16546,10.04561,31095
+Sumilao,,municipality,Bukidnon,Northern Mindanao,124.93333,8.25000,31094
+Calintaan,,municipality,Occidental Mindoro,Mimaropa,120.99756,12.62716,31088
+Balatan,,municipality,Camarines Sur,Bicol Region,123.23333,13.31667,31069
+Datu Piang,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.47480,7.03743,31063
+Manticao,,municipality,Misamis Oriental,Northern Mindanao,124.33333,8.36667,30968
+Sapa-Sapa,,municipality,Tawi-Tawi,Autonomous Region in Muslim Mindanao,120.19640,5.14630,30917
+Dumalag,,municipality,Capiz,Western Visayas,122.61667,11.28333,30872
+Delfin Albano,,municipality,Isabela,Cagayan Valley,121.73333,17.26667,30860
+Gamu,,municipality,Isabela,Cagayan Valley,121.80000,17.06667,30850
+Sultan Mastura,,municipality,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.27161,7.29980,30828
+Kumalarang,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.13890,7.77390,30815
+San Isidro,,municipality,Leyte,Eastern Visayas,124.35000,11.41667,30792
+Benito Soliven,,municipality,Isabela,Cagayan Valley,121.96667,16.90000,30682
+Balungao,,municipality,Pangasinan,Ilocos Region,120.70000,15.90000,30678
+Poona Piagapo,,municipality,Lanao del Norte,Northern Mindanao,124.10000,8.10000,30666
+Makato,,municipality,Aklan,Western Visayas,122.27357,11.70955,30650
+Anilao,,municipality,Iloilo,Western Visayas,122.71505,11.00060,30612
+San Roque,,municipality,Northern Samar,Eastern Visayas,124.86667,12.46667,30580
+Pasuquin,,municipality,Ilocos Norte,Ilocos Region,120.63333,18.36667,30521
+Placer,,municipality,Surigao del Norte,Caraga,125.60000,9.65000,30442
+Zamboanguita,,municipality,Negros Oriental,Central Visayas,123.18333,9.13333,30412
+Sibutu,,municipality,Tawi-Tawi,Autonomous Region in Muslim Mindanao,119.47603,4.78098,30387
+Hinunangan,,municipality,Southern Leyte,Eastern Visayas,125.13333,10.40000,30384
+San Luis,,municipality,Aurora,Central Luzon,121.43333,15.68333,30342
+Al-Barka,,municipality,Basilan,Autonomous Region in Muslim Mindanao,122.17149,6.48510,30318
+Balete,,municipality,Aklan,Western Visayas,122.37499,11.52698,30310
+Damulog,,municipality,Bukidnon,Northern Mindanao,124.95000,7.46667,30302
+San Lorenzo,,municipality,Guimaras,Western Visayas,122.67237,10.59406,30266
+Siquijor,,municipality,Siquijor,Central Visayas,123.55000,9.18333,30215
+Paracelis,,municipality,Mountain Province,Cordillera,121.46667,17.15000,30143
+Candijay,,municipality,Bohol,Central Visayas,124.48333,9.83333,30142
+Caramoran,,municipality,Catanduanes,Bicol Region,124.18333,13.86667,30124
+San Miguel,,municipality,Iloilo,Western Visayas,122.46667,10.80000,30115
+Santa Maria,,municipality,Ilocos Sur,Ilocos Region,120.50000,17.36667,30076
+Madalum,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.08333,7.88333,30044
+Basay,,municipality,Negros Oriental,Central Visayas,122.63333,9.45000,30018
+Morong,,municipality,Bataan,Central Luzon,120.33333,14.70000,29901
+Lavezares,,municipality,Northern Samar,Eastern Visayas,124.35000,12.53333,29801
+Shariff Aguak,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.46109,6.88528,29707
+General Nakar,,municipality,Quezon,Calabarzon,121.46667,14.95000,29705
+Tabuelan,,municipality,Cebu,Central Visayas,123.91667,10.83333,29662
+Imelda,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.93798,7.64493,29652
+Tibiao,,municipality,Antique,Western Visayas,122.08431,11.31267,29608
+Licab,,municipality,Nueva Ecija,Central Luzon,120.76667,15.55000,29590
+Babatngon,,municipality,Leyte,Eastern Visayas,124.90000,11.38333,29587
+Taraka,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.34027,7.89810,29558
+San Jacinto,,municipality,Masbate,Bicol Region,123.70000,12.55000,29458
+Garchitorena,,municipality,Camarines Sur,Bicol Region,123.65000,13.85000,29408
+Oslob,,municipality,Cebu,Central Visayas,123.40000,9.51667,29378
+Santo Domingo,,municipality,Ilocos Sur,Ilocos Region,120.42030,17.64612,29372
+Cabangan,,municipality,Zambales,Central Luzon,120.11667,15.16667,29334
+Dingalan,,municipality,Aurora,Central Luzon,121.35000,15.26667,29286
+Agno,,municipality,Pangasinan,Ilocos Region,119.81667,16.11667,29270
+Jimenez,,municipality,Misamis Occidental,Northern Mindanao,123.75130,8.32340,29265
+Paglat,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.77773,6.78504,29244
+Mapun,,municipality,Tawi-Tawi,Autonomous Region in Muslim Mindanao,118.46667,7.01667,29218
+Mainit,,municipality,Surigao del Norte,Caraga,125.50000,9.55000,29205
+La Paz,,municipality,Agusan del Sur,Caraga,125.60139,8.31556,29096
+Tudela,,municipality,Misamis Occidental,Northern Mindanao,123.75520,8.25170,29082
+Santo Niño,,municipality,Cagayan,Cagayan Valley,121.51667,17.95000,29066
+Pilar,,municipality,Bohol,Central Visayas,124.35000,9.86667,28860
+Saguiaran,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.28333,8.03333,28807
+Baleno,,municipality,Masbate,Bicol Region,123.48333,12.38333,28787
+Bubong,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.49028,8.01556,28733
+Lapuyan,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.20060,7.68620,28686
+Malitbog,,municipality,Bukidnon,Northern Mindanao,124.93333,8.51667,28666
+Talaingod,,municipality,Davao del Norte,Davao Region,125.49926,7.68653,28665
+Cuartero,,municipality,Capiz,Western Visayas,122.76379,11.31051,28650
+Valencia,,municipality,Bohol,Central Visayas,124.21846,9.66441,28535
+Torrijos,,municipality,Marinduque,Mimaropa,122.05000,13.31667,28535
+Libacao,,municipality,Aklan,Western Visayas,122.31667,11.41667,28525
+Mangudadatu,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.87198,6.67006,28511
+Majayjay,,municipality,Laguna,Calabarzon,121.46667,14.15000,28504
+Guindulungan,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.36545,6.92979,28471
+Socorro,,municipality,Surigao del Norte,Caraga,125.95000,9.65000,28436
+Mahaplag,,municipality,Leyte,Eastern Visayas,124.98333,10.58333,28424
+Quezon,,municipality,Isabela,Cagayan Valley,121.63333,17.31667,28376
+Pitogo,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.33400,7.45470,28375
+Conner,,municipality,Apayao,Cordillera,121.23333,17.80000,28360
+Datu Blah T. Sinsuat,,municipality,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,123.96833,6.92278,28243
+Salvador Benedicto,,municipality,Negros Occidental,Western Visayas,123.25690,10.58926,28231
+Mabini,,municipality,Bohol,Central Visayas,124.51667,9.90000,28224
+Reina Mercedes,,municipality,Isabela,Cagayan Valley,121.78333,16.98333,28222
+Magarao,,municipality,Camarines Sur,Bicol Region,123.16312,13.67190,28197
+Laua-An,,municipality,Antique,Western Visayas,122.11667,11.13333,28177
+Palanas,,municipality,Masbate,Bicol Region,123.88333,12.11667,28133
+Saint Bernard,,municipality,Southern Leyte,Eastern Visayas,125.11671,10.31728,28131
+Magdalena,,municipality,Laguna,Calabarzon,121.43333,14.20000,28131
+Aloran,,municipality,Misamis Occidental,Northern Mindanao,123.76230,8.39310,28095
+Alitagtag,,municipality,Batangas,Calabarzon,121.00000,13.86667,28033
+Pata,,municipality,Sulu,Autonomous Region in Muslim Mindanao,121.16390,5.81480,27974
+Jose Dalman,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.05820,8.38030,27951
+Akbar,,municipality,Basilan,Autonomous Region in Muslim Mindanao,122.18500,6.65100,27911
+Villareal,,municipality,Samar,Eastern Visayas,124.93333,11.53333,27909
+Kayapa,,municipality,Nueva Vizcaya,Cagayan Valley,120.91667,16.41667,27865
+Zarraga,,municipality,Iloilo,Western Visayas,122.61667,10.81667,27852
+Dauin,,municipality,Negros Oriental,Central Visayas,123.21667,9.21667,27786
+Javier,,municipality,Leyte,Eastern Visayas,124.91667,10.75000,27759
+Laguindingan,,municipality,Misamis Oriental,Northern Mindanao,124.46667,8.60000,27688
+Datu Hoffer Ampatuan,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.38333,6.83333,27678
+San Isidro,,municipality,Davao del Norte,Davao Region,125.70635,7.74887,27552
+Sapi-An,,municipality,Capiz,Western Visayas,122.60000,11.50000,27377
+Tarragona,,municipality,Davao Oriental,Davao Region,126.38333,7.05000,27349
+Macrohon,,municipality,Southern Leyte,Eastern Visayas,124.94979,10.09155,27276
+Basilisa,,municipality,Dinagat Islands,Caraga,125.55634,10.08984,27238
+Dangcagan,,municipality,Bukidnon,Northern Mindanao,125.01186,7.59608,27128
+Badiangan,,municipality,Iloilo,Western Visayas,122.51667,11.00000,27088
+Binidayan,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.14903,7.79213,27031
+Pura,,municipality,Tarlac,Central Luzon,120.65000,15.61667,27017
+Kolambugan,,municipality,Lanao del Norte,Northern Mindanao,123.89400,8.08620,27005
+Labrador,,municipality,Pangasinan,Ilocos Region,120.11275,15.99924,26995
+Busuanga,,municipality,Palawan,Mimaropa,119.95000,12.16667,26974
+Bobon,,municipality,Northern Samar,Eastern Visayas,124.53333,12.45000,26964
+Antipas,,municipality,Cotabato,Soccsksargen,125.06793,7.26406,26946
+Ditsaan-Ramain,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.35363,7.99622,26918
+Poro,,municipality,Cebu,Central Visayas,124.43333,10.68333,26908
+Casiguran,,municipality,Aurora,Central Luzon,122.00000,16.28333,26855
+Infanta,,municipality,Pangasinan,Ilocos Region,120.01667,15.86667,26837
+Talisayan,,municipality,Misamis Oriental,Northern Mindanao,124.91667,8.95000,26801
+San Jose,,municipality,Dinagat Islands,Caraga,125.59519,10.01606,26735
+Burgos,,municipality,Isabela,Cagayan Valley,121.71667,17.03333,26729
+Natividad,,municipality,Pangasinan,Ilocos Region,120.81667,16.05000,26721
+San Juan,,municipality,Ilocos Sur,Ilocos Region,120.47247,17.73401,26709
+Ramon Magsaysay,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.45830,8.01720,26606
+Mabini,,municipality,Pangasinan,Ilocos Region,119.98333,16.01667,26589
+Amlan,,municipality,Negros Oriental,Central Visayas,123.18333,9.45000,26566
+Nagtipunan,,municipality,Quirino,Cagayan Valley,121.52597,16.13183,26541
+Allen,,municipality,Northern Samar,Eastern Visayas,124.30000,12.50000,26527
+Lamut,,municipality,Ifugao,Cordillera,121.21667,16.68333,26520
+Alegria,,municipality,Cebu,Central Visayas,123.36667,9.75000,26520
+General Luna,,municipality,Quezon,Calabarzon,122.21667,13.70000,26494
+Talugtug,,municipality,Nueva Ecija,Central Luzon,120.81021,15.76319,26469
+Tubay,,municipality,Agusan del Norte,Caraga,125.54990,9.21401,26463
+Tingloy,,municipality,Batangas,Calabarzon,120.88333,13.65000,26463
+Manito,,municipality,Albay,Bicol Region,123.88333,13.08333,26425
+Talisay,,municipality,Camarines Norte,Bicol Region,122.90000,14.13333,26371
+Santa Margarita,,municipality,Samar,Eastern Visayas,124.71247,12.05752,26348
+Sarrat,,municipality,Ilocos Norte,Ilocos Region,120.64735,18.13502,26294
+Sanchez-Mira,,municipality,Cagayan,Cagayan Valley,121.22589,18.51087,26292
+Tugaya,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.13333,7.90000,26283
+Bien Unido,,municipality,Bohol,Central Visayas,124.37414,10.12912,26278
+Solsona,,municipality,Ilocos Norte,Ilocos Region,120.82217,18.11615,26249
+Bacungan,,municipality,Zamboanga del Norte,Zamboanga Peninsula,122.94281,8.05549,26221
+Santa Lucia,,municipality,Ilocos Sur,Ilocos Region,120.47092,17.12482,26200
+Altavas,,municipality,Aklan,Western Visayas,122.46667,11.51667,26181
+San Pablo,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.42330,7.68730,26166
+Sierra Bullones,,municipality,Bohol,Central Visayas,124.28333,9.81667,26154
+San Miguel,,municipality,Bohol,Central Visayas,124.31667,10.00000,26124
+San Felipe,,municipality,Zambales,Central Luzon,120.13333,15.06667,26081
+San Isidro,,municipality,Northern Samar,Eastern Visayas,124.36667,12.33333,26068
+Sinait,,municipality,Ilocos Sur,Ilocos Region,120.48333,17.85000,26059
+Del Gallego,,municipality,Camarines Sur,Bicol Region,122.66667,13.93333,26029
+Tarangnan,,municipality,Samar,Eastern Visayas,124.76667,11.91667,26013
+Santo Tomas,,municipality,Isabela,Cagayan Valley,121.71667,17.36667,25997
+South Ubian,,municipality,Tawi-Tawi,Autonomous Region in Muslim Mindanao,120.58840,5.21470,25935
+Santa Maria,,municipality,Isabela,Cagayan Valley,121.73333,17.48333,25919
+Monreal,,municipality,Masbate,Bicol Region,123.61667,12.63333,25843
+Magallanes,,municipality,Cavite,Calabarzon,120.75922,14.16726,25826
+Lopez Jaena,,municipality,Misamis Occidental,Northern Mindanao,123.71970,8.52460,25806
+Carrascal,,municipality,Surigao del Sur,Caraga,125.85000,9.36667,25672
+Camalaniugan,,municipality,Cagayan,Cagayan Valley,121.66667,18.28333,25629
+Baliguian,,municipality,Zamboanga del Norte,Zamboanga Peninsula,122.25270,7.81999,25585
+Pagudpud,,municipality,Ilocos Norte,Ilocos Region,120.86478,18.56327,25565
+Kauswagan,,municipality,Lanao del Norte,Northern Mindanao,124.08333,8.16667,25515
+San Manuel,,municipality,Tarlac,Central Luzon,120.59812,15.80191,25504
+Piat,,municipality,Cagayan,Cagayan Valley,121.51667,17.80000,25436
+Butig,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.30000,7.73333,25394
+San Pablo,,municipality,Isabela,Cagayan Valley,121.98333,17.46667,25384
+Unisan,,municipality,Quezon,Calabarzon,121.98333,13.86667,25357
+Sagbayan,,municipality,Bohol,Central Visayas,124.10000,9.90000,25329
+Pangil,,municipality,Laguna,Calabarzon,121.46667,14.40000,25318
+Quezon,,municipality,Nueva Vizcaya,Cagayan Valley,121.28333,16.48333,25306
+Macalelon,,municipality,Quezon,Calabarzon,122.16667,13.78333,25266
+Paete,,municipality,Laguna,Calabarzon,121.53491,14.37472,25254
+Kalayaan,,municipality,Laguna,Calabarzon,121.54637,14.33792,25243
+Camaligan,,municipality,Camarines Sur,Bicol Region,123.15907,13.62352,25218
+General Luna,,municipality,Surigao del Norte,Caraga,126.13213,9.78845,25208
+Quirino,,municipality,Isabela,Cagayan Valley,121.73333,17.16667,25205
+Pamplona,,municipality,Cagayan,Cagayan Valley,121.32617,18.44591,25182
+Hadji Muhtamad,,municipality,Basilan,Autonomous Region in Muslim Mindanao,121.58974,6.67479,25085
+Shariff Saydona Mustapha,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.48008,6.96136,25080
+Lagonglong,,municipality,Misamis Oriental,Northern Mindanao,124.81667,8.81667,25072
+Dimasalang,,municipality,Masbate,Bicol Region,123.83333,12.16667,25054
+Lumbatan,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.25000,7.73333,24988
+Bacolod,,municipality,Lanao del Norte,Northern Mindanao,124.03944,8.14056,24963
+Barbaza,,municipality,Antique,Western Visayas,122.11667,11.21667,24925
+Ternate,,municipality,Cavite,Calabarzon,120.70000,14.26667,24891
+Madamba,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.06667,7.88333,24886
+San Isidro,,municipality,Isabela,Cagayan Valley,121.61667,16.73333,24861
+Sapad,,municipality,Lanao del Norte,Northern Mindanao,123.82770,7.83530,24826
+New Lucena,,municipality,Iloilo,Western Visayas,122.57845,10.87231,24785
+Baroy,,municipality,Lanao del Norte,Northern Mindanao,123.83274,7.97458,24763
+Cavinti,,municipality,Laguna,Calabarzon,121.51667,14.25000,24740
+Cuyo,,municipality,Palawan,Mimaropa,121.01661,10.82414,24702
+Santa Josefa,,municipality,Agusan del Sur,Caraga,126.02110,8.03877,24667
+Alicia,,municipality,Bohol,Central Visayas,124.43333,9.90000,24663
+Tampilisan,,municipality,Zamboanga del Norte,Zamboanga Peninsula,122.68333,8.01667,24653
+Lantawan,,municipality,Basilan,Autonomous Region in Muslim Mindanao,121.86420,6.62650,24594
+Tabina,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.40600,7.41890,24591
+Garcia Hernandez,,municipality,Bohol,Central Visayas,124.28333,9.66667,24450
+Caibiran,,municipality,Biliran,Eastern Visayas,124.55000,11.55000,24444
+San Enrique,,municipality,Negros Occidental,Western Visayas,122.86667,10.41667,24424
+San Nicolas,,municipality,Batangas,Calabarzon,120.95123,13.91707,24392
+Bacolod-Kalawi,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.11667,7.88333,24381
+Mabuhay,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.90000,7.41667,24296
+General Emilio Aguinaldo,,municipality,Cavite,Calabarzon,120.79857,14.18514,24264
+Paoay,,municipality,Ilocos Norte,Ilocos Region,120.51667,18.08333,24204
+Balete,,municipality,Batangas,Calabarzon,121.11332,14.01387,24202
+Tongkil,,municipality,Sulu,Autonomous Region in Muslim Mindanao,121.83632,6.02517,24161
+Bulusan,,municipality,Sorsogon,Bicol Region,124.08333,12.75000,24152
+Mina,,municipality,Iloilo,Western Visayas,122.58010,10.92973,24145
+Buenavista,,municipality,Marinduque,Mimaropa,121.96667,13.25000,24136
+Tangalan,,municipality,Aklan,Western Visayas,122.21667,11.73333,24004
+Culion,,municipality,Palawan,Mimaropa,119.97097,11.83408,23985
+Pakil,,municipality,Laguna,Calabarzon,121.48333,14.38333,23972
+Pres. Carlos P. Garcia,,municipality,Bohol,Central Visayas,124.55000,10.10000,23858
+Catigbian,,municipality,Bohol,Central Visayas,124.03333,9.83333,23812
+Ramos,,municipality,Tarlac,Central Luzon,120.63333,15.68333,23808
+Calamba,,municipality,Misamis Occidental,Northern Mindanao,123.64440,8.52780,23808
+Dumaran,,municipality,Palawan,Mimaropa,119.66425,10.52404,23795
+Liloan,,municipality,Southern Leyte,Eastern Visayas,125.18056,10.10471,23787
+Sibunag,,municipality,Guimaras,Western Visayas,122.61898,10.51407,23787
+Vincenzo A. Sagun,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.16584,7.51456,23759
+San Agustin,,municipality,Romblon,Mimaropa,122.10000,12.50000,23698
+San Fernando,,municipality,Romblon,Mimaropa,122.56667,12.38333,23660
+Pio V. Corpuz,,municipality,Masbate,Bicol Region,124.03333,11.85000,23641
+San Agustin,,municipality,Surigao del Sur,Caraga,126.19559,8.75378,23612
+Naawan,,municipality,Misamis Oriental,Northern Mindanao,124.35000,8.43333,23562
+Cajidiocan,,municipality,Romblon,Mimaropa,122.63333,12.40000,23488
+Bontoc,,municipality,Mountain Province,Cordillera,121.00000,17.10000,23466
+Caba,,municipality,La Union,Ilocos Region,120.38333,16.45000,23432
+Prieto Diaz,,municipality,Sorsogon,Bicol Region,124.18333,13.03333,23424
+Maigo,,municipality,Lanao del Norte,Northern Mindanao,123.98460,8.10270,23400
+Padre Burgos,,municipality,Quezon,Calabarzon,121.83333,13.93333,23392
+Kalawit,,municipality,Zamboanga del Norte,Zamboanga Peninsula,122.53784,7.95186,23381
+Presentacion,,municipality,Camarines Sur,Bicol Region,123.72707,13.74673,23323
+Calbiga,,municipality,Samar,Eastern Visayas,125.08103,11.60519,23309
+Carmen,,municipality,Agusan del Norte,Caraga,125.25000,9.00000,23304
+Buadiposo-Buntong,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.38333,7.96667,23283
+Burgos,,municipality,Pangasinan,Ilocos Region,119.85000,16.03333,23240
+Kapatagan,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.18815,7.48837,23228
+Malinao,,municipality,Aklan,Western Visayas,122.23333,11.60000,23194
+Jabonga,,municipality,Agusan del Norte,Caraga,125.60692,9.34609,23184
+Mulondo,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.36542,7.91786,23159
+Lazi,,municipality,Siquijor,Central Visayas,123.61667,9.13333,23092
+Tubungan,,municipality,Iloilo,Western Visayas,122.30000,10.78333,23083
+Gigaquit,,municipality,Surigao del Norte,Caraga,125.65000,9.51667,22949
+Santa Fe,,municipality,Leyte,Eastern Visayas,124.93333,11.18333,22889
+San Jose,,municipality,Negros Oriental,Central Visayas,123.21667,9.40000,22870
+Piddig,,municipality,Ilocos Norte,Ilocos Region,120.75663,18.18283,22781
+Magallanes,,municipality,Agusan del Norte,Caraga,125.55000,9.03333,22780
+Burdeos,,municipality,Quezon,Calabarzon,121.98194,14.91569,22742
+Anini-Y,,municipality,Antique,Western Visayas,121.95000,10.45000,22713
+Kitcharao,,municipality,Agusan del Norte,Caraga,125.61667,9.41667,22671
+Doña Remedios Trinidad,,municipality,Bulacan,Central Luzon,121.06667,15.00000,22663
+Pitogo,,municipality,Quezon,Calabarzon,122.06667,13.80000,22499
+Baclayon,,municipality,Bohol,Central Visayas,123.91329,9.64496,22461
+Dupax del Sur,,municipality,Nueva Vizcaya,Cagayan Valley,121.18333,16.13333,22388
+Cagwait,,municipality,Surigao del Sur,Caraga,126.27610,8.89524,22305
+Maribojoc,,municipality,Bohol,Central Visayas,123.85000,9.75000,22268
+Macarthur,,municipality,Leyte,Eastern Visayas,124.93552,10.82542,22256
+San Agustin,,municipality,Isabela,Cagayan Valley,121.77047,16.46589,22228
+Batad,,municipality,Iloilo,Western Visayas,123.10000,11.41667,22174
+Guipos,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.31420,7.75110,22173
+Salcedo,,municipality,Eastern Samar,Eastern Visayas,125.61667,11.16667,22136
+Candoni,,municipality,Negros Occidental,Western Visayas,122.63333,9.71667,22083
+Sarangani,,municipality,Davao Occidental,Davao Region,125.42317,5.41765,22041
+Tolosa,,municipality,Leyte,Eastern Visayas,125.01667,11.03333,22016
+San Fernando,,municipality,Masbate,Bicol Region,123.71667,12.48333,22006
+Looc,,municipality,Romblon,Mimaropa,122.00323,12.27711,21964
+Can-Avid,,municipality,Eastern Samar,Eastern Visayas,125.35000,11.98333,21942
+Cabucgayan,,municipality,Biliran,Eastern Visayas,124.56667,11.51667,21923
+Barcelona,,municipality,Sorsogon,Bicol Region,124.11667,12.83333,21911
+Tapul,,municipality,Sulu,Autonomous Region in Muslim Mindanao,120.91141,5.72463,21830
+Luisiana,,municipality,Laguna,Calabarzon,121.51667,14.18333,21824
+Pantar,,municipality,Lanao del Norte,Northern Mindanao,124.28919,8.08795,21773
+Mabitac,,municipality,Laguna,Calabarzon,121.40000,14.43333,21748
+Santa Teresita,,municipality,Batangas,Calabarzon,120.95000,13.86667,21742
+Malitbog,,municipality,Southern Leyte,Eastern Visayas,124.96040,10.17747,21691
+Luna,,municipality,Apayao,Cordillera,121.23921,18.33247,21630
+Kapai,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.37041,8.06611,21630
+Inopacan,,municipality,Leyte,Eastern Visayas,124.85000,10.51667,21629
+Lakewood,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.15830,7.89400,21559
+Gamay,,municipality,Northern Samar,Eastern Visayas,125.26667,12.38333,21546
+Hindang,,municipality,Leyte,Eastern Visayas,124.80000,10.45000,21520
+Lumbayanague,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.28161,7.77329,21469
+Kawayan,,municipality,Biliran,Eastern Visayas,124.40918,11.67880,21422
+Linamon,,municipality,Lanao del Norte,Northern Mindanao,124.16611,8.15167,21385
+Viga,,municipality,Catanduanes,Bicol Region,124.30000,13.85000,21364
+Bato,,municipality,Catanduanes,Bicol Region,124.28333,13.60000,21325
+Clarin,,municipality,Bohol,Central Visayas,124.03333,9.93333,21318
+Datu Salibo,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.47959,7.00050,21295
+Ronda,,municipality,Cebu,Central Visayas,123.45000,10.00000,21179
+San Guillermo,,municipality,Isabela,Cagayan Valley,121.86667,16.73333,21043
+Luna,,municipality,Isabela,Cagayan Valley,121.73568,16.97911,21015
+Sapang Dalaga,,municipality,Misamis Occidental,Northern Mindanao,123.57680,8.53140,21006
+Villaverde,,municipality,Nueva Vizcaya,Cagayan Valley,121.18333,16.58333,21001
+Lugait,,municipality,Misamis Oriental,Northern Mindanao,124.26667,8.33333,20946
+Aguinaldo,,municipality,Ifugao,Cordillera,121.36214,16.93918,20924
+Tublay,,municipality,Benguet,Cordillera,120.63333,16.51667,20886
+Pandan,,municipality,Catanduanes,Bicol Region,124.20000,14.03333,20796
+Del Carmen,,municipality,Surigao del Norte,Caraga,125.99544,9.85838,20786
+Valderrama,,municipality,Antique,Western Visayas,122.20000,11.03333,20762
+Samboan,,municipality,Cebu,Central Visayas,123.31667,9.51667,20736
+Magsaysay,,municipality,Lanao del Norte,Northern Mindanao,123.92940,8.02780,20581
+Rizal,,municipality,Kalinga,Cordillera,121.60000,17.50000,20491
+Malabuyoc,,municipality,Cebu,Central Visayas,123.35000,9.66667,20378
+Pastrana,,municipality,Leyte,Eastern Visayas,124.88821,11.12408,20327
+San Miguel,,municipality,Leyte,Eastern Visayas,124.86667,11.35000,20322
+Danao,,municipality,Bohol,Central Visayas,124.20000,9.96667,20299
+Tuburan,,municipality,Basilan,Autonomous Region in Muslim Mindanao,122.20554,6.60185,20207
+Sinacaban,,municipality,Misamis Occidental,Northern Mindanao,123.76300,8.29270,20176
+Banaue,,municipality,Ifugao,Cordillera,121.06667,16.95000,20143
+Dagohoy,,municipality,Bohol,Central Visayas,124.28333,9.91667,20068
+Cervantes,,municipality,Ilocos Sur,Ilocos Region,120.71667,16.98333,20065
+Kapangan,,municipality,Benguet,Cordillera,120.60000,16.60000,20048
+San Miguel,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.26590,7.69870,20037
+Buruanga,,municipality,Aklan,Western Visayas,121.93333,11.83333,19878
+La Paz,,municipality,Leyte,Eastern Visayas,124.90000,10.90000,19797
+Talitay,,municipality,Maguindanao del Norte,Autonomous Region in Muslim Mindanao,124.36947,7.03648,19750
+Balilihan,,municipality,Bohol,Central Visayas,123.98333,9.75000,19747
+Marihatag,,municipality,Surigao del Sur,Caraga,126.13333,8.80000,19730
+Tigbao,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.25301,7.84312,19716
+Caoayan,,municipality,Ilocos Sur,Ilocos Region,120.39899,17.53776,19715
+San Teodoro,,municipality,Oriental Mindoro,Mimaropa,120.94386,13.38370,19650
+Rizal,,municipality,Cagayan,Cagayan Valley,121.40000,17.83333,19577
+Jiabong,,municipality,Samar,Eastern Visayas,124.98333,11.85000,19482
+Santa Teresita,,municipality,Cagayan,Cagayan Valley,121.88333,18.25000,19476
+Paluan,,municipality,Occidental Mindoro,Mimaropa,120.50000,13.43333,19461
+Malimono,,municipality,Surigao del Norte,Caraga,125.41667,9.61667,19442
+Sebaste,,municipality,Antique,Western Visayas,122.10000,11.58333,19365
+Banna,,municipality,Ilocos Norte,Ilocos Region,120.65000,17.98333,19363
+Atok,,municipality,Benguet,Cordillera,120.70000,16.56667,19346
+Hadji Mohammad Ajul,,municipality,Basilan,Autonomous Region in Muslim Mindanao,122.27765,6.63630,19307
+Picong,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,123.94060,7.69050,19296
+Gitagum,,municipality,Misamis Oriental,Northern Mindanao,124.38333,8.58333,19269
+Diadi,,municipality,Nueva Vizcaya,Cagayan Valley,121.35000,16.63333,19236
+Alcoy,,municipality,Cebu,Central Visayas,123.45000,9.70000,19207
+Piñan,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.43810,8.40250,19184
+Siruma,,municipality,Camarines Sur,Bicol Region,123.30000,14.01667,19168
+Tipo-Tipo,,municipality,Basilan,Autonomous Region in Muslim Mindanao,122.13333,6.51667,19163
+Duero,,municipality,Bohol,Central Visayas,124.38477,9.73911,19136
+Lagawe,,municipality,Ifugao,Cordillera,121.23333,16.78333,19124
+Pugo,,municipality,La Union,Ilocos Region,120.48124,16.32467,19107
+Nunungan,,municipality,Lanao del Norte,Northern Mindanao,123.94420,7.81080,19036
+Cortes,,municipality,Bohol,Central Visayas,123.90000,9.71667,18976
+Santa Fe,,municipality,Nueva Vizcaya,Cagayan Valley,120.88333,16.20000,18950
+Taft,,municipality,Eastern Samar,Eastern Visayas,125.35000,11.88333,18915
+Llorente,,municipality,Eastern Samar,Eastern Visayas,125.45000,11.35000,18909
+Cabusao,,municipality,Camarines Sur,Bicol Region,123.06667,13.73333,18882
+Bilar,,municipality,Bohol,Central Visayas,124.11667,9.73333,18877
+Rizal,,municipality,Laguna,Calabarzon,121.40000,14.11667,18864
+Tinoc,,municipality,Ifugao,Cordillera,120.95035,16.69690,18749
+Biliran,,municipality,Biliran,Eastern Visayas,124.47845,11.46959,18721
+Almeria,,municipality,Biliran,Eastern Visayas,124.41667,11.65000,18716
+Mayorga,,municipality,Leyte,Eastern Visayas,124.98333,10.88333,18713
+Libertad,,municipality,Antique,Western Visayas,121.95016,11.78735,18685
+Cagdianao,,municipality,Dinagat Islands,Caraga,125.65596,10.02778,18679
+Santander,,municipality,Cebu,Central Visayas,123.33209,9.46117,18669
+Pinabacdao,,municipality,Samar,Eastern Visayas,125.04923,11.54481,18639
+Matag-Ob,,municipality,Leyte,Eastern Visayas,124.46667,11.11667,18618
+Sominot,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.37670,8.03830,18537
+Sibonga,,municipality,Cebu,Central Visayas,123.56667,10.03333,18527
+Baliangao,,municipality,Misamis Occidental,Northern Mindanao,123.61550,8.61600,18500
+Ungkaya Pukan,,municipality,Basilan,Autonomous Region in Muslim Mindanao,122.09879,6.55019,18441
+Madalag,,municipality,Aklan,Western Visayas,122.21667,11.51667,18389
+San Jose,,municipality,Northern Samar,Eastern Visayas,124.48333,12.51667,18301
+San Rafael,,municipality,Iloilo,Western Visayas,122.85000,11.16667,18293
+Flora,,municipality,Apayao,Cordillera,121.40000,18.11667,18271
+Sibutad,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.48200,8.60850,18199
+Catarman,,municipality,Camiguin,Northern Mindanao,124.66667,9.15000,18186
+San Gabriel,,municipality,La Union,Ilocos Region,120.46667,16.66667,18172
+Marabut,,municipality,Samar,Eastern Visayas,125.21700,11.20639,18168
+Tagana-An,,municipality,Surigao del Norte,Caraga,125.59059,9.70676,18158
+Libjo,,municipality,Dinagat Islands,Caraga,125.56667,10.20000,18157
+Marcos,,municipality,Ilocos Norte,Ilocos Region,120.70323,18.02454,18105
+Tadian,,municipality,Mountain Province,Cordillera,120.81660,16.96670,18073
+Godod,,municipality,Zamboanga del Norte,Zamboanga Peninsula,122.83327,7.99338,18040
+Cortes,,municipality,Surigao del Sur,Caraga,126.16667,9.23333,18023
+Esperanza,,municipality,Masbate,Bicol Region,124.00000,11.80000,18021
+Pualas,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.05590,7.80794,18020
+Calayan,,municipality,Cagayan,Cagayan Valley,121.46759,19.32929,18008
+Loay,,municipality,Bohol,Central Visayas,124.03333,9.60000,17957
+Talusan,,municipality,Zamboanga Sibugay,Zamboanga Peninsula,122.81667,7.41667,17925
+San Jorge,,municipality,Samar,Eastern Visayas,124.85000,11.96667,17863
+Saguday,,municipality,Quirino,Cagayan Valley,121.58044,16.54836,17863
+Kiangan,,municipality,Ifugao,Cordillera,121.08852,16.77539,17849
+Alegria,,municipality,Surigao del Norte,Caraga,125.58333,9.48333,17846
+Anda,,municipality,Bohol,Central Visayas,124.55000,9.76667,17835
+Bucay,,municipality,Abra,Cordillera,120.71667,17.50000,17775
+Pinili,,municipality,Ilocos Norte,Ilocos Region,120.53333,17.95000,17705
+Famy,,municipality,Laguna,Calabarzon,121.47424,14.48130,17668
+Calanogas,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.07779,7.71787,17585
+Santa Fe,,municipality,Romblon,Mimaropa,122.01667,12.16667,17578
+Tubaran,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.16667,7.71667,17567
+Jovellar,,municipality,Albay,Bicol Region,123.56667,13.05000,17538
+Alcantara,,municipality,Cebu,Central Visayas,123.44105,9.96725,17490
+Lubang,,municipality,Occidental Mindoro,Mimaropa,120.13333,13.81667,17437
+Santa Magdalena,,municipality,Sorsogon,Bicol Region,124.08333,12.65000,17400
+Bombon,,municipality,Camarines Sur,Bicol Region,123.20000,13.68333,17346
+Loboc,,municipality,Bohol,Central Visayas,124.05000,9.65000,17338
+San Juan,,municipality,Siquijor,Central Visayas,123.51667,9.16667,17291
+Palanan,,municipality,Isabela,Cagayan Valley,122.33333,16.98333,17260
+Tangcal,,municipality,Lanao del Norte,Northern Mindanao,124.01667,8.00000,17247
+Ginatilan,,municipality,Cebu,Central Visayas,123.35000,9.60000,17184
+Boljoon,,municipality,Cebu,Central Visayas,123.43333,9.63333,17153
+Panukulan,,municipality,Quezon,Calabarzon,121.88333,14.96667,17118
+Sudipen,,municipality,La Union,Ilocos Region,120.50000,16.85000,16888
+Kibungan,,municipality,Benguet,Cordillera,120.65000,16.71667,16884
+Madrid,,municipality,Surigao del Sur,Caraga,125.93368,9.21612,16872
+Tomas Oppus,,municipality,Southern Leyte,Eastern Visayas,124.94292,10.27817,16846
+Linapacan,,municipality,Palawan,Mimaropa,119.86667,11.50000,16782
+Tubod,,municipality,Surigao del Norte,Caraga,125.56667,9.55000,16675
+Kabugao,,municipality,Apayao,Cordillera,121.18894,18.02771,16425
+Alcantara,,municipality,Romblon,Mimaropa,122.05345,12.29994,16417
+Matungao,,municipality,Lanao del Norte,Northern Mindanao,124.16667,8.13333,16404
+Matalom,,municipality,Leyte,Eastern Visayas,124.82538,10.26639,16404
+Ambaguio,,municipality,Nueva Vizcaya,Cagayan Valley,121.05687,16.55238,16401
+Arteche,,municipality,Eastern Samar,Eastern Visayas,125.35469,12.26050,16360
+San Andres,,municipality,Romblon,Mimaropa,122.05000,12.53333,16350
+Bingawan,,municipality,Iloilo,Western Visayas,122.57651,11.20762,16247
+Lezo,,municipality,Aklan,Western Visayas,122.31667,11.66667,16200
+Libagon,,municipality,Southern Leyte,Eastern Visayas,125.06667,10.35000,16146
+Asipulo,,municipality,Ifugao,Cordillera,121.05314,16.67610,16088
+Victoria,,municipality,Northern Samar,Eastern Visayas,124.38333,12.41667,16085
+Remedios T. Romualdez,,municipality,Agusan del Norte,Caraga,125.65427,9.06464,16058
+Julita,,municipality,Leyte,Eastern Visayas,124.96667,10.96667,16053
+Zumarraga,,municipality,Samar,Eastern Visayas,124.86667,11.66667,16051
+La Paz,,municipality,Abra,Cordillera,120.66667,17.66667,16014
+Motiong,,municipality,Samar,Eastern Visayas,125.03333,11.88333,15887
+Quezon,,municipality,Quezon,Calabarzon,122.13333,14.06667,15869
+Kabayan,,municipality,Benguet,Cordillera,120.85000,16.61667,15841
+Dilasag,,municipality,Aurora,Central Luzon,122.11667,16.43333,15835
+Lope de Vega,,municipality,Northern Samar,Eastern Visayas,124.64395,12.31383,15779
+Sulat,,municipality,Eastern Samar,Eastern Visayas,125.36667,11.80000,15776
+Kinoguitan,,municipality,Misamis Oriental,Northern Mindanao,124.80000,8.96667,15763
+Alabat,,municipality,Quezon,Calabarzon,122.01667,14.11667,15744
+Pudtol,,municipality,Apayao,Cordillera,121.30866,18.15840,15676
+Pagayawan,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.11667,7.73333,15659
+San Policarpo,,municipality,Eastern Samar,Eastern Visayas,125.50000,12.18333,15597
+Patnanungan,,municipality,Quezon,Calabarzon,122.15000,14.81667,15554
+Mayoyao,,municipality,Ifugao,Cordillera,121.24180,16.90126,15525
+Silvino Lobos,,municipality,Northern Samar,Eastern Visayas,124.85000,12.28333,15512
+Maydolong,,municipality,Eastern Samar,Eastern Visayas,125.36302,11.46446,15456
+Bakun,,municipality,Benguet,Cordillera,120.68333,16.83333,15399
+Rizal,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.53280,8.56310,15347
+Nampicuan,,municipality,Nueva Ecija,Central Luzon,120.66667,15.71667,15297
+Bangui,,municipality,Ilocos Norte,Ilocos Region,120.75321,18.47045,15227
+Magdiwang,,municipality,Romblon,Mimaropa,122.53333,12.46667,15170
+Santa,,municipality,Ilocos Sur,Ilocos Region,120.44727,17.51429,15164
+Maria,,municipality,Siquijor,Central Visayas,123.63333,9.18333,15146
+Boston,,municipality,Davao Oriental,Davao Region,126.27843,7.91601,15074
+San Juan,,municipality,Southern Leyte,Eastern Visayas,125.18333,10.28333,15036
+Larena,,municipality,Siquijor,Central Visayas,123.61667,9.23333,14933
+Mahinog,,municipality,Camiguin,Northern Mindanao,124.76667,9.15000,14905
+Santo Tomas,,municipality,Pangasinan,Ilocos Region,120.58241,15.88251,14894
+Dimiao,,municipality,Bohol,Central Visayas,124.15000,9.65000,14894
+Bacuag,,municipality,Surigao del Norte,Caraga,125.63333,9.58333,14881
+Antequera,,municipality,Bohol,Central Visayas,123.93333,9.78333,14881
+Santol,,municipality,La Union,Ilocos Region,120.48333,16.76667,14877
+Mapanas,,municipality,Northern Samar,Eastern Visayas,125.21667,12.45000,14858
+Sison,,municipality,Surigao del Norte,Caraga,125.48333,9.65000,14826
+Silago,,municipality,Southern Leyte,Eastern Visayas,125.11667,10.53333,14677
+Quinapondan,,municipality,Eastern Samar,Eastern Visayas,125.50663,11.17829,14624
+Batuan,,municipality,Masbate,Bicol Region,123.76260,12.40000,14610
+General Macarthur,,municipality,Eastern Samar,Eastern Visayas,125.50000,11.23333,14606
+San Miguel,,municipality,Catanduanes,Bicol Region,124.28333,13.70000,14578
+Lagangilang,,municipality,Abra,Cordillera,120.78091,17.63571,14577
+Araceli,,municipality,Palawan,Mimaropa,119.86667,10.61667,14554
+San Francisco,,municipality,Surigao del Norte,Caraga,125.41667,9.71667,14552
+San Julian,,municipality,Eastern Samar,Eastern Visayas,125.36667,11.73333,14509
+Balangiga,,municipality,Eastern Samar,Eastern Visayas,125.36667,11.21667,14473
+Tayum,,municipality,Abra,Cordillera,120.68333,17.60000,14467
+Bokod,,municipality,Benguet,Cordillera,120.78333,16.48333,14435
+Bagulin,,municipality,La Union,Ilocos Region,120.48333,16.61667,14434
+Belison,,municipality,Antique,Western Visayas,121.98333,10.85000,14433
+Batuan,,municipality,Bohol,Central Visayas,124.11667,9.80000,14423
+Santa Catalina,,municipality,Ilocos Sur,Ilocos Region,120.35762,17.58426,14319
+San Lorenzo Ruiz,,municipality,Camarines Norte,Bicol Region,122.87016,13.99294,14063
+Santa Marcela,,municipality,Apayao,Cordillera,121.43810,18.29220,14049
+Hinabangan,,municipality,Samar,Eastern Visayas,125.18333,11.70000,13791
+San Clemente,,municipality,Tarlac,Central Luzon,120.36667,15.70000,13781
+Lanuza,,municipality,Surigao del Sur,Caraga,126.05000,9.15000,13750
+Culaba,,municipality,Biliran,Eastern Visayas,124.50000,11.65000,13563
+Libertad,,municipality,Misamis Oriental,Northern Mindanao,124.36861,8.52861,13461
+Agutaya,,municipality,Palawan,Mimaropa,120.93441,11.24424,13351
+Balbalan,,municipality,Kalinga,Cordillera,121.15000,17.45000,13332
+Sampaloc,,municipality,Quezon,Calabarzon,121.63315,14.18394,13331
+Agdangan,,municipality,Quezon,Calabarzon,121.91663,13.89228,13316
+Tinglayan,,municipality,Kalinga,Cordillera,121.11667,17.23333,13311
+Nueva Era,,municipality,Ilocos Norte,Ilocos Region,120.70000,17.93333,13305
+Magsaysay,,municipality,Palawan,Mimaropa,121.05489,10.86895,13273
+Tagoloan,,municipality,Lanao del Norte,Northern Mindanao,124.31582,8.15939,13253
+Sagay,,municipality,Camiguin,Northern Mindanao,124.71667,9.11667,13192
+San Vicente,,municipality,Ilocos Sur,Ilocos Region,120.36721,17.61242,13118
+Santo Niño,,municipality,Samar,Eastern Visayas,124.43333,11.90000,13088
+Lawaan,,municipality,Eastern Samar,Eastern Visayas,125.26667,11.20000,13063
+Perez,,municipality,Quezon,Calabarzon,121.95454,14.18580,13052
+Hinundayan,,municipality,Southern Leyte,Eastern Visayas,125.23333,10.33333,13042
+Burgos,,municipality,Ilocos Sur,Ilocos Region,120.51667,17.31667,13026
+Baras,,municipality,Catanduanes,Bicol Region,124.35000,13.70000,12992
+Sultan Dumalondong,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.25333,7.71790,12984
+Giporlos,,municipality,Eastern Samar,Eastern Visayas,125.46667,11.13333,12974
+San Francisco,,municipality,Southern Leyte,Eastern Visayas,125.16701,10.07165,12897
+Datu Unsay,,municipality,Maguindanao del Sur,Autonomous Region in Muslim Mindanao,124.39362,6.88995,12890
+Anao,,municipality,Tarlac,Central Luzon,120.60649,15.76211,12865
+Tagoloan Ii,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.43917,8.10917,12843
+Dinalungan,,municipality,Aurora,Central Luzon,121.88333,16.18333,12552
+Pilar,,municipality,Cebu,Central Visayas,124.51667,10.75000,12454
+Sablan,,municipality,Benguet,Cordillera,120.51748,16.49639,12436
+Currimao,,municipality,Ilocos Norte,Ilocos Region,120.50000,18.00000,12256
+Mutia,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.50650,8.38670,12197
+Calanasan,,municipality,Apayao,Cordillera,121.03333,18.25000,12176
+Tabontabon,,municipality,Leyte,Eastern Visayas,124.95000,11.06667,12157
+Capul,,municipality,Northern Samar,Eastern Visayas,124.15000,12.41667,12127
+Pidigan,,municipality,Abra,Cordillera,120.58333,17.55000,12058
+Dolores,,municipality,Abra,Cordillera,120.75000,17.63333,11967
+Lapinig,,municipality,Northern Samar,Eastern Visayas,125.30000,12.31667,11908
+Balingoan,,municipality,Misamis Oriental,Northern Mindanao,124.86667,8.95000,11896
+Carmen,,municipality,Surigao del Sur,Caraga,125.89449,9.18308,11859
+San Vicente,,municipality,Camarines Norte,Bicol Region,122.86051,14.07527,11774
+San Jose,,municipality,Romblon,Mimaropa,121.93333,12.06667,11759
+Rosario,,municipality,Northern Samar,Eastern Visayas,124.41667,12.51667,11726
+Gainza,,municipality,Camarines Sur,Bicol Region,123.13333,13.60000,11652
+Tudela,,municipality,Cebu,Central Visayas,124.48333,10.66667,11638
+Padre Burgos,,municipality,Southern Leyte,Eastern Visayas,125.00052,10.07882,11515
+Alburquerque,,municipality,Bohol,Central Visayas,123.96174,9.63225,11489
+Lila,,municipality,Bohol,Central Visayas,124.06667,9.61667,11450
+Sevilla,,municipality,Bohol,Central Visayas,124.03333,9.71667,11425
+Biri,,municipality,Northern Samar,Eastern Visayas,124.38333,12.66667,11274
+Calatrava,,municipality,Romblon,Mimaropa,122.06667,12.61667,11254
+Salcedo,,municipality,Ilocos Sur,Ilocos Region,120.54783,17.13314,11196
+Josefina,,municipality,Zamboanga del Sur,Zamboanga Peninsula,123.52680,8.18660,11190
+Sugbongcogon,,municipality,Misamis Oriental,Northern Mindanao,124.80000,8.95000,11156
+Pilar,,municipality,Surigao del Norte,Caraga,126.06667,9.86667,11135
+Tanudan,,municipality,Kalinga,Cordillera,121.26667,17.26667,11103
+Manabo,,municipality,Abra,Cordillera,120.71667,17.41667,11087
+Suyo,,municipality,Ilocos Sur,Ilocos Region,120.53333,16.98333,11051
+Burgos,,municipality,Ilocos Norte,Ilocos Region,120.65000,18.48333,10962
+Pintuyan,,municipality,Southern Leyte,Eastern Visayas,125.24141,9.97765,10930
+Panaon,,municipality,Misamis Occidental,Northern Mindanao,123.76750,8.35450,10891
+Plaridel,,municipality,Quezon,Calabarzon,122.00689,13.94563,10866
+Dinagat,,municipality,Dinagat Islands,Caraga,125.60803,9.97408,10820
+San Juan,,municipality,Abra,Cordillera,120.75507,17.70735,10777
+Sagada,,municipality,Mountain Province,Cordillera,120.90000,17.11667,10702
+Pasil,,municipality,Kalinga,Cordillera,121.15000,17.38333,10690
+Pilar,,municipality,Abra,Cordillera,120.56667,17.35000,10498
+Bagamanoc,,municipality,Catanduanes,Bicol Region,124.26667,13.98333,10403
+Bumbaran,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.63333,7.75000,10401
+San Ricardo,,municipality,Southern Leyte,Eastern Visayas,125.26052,9.99107,10385
+Galimuyod,,municipality,Ilocos Sur,Ilocos Region,120.51631,17.18642,10263
+Don Victoriano Chiongbian,,municipality,Misamis Occidental,Northern Mindanao,123.60450,8.26560,10214
+Balangkayan,,municipality,Eastern Samar,Eastern Visayas,125.38333,11.38333,10014
+Loreto,,municipality,Dinagat Islands,Caraga,125.61667,10.35000,9940
+Corella,,municipality,Bohol,Central Visayas,123.92667,9.69145,9889
+Basco,,municipality,Batanes,Cagayan Valley,121.98333,20.45000,9647
+Quirino,,municipality,Ilocos Sur,Ilocos Region,120.70000,17.13333,9460
+Hingyon,,municipality,Ifugao,Cordillera,121.10498,16.86128,9447
+Looc,,municipality,Occidental Mindoro,Mimaropa,120.23333,13.75000,9426
+Tagapul-An,,municipality,Samar,Eastern Visayas,124.18333,12.06667,9139
+Burgos,,municipality,La Union,Ilocos Region,120.46667,16.53333,9121
+San Sebastian,,municipality,Samar,Eastern Visayas,125.03333,11.73333,9110
+Corcuera,,municipality,Romblon,Mimaropa,122.05000,12.80000,9021
+Bayabas,,municipality,Surigao del Sur,Caraga,126.26667,8.96667,9016
+Hungduan,,municipality,Ifugao,Cordillera,120.98415,16.87160,8970
+Tubajon,,municipality,Dinagat Islands,Caraga,125.56667,10.30000,8964
+Panganiban,,municipality,Catanduanes,Bicol Region,124.27652,13.89409,8947
+Alfonso Castaneda,,municipality,Nueva Vizcaya,Cagayan Valley,121.30000,15.90000,8933
+Natonin,,municipality,Mountain Province,Cordillera,121.26667,17.13333,8906
+San Antonio,,municipality,Northern Samar,Eastern Visayas,124.25000,12.41667,8904
+San Isidro,,municipality,Surigao del Norte,Caraga,126.08333,9.95000,8813
+Santa Monica,,municipality,Surigao del Norte,Caraga,126.03333,10.03333,8808
+Lumbaca-Unayan,,municipality,Lanao del Sur,Autonomous Region in Muslim Mindanao,124.20969,7.72897,8768
+Anahawan,,municipality,Southern Leyte,Eastern Visayas,125.23314,10.28941,8766
+San Isidro,,municipality,Bohol,Central Visayas,123.93333,9.86667,8744
+Jipapad,,municipality,Eastern Samar,Eastern Visayas,125.20000,12.26667,8726
+Lubuagan,,municipality,Kalinga,Cordillera,121.17767,17.35359,8660
+San Esteban,,municipality,Ilocos Sur,Ilocos Region,120.46667,17.33333,8621
+Almagro,,municipality,Samar,Eastern Visayas,124.30000,11.93333,8571
+Sabangan,,municipality,Mountain Province,Cordillera,120.91670,16.95000,8556
+Talalora,,municipality,Samar,Eastern Visayas,124.86667,11.51667,8530
+Santa Maria,,municipality,Romblon,Mimaropa,122.08333,12.41667,8508
+Hadji Panglima Tahil,,municipality,Sulu,Autonomous Region in Muslim Mindanao,120.96085,6.19193,8441
+Gigmoto,,municipality,Catanduanes,Bicol Region,124.36667,13.80000,8348
+Hernani,,municipality,Eastern Samar,Eastern Visayas,125.58333,11.33333,8296
+Binuangan,,municipality,Misamis Oriental,Northern Mindanao,124.80000,8.91667,8293
+San Ildefonso,,municipality,Ilocos Sur,Ilocos Region,120.40753,17.61977,8213
+Pagsanghan,,municipality,Samar,Eastern Visayas,124.75000,11.96667,8145
+Banayoyo,,municipality,Ilocos Sur,Ilocos Region,120.49677,17.23709,7953
+San Jose de Buan,,municipality,Samar,Eastern Visayas,125.06667,12.10000,7939
+Jomalig,,municipality,Quezon,Calabarzon,122.36667,14.70000,7884
+La Libertad,,municipality,Zamboanga del Norte,Zamboanga Peninsula,123.52100,8.46460,7874
+Ferrol,,municipality,Romblon,Mimaropa,121.95000,12.33333,7826
+Sadanga,,municipality,Mountain Province,Cordillera,121.01667,17.18333,7781
+Alilem,,municipality,Ilocos Sur,Ilocos Region,120.58333,16.90000,7736
+Tunga,,municipality,Leyte,Eastern Visayas,124.75000,11.25000,7584
+San Emilio,,municipality,Ilocos Sur,Ilocos Region,120.61667,17.23333,7513
+Matuguinao,,municipality,Samar,Eastern Visayas,124.98333,12.18333,7364
+Pambujan,,municipality,Northern Samar,Eastern Visayas,124.95000,12.48333,7326
+San Vicente,,municipality,Northern Samar,Eastern Visayas,124.10000,12.26667,7308
+Cagayancillo,,municipality,Palawan,Mimaropa,121.21096,9.59584,7164
+Limasawa,,municipality,Southern Leyte,Eastern Visayas,125.07152,9.93056,7118
+Sikatuna,,municipality,Bohol,Central Visayas,123.98241,9.68530,7031
+Peñarrubia,,municipality,Abra,Cordillera,120.68333,17.53333,7003
+Enrique Villanueva,,municipality,Siquijor,Central Visayas,123.63333,9.26667,6965
+Guinsiliban,,municipality,Camiguin,Northern Mindanao,124.76667,9.11667,6827
+Concepcion,,municipality,Misamis Occidental,Northern Mindanao,123.59330,8.41370,6608
+Luba,,municipality,Abra,Cordillera,120.68810,17.32692,6402
+Sallapadan,,municipality,Abra,Cordillera,120.78333,17.46667,6328
+Besao,,municipality,Mountain Province,Cordillera,120.81667,17.10000,6315
+Mercedes,,municipality,Eastern Samar,Eastern Visayas,125.70409,11.08973,6114
+Maripipi,,municipality,Biliran,Eastern Visayas,124.31667,11.80000,6070
+San Benito,,municipality,Surigao del Norte,Caraga,126.00372,9.93861,5880
+Banton,,municipality,Romblon,Mimaropa,122.08333,12.93333,5848
+Divilacan,,municipality,Isabela,Cagayan Valley,122.31548,17.24194,5687
+Villaviciosa,,municipality,Abra,Cordillera,120.65000,17.40000,5674
+Tubo,,municipality,Abra,Cordillera,120.78333,17.28333,5674
+San Quintin,,municipality,Abra,Cordillera,120.51667,17.55000,5438
+Maslog,,municipality,Eastern Samar,Eastern Visayas,125.16667,12.11667,5438
+Nagbukel,,municipality,Ilocos Sur,Ilocos Region,120.55000,17.45000,5370
+Tineg,,municipality,Abra,Cordillera,120.90838,17.83279,5059
+Dinapigue,,municipality,Isabela,Cagayan Valley,122.23333,16.66667,5005
+Barlig,,municipality,Mountain Province,Cordillera,121.15000,17.08333,4819
+San Isidro,,municipality,Abra,Cordillera,120.60000,17.46667,4771
+Turtle Islands,,municipality,Tawi-Tawi,Autonomous Region in Muslim Mindanao,118.12122,6.18681,4727
+Lidlidda,,municipality,Ilocos Sur,Ilocos Region,120.53874,17.25815,4705
+Santa Praxedes,,municipality,Cagayan,Cagayan Valley,120.99931,18.53151,4643
+Lagayan,,municipality,Abra,Cordillera,120.71667,17.78333,4488
+Burgos,,municipality,Surigao del Norte,Caraga,126.06667,10.00000,4399
+Gregorio del Pilar,,municipality,Ilocos Sur,Ilocos Region,120.61667,17.15000,4385
+Danglas,,municipality,Abra,Cordillera,120.65000,17.70000,4372
+Licuan-Baay,,municipality,Abra,Cordillera,120.85000,17.58333,4301
+Maconacon,,municipality,Isabela,Cagayan Valley,122.10000,17.41667,4253
+Sugpon,,municipality,Ilocos Sur,Ilocos Region,120.55890,16.77948,4238
+Boliney,,municipality,Abra,Cordillera,120.86667,17.38333,3778
+Lacub,,municipality,Abra,Cordillera,121.05000,17.68333,3649
+Langiden,,municipality,Abra,Cordillera,120.51667,17.61667,3457
+Dumalneg,,municipality,Ilocos Norte,Ilocos Region,120.83016,18.47495,3452
+Malibcong,,municipality,Abra,Cordillera,121.02243,17.58576,3428
+Concepcion,,municipality,Romblon,Mimaropa,121.70897,12.92560,3427
+Itbayat,,municipality,Batanes,Cagayan Valley,121.83333,20.76667,2937
+Sigay,,municipality,Ilocos Sur,Ilocos Region,120.58333,17.03333,2577
+Adams,,municipality,Ilocos Norte,Ilocos Region,120.92122,18.45010,2279
+Bucloc,,municipality,Abra,Cordillera,120.83333,17.43333,2264
+Carasi,,municipality,Ilocos Norte,Ilocos Region,120.88424,18.22847,1775
+Sabtang,,municipality,Batanes,Cagayan Valley,121.85000,20.30000,1774
+Daguioman,,municipality,Abra,Cordillera,120.95000,17.45000,1773
+Mahatao,,municipality,Batanes,Cagayan Valley,121.96667,20.41667,1745
+Uyugan,,municipality,Batanes,Cagayan Valley,121.95000,20.38333,1466
+Ivana,,municipality,Batanes,Cagayan Valley,121.93333,20.38333,1368
+Kalayaan,,municipality,Palawan,Mimaropa,114.28468,11.05282,406
+Quiapo,,municipality,Metro Manila,National Capital Region,120.98595,14.59852,0
+Port Area,,municipality,Metro Manila,National Capital Region,120.96508,14.58884,0
+Santa Ana,,municipality,Metro Manila,National Capital Region,121.00860,14.57806,0
+Binondo,,municipality,Metro Manila,National Capital Region,120.97541,14.60108,0
+Intramuros,,municipality,Metro Manila,National Capital Region,120.97533,14.59040,0
+San Miguel,,municipality,Metro Manila,National Capital Region,120.99218,14.59565,0
+Sampaloc,,municipality,Metro Manila,National Capital Region,121.00363,14.60532,0
+Ermita,,municipality,Metro Manila,National Capital Region,120.98229,14.58384,0
+Pandacan,,municipality,Metro Manila,National Capital Region,121.00641,14.58988,0
+Malate,,municipality,Metro Manila,National Capital Region,120.99070,14.56834,0
+Paco,,municipality,Metro Manila,National Capital Region,120.99561,14.58464,0
+Tondo I / Ii,,municipality,Metro Manila,National Capital Region,120.96539,14.61876,0

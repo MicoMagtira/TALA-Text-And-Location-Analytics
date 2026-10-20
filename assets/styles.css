@@ -346,3 +346,64 @@ section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] { color: #aa
   content: ""; width: 30px; height: 26px; flex: none; background: var(--nu-gold-deep);
   -webkit-mask: var(--tala-star) center / contain no-repeat; mask: var(--tala-star) center / contain no-repeat;
 }
+
+/* ---- Constellation nav ------------------------------------------------ */
+/* Sidebar navigation (ui.sidebar_nav): stars on a thin vertical line per chapter.
+   Gold filled = done, glowing gold = current, hollow = to do. */
+[class*="st-key-tala-navbox"] { margin: 0.2rem 0 0.8rem; }
+[class*="st-key-tala-navbox"] [data-testid="stElementContainer"] { margin: 0; }
+[class*="st-key-tala-navbox"] { --tala-nav-gold: #F5D89E; }
+[class*="st-key-tala-navbox"] [data-testid="stVerticalBlock"] { gap: 0.1rem; }
+[class*="st-key-tala-navbox"] a[data-testid="stPageLink-NavLink"] {
+  color: #e6e9f8; background: transparent; border-radius: 6px; padding: 0.2rem 0.5rem;
+}
+[class*="st-key-tala-navbox"] a[data-testid="stPageLink-NavLink"]:hover { background: rgba(245, 216, 158, 0.1); }
+[class*="st-key-tala-navbox"] a[data-testid="stPageLink-NavLink"] p { font-size: 0.9rem; line-height: 1.25; }
+.tala-nav-chap { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0.5rem; margin: 0.9rem 0 0.15rem 0.5rem; }
+.tala-nav-name {
+  font-family: "Courier New", ui-monospace, monospace; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--tala-nav-gold, #F5D89E);
+}
+.tala-nav-hint { margin-left: auto; font-size: 0.68rem; color: #aab3dd; font-style: italic; }
+.tala-nav-q { flex-basis: 100%; font-size: 0.85rem; color: #e6e9f8; }
+[class*="st-key-tala-navchap-"] { position: relative; }
+[class*="st-key-tala-navchap-"]::before {
+  content: ""; position: absolute; left: 1.08rem; top: 0.9rem; bottom: 0.9rem; width: 1px;
+  background: rgba(245, 216, 158, 0.35); pointer-events: none;
+}
+[class*="st-key-tala-nav-done-"] a[data-testid="stPageLink-NavLink"],
+[class*="st-key-tala-nav-current-"] a[data-testid="stPageLink-NavLink"],
+[class*="st-key-tala-nav-todo-"] a[data-testid="stPageLink-NavLink"] {
+  position: relative; padding-left: 2.1rem;
+}
+[class*="st-key-tala-nav-done-"] a[data-testid="stPageLink-NavLink"]::before,
+[class*="st-key-tala-nav-current-"] a[data-testid="stPageLink-NavLink"]::before,
+[class*="st-key-tala-nav-todo-"] a[data-testid="stPageLink-NavLink"]::before {
+  content: ""; position: absolute; left: 0.5rem; top: 50%; width: 18px; height: 16px;
+  transform: translateY(-50%); background: var(--tala-nav-gold, #F5D89E);
+  -webkit-mask: var(--tala-star) center / contain no-repeat; mask: var(--tala-star) center / contain no-repeat;
+}
+/* To do: a hollow star (gold star with a smaller night-coloured star on top). */
+[class*="st-key-tala-nav-todo-"] a[data-testid="stPageLink-NavLink"]::before { opacity: 0.6; }
+[class*="st-key-tala-nav-todo-"] a[data-testid="stPageLink-NavLink"]::after {
+  content: ""; position: absolute; left: calc(0.5rem + 4px); top: 50%; width: 10px; height: 9px;
+  transform: translateY(-45%); background: #10153a;
+  -webkit-mask: var(--tala-star) center / contain no-repeat; mask: var(--tala-star) center / contain no-repeat;
+}
+[class*="st-key-tala-nav-current-"] a[data-testid="stPageLink-NavLink"] {
+  background: rgba(245, 216, 158, 0.12); font-weight: 700;
+}
+[class*="st-key-tala-nav-current-"] a[data-testid="stPageLink-NavLink"]::before {
+  width: 22px; height: 19px; left: 0.35rem; filter: drop-shadow(0 0 5px rgba(245, 216, 158, 0.9));
+}
+@media (prefers-reduced-motion: no-preference) {
+  [class*="st-key-tala-nav-current-"] a[data-testid="stPageLink-NavLink"]::before {
+    animation: tala-nav-glow 2s ease-in-out infinite;
+  }
+}
+@keyframes tala-nav-glow { 50% { filter: drop-shadow(0 0 10px rgba(245, 216, 158, 1)); } }
+
+/* "TALA ran earlier steps for you" line: compact, calm. */
+.st-key-tala-autoran { border-color: #e3e6f4 !important; padding: 0.35rem 0.8rem !important; }
+.st-key-tala-autoran [data-testid="stVerticalBlock"] { gap: 0.2rem; }
+.st-key-tala-autoran p { font-size: 0.88rem; margin: 0; }

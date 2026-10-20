@@ -27,8 +27,8 @@ def test_round_trip():
     st.session_state[audio.SS_MUSIC_VOLUME] = 40
     st.session_state[audio.SS_SFX_ON] = False
     st.session_state[ui.SS_CUSTOM_SW] = "clinic, ospital"
-    st.session_state[tracks.SS_DONE] = ["text_1_data", "geo_1_ingest"]
-    st.session_state[tracks.SS_LAST_PAGE] = "geo_1_ingest"
+    st.session_state[tracks.SS_DONE] = ["p1_data", "p4_apart"]
+    st.session_state[tracks.SS_LAST_PAGE] = "p4_apart"
     dl.ensure_loaded()
     st.session_state[dl.SS_CLUSTER_PARAMS] = (12000.0, 8)   # after: set_active resets the chain
     payload = persist.decode(persist.encode(persist.collect()))
@@ -38,14 +38,14 @@ def test_round_trip():
     assert i18n.is_set() and i18n.current() == "fil"
     assert ss[audio.SS_MUSIC_VOLUME] == 40 and ss[audio.SS_SFX_ON] is False
     assert ss[ui.SS_CUSTOM_SW] == "clinic, ospital"
-    assert ss[tracks.SS_DONE] == ["geo_1_ingest", "text_1_data"]
-    assert ss[tracks.SS_LAST_PAGE] == "geo_1_ingest"
+    assert ss[tracks.SS_DONE] == ["p1_data", "p4_apart"]
+    assert ss[tracks.SS_LAST_PAGE] == "p4_apart"
     assert ss[dl.SS_CLUSTER_PARAMS] == (12000.0, 8)
     assert ss[dl.SS_SOURCE_KEY] == dl.BUNDLED_KEY
 
 
 def test_size_cap_drops_custom_stopwords():
-    payload = {"v": 1, "lang": "en", "custom_sw": "x" * 1000, "done": ["text_1_data"] * 1}
+    payload = {"v": 1, "lang": "en", "custom_sw": "x" * 1000, "done": ["p1_data"] * 1}
     big = dict(payload, custom_sw="".join(chr(0x4E00 + i) for i in range(1000)))
     assert len(persist.encode(big)) <= persist.MAX_COOKIE_BYTES
     assert "custom_sw" not in persist.decode(persist.encode(big))
@@ -58,14 +58,14 @@ def test_corrupt_cookie_ignored(value):
 
 def test_bad_fields_ignored():
     persist.apply({"v": 1, "lang": "xx", "music_vol": 9999, "sfx_on": "yes", "style": "nope",
-                   "pal": "nope", "cluster": ["a", 1], "done": ["../evil", "text_1_data"],
+                   "pal": "nope", "cluster": ["a", 1], "done": ["../evil", "p1_data"],
                    "last": "nope"})
     ss = st.session_state
     assert not i18n.is_set()
     assert audio.SS_MUSIC_VOLUME not in ss and audio.SS_SFX_ON not in ss
     assert audio.SS_MUSIC_STYLE not in ss and ui.SS_PALETTE not in ss
     assert dl.SS_CLUSTER_PARAMS not in ss
-    assert ss[tracks.SS_DONE] == ["text_1_data"]
+    assert ss[tracks.SS_DONE] == ["p1_data"]
     assert tracks.SS_LAST_PAGE not in ss
 
 
@@ -90,3 +90,17 @@ def test_no_dataframes_in_payload():
     payload = persist.collect()
     json.dumps(payload)                                  # plain JSON only
     assert not any(isinstance(v, pd.DataFrame) for v in payload.values())
+
+
+def test_old_journey_pages_are_migrated_away():
+    """A cookie from the two-track release must not break or pollute the new journey."""
+    persist.apply({"v": 1, "done": ["text_1_data", "geo_2_cluster", "p2_textgps"],
+                   "last": "text_5_topics"})
+    ss = st.session_state
+    assert ss[tracks.SS_DONE] == ["p2_textgps"]
+    assert tracks.SS_LAST_PAGE not in ss                 # unknown last page: Home
+
+    st.session_state.clear()
+    persist.apply({"v": 1, "done": ["text_1_data"], "last": "geo_4_map"})
+    assert st.session_state[tracks.SS_DONE] == []
+    assert tracks.SS_LAST_PAGE not in st.session_state

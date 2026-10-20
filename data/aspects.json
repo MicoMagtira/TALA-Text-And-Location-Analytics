@@ -1,0 +1,27 @@
+{
+  "_note": "Aspect lexicon for core/compare.aspect_sentiment. English terms match whole words with simple endings (wait, waits, waited, waiting). Filipino terms also match after a short affix (hintay catches naghintay, hinihintay). Extend freely.",
+  "waiting": {
+    "en": ["wait", "waiting", "queue", "line", "long line", "delay", "slow", "hours", "took forever", "schedule", "scheduling", "overcrowd", "crowded"],
+    "fil": ["hintay", "pila", "matagal", "antay", "naghintay", "mabagal", "oras"]
+  },
+  "staff": {
+    "en": ["staff", "nurse", "doctor", "dentist", "midwife", "personnel", "receptionist", "attendant", "team", "rude", "compassionate", "respectful", "attentive", "dismissive", "helpful", "unhelpful"],
+    "fil": ["nars", "doktor", "doctora", "komadrona", "magalang", "mabait", "bastos", "suplado", "masungit", "tauhan", "kawani"]
+  },
+  "cost": {
+    "en": ["cost", "price", "fee", "afford", "expensive", "cheap", "free", "payment", "pay", "bill", "charge", "philhealth", "insurance"],
+    "fil": ["bayad", "mahal", "magastos", "libre", "presyo", "gastos", "singil", "utang"]
+  },
+  "medicine": {
+    "en": ["medicine", "medication", "drug", "pharmacy", "prescription", "vaccine", "vaccination", "supply", "supplies", "stock", "out of stock", "antibiotic"],
+    "fil": ["gamot", "botika", "reseta", "bakuna", "kulang"]
+  },
+  "facilities": {
+    "en": ["facility", "facilities", "clean", "dirty", "toilet", "restroom", "room", "bed", "equipment", "signage", "air-con", "aircon", "crowded", "overcrowded", "building", "hygiene", "x-ray", "xray", "lab"],
+    "fil": ["malinis", "marumi", "kubeta", "kama", "kagamitan", "madumi", "siksikan", "ospital", "klinika"]
+  },
+  "access": {
+    "en": ["access", "transport", "distance", "far", "travel", "location", "referral", "refer", "open", "closed", "hours of operation", "walk-in", "online", "telemedicine", "navigate", "directions", "parking"],
+    "fil": ["layo", "malayo", "biyahe", "sakay", "pasahe", "sarado", "bukas", "malapit", "daan"]
+  }
+}

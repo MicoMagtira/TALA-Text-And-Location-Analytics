@@ -1,4 +1,4 @@
-"""Shared UI helpers: header, footer, sidebar, track flow, and 'Learn' panels.
+"""Shared UI helpers: header, footer, sidebar, journey flow (chapters), and 'Learn' panels.
 
 The 'Learn' expanders turn each page into live teaching material by pairing the
 concept with the equivalent code from the source notebook / lab.
@@ -29,7 +29,18 @@ SS_LANG_WIDGET = "lang_switcher"
 
 # Which pill each page sits under. Kept here rather than passed per page so a
 # page cannot drift out of its section when titles are edited.
-_PILL = {"home": "pill.overview", "text": "pill.text", "geo": "pill.geo"}
+_PILL = {"home": "pill.overview", "learn": "pill.learn", "text": "pill.text", "geo": "pill.geo"}
+
+
+def _t(key: str, default: str, **fmt) -> str:
+    """``i18n.t`` with an English default for keys not yet merged into the catalog."""
+    out = i18n.t(key, **fmt)
+    return default.format(**fmt) if out == key else out
+
+
+def nav_title(page: str) -> str:
+    """A page's short name for the sidebar, strip and footer."""
+    return _t(f"{page}.nav", tracks.NAV_EN.get(page, page))
 
 
 def inject_css() -> None:
@@ -176,9 +187,15 @@ def page_header(page: str, section: str) -> None:
     Track pages get a compact header and the progress strip, and record
     themselves as the last page visited (Home's "Continue" card reads it). Only
     Home keeps the big banner (``header()``, drawn by app.py)."""
-    st.markdown(f'<span class="tala-pill">{i18n.t(_PILL[section])}</span>',
-                unsafe_allow_html=True)
-    st.markdown(f"## {i18n.t(f'{page}.title')}")
+    # ``section`` is a chapter key ("where"/"what"), "home", "learn", or a legacy
+    # track name. Chapter pills show the untranslated chapter name.
+    pill = tracks.NAMES[section] if section in tracks.NAMES else i18n.t(_PILL[section])
+    st.markdown(f'<span class="tala-pill">{pill}</span>', unsafe_allow_html=True)
+    # "learn.title" is already the Learn panel's "Learn: {title}" format, so the
+    # How TALA works page keeps its own title key.
+    title_key, default = (("learn.page_title", "How TALA works") if page == "learn"
+                          else (f"{page}.title", tracks.NAV_EN.get(page, page)))
+    st.markdown(f"## {_t(title_key, default)}")
     pos = tracks.position(page)
     if pos:
         st.session_state[tracks.SS_LAST_PAGE] = page
@@ -188,63 +205,142 @@ def page_header(page: str, section: str) -> None:
         st.markdown(blurb)
 
 
-def strip_html(track: str, current: str | None = None) -> str:
-    """A track's steps as a static constellation (Home's track cards).
+def strip_html(chapter: str, current: str | None = None) -> str:
+    """A chapter's steps as a static constellation (Home's chapter cards).
 
     Same visual language as the page progress strip: one star per step on a
     connecting line, gold when done, glowing for the current step."""
     done = tracks.done_pages()
     stars = []
-    for p in tracks.TRACKS[track]:
+    for p in tracks.CHAPTERS[chapter]:
         state = "current" if p == current else ("done" if p in done else "todo")
-        stars.append(f'<i class="tala-star tala-star-{state}" title="{i18n.t(f"{p}.nav")}"></i>')
+        stars.append(f'<i class="tala-star tala-star-{state}" title="{nav_title(p)}"></i>')
     return f'<div class="tala-constellation">{"".join(stars)}</div>'
 
 
-def _progress_strip(page: str, track: str, index: int, total: int) -> None:
-    """``TEXT TRACK . 3 / 8`` plus the track as a row of clickable stars.
+def _progress_strip(page: str, chapter: str, index: int, total: int) -> None:
+    """``LUGAR . Step 2 of 9`` plus the chapter as a row of clickable stars.
+
+    The sidebar numbers steps 1-9 across the journey, so the strip uses the same
+    number; a per-chapter "1 / 6" would call one page both step 1 and step 4.
 
     Stars are ``st.page_link`` rather than plain anchors: an anchor would reload
     the browser tab and start a fresh session. Each sits in a keyed container so
     the stylesheet can draw it by state (done, current, to do); the step number
     stays in the link text for screen readers."""
-    st.caption(f"{i18n.t(f'track.label_{track}')} · {index} / {total}")
+    step = _t("track.step_of", "Step {n} of {total}",
+              n=tracks.step_number(page), total=len(tracks.ALL_PAGES))
+    st.caption(f"{tracks.NAMES.get(chapter, chapter).upper()} \u00b7 {step}")
     done = tracks.done_pages()
     with st.container(key="tala-strip"):
-        for col, p in zip(st.columns(total, gap="small"), tracks.TRACKS[track]):
+        for col, p in zip(st.columns(total, gap="small"), tracks.CHAPTERS[chapter]):
             state = "current" if p == page else ("done" if p in done else "todo")
             with col, st.container(key=f"tala-seg-{state}-{p}"):
-                n = tracks.TRACKS[track].index(p) + 1
+                n = tracks.step_number(p)
                 # No ``help=``: a tooltip makes Streamlit render the link twice.
                 # The visually hidden label carries the step and page name instead.
-                st.page_link(tracks.path_of(p), label=f"{n}. {i18n.t(f'{p}.nav')}",
+                st.page_link(tracks.path_of(p), label=f"{n}. {nav_title(p)}",
                              disabled=(p == page))
 
 
-def page_done(page: str) -> None:
-    """Mark this page's step finished; if that completed a track, show the card.
+def _step_ranges(pages: list[str]) -> str:
+    """Journey step numbers as ``2\u20133`` / ``1, 3`` for the auto-ran line."""
+    nums = sorted(tracks.step_number(p) for p in pages)
+    runs: list[list[int]] = []
+    for n in nums:
+        if runs and n == runs[-1][-1] + 1:
+            runs[-1].append(n)
+        else:
+            runs.append([n])
+    return ", ".join(str(r[0]) if len(r) == 1 else f"{r[0]}\u2013{r[-1]}" for r in runs)
 
-    The card is tied to the page that completed the track, so it stays put across
+
+def auto_ran(page: str) -> None:
+    """A quiet line when earlier steps were skipped: TALA ran them with defaults.
+
+    Never stops the page and plays no sound; it only says what happened and
+    links to the earliest skipped step so the trainee can go and tune it."""
+    skipped = tracks.skipped_upstream(page, tracks.done_pages())
+    if not skipped:
+        return
+    steps = _step_ranges(skipped)
+    key = "auto.ran_one" if len(skipped) == 1 else "auto.ran_many"
+    default = ("Step {steps} hasn't been opened yet, so TALA ran it with default settings."
+               if len(skipped) == 1 else
+               "Steps {steps} haven't been opened yet, so TALA ran them with default settings.")
+    first = skipped[0]
+    with st.container(border=True, key="tala-autoran"):
+        st.markdown(f":material/info: {_t(key, default, steps=steps)}")
+        st.page_link(tracks.path_of(first),
+                     label=_t("auto.open", "Open step {n}: {title}",
+                              n=tracks.step_number(first), title=nav_title(first)),
+                     icon=":material/arrow_forward:", icon_position="right")
+
+
+def sidebar_nav(current: str = "", redraw: bool = False) -> None:
+    """The constellation navigation: Home, How TALA works, then both chapters.
+
+    ``st.navigation(position="hidden")`` hides Streamlit's own list, and this
+    draws the real one. Every entry is ``st.page_link`` (an anchor would reload
+    the tab and drop the session; the engine's click sound also matches
+    ``stPageLink``). Step links sit in keyed containers
+    ``tala-nav-{done|current|todo}-{page}`` so the stylesheet can draw stars on
+    a connecting line. ``current`` is the active page's url_path ("" for Home).
+
+    ``redraw=True`` is for the second draw in one run (after a step was just
+    completed): container keys must be unique per run, so it adds a ``-r`` suffix
+    that the stylesheet's prefix selectors ignore."""
+    done = tracks.done_pages()
+    sfx = "-r" if redraw else ""
+    with st.container(key=f"tala-navbox{sfx}"):
+        for page, label_key, label_default, icon in (
+                ("home", "nav.home", "Home", ":material/home:"),
+                ("learn", "nav.learn", "How TALA works", ":material/menu_book:")):
+            with st.container(key=f"tala-nav-top-{page}{sfx}"):
+                st.page_link(tracks.path_of(page), label=_t(label_key, label_default), icon=icon)
+        for chapter, pages in tracks.CHAPTERS.items():
+            hint = (_t("nav.hint_ordered", "in order") if tracks.ORDERED[chapter]
+                    else _t("nav.hint_any", "any order"))
+            q = _t(f"nav.q_{chapter}", "Where are people?" if chapter == "where"
+                   else "What is each place saying?")
+            st.markdown(
+                f'<div class="tala-nav-chap"><span class="tala-nav-name">{tracks.NAMES[chapter]}</span>'
+                f'<span class="tala-nav-hint">{hint}</span>'
+                f'<span class="tala-nav-q">{q}</span></div>',
+                unsafe_allow_html=True)
+            with st.container(key=f"tala-navchap-{chapter}{sfx}"):
+                for p in pages:
+                    state = ("current" if p == current else
+                             "done" if p in done else "todo")
+                    with st.container(key=f"tala-nav-{state}-{p}{sfx}"):
+                        st.page_link(tracks.path_of(p),
+                                     label=f"{tracks.step_number(p)}  {nav_title(p)}")
+
+
+def page_done(page: str) -> None:
+    """Mark this page's step finished; if that completed a chapter, show the card.
+
+    The card is tied to the page that completed the chapter, so it stays put across
     reruns of that page instead of vanishing on the first slider touch."""
     was_done = page in tracks.done_pages()
     tracks.mark_done(page)
-    if not was_done and tracks.track_of(page):
+    if not was_done and tracks.chapter_of(page):
         st.toast(i18n.t("track.step_done"), icon=":material/star:")
     just = st.session_state.get(tracks.SS_JUST_COMPLETED)
     if just and just[0] == page:
         _track_complete_card(just[1])
 
 
-def _track_complete_card(track: str) -> None:
-    other = "geo" if track == "text" else "text"
+def _track_complete_card(chapter: str) -> None:
+    other = tracks.other_chapter(chapter)
     with st.container(border=True, key="tala-complete"):
-        st.markdown(f"### {i18n.t(f'track.complete_{track}')}")
-        st.write(i18n.t(f"track.covered_{track}"))
+        st.markdown(f"### {_t(f'track.complete_{chapter}', 'Chapter complete: ' + tracks.NAMES[chapter])}")
+        st.write(_t(f"track.covered_{chapter}", ""))
         c1, c2 = st.columns(2)
         with c1:
             if not tracks.track_complete(other):
                 st.page_link(tracks.path_of(tracks.first_todo(other)),
-                             label=i18n.t(f"track.start_{other}"),
+                             label=_t(f"track.start_{other}", "Start " + tracks.NAMES[other]),
                              icon=":material/arrow_forward:", icon_position="right")
         with c2:
             st.page_link(tracks.path_of("home"), label=i18n.t("track.go_home"),
@@ -252,19 +348,19 @@ def _track_complete_card(track: str) -> None:
 
 
 def track_footer(page: str) -> None:
-    """Back and Next at the foot of a track page: the page's only way onward.
+    """Back and Next at the foot of a journey page: the page's only way onward.
 
-    On a track's last page Next becomes "start the other track" (while it is
+    On a chapter's last page Next becomes "start the other chapter" (while it is
     unfinished) or "Finish, Home"."""
-    track = tracks.track_of(page)
-    if track is None:
+    chapter = tracks.chapter_of(page)
+    if chapter is None:
         return
     prev, nxt = tracks.neighbours(page)
-    other = "geo" if track == "text" else "text"
+    other = tracks.other_chapter(chapter)
     if nxt:
         target, label = nxt, i18n.t("track.next")
     elif not tracks.track_complete(other):
-        target, label = tracks.first_todo(other), i18n.t(f"track.start_{other}")
+        target, label = tracks.first_todo(other), _t(f"track.start_{other}", "Start " + tracks.NAMES[other])
     else:
         target, label = "home", i18n.t("track.finish")
     # Back and Next sit side by side in the centre, styled as one pair.
@@ -272,7 +368,7 @@ def track_footer(page: str) -> None:
                       horizontal_alignment="center", gap="medium"):
         if prev:
             st.page_link(tracks.path_of(prev), label=i18n.t("track.back"),
-                         help=i18n.t(f"{prev}.nav"), icon=":material/arrow_back:")
+                         help=nav_title(prev), icon=":material/arrow_back:")
         st.page_link(tracks.path_of(target), label=label,
                      icon=":material/arrow_forward:", icon_position="right")
 
