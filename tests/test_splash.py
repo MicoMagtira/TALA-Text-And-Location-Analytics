@@ -35,6 +35,19 @@ def test_frames_carry_a_start_button_and_a_css_fallback():
     assert "prefers-reduced-motion" in css
 
 
+def test_partner_logos_ride_only_in_the_closing_frame():
+    """The lg logos are the heaviest part of the splash: progress frames are
+    replaced several times during boot, so only the closing frame carries them.
+    They sit inside .tala-splash, so the meteor wipe takes them too."""
+    for html in (splash._frame(100, "Ready", done=True), splash._finale(40, 3.0)):
+        assert html.count("tala-splash-partners") == 1
+        assert html.count("<img ") == 6
+        assert html.rstrip().endswith("</div></div>")
+    assert "tala-splash-partners" not in splash._frame(44, "Loading")
+    assert ".tala-splash-partners" in splash._CSS
+    assert "{{" not in splash._CSS        # the f-string's doubled braces resolved
+
+
 def test_segment_delays_match_the_finale_blocks():
     delays = splash._segment_delays(44, 4.0)
     lit = round(splash._BLOCKS * 44 / 100)

@@ -415,6 +415,47 @@ body.tala-boot-complete .tala-splash {{
 /* Blocks that fill during the tail rise in on their own staggered delay. */
 .tala-progress i.fill {{ animation: tala-block-in .3s ease backwards; }}
 
+/* --- project partners ---------------------------------------------------- */
+/* TALA is a learning module of AIKasalig, so the partner logos sit at the foot
+   of the boot screen. Absolutely placed so they never push the centred lockup,
+   bar or START around; inside .tala-splash so the meteor mask wipes them with
+   everything else. White strip: several marks are navy ink made for paper. */
+@keyframes tala-partners-in {{
+  from {{ opacity: 0; transform: translate(-50%, 8px); }}
+  to   {{ opacity: 1; transform: translate(-50%, 0); }}
+}}
+.tala-splash-partners {{
+  position: absolute; z-index: 2; left: 50%; bottom: clamp(14px, 3.4vh, 36px);
+  transform: translateX(-50%); width: max-content; max-width: 94vw;
+  display: flex; flex-direction: column; align-items: center; gap: .55rem;
+  animation: tala-partners-in .6s ease .2s both;
+}}
+.tala-splash-line {{
+  color: {INK_ON_SKY}; font-size: clamp(.6rem, 1.6vw, .74rem); letter-spacing: .14em;
+  text-align: center; opacity: .88;
+}}
+/* Scoped under .tala-splash: styles.css's generic .tala-logos loads later. */
+.tala-splash .tala-splash-logos {{
+  --logo-h: clamp(28px, 5.2vh, 48px);
+  display: flex; flex-wrap: nowrap; align-items: center; justify-content: center;
+  gap: .5rem clamp(1rem, 2.2vw, 1.7rem); padding: .6rem 1.4rem;
+  background: #fff; border-radius: 12px;
+  box-shadow: 0 0 0 3px rgba(0,0,0,.35), 0 10px 30px rgba(0,0,0,.5);
+}}
+.tala-splash .tala-splash-logos img {{ display: block; width: auto; max-width: none; flex: none; }}
+/* Phones: two rows of three, a little smaller. */
+@media (max-width: 640px) {{
+  .tala-splash .tala-splash-logos {{
+    --logo-h: 27px; display: grid; grid-template-columns: repeat(3, auto);
+    justify-items: center; align-items: center; gap: .6rem 1.15rem; padding: .65rem 1rem;
+  }}
+  .tala-splash-line {{ max-width: 92vw; font-size: .6rem; letter-spacing: .04em; }}
+}}
+/* Short landscape screens: the lockup needs the room, so the strip steps aside. */
+@media (max-height: 560px) {{
+  .tala-splash-partners {{ display: none; }}
+}}
+
 @media (prefers-reduced-motion: reduce) {{
   .tala-splash *, .tala-splash::after {{ animation: none !important; }}
   .tala-starfield i {{ opacity: .8; }}
@@ -440,6 +481,20 @@ def _start_button() -> str:
     from . import i18n
 
     return f'<button id="tala-start" class="tala-start" type="button"><i class="tala-tri" aria-hidden="true"></i>{i18n.t("gate.start")}</button>'
+
+
+def _partners() -> str:
+    """The AIKasalig partner strip for the foot of the splash.
+
+    Only the closing frame carries it (``_finale`` or the ``done`` frame): the
+    progress frames before it are replaced several times during boot, and the
+    ``lg`` logos are the heaviest thing on the screen, so they go over the wire
+    once per session. The strip fades in, so it reads as part of the finale."""
+    from . import brand
+
+    return ('<div class="tala-splash-partners">'
+            f'<span class="tala-splash-line">{brand.PARTNER_LINE}</span>'
+            f'{brand.strip_html("lg", "tala-logos tala-splash-logos")}</div>')
 
 
 def _frame(pct: int, message: str, done: bool = False) -> str:
@@ -473,6 +528,7 @@ def _frame(pct: int, message: str, done: bool = False) -> str:
         + f'<div class="tala-status"><span class="pct">{pct:3d}%</span>'
           f'{message}<span class="caret">_</span></div>'
         + _start_button()
+        + (_partners() if done else "")
         + "</div>"
     )
 
@@ -563,6 +619,7 @@ def _finale(from_pct: int, remaining: float) -> str:
         + f'<div class="tala-progress">{"".join(blocks)}</div>'
         + f'<div class="tala-status is-cycling" style="--phase:{slice_s:.2f}s">{phases}</div>'
         + _start_button()
+        + _partners()
         + "</div>"
     )
 

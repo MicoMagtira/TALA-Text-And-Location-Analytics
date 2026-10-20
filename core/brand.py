@@ -28,6 +28,12 @@ from pathlib import Path
 
 LOGO_DIR = Path(__file__).resolve().parent.parent / "assets" / "logos"
 
+# Proper names, never translated (like the chapter names Lugar and Salita).
+PROJECT = "AIKasalig"
+EYEBROW = "AIKasalig · DOST-NICER"                                   # Home hero pill
+PARTNER_LINE = "AIKasalig · DOST-NICER RDC-NLPHA · National University"   # boot splash
+DEVELOPER = "Mico C. Magtira"
+
 # (file slug, alt text). Order is fixed by the project and must not be sorted.
 LOGOS: list[tuple[str, str]] = [
     ("01_dost", "Department of Science and Technology (DOST)"),
@@ -52,10 +58,17 @@ def _logo(slug: str, size: str) -> tuple[str, float]:
     return "data:image/webp;base64," + base64.b64encode(data).decode("ascii"), aspect
 
 
-def optical_factor(aspect: float) -> float:
+# Marks whose ink is thin or small for their box (the RDC-NLPHA map with its tiny
+# caption) read lighter than their shape suggests; they get a little extra height.
+_BOOST = {"05_nicer_rdc_nlpha": 1.3}
+
+
+def optical_factor(aspect: float, slug: str = "") -> float:
     """Relative height that gives marks of different shapes similar visual weight."""
     factor = max(0.62, min(1.15, aspect ** -0.38))
-    return factor * 1.2 if aspect < 1.3 else factor
+    if aspect < 1.3:
+        factor *= 1.2
+    return factor * _BOOST.get(slug, 1.0)
 
 
 @lru_cache(maxsize=None)
@@ -70,6 +83,6 @@ def strip_html(size: str = "sm", css_class: str = "tala-logos") -> str:
         uri, aspect = _logo(slug, size)
         items.append(
             f'<img src="{uri}" alt="{alt}" title="{alt}" loading="lazy" '
-            f'style="height:calc(var(--logo-h) * {optical_factor(aspect):.3f})">'
+            f'style="height:calc(var(--logo-h) * {optical_factor(aspect, slug):.3f})">'
         )
-    return f'<div class="{css_class}" aria-label="Project partners">{"".join(items)}</div>'
+    return f'<div class="{css_class}" role="group" aria-label="Project partners">{"".join(items)}</div>'

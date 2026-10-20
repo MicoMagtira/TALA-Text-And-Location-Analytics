@@ -1,10 +1,8 @@
 {
   "app.title": "TALA — Text And Location Analytics",
   "app.subtitle": "Every comment is a star. See what people say, and where they say it.",
-  "app.developer": "Mico C. Magtira — Senior Data and NLP-Geospatial Scientist, DOST-NICER",
-  "app.footer": "National University Manila · For data science / NLP / geospatial training use.",
   "app.wordmark_sub": "Text And Location Analytics",
-  "app.wordmark_org": "Initiative of the NU DOST-NICER Program",
+  "app.wordmark_org": "An AIKasalig learning module",
 
   "gate.prompt": "Select a language",
   "gate.hint": "You can change this later from the sidebar.",
@@ -319,5 +317,17 @@
   "tour.c6": "Compare how each place feels.",
   "tour.c7": "Find where complaints cluster beyond chance.",
   "tour.c8": "Each finished step lights a star. Jump anywhere, any time.",
-  "tour.c9": "Want the theory? Open Learn on any page, or How TALA works."
+  "tour.c9": "Want the theory? Open Learn on any page, or How TALA works.",
+
+  "nav.about": "About the project",
+  "about.title": "About the project",
+  "about.blurb": "TALA is a hands-on learning module of AIKasalig, a project on responsible AI in Philippine health care.",
+  "brand.module_line": "A learning module of the AIKasalig project",
+  "footer.line": "A learning module of AIKasalig, DOST-NICER R&D Center on Natural Language Processing for Health Applications, National University",
+  "footer.dev": "Developed by {name}",
+  "learn.about_link": "About the project: AIKasalig, its partners and credits",
+  "tour.button": "Watch the tour",
+  "tour.title": "Watch the tour",
+  "tour.lang": "Tour language",
+  "tour.note": "Captioned, no sound. The picker changes only the video, not the app's language."
 }

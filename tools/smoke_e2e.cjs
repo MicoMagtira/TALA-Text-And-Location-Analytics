@@ -6,7 +6,7 @@ const { chromium } = require(PW);
 
 const BASE = process.env.BASE_URL || "http://localhost:8599";
 const PAGES = [
-  "", "learn", "p1_data", "p2_textgps", "p3_places", "p4_apart", "p5_feel",
+  "", "learn", "about", "p1_data", "p2_textgps", "p3_places", "p4_apart", "p5_feel",
   "p6_aspects", "p7_themes", "p8_hotspots", "p9_report",
 ];
 // Known-benign console noise (not app bugs).
@@ -103,6 +103,25 @@ function watch(page, bucket) {
         newErr.length ? "console: " + newErr[0] : gate ? "gate shown" : "");
     } catch (e) { record(label, false, e.message.split("\n")[0]); }
   }
+
+  // 3b. Sidebar "Watch the tour" opens a dialog with a video; the picker swaps only the video
+  try {
+    await page.goto(`${BASE}/p5_feel`, { waitUntil: "domcontentloaded" });
+    await settle(page, 120000);
+    const navText = () => page.locator('section[data-testid="stSidebar"] [class*="st-key-tala-navbox"]').first().innerText();
+    const langBefore = await navText();
+    await page.locator('section[data-testid="stSidebar"] [class*="st-key-tala-nav-top-tour"] button').first().click();
+    await page.waitForSelector('[role="dialog"] video', { timeout: 30000 });
+    const src0 = await page.locator('[role="dialog"] video').getAttribute("src");
+    await page.locator('[role="dialog"] [data-testid="stButtonGroup"] button', { hasText: /^EN$/ }).first().click();
+    await page.waitForFunction((s) => {
+      const v = document.querySelector('[role="dialog"] video');
+      return v && v.getAttribute("src") !== s;
+    }, src0, { timeout: 30000 });
+    await page.waitForTimeout(800);
+    const langAfter = await navText();
+    record("3b tour dialog: opens, picker swaps the video only", langBefore === langAfter, langBefore === langAfter ? "" : "sidebar language changed");
+  } catch (e) { record("3b tour dialog", false, e.message.split("\n")[0]); }
 
   await page.close(); await ctx.close();
 

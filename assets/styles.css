@@ -127,16 +127,39 @@ div[data-testid="stProgress"] div[role="progressbar"] > div {
     90deg, var(--nu-gold) 0 9px, var(--nu-gold-deep) 9px 12px);
 }
 
+/* ---- Partner logos (core/brand.py) ------------------------------------ */
+/* One white strip everywhere: three of the six marks are navy or grey ink made
+   for paper. Each <img> height is calc(var(--logo-h) * optical factor), so a
+   surface sets one --logo-h per breakpoint and every mark scales together. */
+.tala-logos {
+  --logo-h: 28px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 0.5rem 1.4rem; background: #fff;
+}
+.tala-logos img { display: block; flex: none; width: auto; max-width: none; }
+
 /* ---- Footer ----------------------------------------------------------- */
+/* The project, not a person: logos, one line naming the project, a small credit. */
 .tala-footer {
   margin-top: 2.5rem;
-  padding-top: 1rem;
+  padding-top: 1.1rem;
   border-top: 2px solid var(--nu-gold);
   color: #6b6b6b;
   font-size: 0.8rem;
   text-align: center;
 }
 .tala-footer strong { color: var(--nu-navy); }
+.tala-footer .tala-logos-foot { --logo-h: 24px; gap: 0.45rem 1.3rem; margin: 0 auto 0.7rem; }
+.tala-footer p { margin: 0; }
+.tala-footer .tala-footer-line { max-width: 46rem; margin: 0 auto; line-height: 1.45; }
+.tala-footer .tala-footer-dev { margin-top: 0.3rem; font-size: 0.72rem; color: #8a8fa8; }
+@media (max-width: 640px) {
+  /* Two rows of three on phones. */
+  .tala-footer .tala-logos-foot {
+    --logo-h: 22px; display: grid; grid-template-columns: repeat(3, auto);
+    justify-content: center; justify-items: center; gap: 0.55rem 1.2rem;
+  }
+}
 
 /* ---- Responsive ------------------------------------------------------- */
 .block-container { padding-top: 1.4rem; padding-bottom: 2rem; }
@@ -429,14 +452,19 @@ div[data-testid="stHorizontalBlock"]:has([class*="st-key-tala-card-"]) div:has(>
 .st-key-tala-autoran [data-testid="stVerticalBlock"] { gap: 0.2rem; }
 .st-key-tala-autoran p { font-size: 0.88rem; margin: 0; }
 
-/* ---- Home hero: the survey's own points as a night sky (Task F) ------- */
+/* ---- Home hero: the survey's own points as a night sky (Task F, §19) -- */
+/* The project banner: tall, the wordmark in gold, the archipelago large and bright
+   on the right, and the white partner band joined to its foot as one card. */
 .st-key-tala-hero {
   position: relative; isolation: isolate; overflow: hidden;
-  min-height: 320px; padding: 1.6rem 2.2rem; margin-bottom: 1.1rem;
-  display: flex; flex-direction: column; justify-content: center; gap: 1.1rem;
-  border-radius: 14px; border-bottom: 4px solid var(--nu-gold);
-  background: linear-gradient(120deg, var(--sky-mid) 0%, var(--sky-deep) 100%);
-  box-shadow: 0 4px 18px rgba(11, 15, 43, 0.35);
+  min-height: 400px; padding: 2rem 2.6rem; margin-bottom: 0;
+  display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;
+  border-radius: 16px 16px 0 0; border-bottom: 4px solid var(--nu-gold);
+  background:
+    radial-gradient(38% 80% at 80% 50%, rgba(53, 64, 142, 0.55) 0%, transparent 70%),
+    radial-gradient(60% 90% at 12% 0%, rgba(245, 216, 158, 0.08) 0%, transparent 60%),
+    linear-gradient(120deg, var(--sky-mid) 0%, var(--sky-deep) 100%);
+  box-shadow: 0 6px 24px rgba(11, 15, 43, 0.35);
 }
 /* Streamlit's element wrappers are positioned; make them static so the sky is sized by the hero itself. */
 .st-key-tala-hero [data-testid="stElementContainer"],
@@ -445,22 +473,39 @@ div[data-testid="stHorizontalBlock"]:has([class*="st-key-tala-card-"]) div:has(>
 /* The sky sits behind the text (z-index -1 inside the hero's own stacking context). */
 .st-key-tala-hero .tala-hero-sky { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .st-key-tala-hero .tala-hero-sky svg { display: block; width: 100%; height: 100%; }
+/* Project eyebrow: whose app this is, before the app's own name. */
+.tala-hero-eyebrow {
+  display: inline-block; margin-bottom: 0.9rem; padding: 0.28rem 0.8rem;
+  border: 1px solid rgba(245, 216, 158, 0.6); border-radius: 999px;
+  background: rgba(5, 7, 26, 0.55); color: var(--nu-gold);
+  font-family: "Courier New", ui-monospace, monospace; font-size: 0.74rem; font-weight: 700;
+  letter-spacing: 0.16em;
+}
 /* Streamlit wraps a heading's content in a span, so the flex row goes on that span. */
-.tala-hero-text h1 > span { display: flex; align-items: center; gap: 1rem; }
+.tala-hero-text h1 > span { display: flex; align-items: center; gap: 1.1rem; }
 .tala-hero-text h1 {
   margin: 0; padding: 0;
-  color: #fff; font-family: "Courier New", ui-monospace, monospace;
-  font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: 0.18em; line-height: 1;
-  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
+  color: var(--nu-gold); font-family: "Courier New", ui-monospace, monospace;
+  font-size: clamp(3rem, 7.4vw, 5.6rem); font-weight: 700; letter-spacing: 0.2em; line-height: 0.95;
 }
-.tala-hero-star { flex: none; filter: drop-shadow(0 0 10px rgba(245, 216, 158, 0.7)); }
+/* The wordmark: a gold gradient with a soft glow. drop-shadow, not text-shadow:
+   a text-shadow would paint over the clipped gradient. */
+.tala-hero-text .tala-hero-word {
+  display: inline-block;
+  background: linear-gradient(180deg, #fff9de 0%, #F5D89E 45%, #C9962E 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 0 18px rgba(245, 216, 158, 0.45)) drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.5));
+}
+.tala-hero-star { flex: none; width: auto; height: 0.92em; filter: drop-shadow(0 0 14px rgba(245, 216, 158, 0.8)); }
 .tala-hero-org {
-  margin-top: 0.5rem; color: var(--nu-gold); font-size: 0.78rem; letter-spacing: 0.2em;
+  margin-top: 0.7rem; color: #dfe4ff; font-size: 0.82rem; letter-spacing: 0.24em;
   text-transform: uppercase; font-family: "Courier New", ui-monospace, monospace;
 }
-.tala-hero-tag {
-  margin: 1.1rem 0 0; max-width: 24em; color: #fff; font-weight: 600;
-  font-size: clamp(1.05rem, 2.1vw, 1.5rem); line-height: 1.3;
+.tala-hero-text p.tala-hero-tag {
+  margin: 1.1rem 0 0 !important; padding: 0; max-width: 24em; color: #fff; font-weight: 600;
+  font-size: clamp(1.05rem, 2vw, 1.45rem); line-height: 1.32;
+  text-shadow: 0 2px 10px rgba(5, 7, 26, 0.8);
 }
 /* Language chips: the segmented control as five small gold pixel tags. */
 .st-key-tala-hero [data-testid="stButtonGroup"] { gap: 0.4rem; flex-wrap: wrap; }
@@ -480,10 +525,52 @@ div[data-testid="stHorizontalBlock"]:has([class*="st-key-tala-card-"]) div:has(>
 .st-key-tala-hero [data-testid="stButtonGroup"] button[aria-checked="true"] *,
 .st-key-tala-hero [data-testid="stButtonGroup"] button[aria-pressed="true"] *,
 .st-key-tala-hero [data-testid="stButtonGroup"] button[data-testid="stBaseButton-segmented_controlActive"] * { color: var(--ink-navy) !important; }
-@media (max-height: 800px) { .st-key-tala-hero { min-height: 280px; padding-top: 1.1rem; padding-bottom: 1.1rem; } }
+/* Short laptop screens (1366x768): a little shorter so the chapter cards still peek in. */
+@media (max-height: 800px) {
+  .st-key-tala-hero { min-height: 360px; padding-top: 1.4rem; padding-bottom: 1.4rem; gap: 1rem; }
+  .tala-hero-text h1 { font-size: clamp(3rem, 6.4vw, 4.8rem); }
+}
+/* Phones: the text stacks over a dimmed archipelago. The sky keeps its full height
+   (width follows the viewBox) and hangs off the right edge; a left-to-right veil
+   keeps the text readable. */
 @media (max-width: 768px) {
-  .st-key-tala-hero { min-height: 300px; padding: 1.2rem 1rem; }
-  .st-key-tala-hero .tala-hero-sky { opacity: 0.55; }
+  .st-key-tala-hero { min-height: 420px; padding: 1.5rem 1.1rem 1.3rem; justify-content: flex-end; border-radius: 12px 12px 0 0; }
+  .st-key-tala-hero .tala-hero-sky { opacity: 0.6; }
+  .st-key-tala-hero .tala-hero-sky svg { position: absolute; top: 0; right: -4%; width: auto; height: 100%; }
+  .st-key-tala-hero .tala-hero-sky::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(11, 15, 43, 0.75) 0%, rgba(11, 15, 43, 0.35) 60%, rgba(11, 15, 43, 0.1) 100%);
+  }
+  .tala-hero-text h1 { font-size: clamp(2.7rem, 15vw, 3.6rem); letter-spacing: 0.16em; }
+  .tala-hero-eyebrow { font-size: 0.68rem; letter-spacing: 0.12em; }
+  .tala-hero-org { font-size: 0.72rem; letter-spacing: 0.16em; }
+}
+
+/* White partner band joined to the hero's foot: the project's partners, and the
+   link to About. Logos left, line right; they wrap and centre on narrow screens. */
+.st-key-tala-partners {
+  flex-direction: row !important; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 0.6rem 1.8rem !important;
+  margin-top: -1rem; margin-bottom: 0.4rem; padding: 0.75rem 1.4rem;
+  background: #fff; border: 1px solid #e3e6f4; border-top: 0; border-radius: 0 0 16px 16px;
+  box-shadow: 0 6px 18px rgba(27, 37, 89, 0.08);
+}
+.st-key-tala-partners > div { width: auto !important; flex: 0 1 auto; min-width: 0; }
+.st-key-tala-partners .tala-logos { --logo-h: 32px; gap: 0.45rem 1.5rem; margin: 0; }
+/* Streamlit pulls markdown up with a negative bottom margin; in this band it would
+   let the link ride over the logos when they stack. */
+.st-key-tala-partners [data-testid="stMarkdownContainer"],
+.st-key-tala-partners [data-testid="stMarkdown"] { margin: 0 !important; }
+.st-key-tala-partners [data-testid="stPageLink"] a {
+  padding: 0.25rem 0.4rem 0.25rem 1.2rem; border-left: 2px solid #e3e6f4; border-radius: 0;
+}
+.st-key-tala-partners [data-testid="stPageLink"] a p,
+.st-key-tala-partners [data-testid="stPageLink"] a span { color: var(--nu-navy) !important; font-weight: 700; }
+.st-key-tala-partners [data-testid="stPageLink"] a:hover p { text-decoration: underline; }
+@media (max-width: 768px) {
+  .st-key-tala-partners { flex-direction: column !important; gap: 0.5rem !important; padding: 0.8rem 0.8rem; border-radius: 0 0 12px 12px; }
+  .st-key-tala-partners .tala-logos { --logo-h: 24px; gap: 0.45rem 1rem; }
+  .st-key-tala-partners [data-testid="stPageLink"] a { border-left: 0; padding: 0.2rem 0.4rem; }
 }
 
 /* Chapter cards on Home: gold name label, question title. */
@@ -502,6 +589,52 @@ div[data-testid="stHorizontalBlock"]:has([class*="st-key-tala-card-"]) div:has(>
 [data-testid="stToolbarActions"],
 [data-testid="stFooter"], footer:not(.tala-footer),
 [class*="viewerBadge"] { display: none !important; }
-/* Brighter, slightly larger stars than the generic sky defaults: the hero is the identity. */
-.tala-hero-sky svg .s0 { r: 1; } .tala-hero-sky svg .s1 { r: 1.4; } .tala-hero-sky svg .s2 { r: 1.9; }
+/* Brighter, larger stars than the generic sky defaults: the hero is the identity.
+   The archipelago (g.map) is brighter still than the field around it. */
+.tala-hero-sky svg .s0 { r: 1.1; } .tala-hero-sky svg .s1 { r: 1.6; } .tala-hero-sky svg .s2 { r: 2.2; }
 .tala-hero-sky svg .a { opacity: .75; } .tala-hero-sky svg .b { opacity: .9; }
+.tala-hero-sky svg .map .s0 { r: 1.35; } .tala-hero-sky svg .map .s1 { r: 1.9; } .tala-hero-sky svg .map .s2 { r: 2.6; }
+.tala-hero-sky svg .map .a, .tala-hero-sky svg .map .b { opacity: .95; }
+.tala-hero-sky svg .map .c, .tala-hero-sky svg .map .d { opacity: 1; }
+
+/* ---- Sidebar: "Watch the tour" sits with the top links (§19) ---------- */
+[class*="st-key-tala-nav-top-tour"] button {
+  justify-content: flex-start; min-height: 0; padding: 0.2rem 0.5rem !important;
+  border: 0; border-radius: 6px; background: transparent; color: #e6e9f8 !important;
+}
+[class*="st-key-tala-nav-top-tour"] button:hover { background: rgba(245, 216, 158, 0.1); color: #fff !important; }
+[class*="st-key-tala-nav-top-tour"] button p { font-size: 0.9rem; line-height: 1.25; font-weight: 400; }
+[class*="st-key-tala-nav-top-tour"] button [data-testid="stIconMaterial"] { color: var(--nu-gold); }
+[class*="st-key-tala-nav-top-tour"] button > div { justify-content: flex-start; gap: 0.5rem; }
+
+/* ---- Tour dialog ------------------------------------------------------ */
+/* Sized to the 16:9 video; on short screens the video caps its height instead. */
+[data-testid="stDialog"] > div:has(video) { width: min(940px, calc(100vw - 32px)) !important; }
+[role="dialog"] video { max-height: calc(100vh - 250px); }
+[role="dialog"] video { border-radius: 10px; background: #05071a; }
+[role="dialog"] [data-testid="stButtonGroup"] button {
+  min-height: 0; padding: 0.15rem 0.7rem; border-radius: 0;
+  font-family: "Courier New", ui-monospace, monospace; font-weight: 700; letter-spacing: 0.1em;
+}
+
+/* ---- About the project ------------------------------------------------ */
+/* The logo wall: the lg marks on a white card, one row on desktop, 3x2 on phones. */
+.tala-logos-wall {
+  --logo-h: 58px; gap: 1.2rem 2.6rem; padding: 1.7rem 2rem; margin: 0.4rem 0 0.8rem;
+  border: 1px solid #e3e6f4; border-radius: 16px;
+  box-shadow: 0 8px 26px rgba(27, 37, 89, 0.08);
+}
+@media (max-width: 1180px) { .tala-logos-wall { --logo-h: 48px; gap: 1rem 2rem; } }
+@media (max-width: 640px) {
+  .tala-logos-wall {
+    --logo-h: 34px; display: grid; grid-template-columns: repeat(3, auto);
+    justify-content: center; justify-items: center; gap: 1rem 1.3rem; padding: 1.1rem 0.8rem;
+  }
+}
+[class*="st-key-tala-about-"] { border-color: #e3e6f4 !important; background: #fafbff; }
+[class*="st-key-tala-about-"] h4 {
+  padding: 0 0 0.2rem; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #a97c1d; font-family: "Courier New", ui-monospace, monospace;
+}
+[class*="st-key-tala-about-"] ul { margin-bottom: 0; padding-left: 1.1rem; }
+[class*="st-key-tala-about-"] li { font-size: 0.92rem; margin-bottom: 0.25rem; }

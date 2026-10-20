@@ -78,7 +78,7 @@ def build_sky_svg(df: pd.DataFrame | None, width: int = 1100, height: int = 260,
         parts.append(_star(x, y, rng, i, twinkle=rng.random() < TWINKLE_SHARE))
     if len(pts):
         # Dim the background field relative to map points.
-        parts.insert(0, '<g opacity=".55">')
+        parts.insert(0, '<g class="bg" opacity=".55">')
         parts.append("</g>")
 
     count = 0
@@ -101,7 +101,8 @@ def build_sky_svg(df: pd.DataFrame | None, width: int = 1100, height: int = 260,
         oy = pad + box_h / 2 - hy * scale / 2
         xs = ox + (pts[:, 0] - lon0) * np.cos(mid_lat) * scale
         ys = oy + (lat1 - pts[:, 1]) * scale
-        parts.append("<g>")
+        # Classed so a page can style the map stars apart from the field (the Home hero brightens them).
+        parts.append('<g class="map">')
         for i, (x, y) in enumerate(zip(xs, ys)):
             parts.append(_star(x, y, rng, i, twinkle=rng.random() < TWINKLE_SHARE))
         parts.append("</g>")

@@ -30,6 +30,11 @@ SS_HERO_LANG = "tala_hero_lang"   # the language chips on Home's hero
 # page cannot drift out of its section when titles are edited.
 _PILL = {"learn": "pill.learn"}
 
+# English fallbacks for non-journey page headers until the catalog has the keys.
+_TITLE_EN = {"about": "About the project"}
+_BLURB_EN = {"about": "TALA is a hands-on learning module of AIKasalig, a project on "
+                      "responsible AI in Philippine health care."}
+
 
 def _t(key: str, default: str, **fmt) -> str:
     """``i18n.t`` with an English default for keys not yet merged into the catalog."""
@@ -61,20 +66,28 @@ def _on_hero_language() -> None:
 
 
 def header() -> None:
-    """Home's hero: the night-sky band, wordmark, tagline and language chips.
+    """Home's hero: the project banner, then the partner band right under it.
 
-    The band is a keyed container so the stylesheet can paint it
-    (``.st-key-tala-hero``). The sky is the survey's own coordinates drawn as
-    stars (``core.sky``), positioned behind the text on the right."""
-    from . import sky
+    The hero is a keyed container so the stylesheet can paint it
+    (``.st-key-tala-hero``): an "AIKasalig · DOST-NICER" eyebrow, the TALA
+    wordmark in gold, the tagline and the language chips, over the survey's own
+    coordinates drawn as stars (``core.sky``). The evaluator read the old,
+    smaller banner as a personal project, so the project is named before the app.
+
+    The white partner band below it carries the ``sm`` logos (cached string, as
+    Home re-renders on every chip press) and a link to the About page. It is a
+    ``st.page_link``, not an anchor: an anchor would reload the tab and drop the
+    session."""
+    from . import brand, sky
     from .splash import GOLD, STAR, _sprite_svg
 
-    star = _sprite_svg(STAR, {"#": GOLD}, pixel=5, extra_class="tala-hero-star")
+    star = _sprite_svg(STAR, {"#": GOLD}, pixel=7, extra_class="tala-hero-star")
     tagline = i18n.t("app.subtitle").replace(". ", ".<br>", 1)
     with st.container(key="tala-hero"):
         st.markdown(
-            f'<div class="tala-hero-sky">{sky.active_sky_svg(1000, 320)}</div>'
-            f'<div class="tala-hero-text"><h1>{star}<span>TALA</span></h1>'
+            f'<div class="tala-hero-sky">{sky.active_sky_svg(1000, 400)}</div>'
+            f'<div class="tala-hero-text"><span class="tala-hero-eyebrow">{brand.EYEBROW}</span>'
+            f'<h1>{star}<span class="tala-hero-word">TALA</span></h1>'
             f'<div class="tala-hero-org">{i18n.t("app.wordmark_sub")}</div>'
             f'<p class="tala-hero-tag">{tagline}</p></div>',
             unsafe_allow_html=True,
@@ -87,18 +100,91 @@ def header() -> None:
             format_func=str.upper, on_change=_on_hero_language,
             label_visibility="collapsed",
         )
+    with st.container(key="tala-partners"):
+        st.markdown(brand.strip_html("sm"), unsafe_allow_html=True)
+        st.page_link(tracks.path_of("about"),
+                     label=_t("brand.module_line", "A learning module of the AIKasalig project"),
+                     icon=":material/arrow_forward:", icon_position="right")
 
 
 def footer() -> None:
+    """The project footer on every page: partner logos, one line, a small credit.
+
+    It re-renders on every interaction, so it uses the ``sm`` logos only (a
+    cached string of a few tens of KB). The developer credit stays, but small
+    and below the project line: TALA is the project's, not a personal app."""
+    from . import brand
+
+    line = _t("footer.line", "A learning module of AIKasalig, DOST-NICER R&D Center on "
+              "Natural Language Processing for Health Applications, National University")
+    dev = _t("footer.dev", "Developed by {name}", name=brand.DEVELOPER)
     st.markdown(
-        f"""
-        <div class="tala-footer">
-          <strong>{i18n.t("app.title")}</strong> · {i18n.t("app.developer")}<br>
-          {i18n.t("app.footer")}
-        </div>
-        """,
+        f'<div class="tala-footer">{brand.strip_html("sm", "tala-logos tala-logos-foot")}'
+        f'<p class="tala-footer-line"><strong>TALA</strong> · {line}</p>'
+        f'<p class="tala-footer-dev">{dev}</p></div>',
         unsafe_allow_html=True,
     )
+
+
+# --- Tour dialog ----------------------------------------------------------------
+# One captioned tour per UI language (tools/record_tour.cjs). The sidebar button
+# opens it on every page; Home also embeds it inline.
+VIDEO_DIR = ASSETS / "video"
+SS_TOUR_OPEN = "_tala_tour_open"
+SS_TOUR_LANG = "tala_tour_lang"     # the dialog's own picker; never the app language
+
+
+def tour_files() -> dict[str, Path]:
+    """``{lang: path}`` for every recorded tour, in the gate's language order."""
+    return {code: p for code in i18n.LANGS
+            if (p := VIDEO_DIR / f"tour_{code}.webm").exists()}
+
+
+def tour_for(lang: str) -> Path | None:
+    """The tour in ``lang``, else English, else any; None when none is recorded."""
+    files = tour_files()
+    return files.get(lang) or files.get("en") or next(iter(files.values()), None)
+
+
+def _open_tour() -> None:
+    """Sidebar button callback: ask this run to open the dialog in the UI language.
+
+    A callback (not the button's return value) because the sidebar nav can be
+    drawn twice in one run with different keys; a callback still fires for the
+    copy that was clicked. The picker's value is set before it is created."""
+    files = tour_files()
+    lang = i18n.current()
+    st.session_state[SS_TOUR_LANG] = lang if lang in files else next(iter(files), None)
+    st.session_state[SS_TOUR_OPEN] = True
+
+
+def _tour_body() -> None:
+    """The dialog's content. A dialog is a fragment, so the picker reruns only this."""
+    files = tour_files()
+    if not files:
+        return
+    st.segmented_control(
+        _t("tour.lang", "Tour language"), list(files), key=SS_TOUR_LANG,
+        format_func=str.upper, required=True,
+    )
+    lang = st.session_state.get(SS_TOUR_LANG)
+    path = files.get(lang) or tour_for(i18n.current())
+    # VP9 WebM: st.video labels files video/mp4 by default, which Safari and
+    # Firefox refuse to play when the bytes are actually WebM.
+    st.video(str(path), format="video/webm", autoplay=True, muted=True)
+    st.caption(_t("tour.note", "Captioned, no sound. The picker changes only the video, "
+                               "not the app's language."))
+
+
+def maybe_open_tour() -> None:
+    """Open the tour dialog if the sidebar button asked for it in this run.
+
+    Called once per run from ``sidebar_controls`` (outside the nav slot, which
+    can be redrawn and would take the dialog with it). The title is resolved
+    here, at run time, so it follows the reader's language."""
+    if st.session_state.pop(SS_TOUR_OPEN, False) and tour_files():
+        st.dialog(_t("tour.title", "Watch the tour"), width="large",
+                  icon=":material/play_circle:")(_tour_body)()
 
 
 def source_label() -> str:
@@ -129,6 +215,7 @@ def sidebar_controls() -> None:
     Language and sound sit inside Settings with everything else, so the sidebar
     reads as track navigation first and configuration second."""
     dl.ensure_loaded()
+    maybe_open_tour()
 
     with st.sidebar.expander(i18n.t("side.settings"), expanded=False,
                              icon=":material/settings:"):
@@ -199,19 +286,27 @@ def page_header(page: str, section: str) -> None:
     Home keeps the big banner (``header()``, drawn by app.py)."""
     # ``section`` is a chapter key ("where"/"what"), "home", "learn", or a legacy
     # track name. Chapter pills show the untranslated chapter name.
-    pill = tracks.NAMES[section] if section in tracks.NAMES else i18n.t(_PILL[section])
+    # The About page's pill is the project's name, untranslated like the chapters.
+    if section in tracks.NAMES:
+        pill = tracks.NAMES[section]
+    elif section == "about":
+        from . import brand
+
+        pill = brand.PROJECT
+    else:
+        pill = i18n.t(_PILL[section])
     st.markdown(f'<span class="tala-pill">{pill}</span>', unsafe_allow_html=True)
     # "learn.title" is already the Learn panel's "Learn: {title}" format, so the
     # How TALA works page keeps its own title key.
     title_key, default = (("learn.page_title", "How TALA works") if page == "learn"
-                          else (f"{page}.title", tracks.NAV_EN.get(page, page)))
+                          else (f"{page}.title", _TITLE_EN.get(page) or tracks.NAV_EN.get(page, page)))
     st.markdown(f"## {_t(title_key, default)}")
     pos = tracks.position(page)
     if pos:
         st.session_state[tracks.SS_LAST_PAGE] = page
         _progress_strip(page, *pos)
-    blurb = i18n.t(f"{page}.blurb")
-    if blurb and blurb != f"{page}.blurb":
+    blurb = _t(f"{page}.blurb", _BLURB_EN.get(page, ""))
+    if blurb:
         st.markdown(blurb)
 
 
@@ -305,9 +400,17 @@ def sidebar_nav(current: str = "", redraw: bool = False) -> None:
     with st.container(key=f"tala-navbox{sfx}"):
         for page, label_key, label_default, icon in (
                 ("home", "nav.home", "Home", ":material/home:"),
-                ("learn", "nav.learn", "How TALA works", ":material/menu_book:")):
+                ("learn", "nav.learn", "How TALA works", ":material/menu_book:"),
+                ("about", "nav.about", "About the project", ":material/info:")):
             with st.container(key=f"tala-nav-top-{page}{sfx}"):
                 st.page_link(tracks.path_of(page), label=_t(label_key, label_default), icon=icon)
+        # The tour sits with the top links on every page. A button, not a link:
+        # it opens a dialog over the current page (see maybe_open_tour).
+        if tour_files():
+            with st.container(key=f"tala-nav-top-tour{sfx}"):
+                st.button(_t("tour.button", "Watch the tour"), key=f"tala-tour-btn{sfx}",
+                          on_click=_open_tour, icon=":material/play_circle:",
+                          type="tertiary", width="stretch")
         for chapter, pages in tracks.CHAPTERS.items():
             hint = (_t("nav.hint_ordered", "in order") if tracks.ORDERED[chapter]
                     else _t("nav.hint_any", "any order"))

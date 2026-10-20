@@ -19,6 +19,9 @@ for key in i18n.page_blocks(PAGE):
 st.divider()
 st.markdown(f"### {i18n.t('home.about')}")
 st.markdown(i18n.t("home.intro"))
-st.caption(i18n.t("app.developer"))
+# The project, its partners and the credits live on their own page.
+st.page_link("views/about.py",
+             label=ui._t("learn.about_link", "About the project: AIKasalig, its partners and credits"),
+             icon=":material/arrow_forward:", icon_position="right")
 st.caption(ui._t("learn.attribution",
                  "Place names and coordinates: GeoNames (geonames.org), CC BY 4.0."))

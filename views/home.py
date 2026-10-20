@@ -3,15 +3,12 @@
 Continue card, two chapter cards, the tour video and a collapsed data peek. The
 theory lives on How TALA works, one link away (docs/PLAN_PANEL.md, section 3).
 """
-from pathlib import Path
-
 import streamlit as st
 
 from core import data_loader as dl
 from core import i18n, tracks, ui
 
 PAGE = "home"
-VIDEO_DIR = Path(__file__).resolve().parent.parent / "assets" / "video"
 
 # --- Continue card ------------------------------------------------------------
 # Resume where the trainee left off; the page name is all session state keeps.
@@ -52,9 +49,9 @@ for col, chapter in zip(st.columns(2), tracks.CHAPTERS):
 # --- Tour video ---------------------------------------------------------------
 # One captioned tour per UI language, recorded later (tools/record_tour.cjs). If
 # there is none for this language, English; if there is no file at all, nothing
-# is drawn: no empty player and no placeholder.
-tour = next((p for p in (VIDEO_DIR / f"tour_{i18n.current()}.webm",
-                         VIDEO_DIR / "tour_en.webm") if p.exists()), None)
+# is drawn: no empty player and no placeholder. The sidebar's "Watch the tour"
+# button opens the same videos, with a language picker, on every page.
+tour = ui.tour_for(i18n.current())
 if tour is not None:
     st.markdown(f"#### :material/play_circle: {ui._t('home.tour', 'Watch the 1-minute tour')}")
     # The tours are VP9 WebM; st.video labels files video/mp4 by default, which

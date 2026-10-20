@@ -14,6 +14,9 @@ Per-logo fixes, each because the raw file would look wrong on the white strip:
 * **DOST** is a JPEG with a fake transparency checkerboard (white + #E7E7E7
   squares) baked into the pixels. Neutral light pixels become transparent, and
   grey anti-aliasing becomes black at partial alpha, so edges stay smooth.
+* **NICER RDC-NLPHA** draws its map in pale, semi-transparent grey with tiny
+  text; at strip sizes it all but vanishes next to the solid marks. Its alpha is
+  lifted and its neutral greys deepened (coloured accents untouched).
 * **National University** has a *white* wordmark under the shield, made for
   dark backgrounds; on a white banner it vanishes. The wordmark band (below the
   shield) is recoloured to NU navy; the shield itself is left untouched.
@@ -76,6 +79,16 @@ def _nu(im: Image.Image) -> Image.Image:
     return Image.fromarray(a, "RGBA")
 
 
+def _rdc(im: Image.Image) -> Image.Image:
+    """Make the pale, semi-transparent map and its tiny text hold up when small."""
+    a = np.asarray(im.convert("RGBA")).astype(np.float32)
+    rgb, alpha = a[..., :3], a[..., 3]
+    neutral = (rgb.max(axis=2) - rgb.min(axis=2)) < 20
+    a[..., 3] = np.clip(alpha * 2.4, 0, 255)
+    rgb[neutral] = rgb[neutral] * 0.62  # ~160 grey -> ~100: still grey, now legible
+    return Image.fromarray(a.astype(np.uint8), "RGBA")
+
+
 def _trim(im: Image.Image) -> Image.Image:
     alpha = np.asarray(im.getchannel("A"))
     ys, xs = np.where(alpha > 8)
@@ -94,6 +107,8 @@ def build() -> list[tuple[str, int, int, int]]:
             im = _dost(im)
         elif slug == "03_national_university":
             im = _nu(im)
+        elif slug == "05_nicer_rdc_nlpha":
+            im = _rdc(im)
         im = _trim(im.convert("RGBA"))
         for height, suffix in ((HEIGHT, ""), (HEIGHT_SM, "_sm")):
             w = round(im.width * height / im.height)

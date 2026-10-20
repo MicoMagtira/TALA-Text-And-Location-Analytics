@@ -1,7 +1,8 @@
 """TALA — Text And Location Analytics.
 
-An interactive NLP + geospatial analytics app for data-science training,
-by Mico C. Magtira (DOST-NICER). National University Manila branding.
+An interactive NLP + geospatial analytics app for data-science training: a
+learning module of AIKasalig (DOST-NICER R&D Center on NLP for Health
+Applications, National University). Developed by Mico C. Magtira.
 
 Run:  streamlit run app.py
 
@@ -71,17 +72,19 @@ if boot:
 
 # --- Navigation ---------------------------------------------------------------
 # Streamlit's own page list is hidden; ui.sidebar_nav draws the constellation
-# (Home, How TALA works, two chapters, nine steps). The pages are still
+# (Home, How TALA works, About the project, two chapters, nine steps). The pages are still
 # registered here so routing, URLs and st.page_link work. Titles come from the
 # catalog with English fallbacks (ui.nav_title). See core/i18n.py.
 home = st.Page("views/home.py", title=i18n.t("home.nav"), icon=":material/home:", default=True)
 learn = st.Page("views/learn.py", title=ui._t("learn.nav", "How TALA works"),
                 icon=":material/menu_book:")
+about = st.Page("views/about.py", title=ui._t("nav.about", "About the project"),
+                icon=":material/info:")
 journey = [
     st.Page(tracks.path_of(p), title=ui.nav_title(p))
     for p in tracks.ALL_PAGES
 ]
-nav = st.navigation([home, learn, *journey], position="hidden")
+nav = st.navigation([home, learn, about, *journey], position="hidden")
 
 # The nav slot sits above Settings. It is drawn now (so it is there while a slow
 # page computes) and redrawn after the page runs if a step was just completed.
