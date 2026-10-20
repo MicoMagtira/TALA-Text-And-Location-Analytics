@@ -2,22 +2,29 @@
 
 > **Every comment is a star. See what people say, and where they say it.**
 
-TALA is an interactive **NLP + geospatial** analytics app for data-science training.
-It reads where each comment says it is from, checks that against the GPS, and then
-compares what each *place* is saying. Built for DOST-NICER training sessions and styled
-in **National University Manila** colors.
+TALA is an interactive **NLP + geospatial** learning module of **AIKasalig**, Project 4
+of the DOST-NICER **R&D Center on Natural Language Processing for Health Applications**
+(RDC-NLPHA) at **National University, Manila**. AIKasalig ("Advancing Responsible AI in
+Philippine Healthcare: A Multi-Year NLP-Driven Roadmap for Trust, Transparency, and
+Ethical AI", February 2026 to January 2029; Project Leader: Dr. Mideth B. Abisado) builds
+a multilingual AI Trust Toolkit in Filipino, Cebuano, Ilocano, Hiligaynon and English.
+TALA teaches the text-and-location analytics behind it in the same five languages: it
+reads where each comment says it is from, checks that against the GPS, and then compares
+what each *place* is saying.
 
 > **TALA** = **T**ext **A**nd **L**ocation **A**nalytics. *Tala* is Filipino for
 > *star* and for a *record / note*.
 >
-> Developed by **Mico C. Magtira**, Senior Data and NLP-Geospatial Scientist,
+> Partners: DOST · DOST-PCHRD · National University · DOST-NICER · NICER RDC-NLPHA ·
+> AIKasalig. Developed by **Mico C. Magtira**, Senior Data and NLP-Geospatial Scientist,
 > DOST-NICER.
 
 | Before (word-cloud pages, method per tab) | After (place-first) |
 |---|---|
 | ![before](docs/screenshots/before_home.png) | ![after](docs/screenshots/after_home.png) |
 
-More frames are in [`docs/screenshots/`](docs/screenshots/): the START meteor wipe,
+More frames are in [`docs/screenshots/`](docs/screenshots/): the loading screen with
+the partner logos, the About the project page, Home on a phone, the START meteor wipe,
 the constellation sidebar with the "ran for you" notice, Text vs GPS, the place report
 and the How TALA works page.
 
@@ -85,19 +92,34 @@ GPS, 4,697 from the named place).
 ## Landing page and START
 
 Home is short: a night-sky hero whose stars are **the dataset's own coordinates**
-(a generic starfield if none are valid), the tagline, **language chips**, a Continue
-card when there is saved progress, one card per chapter, the **tour video**, a
-collapsed data peek and a link to How TALA works.
+(a generic starfield if none are valid), with an AIKasalig · DOST-NICER pill, the
+glowing TALA wordmark, the tagline and **language chips**; a white **partner band**
+with the six logos right under it; a Continue card when there is saved progress, one
+card per chapter, the **tour video**, a collapsed data peek and a link to How TALA works.
 
-The first visit goes language gate, 8-bit boot splash, then **START**: a single
-**meteor** streaks across in sync with the *bulalakaw* START sound and its tail wipes
-the splash away to reveal Home. With `prefers-reduced-motion` it is a plain fade.
+The first visit goes language gate, 8-bit boot splash (with the partner logos on a
+white strip), then **START**: a single **meteor** streaks across in sync with the
+*bulalakaw* START sound and its tail wipes the splash away to reveal Home. With
+`prefers-reduced-motion` it is a plain fade.
+
+### Project identity
+
+The partner logos (DOST, DOST-PCHRD, National University, DOST-NICER, NICER
+RDC-NLPHA, AIKasalig, in that fixed order) appear on the loading screen, under the
+Home hero, on the **About the project** page (a logo wall plus the AIKasalig and
+program story, sister projects and credits) and in the footer of every page. They
+always sit on white, because several are navy or grey ink made for light paper.
+`core/brand.py` is the only place that renders them. `tools/build_logos.py` rebuilds
+`assets/logos/` (trimmed, cleaned, WebP in two sizes) from a local, git-ignored
+`logos/` folder that also holds the project's private paperwork.
 
 ## Tour videos
 
-A captioned tour of about 75 seconds plays on Home, one per UI language (no
-voice-over): `assets/video/tour_<lang>.webm` for `en`, `fil`, `ceb`, `ilo`, `hil`.
-Home plays the one for the current language, else English, else shows none.
+A captioned tour of about 72 seconds exists for each UI language (no voice-over):
+`assets/video/tour_<lang>.webm` for `en`, `fil`, `ceb`, `ilo`, `hil`. Home plays the
+one for the current language. From any page, the sidebar's **Watch the tour** button
+opens a dialog with its own language picker, which switches only the video, not the
+app's language.
 
 Re-record after any UI change, with the app running:
 
@@ -253,25 +275,27 @@ and maps are pydeck.
 ├── app.py                     # entry point, hidden native nav, boot sequence
 ├── .streamlit/config.toml     # NU theme + runtime tuning
 ├── requirements.txt
-├── assets/                    # styles.css, favicon.png, video/tour_<lang>.webm
+├── assets/                    # styles.css, favicon.png, logos/ (partner WebP),
+│                              #   video/tour_<lang>.webm
 ├── data/                      # Parquet + CSV dataset, ph_gazetteer.csv, ph_land.geojson,
 │                              #   aspects.json, stopword lists
 ├── docs/                      # AUDIO.md, PLAN_PANEL.md, screenshots/, sound/, motion/
 ├── locales/                   # ui.<lang>.json + pages/<lang>/*.md (5 languages), review_notes.json
 ├── tools/                     # i18n_tool, i18n_extract, i18n_seed, build_gazetteer.py,
-│                              #   smoke_e2e.cjs, record_tour.cjs
+│                              #   build_logos.py, smoke_e2e.cjs, record_tour.cjs
 ├── core/
 │   ├── places.py              # geoparse, text_vs_gps, locate, assign_place
 │   ├── compare.py             # log-odds, Wilson place sentiment, aspects, Gi*, theme share
 │   ├── salita.py              # cached Chapter 2 computations shared by the pages
 │   ├── sky.py                 # data-as-stars hero SVG
+│   ├── brand.py               # partner logos: order, alt text, optical sizing, white strip
 │   ├── tracks.py              # chapters, step states, "ran for you", completion
 │   ├── data_loader, preprocess, nlp, geo, viz, maps   # data, analysis, drawing
 │   ├── persist.py             # save + resume cookie
 │   ├── sound_engine.js        # Web Audio synth (sounds, songs, START meteor sync)
 │   └── ui, i18n, gate, splash, audio
 ├── tests/                     # places, compare, sky, tracks, persist, i18n, audio, maps, concurrency
-└── views/                     # home, learn (How TALA works), p1_data ... p9_report
+└── views/                     # home, learn (How TALA works), about, p1_data ... p9_report
 ```
 
 ## Colors
