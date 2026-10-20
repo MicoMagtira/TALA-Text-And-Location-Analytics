@@ -422,3 +422,78 @@ def assign_place_for(source_key: str, lon_col: str, lat_col: str, text_col: str,
     if located is None or parsed is None:
         return None
     return assign_place(located, parsed, unit=unit, eps_m=eps_m, min_samples=min_samples)
+
+
+# ---------------------------------------------------------------------------
+# Journey state: the Step 2/3 choices every Chapter 2 page reads
+# ---------------------------------------------------------------------------
+# Step 2 (Text vs GPS) and Step 3 (Places) write these keys; Chapter 2 pages only
+# read them through the accessors below. A page opened cold gets the defaults,
+# which is what "TALA ran them with default settings" refers to. Values are plain
+# parameters, never frames, so they persist and cache-key cleanly.
+SS_KM = "place_km"            # agree threshold in km (Step 2)
+SS_MODE = "place_mode"        # "repaired" | "gps" | "agree" (Step 2)
+SS_UNIT = "place_unit"        # "region" | "cluster" (Step 3)
+DEFAULT_KM = 50.0
+DEFAULT_MODE = "repaired"
+DEFAULT_UNIT = "region"
+MODES = ("repaired", "gps", "agree")
+UNITS = ("region", "cluster")
+
+
+def params() -> dict:
+    """The active journey parameters, defaults filled in.
+
+    Cluster parameters reuse ``data_loader.SS_CLUSTER_PARAMS`` (eps_m,
+    min_samples) so the DBSCAN controls keep one home."""
+    from . import data_loader as dl
+
+    eps_m, min_samples = st.session_state.get(
+        dl.SS_CLUSTER_PARAMS, (dl.DEFAULT_EPS_M, dl.DEFAULT_MIN_SAMPLES))
+    return {
+        "source_key": st.session_state.get(dl.SS_SOURCE_KEY, dl.BUNDLED_KEY),
+        "text_col": st.session_state.get(dl.SS_TEXT_COL),
+        "lon_col": st.session_state.get(dl.SS_LON_COL),
+        "lat_col": st.session_state.get(dl.SS_LAT_COL),
+        "km": float(st.session_state.get(SS_KM, DEFAULT_KM)),
+        "mode": st.session_state.get(SS_MODE, DEFAULT_MODE),
+        "unit": st.session_state.get(SS_UNIT, DEFAULT_UNIT),
+        "eps_m": float(eps_m),
+        "min_samples": int(min_samples),
+    }
+
+
+def has_geo() -> bool:
+    """Whether the active dataset has text and both coordinate columns mapped."""
+    p = params()
+    return bool(p["text_col"] and p["lon_col"] and p["lat_col"])
+
+
+def active_parsed() -> pd.DataFrame | None:
+    p = params()
+    return parsed_for(p["source_key"], p["text_col"]) if p["text_col"] else None
+
+
+def active_check() -> pd.DataFrame | None:
+    p = params()
+    if not has_geo():
+        return None
+    return check_for(p["source_key"], p["lon_col"], p["lat_col"], p["text_col"], p["km"])
+
+
+def active_located() -> pd.DataFrame | None:
+    """Coordinates per row (``lon, lat, source``) under the chosen location source."""
+    p = params()
+    if not has_geo():
+        return None
+    return locate_for(p["source_key"], p["lon_col"], p["lat_col"], p["text_col"],
+                      p["km"], p["mode"])
+
+
+def active_places() -> pd.Series | None:
+    """Place label per row ("" = unassigned/noise) under the chosen unit."""
+    p = params()
+    if not has_geo():
+        return None
+    return assign_place_for(p["source_key"], p["lon_col"], p["lat_col"], p["text_col"],
+                            p["km"], p["mode"], p["unit"], p["eps_m"], p["min_samples"])
