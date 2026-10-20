@@ -1,6 +1,6 @@
 # TALA v3 plan: place-first TALA (panel revisions)
 
-Status: **approved** (2026-10-20). Meteor constants pending from the Wave 0 board (Task F falls back to the board defaults). Executor: Sonnet at medium effort, multi-agent, in waves, on branch
+Status: **implemented** (2026-10-20; Task J docs and QA screenshots in `docs/screenshots/`). Deviations: the bundled data names a place in all 12,000 comments (not ~10,000), 99.2% resolve (102 ambiguous); the recorder re-encodes to VP9 with Playwright's ffmpeg (the plan said no re-encode); the NLTK-free text stack keeps `TruncatedSVD` in `core/nlp.py`. Originally approved 2026-10-20. Meteor constants pending from the Wave 0 board (Task F falls back to the board defaults). Executor: Sonnet at medium effort, multi-agent, in waves, on branch
 `feat/panel-revisions`. The orchestrator (Opus) does Wave 0 and the translations itself. Nobody pushes until the user approves.
 
 ## Decisions (user, 2026-10-20)

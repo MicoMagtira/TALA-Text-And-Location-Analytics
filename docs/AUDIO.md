@@ -53,10 +53,10 @@ its bus volume, so muting a bus also mutes its echo. Envelopes move in 60 Hz,
 
 | Area | Song |
 |---|---|
-| gate, home | `gabi` |
-| text | `buwan` |
-| geo | `bituin` |
-| after a track-complete fanfare | `harana` (until the area changes) |
+| gate, home, How TALA works | `gabi` |
+| text (Chapter 2, Salita: steps 4-9) | `buwan` |
+| geo (Chapter 1, Lugar: steps 1-3) | `bituin` |
+| after a chapter-complete fanfare | `harana` (until the area changes) |
 | style `ambience`, everywhere | `kuliglig` (crickets and a drone) |
 
 Changes crossfade over about 0.6 s on the music bus.
