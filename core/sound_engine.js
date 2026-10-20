@@ -443,6 +443,77 @@ function updateMusic() {
   }
 }
 
+/* START meteor: one meteor streaks across the splash and its tail wipes the night away.
+ * The splash is erased by two unioned CSS masks (see core/splash.py): a "sweep" driven by --p behind
+ * the head, and a "band" driven by --w that widens around the meteor's path. The values come from
+ * splash.METEOR via the splash's data-meteor attribute; these defaults only cover a missing attribute.
+ * Reduced motion is left to the CSS plain fade. Never throws: on any failure the splash is simply hidden. */
+const METEOR_DEFAULTS = { style: 'slice', crossing_ms: 560, open_ms: 520, open_at: 0.45, angle_deg: 24,
+  tail_px: 520, soft_px: 90, sparks: 22, easing: 'cubic-bezier(.55,0,.8,.3)', glow: true };
+function meteorWipe() {
+  const splash = document.querySelector('.tala-splash');
+  if (!splash) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !splash.animate) return;
+  const made = [];
+  const finish = () => splash.classList.add('tala-gone');
+  const cleanup = () => made.forEach((n) => n.remove());
+  try {
+    const c = { ...METEOR_DEFAULTS };
+    try { Object.assign(c, JSON.parse(splash.dataset.meteor || '{}')); } catch (_) { /* keep defaults */ }
+    const W = window.innerWidth, H = window.innerHeight;
+    const a = c.angle_deg * Math.PI / 180, dx = Math.cos(a), dy = Math.sin(a);
+    const L = W * dx + H * dy;                       // length of a CSS gradient line at (90 + angle) deg
+    const cx = W / 2, cy = H / 2;
+    const at = (f) => [cx + (f * L - L / 2) * dx, cy + (f * L - L / 2) * dy];
+    const f0 = -0.08, f1 = 1.08;
+
+    splash.style.setProperty('--ang', (90 + c.angle_deg) + 'deg');
+    splash.style.setProperty('--nang', c.angle_deg + 'deg');
+    splash.style.setProperty('--soft', c.soft_px + 'px');
+    splash.classList.add('tala-wiping');
+    if (c.style === 'sweep') splash.classList.add('sweep-only');
+
+    const meteor = document.createElement('div');
+    meteor.className = 'tala-meteor' + (c.glow ? '' : ' noglow');
+    meteor.style.setProperty('--tail', c.tail_px + 'px');
+    meteor.style.opacity = 1;
+    document.body.appendChild(meteor); made.push(meteor);
+
+    const timing = { duration: c.crossing_ms, easing: c.easing, fill: 'forwards' };
+    const [x0, y0] = at(f0), [x1, y1] = at(f1);
+    // The meteor's right edge is its head, so shift left by the tail length before rotating about the head.
+    const tf = (x, y) => `translate(${x - c.tail_px}px, ${y - 2}px) rotate(${c.angle_deg}deg)`;
+    meteor.animate([{ transform: tf(x0, y0) }, { transform: tf(x1, y1) }], timing);
+    splash.animate([{ '--p': (f0 * L) + 'px' }, { '--p': (f1 * L + c.soft_px) + 'px' }], timing);
+
+    if (c.style === 'slice') {   // the cut widens from the path outwards until it covers the far corner
+      const reach = Math.hypot(W, H) / 2 + c.soft_px;
+      splash.animate([{ '--w': '0px' }, { '--w': reach + 'px' }],
+        { duration: c.open_ms, delay: c.crossing_ms * c.open_at, easing: 'cubic-bezier(.2,.6,.3,1)', fill: 'forwards' });
+    }
+
+    for (let i = 0; i < c.sparks; i++) {   // sparkle dust dropped along the path as the head passes
+      const f = f0 + (f1 - f0) * (i + Math.random() * 0.6) / c.sparks;
+      const [sx, sy] = at(f);
+      const sp = document.createElement('i');
+      sp.className = 'tala-spark';
+      sp.style.left = sx + 'px'; sp.style.top = sy + 'px'; sp.style.opacity = 0;
+      document.body.appendChild(sp); made.push(sp);
+      sp.animate([
+        { opacity: 0, transform: 'translate(0,0) scale(1)' },
+        { opacity: 1, transform: 'translate(0,0) scale(1.3)', offset: 0.08 },
+        { opacity: 0, transform: `translate(${(Math.random() - 0.5) * 30}px, ${20 + Math.random() * 40}px) scale(.4)` },
+      ], { duration: 700 + Math.random() * 500, delay: c.crossing_ms * (f - f0) / (f1 - f0), easing: 'ease-out', fill: 'both' });
+    }
+
+    const end = c.style === 'slice' ? Math.max(c.crossing_ms, c.crossing_ms * c.open_at + c.open_ms) : c.crossing_ms;
+    // Plain setTimeout, not later(): the overlay must come down even if the engine is re-injected meanwhile.
+    setTimeout(finish, end + 30);
+    setTimeout(cleanup, end + 1400);   // let the last sparks finish
+    meteor.animate([{ opacity: 1 }, { opacity: 1, offset: 0.97 }, { opacity: 0 }], { duration: end + 30, fill: 'forwards' });
+  } catch (_) { finish(); cleanup(); }
+}
+
 const api = {
   unlocked: false,
   prefs,
@@ -502,6 +573,7 @@ const api = {
     api.unlock();
     api.play('start');
     document.body.classList.add('tala-boot-complete');
+    meteorWipe();
     try { document.cookie = 'tala_booted=1; path=/; SameSite=Lax'; } catch (_) { /* cookies blocked */ }
     later(() => { hold = false; updateMusic(); }, 1300);
   },

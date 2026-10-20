@@ -25,13 +25,15 @@ The splash always follows the language gate, so the visitor has already tapped
 the page and browser audio is unlocked: the loading is audible (one tick per bar
 segment, then a chime). At 100% a pixel START button appears. Pressing it is
 client-only (``__talaSound.startPressed()``): it plays the shooting-star cue,
-adds ``tala-boot-complete`` to ``<body>`` and sets the ``tala_booted`` session
+adds ``tala-boot-complete`` to ``<body>``, runs the meteor wipe (``METEOR``) and sets the ``tala_booted`` session
 cookie, so a refresh in the same browser session skips the splash. No server
 rerun happens; the page underneath is already rendered. If JS or the engine is
 blocked, a CSS-only animation fades the overlay out 12 s after 100%.
 """
 from __future__ import annotations
 
+import html
+import json
 import random
 import time
 
@@ -44,6 +46,24 @@ NAVY = "#35408E"
 GOLD = "#F5D89E"
 GOLD_DEEP = "#C9962E"
 INK_ON_SKY = "#c8d0f0"
+
+# --- START meteor --------------------------------------------------------------
+# Approved on docs/motion/start_meteor.html. One meteor streaks across the splash
+# when START is pressed and its tail wipes the night away to reveal Home. Tune it
+# here and nowhere else: the dict is handed to the browser as ``data-meteor`` on
+# the splash, and ``__talaSound.startPressed`` (core/sound_engine.js) reads it.
+METEOR = {
+    "style": "slice",                        # "slice" (cut, then widen) or "sweep"
+    "crossing_ms": 560,                      # head travel time across the screen
+    "open_ms": 520,                          # how long the slice takes to widen
+    "open_at": 0.45,                         # slice starts widening at this share of the crossing
+    "angle_deg": 24,                         # path angle below horizontal
+    "tail_px": 520,
+    "soft_px": 90,                           # feather of the wipe edge
+    "sparks": 22,                            # sparkle dust specks along the path
+    "easing": "cubic-bezier(.55,0,.8,.3)",   # accelerating: it falls in
+    "glow": True,
+}
 
 # --- sprites ----------------------------------------------------------------
 # '#' primary  '+' accent  'o' shadow/hole  '.' transparent
@@ -144,6 +164,11 @@ def _starfield(n: int = 46, seed: int = 7) -> str:
 
 _CSS = f"""
 <style>
+/* START meteor wipe. @property rules must be top level. --p is how far the
+   meteor head has travelled, --w how wide the slice around its path has grown. */
+@property --p {{ syntax: "<length>"; inherits: false; initial-value: -9999px; }}
+@property --w {{ syntax: "<length>"; inherits: false; initial-value: 0px; }}
+
 /* The splash is a real boot screen, not a translucent overlay. Hide the
    navigation and Streamlit toolbar until its client-side finale has finished. */
 body:not(.tala-boot-complete):has(.tala-splash) section[data-testid="stSidebar"],
@@ -222,10 +247,51 @@ body:not(.tala-boot-complete):has(.tala-splash) header[data-testid="stHeader"] {
 .tala-splash.is-closing {{
   animation: tala-fade-out .5s ease calc(var(--tail) + 12s) forwards;
 }}
-/* START was pressed: reveal the app at once. */
+/* START was pressed. JS runs the meteor wipe (.tala-wiping): the overlay is
+   erased by two unioned CSS masks, a "sweep" that is opaque ahead of the head and
+   a "band" that is opaque only away from the meteor's path. Plain fade for
+   reduced motion, below. ``animation: none`` cancels the 12 s fallback fade. */
 body.tala-boot-complete .tala-splash {{
-  animation: tala-fade-out .45s ease forwards;
+  animation: none;
   pointer-events: none;
+  --p: -9999px; --w: 0px; --ang: 114deg; --nang: 24deg; --soft: 90px;
+}}
+.tala-splash.tala-wiping {{
+  -webkit-mask-image:
+    linear-gradient(var(--ang), transparent calc(var(--p) - var(--soft)), #000 var(--p)),
+    linear-gradient(var(--nang), #000 calc(50% - var(--w) - var(--soft)), transparent calc(50% - var(--w)),
+                                 transparent calc(50% + var(--w)), #000 calc(50% + var(--w) + var(--soft)));
+          mask-image:
+    linear-gradient(var(--ang), transparent calc(var(--p) - var(--soft)), #000 var(--p)),
+    linear-gradient(var(--nang), #000 calc(50% - var(--w) - var(--soft)), transparent calc(50% - var(--w)),
+                                 transparent calc(50% + var(--w)), #000 calc(50% + var(--w) + var(--soft)));
+  -webkit-mask-composite: source-over; mask-composite: add;
+}}
+.tala-splash.tala-wiping.sweep-only {{
+  -webkit-mask-image: linear-gradient(var(--ang), transparent calc(var(--p) - var(--soft)), #000 var(--p));
+          mask-image: linear-gradient(var(--ang), transparent calc(var(--p) - var(--soft)), #000 var(--p));
+}}
+.tala-splash.tala-gone {{ display: none; }}
+
+/* The meteor itself: a head plus a tapering tail drawn along +x, rotated by JS. */
+.tala-meteor {{
+  position: fixed; left: 0; top: 0; z-index: 100000; pointer-events: none;
+  width: var(--tail, 520px); height: 4px; transform-origin: 100% 50%; opacity: 0;
+}}
+.tala-meteor::before {{
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(245,216,158,0) 0%, rgba(245,216,158,.35) 55%, rgba(255,249,222,.95) 96%, #fff 100%);
+  clip-path: polygon(0 45%, 100% 0, 100% 100%, 0 55%);
+}}
+.tala-meteor::after {{
+  content: ""; position: absolute; right: -7px; top: 50%; width: 14px; height: 14px; margin-top: -7px;
+  border-radius: 50%; background: #fff;
+  box-shadow: 0 0 10px 4px #fff9de, 0 0 28px 10px rgba(245,216,158,.75), 0 0 70px 26px rgba(201,150,46,.35);
+}}
+.tala-meteor.noglow::after {{ box-shadow: 0 0 6px 2px #fff9de; }}
+.tala-spark {{
+  position: fixed; z-index: 99999; width: 3px; height: 3px; background: #fff9de; pointer-events: none;
+  box-shadow: 0 0 6px 1px rgba(245,216,158,.9);
 }}
 
 .tala-starfield {{ position: absolute; inset: 0; }}
@@ -354,11 +420,18 @@ body.tala-boot-complete .tala-splash {{
   .tala-starfield i {{ opacity: .8; }}
   /* No animation means no fade-in, so show START straight away. */
   .tala-start {{ opacity: 1; pointer-events: auto; }}
+  /* No meteor either (JS skips it): START fades the overlay out plainly. */
+  body.tala-boot-complete .tala-splash {{ animation: tala-fade-out .45s ease forwards !important; }}
 }}
 </style>
 """
 
 _BLOCKS = 18
+
+
+def _meteor_attr() -> str:
+    """``METEOR`` as an HTML attribute value (single-quoted JSON) for the splash root."""
+    return html.escape(json.dumps(METEOR), quote=True)
 
 
 def _start_button() -> str:
@@ -392,7 +465,7 @@ def _frame(pct: int, message: str, done: bool = False) -> str:
         "</div>"
     )
     return (
-        f'<div class="tala-splash{" is-done" if done else ""}">'
+        f'<div class="tala-splash{" is-done" if done else ""}" data-meteor="{_meteor_attr()}">'
         + _starfield()
         + cast
         + _wordmark()
@@ -483,7 +556,7 @@ def _finale(from_pct: int, remaining: float) -> str:
         "</div>"
     )
     return (
-        f'<div class="tala-splash is-closing" style="--tail:{remaining:.2f}s">'
+        f'<div class="tala-splash is-closing" style="--tail:{remaining:.2f}s" data-meteor="{_meteor_attr()}">'
         + _starfield()
         + cast
         + _wordmark()

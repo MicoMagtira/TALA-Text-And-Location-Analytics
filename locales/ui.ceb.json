@@ -379,18 +379,6 @@
     "src": "36b7454c7b",
     "t": "NLP matag Cluster"
   },
-  "home.dataset_head": {
-    "src": "9e83a44b70",
-    "t": "### Aktibo nga dataset"
-  },
-  "home.geo_head": {
-    "src": "5c9112a1e0",
-    "t": "#### Geospatial Analytics"
-  },
-  "home.geo_list": {
-    "src": "741b60cd24",
-    "t": "- Ingest + **CRS/bounds validation**\n- DBSCAN clustering (+ k-distance)\n- Grid / centroid generalization\n- Pag-clip sa yuta sa Pilipinas\n- Interactive pydeck maps\n- **NLP matag cluster** (privacy-safe)\n- GeoJSON / CSV exports"
-  },
   "home.intro": {
     "src": "52d4d440c1",
     "t": "Ang **TALA — Text And Location Analytics** usa ka hands-on nga training app nga nagtambal sa klasikong **Natural Language Processing** ug sa tibuok **geospatial** nga workflow, aron makagikan ang mga apil sa hilaw nga komento paingon sa *unsa ang gisulti sa mga tao* **ug** *asa nila kini gisulti*.\n\nAng *tala* Filipino para sa **bitoon** ug para sa **rekord / nota** — haom sa usa ka himan nga naghimo sa mga nota nga insight."
@@ -422,18 +410,6 @@
   "home.source": {
     "src": "86728b17ad",
     "t": "Gigikanan: {source}"
-  },
-  "home.text_head": {
-    "src": "0fbeeffc36",
-    "t": "#### Text Analytics"
-  },
-  "home.text_list": {
-    "src": "9000d00136",
-    "t": "- Paglimpyo ug Filipino/Taglish stopwords\n- Word clouds ug mga kasubsob\n- VADER sentiment + NRC emotions\n- N-grams ug co-occurrence networks\n- LDA topics + stability\n- RAKE keywords, nouns/POS\n- Readability metrics ug TF-IDF themes"
-  },
-  "home.title": {
-    "src": "361fa18c41",
-    "t": "Maayong pag-abot sa TALA"
   },
   "home.yes": {
     "src": "5397e0583f",
@@ -518,14 +494,6 @@
   "side.language_pick": {
     "src": "01e1787a9e",
     "t": "Pinulongan sa app"
-  },
-  "side.palette_cat": {
-    "src": "ad3f5f6e00",
-    "t": "Categorical palette (para sa series)"
-  },
-  "side.palette_seq": {
-    "src": "8440224e5a",
-    "t": "Sequential palette (mapa/heatmap)"
   },
   "side.show_learn": {
     "src": "84ebb2309c",

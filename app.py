@@ -19,11 +19,13 @@ mid-load. Returning visitors skip it via the saved prefs cookie (core/persist.py
 """
 from __future__ import annotations
 
+from pathlib import Path
+
 import streamlit as st
 
 st.set_page_config(
     page_title="TALA — Text And Location Analytics",
-    page_icon=":material/star:",
+    page_icon=str(Path(__file__).parent / "assets" / "favicon.png"),   # the pixel star
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -96,8 +98,9 @@ audio.mount(area)
 if boot:
     boot.update(55, i18n.t("boot.render"))
 
-# Only Home keeps the big banner; journey pages carry a compact header instead.
-if area == "home":
+# Only Home keeps the big hero; How TALA works and the journey pages carry a
+# compact header instead (Home's url_path is "").
+if area == "home" and not nav.url_path:
     ui.header()
 
 # The splash must come down even if a page raises, otherwise the overlay would

@@ -5,12 +5,9 @@ Two color roles are kept deliberately separate:
 * **Brand chrome** — National University Manila navy/gold/mineshaft. Used for the
   app header, sidebar, buttons and other UI furniture (see assets/styles.css and
   .streamlit/config.toml).
-* **Data-viz palettes** — the categorical series colors used inside charts and
-  maps. The default ("National University") is the data-viz skill's validated
-  8-hue categorical set (worst adjacent CVD ΔE 9.1 light / 8.4 dark), which is
-  blue-led so it harmonizes with the brand navy while staying colorblind-safe.
-  Chart series color must be readable, so it is chosen by that computable gate
-  rather than forced to the literal brand hexes.
+* **Data-viz palettes** — one fixed, colour-blind-safe palette per role
+  (categorical, sequential, diverging), used inside charts and maps. There is no
+  picker: see the comment above ``_CATEGORICAL``.
 
 Import cost note: this module is pulled in by ``core.ui``, which ``app.py``
 imports on every page load. It therefore stays matplotlib-free at import time —
@@ -29,49 +26,42 @@ NU_DARK = "#333333"      # Mine Shaft            (dark text/elements)
 NU_GOLD_DEEP = "#C9962E"  # readable gold for marks/text on white
 NU_NAVY_LIGHT = "#5B67B7"
 
-# --- Categorical data-viz palettes (validated) ---------------------------------
-# Default: data-viz skill reference set, light-surface steps. Fixed slot order —
-# assign in order, never cycle. Slots 4/3/5 (yellow/aqua/magenta) sit sub-3:1 on
-# white, so charts using them always ship direct labels or a table view.
+# --- Fixed data-viz palettes (colour-blind safe, no user choice) ----------------
+# TALA ships exactly one palette per role. The Settings panel used to offer
+# pickers; they were removed so every chart reads the same and the default is
+# already safe for colour-blind readers (docs/PLAN_PANEL.md). The *names* below
+# stay so older callers (``viz.categorical(ui.palette(), n)``) keep working.
+#
+# Categorical: the Okabe-Ito set (designed for all common colour-vision types),
+# with its black swapped for the brand navy so the eighth series sits with the
+# night/gold identity. Fixed slot order: assign in order, never cycle. Yellow and
+# sky blue are light on white, so charts using them ship direct labels.
 _CATEGORICAL = {
-    "National University": [
-        "#2a78d6", "#eb6834", "#1baf7a", "#eda100",
-        "#e87ba4", "#008300", "#4a3aa7", "#e34948",
-    ],
-    # Okabe-Ito: widely used colorblind-safe eight.
-    "Okabe-Ito (colorblind-safe)": [
+    "TALA": [
         "#0072B2", "#E69F00", "#009E73", "#CC79A7",
-        "#56B4E9", "#D55E00", "#F0E442", "#000000",
-    ],
-    # A warmer, brand-forward option (navy + deep gold led).
-    "NU Warm": [
-        "#35408E", "#C9962E", "#2E8B7A", "#C0413B",
-        "#5B67B7", "#6B8E23", "#8A5FA8", "#B5651D",
+        "#56B4E9", "#D55E00", "#F0E442", "#232a5e",
     ],
 }
-DEFAULT_CATEGORICAL = "National University"
+DEFAULT_CATEGORICAL = "TALA"
 
-# --- Sequential colormaps (for magnitude: heatmaps, choropleths, word clouds) --
-# Stored as ordered hex stops rather than matplotlib Colormap objects so that
-# importing this module costs nothing. The perceptually-uniform standards are
-# 16-step samples of the matplotlib originals (viridis/cividis/magma), which is
-# well past the resolution any of our encodings resolve.
+# Sequential (magnitude: heatmaps, bubble maps): a 16-step sample of matplotlib's
+# cividis, which is perceptually uniform and readable under every common colour
+# deficiency. Stored as hex stops so importing this module stays free.
 _SEQUENTIAL: dict[str, list[str]] = {
-    # Single-hue navy ramp light->dark.
-    "NU Navy": ["#eef1fb", "#b7c0e6", "#7d8ac9", "#4a56a5", NU_NAVY, "#232a5e"],
-    "NU Gold": ["#fbf4e1", "#f5d89e", "#e2b85f", "#c9962e", "#966c17"],
-    "Viridis": ["#440154", "#481a6c", "#472f7d", "#414487", "#39568c", "#31688e",
-                "#2a788e", "#23888e", "#1f988b", "#22a884", "#35b779", "#54c568",
-                "#7ad151", "#a5db36", "#d2e21b", "#fde725"],
-    "Cividis (colorblind-safe)": [
-                "#00224e", "#002e6c", "#1e3a6f", "#35456c", "#47516c", "#575d6d",
-                "#666970", "#757575", "#848279", "#948e77", "#a59c74", "#b7a96e",
-                "#c8b866", "#dbc75a", "#eed649", "#fee838"],
-    "Magma": ["#000004", "#0b0924", "#20114b", "#3b0f70", "#57157e", "#721f81",
-              "#8c2981", "#a8327d", "#c43c75", "#de4968", "#f1605d", "#fa7f5e",
-              "#fe9f6d", "#febf84", "#fddea0", "#fcfdbf"],
+    "TALA": ["#00224e", "#002e6c", "#1e3a6f", "#35456c", "#47516c", "#575d6d",
+             "#666970", "#757575", "#848279", "#948e77", "#a59c74", "#b7a96e",
+             "#c8b866", "#dbc75a", "#eed649", "#fee838"],
 }
-DEFAULT_SEQUENTIAL = "NU Navy"
+DEFAULT_SEQUENTIAL = "TALA"
+
+# Diverging (above/below a midpoint, such as a log-odds z): brand blue to brand
+# gold through a warm neutral. Blue-orange is the diverging pair that survives
+# red-green colour blindness; the neutral centre keeps "no difference" quiet.
+_DIVERGING: dict[str, list[str]] = {
+    "TALA": ["#233a8f", "#3f58a8", "#6b82c2", "#9db0dc", "#d2dcf0", "#f3f1ea",
+             "#f6e3b4", "#efca7b", "#dba73f", "#b98215", "#8a5c00"],
+}
+DEFAULT_DIVERGING = "TALA"
 
 # Chart chrome / ink (light surface), from the data-viz reference.
 INK_PRIMARY = "#0b0b0b"
@@ -88,6 +78,10 @@ def categorical_names() -> list[str]:
 
 def sequential_names() -> list[str]:
     return list(_SEQUENTIAL)
+
+
+def diverging_names() -> list[str]:
+    return list(_DIVERGING)
 
 
 def categorical(name: str = DEFAULT_CATEGORICAL, n: int | None = None) -> list[str]:
@@ -130,12 +124,8 @@ def _lerp_hex(a: str, b: str, t: float) -> str:
     )
 
 
-def sequential_hexes(name: str = DEFAULT_SEQUENTIAL, n: int = 6) -> list[str]:
-    """Sample a sequential palette into n hex steps (for pydeck/Plotly).
-
-    Pure-Python interpolation over the stored stops, so the geo and Plotly pages
-    do not drag matplotlib in just to pick colors."""
-    stops = sequential_stops(name)
+def _sample(stops: list[str], n: int) -> list[str]:
+    """Sample ordered hex stops into ``n`` evenly spaced hexes (sRGB interpolation)."""
     if n <= 1:
         return stops[:1]
     out = []
@@ -144,6 +134,25 @@ def sequential_hexes(name: str = DEFAULT_SEQUENTIAL, n: int = 6) -> list[str]:
         lo = min(int(pos), len(stops) - 2)
         out.append(_lerp_hex(stops[lo], stops[lo + 1], pos - lo))
     return out
+
+
+def sequential_hexes(name: str = DEFAULT_SEQUENTIAL, n: int = 6) -> list[str]:
+    """Sample the sequential palette into n hex steps (for pydeck/Plotly).
+
+    Pure-Python interpolation over the stored stops, so the geo and Plotly pages
+    do not drag matplotlib in just to pick colors."""
+    return _sample(sequential_stops(name), n)
+
+
+def diverging_stops(name: str = DEFAULT_DIVERGING) -> list[str]:
+    """The raw ordered hex stops of the diverging palette (low end first)."""
+    return list(_DIVERGING.get(name, _DIVERGING[DEFAULT_DIVERGING]))
+
+
+def diverging_hexes(n: int = 9, name: str = DEFAULT_DIVERGING) -> list[str]:
+    """Sample the blue-to-gold diverging palette into ``n`` steps. An odd ``n``
+    puts the neutral midpoint exactly in the middle."""
+    return _sample(diverging_stops(name), n)
 
 
 def hex_to_rgba(hex_color: str, alpha: int = 200) -> list[int]:

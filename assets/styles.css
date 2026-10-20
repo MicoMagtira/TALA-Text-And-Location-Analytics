@@ -407,3 +407,80 @@ section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] { color: #aa
 .st-key-tala-autoran { border-color: #e3e6f4 !important; padding: 0.35rem 0.8rem !important; }
 .st-key-tala-autoran [data-testid="stVerticalBlock"] { gap: 0.2rem; }
 .st-key-tala-autoran p { font-size: 0.88rem; margin: 0; }
+
+/* ---- Home hero: the survey's own points as a night sky (Task F) ------- */
+.st-key-tala-hero {
+  position: relative; isolation: isolate; overflow: hidden;
+  min-height: 320px; padding: 1.6rem 2.2rem; margin-bottom: 1.1rem;
+  display: flex; flex-direction: column; justify-content: center; gap: 1.1rem;
+  border-radius: 14px; border-bottom: 4px solid var(--nu-gold);
+  background: linear-gradient(120deg, var(--sky-mid) 0%, var(--sky-deep) 100%);
+  box-shadow: 0 4px 18px rgba(11, 15, 43, 0.35);
+}
+/* Streamlit's element wrappers are positioned; make them static so the sky is sized by the hero itself. */
+.st-key-tala-hero [data-testid="stElementContainer"],
+.st-key-tala-hero [data-testid="stMarkdown"],
+.st-key-tala-hero [data-testid="stMarkdownContainer"] { position: static !important; }
+/* The sky sits behind the text (z-index -1 inside the hero's own stacking context). */
+.st-key-tala-hero .tala-hero-sky { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.st-key-tala-hero .tala-hero-sky svg { display: block; width: 100%; height: 100%; }
+/* Streamlit wraps a heading's content in a span, so the flex row goes on that span. */
+.tala-hero-text h1 > span { display: flex; align-items: center; gap: 1rem; }
+.tala-hero-text h1 {
+  margin: 0; padding: 0;
+  color: #fff; font-family: "Courier New", ui-monospace, monospace;
+  font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: 0.18em; line-height: 1;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
+}
+.tala-hero-star { flex: none; filter: drop-shadow(0 0 10px rgba(245, 216, 158, 0.7)); }
+.tala-hero-org {
+  margin-top: 0.5rem; color: var(--nu-gold); font-size: 0.78rem; letter-spacing: 0.2em;
+  text-transform: uppercase; font-family: "Courier New", ui-monospace, monospace;
+}
+.tala-hero-tag {
+  margin: 1.1rem 0 0; max-width: 24em; color: #fff; font-weight: 600;
+  font-size: clamp(1.05rem, 2.1vw, 1.5rem); line-height: 1.3;
+}
+/* Language chips: the segmented control as five small gold pixel tags. */
+.st-key-tala-hero [data-testid="stButtonGroup"] { gap: 0.4rem; flex-wrap: wrap; }
+.st-key-tala-hero [data-testid="stButtonGroup"] button {
+  min-height: 0; padding: 0.2rem 0.7rem; border-radius: 0;
+  background: rgba(5, 7, 26, 0.55); border: 2px solid rgba(245, 216, 158, 0.55);
+  font-family: "Courier New", ui-monospace, monospace; letter-spacing: 0.1em;
+}
+.st-key-tala-hero [data-testid="stButtonGroup"] button,
+.st-key-tala-hero [data-testid="stButtonGroup"] button * { color: var(--nu-gold) !important; font-weight: 700; }
+.st-key-tala-hero [data-testid="stButtonGroup"] button:hover { border-color: var(--nu-gold); background: rgba(245, 216, 158, 0.16); }
+.st-key-tala-hero [data-testid="stButtonGroup"] button[aria-checked="true"],
+.st-key-tala-hero [data-testid="stButtonGroup"] button[aria-pressed="true"],
+.st-key-tala-hero [data-testid="stButtonGroup"] button[data-testid="stBaseButton-segmented_controlActive"] {
+  background: var(--nu-gold); border-color: var(--nu-gold);
+}
+.st-key-tala-hero [data-testid="stButtonGroup"] button[aria-checked="true"] *,
+.st-key-tala-hero [data-testid="stButtonGroup"] button[aria-pressed="true"] *,
+.st-key-tala-hero [data-testid="stButtonGroup"] button[data-testid="stBaseButton-segmented_controlActive"] * { color: var(--ink-navy) !important; }
+@media (max-height: 800px) { .st-key-tala-hero { min-height: 280px; padding-top: 1.1rem; padding-bottom: 1.1rem; } }
+@media (max-width: 768px) {
+  .st-key-tala-hero { min-height: 300px; padding: 1.2rem 1rem; }
+  .st-key-tala-hero .tala-hero-sky { opacity: 0.55; }
+}
+
+/* Chapter cards on Home: gold name label, question title. */
+.tala-chap-label {
+  color: #a97c1d; font-family: "Courier New", ui-monospace, monospace; font-size: 0.75rem;
+  font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.tala-chap-q { color: var(--nu-navy); font-size: 1.35rem; font-weight: 800; line-height: 1.2; margin: 0.1rem 0 0.2rem; }
+[class*="st-key-tala-card-"] { height: 100%; }
+
+/* ---- Chrome: hide Streamlit's own furniture (Task F) ------------------ */
+/* The sidebar collapse/expand controls are left alone. */
+[data-testid="stDecoration"],
+[data-testid="stAppDeployButton"], .stAppDeployButton,
+[data-testid="stMainMenu"], #MainMenu,
+[data-testid="stToolbarActions"],
+[data-testid="stFooter"], footer:not(.tala-footer),
+[class*="viewerBadge"] { display: none !important; }
+/* Brighter, slightly larger stars than the generic sky defaults: the hero is the identity. */
+.tala-hero-sky svg .s0 { r: 1; } .tala-hero-sky svg .s1 { r: 1.4; } .tala-hero-sky svg .s2 { r: 1.9; }
+.tala-hero-sky svg .a { opacity: .75; } .tala-hero-sky svg .b { opacity: .9; }

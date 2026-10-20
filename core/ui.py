@@ -16,7 +16,7 @@ import streamlit as st
 
 from . import audio, data_loader as dl
 from . import i18n, tracks
-from .viz import categorical_names, sequential_names, load_css
+from .viz import DEFAULT_CATEGORICAL, DEFAULT_SEQUENTIAL, load_css
 
 ASSETS = Path(__file__).resolve().parent.parent / "assets"
 
@@ -26,6 +26,7 @@ SS_TEACH = "teach_mode"
 SS_CUSTOM_SW = "custom_stopwords"
 SS_USE_TL = "use_tagalog"
 SS_LANG_WIDGET = "lang_switcher"
+SS_HERO_LANG = "tala_hero_lang"   # the language chips on Home's hero
 
 # Which pill each page sits under. Kept here rather than passed per page so a
 # page cannot drift out of its section when titles are edited.
@@ -49,22 +50,45 @@ def inject_css() -> None:
         st.markdown(f"<style>{load_css(str(css_path))}</style>", unsafe_allow_html=True)
 
 
+def _on_hero_language() -> None:
+    """A hero chip was pressed: switch language and keep the sidebar selectbox in step.
+
+    The chips are a widget (not links) because a link reloads the tab and drops
+    the session. Re-pressing the active chip deselects it (``None``); that is
+    ignored and the chip snaps back on the next run."""
+    code = st.session_state.get(SS_HERO_LANG)
+    if code in i18n.LANGS:
+        i18n.set_lang(code)
+        st.session_state[SS_LANG_WIDGET] = code
+
+
 def header() -> None:
-    # The pixel star from the boot splash, not an emoji: the banner should read
-    # as the same 8-bit night sky the trainee just came through.
+    """Home's hero: the night-sky band, wordmark, tagline and language chips.
+
+    The band is a keyed container so the stylesheet can paint it
+    (``.st-key-tala-hero``). The sky is the survey's own coordinates drawn as
+    stars (``core.sky``), positioned behind the text on the right."""
+    from . import sky
     from .splash import GOLD, STAR, _sprite_svg
 
-    star = _sprite_svg(STAR, {"#": GOLD}, pixel=3, extra_class="tala-header-star")
-    st.markdown(
-        f"""
-        <div class="tala-header">
-          <h1>{star}<span>{i18n.t("app.title")}</span></h1>
-          <div class="tala-sub">{i18n.t("app.subtitle")}</div>
-          <div class="tala-dev">{i18n.t("app.developer")}</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    star = _sprite_svg(STAR, {"#": GOLD}, pixel=5, extra_class="tala-hero-star")
+    tagline = i18n.t("app.subtitle").replace(". ", ".<br>", 1)
+    with st.container(key="tala-hero"):
+        st.markdown(
+            f'<div class="tala-hero-sky">{sky.active_sky_svg(1000, 320)}</div>'
+            f'<div class="tala-hero-text"><h1>{star}<span>TALA</span></h1>'
+            f'<div class="tala-hero-org">{i18n.t("app.wordmark_sub")}</div>'
+            f'<p class="tala-hero-tag">{tagline}</p></div>',
+            unsafe_allow_html=True,
+        )
+        # Assigned before the widget exists in this run, so a switch made in the
+        # sidebar is reflected here.
+        st.session_state[SS_HERO_LANG] = i18n.current()
+        st.segmented_control(
+            i18n.t("side.language_pick"), list(i18n.LANGS), key=SS_HERO_LANG,
+            format_func=str.upper, on_change=_on_hero_language,
+            label_visibility="collapsed",
+        )
 
 
 def footer() -> None:
@@ -125,21 +149,6 @@ def sidebar_controls() -> None:
         st.selectbox(i18n.t("audio.style"), list(styles), key=audio.SS_MUSIC_STYLE,
                      format_func=lambda v: i18n.t(styles[v]))
 
-        _set_head("side.appearance")
-        st.session_state.setdefault(SS_PALETTE, categorical_names()[0])
-        st.session_state.setdefault(SS_SEQ, sequential_names()[0])
-        st.selectbox(i18n.t("side.palette_cat"), categorical_names(), key=SS_PALETTE)
-        st.selectbox(i18n.t("side.palette_seq"), sequential_names(), key=SS_SEQ)
-
-        _set_head("side.text_prep")
-        st.session_state.setdefault(SS_USE_TL, True)
-        st.checkbox(i18n.t("side.use_tagalog"), key=SS_USE_TL)
-        st.session_state.setdefault(SS_CUSTOM_SW, "")
-        st.text_area(
-            i18n.t("side.custom_stopwords"), key=SS_CUSTOM_SW, height=90,
-            placeholder=i18n.t("side.custom_placeholder"),
-        )
-
         _set_head("side.learning")
         st.session_state.setdefault(SS_TEACH, True)
         st.toggle(i18n.t("side.show_learn"), key=SS_TEACH)
@@ -158,11 +167,14 @@ def sidebar_controls() -> None:
 
 
 def palette() -> str:
-    return st.session_state.get(SS_PALETTE, categorical_names()[0])
+    """The categorical palette name. Fixed: TALA has no palette picker, and the
+    one palette is colour-blind safe (see ``core.viz``)."""
+    return DEFAULT_CATEGORICAL
 
 
 def seq_palette() -> str:
-    return st.session_state.get(SS_SEQ, sequential_names()[0])
+    """The sequential palette name (fixed, as :func:`palette`)."""
+    return DEFAULT_SEQUENTIAL
 
 
 def stopwords() -> set:

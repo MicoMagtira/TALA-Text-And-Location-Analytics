@@ -379,18 +379,6 @@
     "src": "36b7454c7b",
     "t": "NLP kada Cluster"
   },
-  "home.dataset_head": {
-    "src": "9e83a44b70",
-    "t": "### Aktibong dataset"
-  },
-  "home.geo_head": {
-    "src": "5c9112a1e0",
-    "t": "#### Geospatial Analytics"
-  },
-  "home.geo_list": {
-    "src": "741b60cd24",
-    "t": "- Ingest + **CRS/bounds validation**\n- DBSCAN clustering (+ k-distance)\n- Grid / centroid generalization\n- Pag-clip sa lupain ng Pilipinas\n- Interactive pydeck maps\n- **NLP kada cluster** (privacy-safe)\n- GeoJSON / CSV exports"
-  },
   "home.intro": {
     "src": "52d4d440c1",
     "t": "Ang **TALA — Text And Location Analytics** ay isang hands-on na training app na pinagsasama ang klasikong **Natural Language Processing** at buong **geospatial** na workflow, para makapunta ang mga kalahok mula sa hilaw na komento papunta sa *ano ang sinasabi ng mga tao* **at** *saan nila ito sinasabi*.\n\nAng *tala* ay Filipino para sa **bituin** at para sa **talaan / nota** — bagay sa isang tool na ginagawang insight ang mga nota."
@@ -422,18 +410,6 @@
   "home.source": {
     "src": "86728b17ad",
     "t": "Pinagkunan: {source}"
-  },
-  "home.text_head": {
-    "src": "0fbeeffc36",
-    "t": "#### Text Analytics"
-  },
-  "home.text_list": {
-    "src": "9000d00136",
-    "t": "- Paglilinis at Filipino/Taglish stopwords\n- Word clouds at mga dalas\n- VADER sentiment + NRC emotions\n- N-grams at co-occurrence networks\n- LDA topics + stability\n- RAKE keywords, nouns/POS\n- Readability metrics at TF-IDF themes"
-  },
-  "home.title": {
-    "src": "361fa18c41",
-    "t": "Maligayang pagdating sa TALA"
   },
   "home.yes": {
     "src": "5397e0583f",
@@ -518,14 +494,6 @@
   "side.language_pick": {
     "src": "01e1787a9e",
     "t": "Wika ng app"
-  },
-  "side.palette_cat": {
-    "src": "ad3f5f6e00",
-    "t": "Categorical palette (para sa series)"
-  },
-  "side.palette_seq": {
-    "src": "8440224e5a",
-    "t": "Sequential palette (mapa/heatmap)"
   },
   "side.show_learn": {
     "src": "84ebb2309c",

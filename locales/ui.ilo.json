@@ -379,18 +379,6 @@
     "src": "36b7454c7b",
     "t": "NLP iti kada Cluster"
   },
-  "home.dataset_head": {
-    "src": "9e83a44b70",
-    "t": "### Aktibo a dataset"
-  },
-  "home.geo_head": {
-    "src": "5c9112a1e0",
-    "t": "#### Geospatial Analytics"
-  },
-  "home.geo_list": {
-    "src": "741b60cd24",
-    "t": "- Ingest + **CRS/bounds validation**\n- DBSCAN clustering (+ k-distance)\n- Grid / centroid generalization\n- Panag-clip iti daga ti Filipinas\n- Interactive pydeck maps\n- **NLP iti kada cluster** (privacy-safe)\n- GeoJSON / CSV exports"
-  },
   "home.intro": {
     "src": "52d4d440c1",
     "t": "Ti **TALA — Text And Location Analytics** ket maysa a hands-on a training app a mangpagtipon iti klasiko a **Natural Language Processing** ken iti intero a **geospatial** a workflow, tapno makaakar dagiti kameng manipud iti gubsang a komento agingga iti *ania ti ibagbaga dagiti tattao* **ken** *sadino ti pangibagbagaanda*.\n\nTi *tala* ket Filipino para iti **bituen** ken para iti **listaan / nota** — maitutop iti maysa nga alikamen a mangpagbalin kadagiti nota nga insight."
@@ -422,18 +410,6 @@
   "home.source": {
     "src": "86728b17ad",
     "t": "Naggapuan: {source}"
-  },
-  "home.text_head": {
-    "src": "0fbeeffc36",
-    "t": "#### Text Analytics"
-  },
-  "home.text_list": {
-    "src": "9000d00136",
-    "t": "- Panagdalus ken Filipino/Taglish stopwords\n- Word clouds ken dagiti kaadu\n- VADER sentiment + NRC emotions\n- N-grams ken co-occurrence networks\n- LDA topics + stability\n- RAKE keywords, nouns/POS\n- Readability metrics ken TF-IDF themes"
-  },
-  "home.title": {
-    "src": "361fa18c41",
-    "t": "Naimbag nga isasangpetmo iti TALA"
   },
   "home.yes": {
     "src": "5397e0583f",
@@ -518,14 +494,6 @@
   "side.language_pick": {
     "src": "01e1787a9e",
     "t": "Pagsasao ti app"
-  },
-  "side.palette_cat": {
-    "src": "ad3f5f6e00",
-    "t": "Categorical palette (para kadagiti series)"
-  },
-  "side.palette_seq": {
-    "src": "8440224e5a",
-    "t": "Sequential palette (mapa/heatmap)"
   },
   "side.show_learn": {
     "src": "84ebb2309c",
