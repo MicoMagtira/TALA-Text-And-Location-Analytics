@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-from core import audio, compare, i18n, maps, places, tracks, ui, viz
+from core import audio, compare, i18n, maps, places, salita, tracks, ui, viz
 from core import data_loader as dl
 
 PAGE = "p9_report"
@@ -60,12 +60,12 @@ if labels is None or not (labels != "").any():
 
 cat = viz.categorical(ui.palette(), 2)
 seq = viz.sequential_hexes(ui.seq_palette(), 6)
-sw_custom, sw_tl = maps.stopword_key()
+sw_custom, sw_tl = salita.stopword_key()
 asp_names = {a: T(f"asp.{a}", n) for a, n in ASPECT_DEFAULT.items()}
 NEG = -0.05
 lab_arr = labels.to_numpy(object)
 n_rows = len(labels)
-comp = maps.sentiment_for(p["source_key"], p["text_col"])
+comp = salita.sentiment_for(p["source_key"], p["text_col"])
 neg_row = comp <= NEG
 has_xy = located["lon"].notna().to_numpy()
 
@@ -89,7 +89,7 @@ def _generalize():
         cell_km = c1.slider(T("p9_report.cell", "Grid cell size (km)"), 5, 100, 20, 5, key="p9_cell")
         with audio.result(tracks.SIGNATURE[PAGE], (p["source_key"], p["mode"], p["km"], cell_km, k_min, "g")):
             rows = np.flatnonzero(has_xy)
-            cells, _ = maps.grid_cells(located["lon"].to_numpy()[rows], located["lat"].to_numpy()[rows],
+            cells, _ = salita.grid_cells(located["lon"].to_numpy()[rows], located["lat"].to_numpy()[rows],
                                        neg_row[rows], cell_km * 1000.0)
         cells = cells[cells["n_points"] >= k_min]
         gen = gpd.GeoDataFrame(
@@ -179,13 +179,13 @@ def _cards():
            tuple(hot_params))
     with audio.result(tracks.SIGNATURE[PAGE], key):
         sent = compare.place_sentiment(comp, lab_arr, min_n=1).set_index("place")
-        asp = maps.aspect_by_place(maps.aspect_rows_for(p["source_key"], p["text_col"]),
+        asp = salita.aspect_by_place(salita.aspect_rows_for(p["source_key"], p["text_col"]),
                                    lab_arr, min_n=MIN_ASPECT_N)
         worst = asp.sort_values("pct_neg", ascending=False).drop_duplicates("place").set_index("place")
-        th = maps.themes_for(p["source_key"], p["text_col"], sw_custom, sw_tl, True, THEME_K)
-        names = maps.theme_names(th["top_terms"], asp_names) if th else []
+        th = salita.themes_for(p["source_key"], p["text_col"], sw_custom, sw_tl, True, THEME_K)
+        names = salita.theme_names(th["top_terms"], asp_names) if th else []
         share = compare.theme_share(th["labels"], lab_arr) if th else pd.DataFrame()
-        hs = maps.hotspots_for(p["source_key"], p["text_col"], p["lon_col"], p["lat_col"], p["km"],
+        hs = salita.hotspots_for(p["source_key"], p["text_col"], p["lon_col"], p["lat_col"], p["km"],
                                p["mode"], float(hot_params[0]), float(hot_params[1]),
                                int(hot_params[2]), hot_params[3])
         rc = hs["row_class"]
@@ -193,11 +193,11 @@ def _cards():
         tested = rc != ""
         terms = {}
         for place in sizes.index[:top_n]:
-            tbl = maps.logodds_for(p["source_key"], p["text_col"], sw_custom, sw_tl, p["lon_col"],
+            tbl = salita.logodds_for(p["source_key"], p["text_col"], sw_custom, sw_tl, p["lon_col"],
                                    p["lat_col"], p["km"], p["mode"], p["unit"], p["eps_m"],
                                    p["min_samples"], place, "")
             tbl = tbl[(tbl["z"] > 0) & (tbl["count_a"] >= 10)]
-            tbl = maps.drop_place_terms(tbl, p["source_key"], p["text_col"])
+            tbl = salita.drop_place_terms(tbl, p["source_key"], p["text_col"])
             terms[place] = tbl["term"].head(5).tolist()
 
     rows = []

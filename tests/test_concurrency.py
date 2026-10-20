@@ -27,10 +27,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
 from core import data_loader as dl  # noqa: E402
-from core import geo  # noqa: E402
+from core import geo, places, salita  # noqa: E402
 
 LON, LAT, TEXT = "lon", "lat", "text"
 KEY = (dl.BUNDLED_KEY, LON, LAT, TEXT)
@@ -58,6 +59,20 @@ def test_derived_geo_layers_are_shared():
     c, _ = geo.clusters_for(*KEY, 15000.0, 10)
     d, _ = geo.clusters_for(*KEY, 15000.0, 10)
     assert c is d
+
+
+def test_place_and_salita_caches_are_shared_and_read_only():
+    """Chapter 2 results are one shared object per key; arrays are non-writeable."""
+    a = places.parsed_for(dl.BUNDLED_KEY, TEXT)
+    assert a is places.parsed_for(dl.BUNDLED_KEY, TEXT)
+
+    s1 = salita.sentiment_for(dl.BUNDLED_KEY, TEXT)
+    assert s1 is salita.sentiment_for(dl.BUNDLED_KEY, TEXT)
+    assert not s1.flags.writeable, "shared sentiment array must be read-only"
+
+    d1 = salita.docs_for(dl.BUNDLED_KEY, TEXT, "", True, False)
+    assert d1 is salita.docs_for(dl.BUNDLED_KEY, TEXT, "", True, False)
+    assert len(d1) == len(dl.dataset(dl.BUNDLED_KEY))
 
 
 def test_different_parameters_give_different_layers():
@@ -92,33 +107,30 @@ def test_run_dbscan_does_not_mutate_its_input():
     assert "cluster_id" not in pts.columns
 
 
-def test_clip_to_ph_does_not_mutate_its_input():
-    pts, _ = geo.points_for(*KEY)
-    before = pts.shape
-    geo.clip_to_ph(pts)
-    assert pts.shape == before, "clip_to_ph dropped rows from the shared layer"
-
-
 def test_downstream_stages_leave_the_base_dataset_untouched():
     """Walk the whole pipeline, then confirm the shared dataset is pristine."""
     df = dl.dataset(dl.BUNDLED_KEY)
     before = _fingerprint(df)
     geo.points_for(*KEY)
     geo.clusters_for(*KEY, 15000.0, 10)
-    geo.grid_for(*KEY, 20000.0)
-    geo.centroids_for(*KEY, 15000.0, 10, True)
-    geo.clipped_for(*KEY, 15000.0, 10)
-    assert _fingerprint(df) == before, "the geo walkthrough mutated shared data"
+    places.parsed_for(dl.BUNDLED_KEY, TEXT)
+    places.assign_place_for(dl.BUNDLED_KEY, LON, LAT, TEXT, 50.0, "repaired", "region",
+                            15000.0, 10)
+    salita.sentiment_for(dl.BUNDLED_KEY, TEXT)
+    salita.docs_for(dl.BUNDLED_KEY, TEXT, "", True, True)
+    salita.aspect_rows_for(dl.BUNDLED_KEY, TEXT)
+    assert _fingerprint(df) == before, "the place-first walkthrough mutated shared data"
 
 
-def test_grid_cell_size_is_preserved_for_sparse_extents():
+def test_grid_cells_preserve_requested_cell_size():
     """A requested grid size must not be silently replaced to cap empty cells."""
-    fine = geo.grid_for(*KEY, 5_000.0)
-    coarse = geo.grid_for(*KEY, 100_000.0)
+    pts, _ = geo.points_for(*KEY)
+    lon, lat = pts.geometry.x.to_numpy(), pts.geometry.y.to_numpy()
+    neg = np.zeros(len(pts), bool)
+    fine, _ = salita.grid_cells(lon, lat, neg, 5_000.0)
+    coarse, _ = salita.grid_cells(lon, lat, neg, 100_000.0)
     assert len(fine) > len(coarse), "grid cell size does not change occupied cells"
-    assert fine["n_points"].sum() == coarse["n_points"].sum(), (
-        "grid aggregation lost points while changing cell size"
-    )
+    assert fine["n_points"].sum() == coarse["n_points"].sum() == len(pts)
 
 
 # ---------------------------------------------------------------------------

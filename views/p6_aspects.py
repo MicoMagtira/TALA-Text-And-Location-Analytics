@@ -12,7 +12,7 @@ import numpy as np
 import plotly.graph_objects as go
 import streamlit as st
 
-from core import audio, i18n, maps, places, tracks, ui, viz
+from core import audio, i18n, maps, places, salita, tracks, ui, viz
 from core import data_loader as dl
 
 PAGE = "p6_aspects"
@@ -72,8 +72,8 @@ key = (p["source_key"], p["text_col"], p["km"], p["mode"], p["unit"], p["eps_m"]
 def _aspects():
     min_n = st.slider(T("p6_aspects.min_n", "Minimum sentences per cell"), 5, 100, 20, 5, key="p6_min")
     with audio.result(tracks.SIGNATURE[PAGE], key + (min_n,)):
-        rows = maps.aspect_rows_for(p["source_key"], p["text_col"])
-        tab = maps.aspect_by_place(rows, labels.to_numpy(object))
+        rows = salita.aspect_rows_for(p["source_key"], p["text_col"])
+        tab = salita.aspect_by_place(rows, labels.to_numpy(object))
     if tab.empty:
         ui.info(T("p6_aspects.none", "No sentences mention an aspect."))
         return

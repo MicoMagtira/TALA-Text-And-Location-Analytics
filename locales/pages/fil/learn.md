@@ -1,6 +1,3 @@
---- key: title src: c6025acb69
-Paano nag-uugnay ang dalawang track
-
 --- key: p1 src: 1517eeab2a
 Karamihan sa analytics tools ay sumasagot lang ng isa: *ano ang sinasabi ng mga tao* o *saan ito nangyayari*. Ginawa ang TALA para ipakita kung bakit mas mahina ang dalawang tanong na iyon kapag magkahiwalay. Isang dataset ng 12,000 komento tungkol sa health services ang may `text` column at may `lon`/`lat` din, at ang bawat page ay ibang paraan ng pagbasa sa parehong 12,000 rows.
 

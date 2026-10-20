@@ -32,11 +32,11 @@ def _view(g):
 
 
 def test_builders_return_layers_and_deck_serializes():
-    from core import geo
+    from core import salita
 
     g = _gdf()
     frame = maps.to_frame(g, tip="text")
-    cells = geo.grid_aggregate(g, 20000)
+    cells, _ = salita.grid_cells(g.geometry.x, g.geometry.y, np.zeros(len(g), bool), 20000)
     layers = [
         maps.points_layer(frame),
         maps.cluster_layer(g, PALETTE),

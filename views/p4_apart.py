@@ -6,7 +6,7 @@ place, or against a second place. Shows aggregated terms only, never comments.
 import plotly.graph_objects as go
 import streamlit as st
 
-from core import audio, i18n, maps, places, tracks, ui, viz
+from core import audio, i18n, places, salita, tracks, ui, viz
 from core import data_loader as dl
 
 PAGE = "p4_apart"
@@ -50,7 +50,7 @@ if counts is None or len(counts) < 2:
 PLACES = counts.index.tolist()           # largest first
 REST = ""                                 # sentinel: "all other places"
 cat = viz.categorical(ui.palette(), 2)
-sw_custom, sw_tl = maps.stopword_key()
+sw_custom, sw_tl = salita.stopword_key()
 
 
 @st.fragment
@@ -73,10 +73,10 @@ def _compare():
     key = (p["source_key"], p["text_col"], sw_custom, sw_tl, p["lon_col"], p["lat_col"],
            p["km"], p["mode"], p["unit"], p["eps_m"], p["min_samples"], a, b)
     with audio.result(tracks.SIGNATURE[PAGE], key + (min_count, hide)):
-        table = maps.logodds_for(*key)
+        table = salita.logodds_for(*key)
     table = table[(table["count_a"] + table["count_b"]) >= min_count]
     if hide:
-        table = maps.drop_place_terms(table, p["source_key"], p["text_col"])
+        table = salita.drop_place_terms(table, p["source_key"], p["text_col"])
     if table.empty:
         ui.info(T("p4_apart.none", "No terms pass the minimum count. Lower it to see more."))
         return

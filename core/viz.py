@@ -10,10 +10,8 @@ Two color roles are kept deliberately separate:
   picker: see the comment above ``_CATEGORICAL``.
 
 Import cost note: this module is pulled in by ``core.ui``, which ``app.py``
-imports on every page load. It therefore stays matplotlib-free at import time —
-palettes are plain hex data, and matplotlib is only imported inside the two
-functions that genuinely need a ``Colormap`` object (word clouds and the
-matplotlib theme).
+imports on every page load, so it is plain hex data and dicts with no plotting
+library imported (matplotlib is no longer a dependency at all).
 """
 from __future__ import annotations
 
@@ -102,17 +100,6 @@ def sequential_stops(name: str = DEFAULT_SEQUENTIAL) -> list[str]:
     return list(_SEQUENTIAL.get(name, _SEQUENTIAL[DEFAULT_SEQUENTIAL]))
 
 
-@lru_cache(maxsize=8)
-def sequential_cmap(name: str = DEFAULT_SEQUENTIAL):
-    """Return a matplotlib Colormap for magnitude encodings / word clouds.
-
-    Imports matplotlib lazily — only word-cloud rendering needs a real Colormap,
-    so pages that never draw one never pay for the import."""
-    from matplotlib.colors import LinearSegmentedColormap
-
-    return LinearSegmentedColormap.from_list(name, sequential_stops(name))
-
-
 def _lerp_hex(a: str, b: str, t: float) -> str:
     """Linearly interpolate two #rrggbb colors in sRGB."""
     ar, ag, ab = (int(a[i:i + 2], 16) for i in (1, 3, 5))
@@ -159,59 +146,6 @@ def hex_to_rgba(hex_color: str, alpha: int = 200) -> list[int]:
     """``#rrggbb`` -> ``[r, g, b, alpha]`` (0-255), the colour form pydeck wants."""
     h = hex_color.lstrip("#")
     return [int(h[i:i + 2], 16) for i in (0, 2, 4)] + [int(alpha)]
-
-
-def figure(figsize=(8, 3.2)):
-    """Create a themed, thread-safe matplotlib Figure.
-
-    Deliberately avoids ``plt.subplots``. pyplot keeps a *process-global* registry
-    of figures, but Streamlit runs every user session on its own thread — so
-    concurrent trainees rendering charts can interleave on that shared state and
-    land a figure in the wrong session. Worse, pyplot holds a reference to every
-    figure it creates, so without an explicit ``plt.close`` each rerun leaked one.
-
-    Constructing ``Figure`` directly keeps the object local to the caller: nothing
-    is registered globally, and it is garbage-collected normally. ``st.pyplot``
-    accepts such a figure exactly like a pyplot one."""
-    from matplotlib.figure import Figure
-
-    apply_matplotlib_theme()
-    fig = Figure(figsize=figsize)
-    fig.set_facecolor(SURFACE)
-    ax = fig.subplots()
-    return fig, ax
-
-
-def apply_matplotlib_theme() -> None:
-    """Apply a clean, brand-consistent look to matplotlib figures.
-
-    Sets the non-interactive Agg backend, which is the only safe choice on a
-    headless server and avoids any GUI toolkit being probed at import time."""
-    import matplotlib as mpl
-
-    if mpl.get_backend().lower() != "agg":
-        mpl.use("Agg", force=True)
-
-    mpl.rcParams.update({
-        "figure.facecolor": SURFACE,
-        "axes.facecolor": SURFACE,
-        "axes.edgecolor": BASELINE,
-        "axes.labelcolor": INK_SECONDARY,
-        "axes.titlecolor": INK_PRIMARY,
-        "axes.titleweight": "semibold",
-        "axes.grid": True,
-        "axes.axisbelow": True,
-        "grid.color": GRIDLINE,
-        "grid.linewidth": 0.8,
-        "xtick.color": INK_MUTED,
-        "ytick.color": INK_MUTED,
-        "text.color": INK_PRIMARY,
-        "font.family": "sans-serif",
-        "font.sans-serif": ["Segoe UI", "Helvetica Neue", "Arial", "DejaVu Sans"],
-        "axes.spines.top": False,
-        "axes.spines.right": False,
-        "figure.autolayout": True,
-    })
 
 
 def plotly_template(palette: str = DEFAULT_CATEGORICAL) -> dict:

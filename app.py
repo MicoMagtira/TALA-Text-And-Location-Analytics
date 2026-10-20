@@ -1,13 +1,13 @@
 """TALA — Text And Location Analytics.
 
-An interactive NLP + geospatial analytics explorer for data-science training,
+An interactive NLP + geospatial analytics app for data-science training,
 by Mico C. Magtira (DOST-NICER). National University Manila branding.
 
 Run:  streamlit run app.py
 
 Boot order matters here. The app targets Streamlit Community Cloud (~1 GB RAM,
 shared CPU), so the module graph is kept deliberately shallow: only streamlit and
-pandas load before the first page renders. sklearn, matplotlib, geopandas, pydeck
+pandas load before the first page renders. sklearn, geopandas, pydeck
 and NLTK are imported inside the functions that use them, which means a visitor
 who only opens the Home page never pays for the geospatial or modelling stacks.
 

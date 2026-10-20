@@ -1,12 +1,9 @@
-"""Geospatial pipeline for TALA (ports Labs 1-5).
+"""Geospatial primitives for TALA: point validation, DBSCAN, the PH land polygon.
 
-Lab 1 ingest + CRS validation -> Lab 2 DBSCAN -> Lab 3 generalization ->
-Lab 4 PH-land clip + map/exports -> Lab 5 NLP per cluster. GeoDataFrames are
-chained through st.session_state by the pages, mirroring the notebooks'
-outputs/*.geojson hand-off.
-
-Heavy geo deps (geopandas/shapely/pyproj) import lazily, so the text
-pages never pay for them.
+``core/places.py`` and ``core/salita.py`` build on these. Heavy geo deps
+(geopandas/shapely/pyproj) import lazily, so the text-only paths never pay for
+them. The grid, centroid, land-clip and per-cluster-text stages of the earlier
+lab-style pipeline were dropped with the place-first redesign.
 
 Concurrency model
 -----------------
@@ -16,7 +13,7 @@ them (points, clusters) plus the generalized layer. Parking those in
 are, in fact, a pure function of (dataset, columns, parameters) — thirty trainees
 running the lab defaults built thirty identical copies.
 
-So the ``*_for()`` helpers below are the pipeline's public entry points. They are
+So the ``*_for()`` helpers below are the public entry points. They are
 ``cache_resource``-backed and keyed on those parameters, which means a cohort all
 running the Lab defaults shares exactly one copy of each layer. Session state
 keeps only which parameters the trainee chose (see ``data_loader.SS_*``).
@@ -46,7 +43,7 @@ _DERIVED_MAX, _DERIVED_TTL = 6, 1800
 
 
 # ---------------------------------------------------------------------------
-# Lab 1 - Ingest & CRS correctness
+# Ingest & CRS correctness
 # ---------------------------------------------------------------------------
 def build_points(df: pd.DataFrame, lon_col: str, lat_col: str,
                  text_col: str | None = None):
@@ -85,21 +82,8 @@ def to_metric(gdf):
     return gdf.to_crs(epsg=utm_epsg(gdf))
 
 
-def nn_distance_stats(gdf_metric) -> dict:
-    from sklearn.neighbors import NearestNeighbors
-
-    xy = np.column_stack([gdf_metric.geometry.x, gdf_metric.geometry.y])
-    if len(xy) < 2:
-        return {}
-    nn = NearestNeighbors(n_neighbors=2).fit(xy)
-    d, _ = nn.kneighbors(xy)
-    nd = d[:, 1]
-    return {"min_m": float(nd.min()), "median_m": float(np.median(nd)),
-            "mean_m": float(nd.mean()), "max_m": float(nd.max())}
-
-
 # ---------------------------------------------------------------------------
-# Lab 2 - DBSCAN
+# DBSCAN
 # ---------------------------------------------------------------------------
 def k_distance(gdf_metric, k: int = 10) -> np.ndarray:
     """Sorted distance to the k-th neighbor (for the elbow that sets eps)."""
@@ -127,56 +111,7 @@ def run_dbscan(gdf, eps_m: float = 15000, min_samples: int = 10):
 
 
 # ---------------------------------------------------------------------------
-# Lab 3 - Generalization
-# ---------------------------------------------------------------------------
-def grid_aggregate(gdf, cell_m: float = 20000):
-    """Aggregate points into occupied cells of exactly ``cell_m`` metres.
-
-    Only cells containing at least one point are materialized. This avoids building a
-    huge empty grid when a dataset includes far-apart records, while preserving the
-    cell size selected by the user.
-    """
-    import geopandas as gpd
-    from shapely.geometry import box
-
-    gm = to_metric(gdf)
-    xy = np.column_stack([gm.geometry.x, gm.geometry.y])
-    if not len(xy):
-        return gpd.GeoDataFrame({"n_points": []}, geometry=[], crs=gm.crs)
-
-    # Anchor to a cell boundary and group directly by grid index. Unlike iterating
-    # over every coordinate between the bounds, this remains compact for sparse or
-    # globally spread records and never needs to silently enlarge the requested cell.
-    xmin = np.floor(xy[:, 0].min() / cell_m) * cell_m
-    ymin = np.floor(xy[:, 1].min() / cell_m) * cell_m
-    cell_ids = np.floor((xy - [xmin, ymin]) / cell_m).astype(np.int64)
-    occupied, counts = np.unique(cell_ids, axis=0, return_counts=True)
-    cells = [
-        box(xmin + ix * cell_m, ymin + iy * cell_m,
-            xmin + (ix + 1) * cell_m, ymin + (iy + 1) * cell_m)
-        for ix, iy in occupied
-    ]
-    grid = gpd.GeoDataFrame({"n_points": counts}, geometry=cells, crs=gm.crs)
-    return grid.to_crs(epsg=4326)
-
-
-def cluster_centroids(gdf, exclude_noise: bool = True):
-    import geopandas as gpd
-    from shapely.geometry import Point
-
-    gm = to_metric(gdf)
-    rows = []
-    for cid, grp in gm.groupby("cluster_id"):
-        if exclude_noise and cid == -1:
-            continue
-        rows.append({"cluster_id": int(cid), "n_points": len(grp),
-                     "geometry": Point(grp.geometry.x.mean(), grp.geometry.y.mean())})
-    cent = gpd.GeoDataFrame(rows, geometry="geometry", crs=gm.crs)
-    return cent.to_crs(epsg=4326)
-
-
-# ---------------------------------------------------------------------------
-# Lab 4 - PH land clip
+# PH land polygon
 # ---------------------------------------------------------------------------
 PH_BBOX = (116.0, 4.5, 127.0, 21.5)  # lon/lat window around the Philippines
 
@@ -212,70 +147,6 @@ def ph_land():
     return ph_box
 
 
-def clip_to_ph(gdf):
-    land = ph_land()
-    if land is None:
-        return gdf, {"clipped": False}
-    before = len(gdf)
-    out = gdf[gdf.geometry.within(land)].copy()
-    return out, {"clipped": True, "before": before, "after": len(out),
-                 "removed": before - len(out)}
-
-
-# ---------------------------------------------------------------------------
-# Lab 5 - NLP per cluster (privacy-safe: aggregates only)
-# ---------------------------------------------------------------------------
-def per_cluster_nlp(gdf, text_col: str, top_terms: int = 8) -> pd.DataFrame:
-    from sklearn.feature_extraction.text import TfidfVectorizer
-
-    from . import preprocess
-    from .nlp import _vader
-
-    sia = _vader()
-    rows = []
-    for cid, grp in gdf.groupby("cluster_id"):
-        if cid == -1 or text_col not in grp.columns:
-            continue
-        cleaned = preprocess.clean_corpus(grp[text_col].dropna().astype(str))
-        cleaned = [c for c in cleaned if c.strip()]
-        top = []
-        if cleaned:
-            try:
-                vec = TfidfVectorizer(ngram_range=(1, 2), min_df=1, max_features=400)
-                X = vec.fit_transform(cleaned)
-                terms = vec.get_feature_names_out()
-                scores = np.asarray(X.mean(axis=0)).ravel()
-                top = [terms[i] for i in scores.argsort()[::-1][:top_terms]]
-            except ValueError:
-                top = []
-        comps = [sia.polarity_scores(str(t))["compound"]
-                 for t in grp[text_col].dropna().astype(str)]
-        pos = sum(1 for c in comps if c >= 0.05)
-        neg = sum(1 for c in comps if c <= -0.05)
-        neu = len(comps) - pos - neg
-        majority = max([("positive", pos), ("negative", neg), ("neutral", neu)],
-                       key=lambda kv: kv[1])[0] if comps else "n/a"
-        rows.append({"cluster_id": int(cid), "n_points": len(grp),
-                     "top_terms": ", ".join(top), "tag": _auto_tag(top),
-                     "sentiment": majority,
-                     "pos_%": round(100 * pos / len(comps), 1) if comps else 0,
-                     "neg_%": round(100 * neg / len(comps), 1) if comps else 0,
-                     "neu_%": round(100 * neu / len(comps), 1) if comps else 0})
-    return pd.DataFrame(rows).sort_values("n_points", ascending=False)
-
-
-def _auto_tag(terms: list[str]) -> str:
-    text = " ".join(terms).lower()
-    rules = [("staff", "Staff Experience"), ("wait", "Waiting Time"),
-             ("clean", "Facility & Cleanliness"), ("doctor", "Clinical Care"),
-             ("medicine", "Medicines & Supplies"), ("appointment", "Scheduling"),
-             ("kind", "Staff Experience"), ("service", "Service Quality")]
-    for kw, tag in rules:
-        if kw in text:
-            return tag
-    return "General Feedback"
-
-
 # ---------------------------------------------------------------------------
 # Shared pipeline entry points
 # ---------------------------------------------------------------------------
@@ -288,7 +159,7 @@ def _auto_tag(terms: list[str]) -> str:
                    max_entries=_POINTS_MAX, ttl=_POINTS_TTL)
 def points_for(source_key: str, lon_col: str, lat_col: str,
                text_col: str | None):
-    """Lab 1: validated WGS84 points. Returns ``(gdf, report)`` — read-only."""
+    """Validated WGS84 points. Returns ``(gdf, report)`` — read-only."""
     from . import data_loader as dl
 
     df = dl.dataset(source_key)
@@ -302,66 +173,8 @@ def points_for(source_key: str, lon_col: str, lat_col: str,
                    max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
 def clusters_for(source_key: str, lon_col: str, lat_col: str,
                  text_col: str | None, eps_m: float, min_samples: int):
-    """Lab 2: DBSCAN labels. Returns ``(gdf, info)`` — read-only."""
+    """DBSCAN labels. Returns ``(gdf, info)`` — read-only."""
     gdf, _ = points_for(source_key, lon_col, lat_col, text_col)
     if gdf is None:
         return None, {}
     return run_dbscan(gdf, eps_m=eps_m, min_samples=min_samples)
-
-
-@i18n.localized_spinner("spin.grid")
-@st.cache_resource(show_spinner=False,
-                   max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
-def grid_for(source_key: str, lon_col: str, lat_col: str, text_col: str | None,
-             cell_m: float):
-    """Lab 3a: grid counts over the validated points — read-only."""
-    gdf, _ = points_for(source_key, lon_col, lat_col, text_col)
-    if gdf is None:
-        return None
-    return grid_aggregate(gdf, cell_m=cell_m)
-
-
-@i18n.localized_spinner("spin.centroids")
-@st.cache_resource(show_spinner=False,
-                   max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
-def centroids_for(source_key: str, lon_col: str, lat_col: str,
-                  text_col: str | None, eps_m: float, min_samples: int,
-                  exclude_noise: bool):
-    """Lab 3b: one representative point per cluster — read-only."""
-    clustered, _ = clusters_for(source_key, lon_col, lat_col, text_col,
-                                eps_m, min_samples)
-    if clustered is None:
-        return None
-    return cluster_centroids(clustered, exclude_noise=exclude_noise)
-
-
-@i18n.localized_spinner("spin.clip")
-@st.cache_resource(show_spinner=False,
-                   max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
-def clipped_for(source_key: str, lon_col: str, lat_col: str,
-                text_col: str | None, eps_m: float | None, min_samples: int | None):
-    """Lab 4: land-clipped layer. Returns ``(gdf, info)`` — read-only.
-
-    ``eps_m``/``min_samples`` may be ``None``, meaning the trainee reached this
-    page without running DBSCAN; the raw validated points get clipped instead."""
-    if eps_m is None:
-        src, _ = points_for(source_key, lon_col, lat_col, text_col)
-    else:
-        src, _ = clusters_for(source_key, lon_col, lat_col, text_col,
-                              eps_m, min_samples)
-    if src is None:
-        return None, {}
-    return clip_to_ph(src)
-
-
-@i18n.localized_spinner("spin.cluster_text")
-@st.cache_resource(show_spinner=False,
-                   max_entries=_DERIVED_MAX, ttl=_DERIVED_TTL)
-def cluster_text_for(source_key: str, lon_col: str, lat_col: str, text_col: str,
-                     eps_m: float, min_samples: int, top_terms: int):
-    """Lab 5: per-cluster TF-IDF profile. Aggregates only — read-only."""
-    clustered, _ = clusters_for(source_key, lon_col, lat_col, text_col,
-                                eps_m, min_samples)
-    if clustered is None:
-        return pd.DataFrame()
-    return per_cluster_nlp(clustered, text_col, top_terms=top_terms)

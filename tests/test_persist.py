@@ -63,7 +63,7 @@ def test_bad_fields_ignored():
     ss = st.session_state
     assert not i18n.is_set()
     assert audio.SS_MUSIC_VOLUME not in ss and audio.SS_SFX_ON not in ss
-    assert audio.SS_MUSIC_STYLE not in ss and ui.SS_PALETTE not in ss
+    assert audio.SS_MUSIC_STYLE not in ss
     assert dl.SS_CLUSTER_PARAMS not in ss
     assert ss[tracks.SS_DONE] == ["p1_data"]
     assert tracks.SS_LAST_PAGE not in ss

@@ -10,7 +10,7 @@ import numpy as np
 import plotly.graph_objects as go
 import streamlit as st
 
-from core import audio, compare, i18n, maps, places, tracks, ui, viz
+from core import audio, compare, i18n, maps, places, salita, tracks, ui, viz
 from core import data_loader as dl
 
 PAGE = "p5_feel"
@@ -62,7 +62,7 @@ key = (p["source_key"], p["text_col"], p["km"], p["mode"], p["unit"], p["eps_m"]
 def _feel():
     min_n = st.slider(T("p5_feel.min_n", "Minimum comments per place"), 5, 300, 30, 5, key="p5_min")
     with audio.result(tracks.SIGNATURE[PAGE], key + (min_n,)):
-        comp = maps.sentiment_for(p["source_key"], p["text_col"])
+        comp = salita.sentiment_for(p["source_key"], p["text_col"])
         table = compare.place_sentiment(comp, labels.to_numpy(object), min_n=min_n)
     if table.empty:
         ui.info(T("ch2.no_places", "No comments could be assigned to a place."))

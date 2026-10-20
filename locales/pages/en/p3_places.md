@@ -18,3 +18,6 @@ Places: from points to regions and clusters
 
 --- key: p6
 **Noise is a result.** Points DBSCAN leaves unassigned are not an error. Rural comments scattered between towns will often be noise, which is honest: they do not belong to a dense place. In Region mode only comments with no location at all are unassigned.
+
+--- key: p7
+**Repaired points sit on town centroids.** When a comment names a place but its GPS is wrong, the repaired point is placed exactly on that place's centroid. In Cluster mode DBSCAN on repaired points therefore tends to form one cluster per named town, and the k-distance curve looks flat because many points share identical coordinates. "Only where both agree" keeps GPS-only points, so use it as a comparison view.

@@ -6,9 +6,8 @@ const { chromium } = require(PW);
 
 const BASE = process.env.BASE_URL || "http://localhost:8599";
 const PAGES = [
-  "", "text_1_data", "text_2_wordcloud", "text_3_sentiment", "text_4_ngrams",
-  "text_5_topics", "text_6_keywords", "text_7_metrics", "text_8_themes",
-  "geo_1_ingest", "geo_2_cluster", "geo_3_generalize", "geo_4_map", "geo_5_nlp",
+  "", "learn", "p1_data", "p2_textgps", "p3_places", "p4_apart", "p5_feel",
+  "p6_aspects", "p7_themes", "p8_hotspots", "p9_report",
 ];
 // Known-benign console noise (not app bugs).
 const IGNORE = [/favicon/i, /Failed to load resource.*(404|net::ERR_ABORTED)/i, /\[vite\]/i];
@@ -88,7 +87,7 @@ function watch(page, bucket) {
   const cookieNames = state.cookies.map((c) => c.name);
   record("2c cookies saved (tala_booted, tala_prefs)", cookieNames.includes("tala_booted") && cookieNames.includes("tala_prefs"), cookieNames.join(","));
 
-  // 3. All 13 pages (+ Home)
+  // 3. Home, How TALA works and the nine journey pages
   for (const p of PAGES) {
     const label = "3 page /" + p;
     const n0 = errors.length;
@@ -107,12 +106,12 @@ function watch(page, bucket) {
 
   await page.close(); await ctx.close();
 
-  // 4. Fresh context with saved cookies, straight to geo_4_map
+  // 4. Fresh context with saved cookies, straight to p9_report
   const ctx2 = await browser.newContext({ viewport: { width: 1360, height: 900 }, storageState: state });
   const p2 = await ctx2.newPage();
   const errors2 = []; watch(p2, errors2);
   try {
-    await p2.goto(`${BASE}/geo_4_map`, { waitUntil: "domcontentloaded" });
+    await p2.goto(`${BASE}/p9_report`, { waitUntil: "domcontentloaded" });
     await p2.waitForSelector('[data-testid="stApp"]', { timeout: 60000 });
     await settle(p2, 120000);
     const gate = await p2.locator(".tala-prompt").count();

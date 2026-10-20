@@ -9,7 +9,7 @@ import html
 import numpy as np
 import streamlit as st
 
-from core import audio, i18n, maps, places, tracks, ui, viz
+from core import audio, i18n, maps, places, salita, tracks, ui, viz
 from core import data_loader as dl
 
 PAGE = "p8_hotspots"
@@ -81,7 +81,7 @@ def _hotspots():
     key = (p["source_key"], p["text_col"], p["lon_col"], p["lat_col"], p["km"], p["mode"],
            float(cell_km), float(radius_km), int(min_n), value)
     with audio.result(tracks.SIGNATURE[PAGE], key):
-        res = maps.hotspots_for(*key)
+        res = salita.hotspots_for(*key)
     cells = res["cells"]
     if cells is None or len(cells) < 2:
         ui.info(T("p8_hotspots.none", "Not enough cells have {n} comments. Lower the minimum or enlarge the cells.",

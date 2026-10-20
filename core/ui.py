@@ -20,8 +20,6 @@ from .viz import DEFAULT_CATEGORICAL, DEFAULT_SEQUENTIAL, load_css
 
 ASSETS = Path(__file__).resolve().parent.parent / "assets"
 
-SS_PALETTE = "cat_palette"
-SS_SEQ = "seq_palette"
 SS_TEACH = "teach_mode"
 SS_CUSTOM_SW = "custom_stopwords"
 SS_USE_TL = "use_tagalog"
@@ -30,7 +28,7 @@ SS_HERO_LANG = "tala_hero_lang"   # the language chips on Home's hero
 
 # Which pill each page sits under. Kept here rather than passed per page so a
 # page cannot drift out of its section when titles are edited.
-_PILL = {"home": "pill.overview", "learn": "pill.learn", "text": "pill.text", "geo": "pill.geo"}
+_PILL = {"learn": "pill.learn"}
 
 
 def _t(key: str, default: str, **fmt) -> str:
@@ -192,7 +190,7 @@ def stopwords() -> set:
 def page_header(page: str, section: str) -> None:
     """Pill + title + blurb, resolved from the catalog by page name.
 
-    ``page`` is the view's module stem (``text_3_sentiment``), which is also the
+    ``page`` is the view's module stem (``p5_feel``), which is also the
     key prefix and the name of its Learn essay file. One identifier, so a page
     cannot drift out of sync with its own translations.
 

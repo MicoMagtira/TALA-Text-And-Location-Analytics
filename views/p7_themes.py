@@ -7,7 +7,7 @@ conversation each theme takes up. Place names are hidden by default: left in, on
 import plotly.graph_objects as go
 import streamlit as st
 
-from core import audio, compare, i18n, maps, places, tracks, ui, viz
+from core import audio, compare, i18n, places, salita, tracks, ui, viz
 from core import data_loader as dl
 
 PAGE = "p7_themes"
@@ -48,7 +48,7 @@ if labels is None or not (labels != "").any():
     ui.track_footer(PAGE)
     st.stop()
 
-sw_custom, sw_tl = maps.stopword_key()
+sw_custom, sw_tl = salita.stopword_key()
 cat = viz.categorical(ui.palette())
 asp_names = {a: T(f"asp.{a}", n) for a, n in ASPECT_DEFAULT.items()}
 
@@ -61,7 +61,7 @@ def _themes():
                        help=T("p7_themes.drop_help",
                               "Left in, province names form a theme of their own."))
     with audio.result(tracks.SIGNATURE[PAGE], (p["source_key"], p["text_col"], sw_custom, sw_tl, drop, k)):
-        res = maps.themes_for(p["source_key"], p["text_col"], sw_custom, sw_tl, drop, k)
+        res = salita.themes_for(p["source_key"], p["text_col"], sw_custom, sw_tl, drop, k)
     if res is None:
         ui.info(T("p7_themes.not_enough", "Not enough text to find themes."))
         return
@@ -69,7 +69,7 @@ def _themes():
     sil = res["silhouette"]
     sizes = res["sizes"]
     total = int(sizes.sum())
-    names = maps.theme_names(res["top_terms"], asp_names)
+    names = salita.theme_names(res["top_terms"], asp_names)
     colors = [cat[i % len(cat)] for i in range(k)]
 
     sil_txt = f"{sil:.2f}" if sil == sil else "n/a"

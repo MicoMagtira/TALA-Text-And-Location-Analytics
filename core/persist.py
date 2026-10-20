@@ -90,8 +90,8 @@ def collect() -> dict:
         out["lang"] = i18n.current()
     for short, key in (("music_on", audio.SS_MUSIC_ON), ("music_vol", audio.SS_MUSIC_VOLUME),
                        ("sfx_on", audio.SS_SFX_ON), ("sfx_vol", audio.SS_SFX_VOLUME),
-                       ("style", audio.SS_MUSIC_STYLE), ("pal", ui.SS_PALETTE),
-                       ("seq", ui.SS_SEQ), ("learn", ui.SS_TEACH), ("tl", ui.SS_USE_TL)):
+                       ("style", audio.SS_MUSIC_STYLE),
+                       ("learn", ui.SS_TEACH), ("tl", ui.SS_USE_TL)):
         if key in ss:
             out[short] = ss[key]
     sw = str(ss.get(ui.SS_CUSTOM_SW, "") or "").strip()[:MAX_STOPWORDS_CHARS]
@@ -130,7 +130,6 @@ def apply(data: dict) -> None:
     Order matters: the dataset goes first because ``dl.set_active`` resets the
     geo chain, and the saved cluster parameters are restored after it."""
     from . import audio, data_loader as dl, i18n, tracks, ui
-    from .viz import categorical_names, sequential_names
 
     ss = st.session_state
     lang = data.get("lang")
@@ -147,10 +146,7 @@ def apply(data: dict) -> None:
             ss[key] = int(n)
     if data.get("style") in {k for k, _ in audio.style_options()}:
         ss[audio.SS_MUSIC_STYLE] = data["style"]
-    if data.get("pal") in categorical_names():
-        ss[ui.SS_PALETTE] = data["pal"]
-    if data.get("seq") in sequential_names():
-        ss[ui.SS_SEQ] = data["seq"]
+    # Old cookies may still carry "pal"/"seq" (palette pickers were removed); ignored.
     sw = data.get("custom_sw")
     if isinstance(sw, str):
         ss[ui.SS_CUSTOM_SW] = sw[:MAX_STOPWORDS_CHARS]

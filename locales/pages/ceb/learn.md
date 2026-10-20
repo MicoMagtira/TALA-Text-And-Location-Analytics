@@ -1,6 +1,3 @@
---- key: title src: c6025acb69
-Giunsa pagsumpay ang duha ka track
-
 --- key: p1 src: 1517eeab2a
 Kadaghanan sa analytics tools motubag lang og usa: *unsa ang gisulti sa mga tao* o *asa kini nahitabo*. Gihimo ang TALA aron ipakita nganong mas huyang kanang duha ka pangutana kung bulag. Usa ka dataset nga 12,000 ka komento bahin sa health services ang adunay `text` column ug adunay `lon`/`lat` sab, ug ang matag page kay lahi nga paagi sa pagbasa sa mao ra nga 12,000 rows.
 

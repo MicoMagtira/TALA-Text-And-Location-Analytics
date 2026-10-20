@@ -338,6 +338,21 @@ section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] { color: #aa
 /* Cards: Continue, track cards, track complete. */
 .st-key-tala-continue, [class*="st-key-tala-card-"] { border-color: #e3e6f4 !important; }
 .st-key-tala-continue { border-left: 4px solid var(--nu-gold-deep) !important; }
+
+/* Home only (the hero exists only there): less empty space above the hero, and the
+   two chapter cards share one height whatever their text length. */
+[data-testid="stMainBlockContainer"]:has(.st-key-tala-hero) {
+  margin-top: 0.9rem; padding-top: 1.1rem !important;
+}
+div[data-testid="stHorizontalBlock"]:has([class*="st-key-tala-card-"]) { align-items: stretch; }
+div[data-testid="stHorizontalBlock"]:has([class*="st-key-tala-card-"]) > div[data-testid="stColumn"],
+div[data-testid="stHorizontalBlock"]:has([class*="st-key-tala-card-"]) > div[data-testid="stColumn"] > div[data-testid="stVerticalBlock"],
+div[data-testid="stHorizontalBlock"]:has([class*="st-key-tala-card-"]) > div[data-testid="stColumn"] > div[data-testid="stVerticalBlock"] > div:has(> [class*="st-key-tala-card-"]) {
+  display: flex; flex-direction: column;
+}
+div[data-testid="stHorizontalBlock"]:has([class*="st-key-tala-card-"]) > div[data-testid="stColumn"] > div[data-testid="stVerticalBlock"] { flex: 1 1 auto; }
+div[data-testid="stHorizontalBlock"]:has([class*="st-key-tala-card-"]) div:has(> [class*="st-key-tala-card-"]) { flex: 1 1 auto; }
+[class*="st-key-tala-card-"] { flex: 1 1 auto; height: 100%; }
 .st-key-tala-complete {
   background: linear-gradient(120deg, #fff8e6, #fff); border-color: var(--nu-gold-deep) !important;
 }

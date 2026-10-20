@@ -31,9 +31,6 @@ Use a fragment only when its widgets affect nothing outside it. Use ``ui.warn`` 
 ``ui.locked(...)`` for a page that genuinely cannot run. There is no "next page"
 nudge to write: the footer is it.
 
-Old names (``TRACKS``, ``track_of``, ``track_complete``, and the legacy chapter
-keys ``"text"``/``"geo"``) still resolve, so code written for the two-track
-layout keeps importing while the pages are replaced.
 """
 from __future__ import annotations
 
@@ -42,22 +39,10 @@ import streamlit as st
 from . import audio
 
 
-class _Chapters(dict):
-    """A plain dict that also answers the legacy track keys (text -> what, geo -> where)."""
-
-    _LEGACY = {"text": "what", "geo": "where"}
-
-    def __missing__(self, key):
-        if key in self._LEGACY:
-            return self[self._LEGACY[key]]
-        raise KeyError(key)
-
-
-CHAPTERS: dict[str, list[str]] = _Chapters({
+CHAPTERS: dict[str, list[str]] = {
     "where": ["p1_data", "p2_textgps", "p3_places"],
     "what": ["p4_apart", "p5_feel", "p6_aspects", "p7_themes", "p8_hotspots", "p9_report"],
-})
-TRACKS = CHAPTERS                      # alias for code written against the two-track layout
+}
 
 # Chapter 1 must be walked in order (each step feeds the next); chapter 2 is free.
 ORDERED: dict[str, bool] = {"where": True, "what": False}
@@ -94,9 +79,6 @@ def chapter_of(page: str) -> str | None:
         if page in pages:
             return name
     return None
-
-
-track_of = chapter_of                  # legacy name
 
 
 def other_chapter(chapter: str) -> str:

@@ -1,6 +1,3 @@
---- key: title src: c6025acb69
-Kasano nga agsilpo ti dua a track
-
 --- key: p1 src: 1517eeab2a
 Kaaduan kadagiti analytics tools ket sumungbat laeng iti maysa: *ania ti ibagbaga dagiti tattao* wenno *sadino ti pagpaspasamakanna*. Naaramid ti TALA tapno ipakita no apay a nakapkapsut dagita a dua a saludsod no agsina. Maysa a dataset a 12,000 a komento maipapan iti health services ti addaan `text` column ken addaan met `lon`/`lat`, ket ti tunggal page ket sabali a wagas ti panagbasa iti isu met laeng a 12,000 rows.
 

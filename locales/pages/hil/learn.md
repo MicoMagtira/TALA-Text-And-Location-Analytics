@@ -1,6 +1,3 @@
---- key: title src: c6025acb69
-Paano nagasumpay ang duha ka track
-
 --- key: p1 src: 1517eeab2a
 Kalabanan sa analytics tools nagasabat lang sang isa: *ano ang ginahambal sang mga tawo* ukon *diin ini nagakatabo*. Ginhimo ang TALA agod ipakita kon ngaa mas maluya ina nga duha ka pamangkot kon bulag. Isa ka dataset nga 12,000 ka komento parte sa health services ang may `text` column kag may `lon`/`lat` man, kag ang kada page isa ka lain nga paagi sang pagbasa sa amo man nga 12,000 rows.
 

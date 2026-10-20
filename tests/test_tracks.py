@@ -44,11 +44,10 @@ def test_every_page_has_a_signature_and_a_view():
     assert (root / "views" / "learn.py").exists()
 
 
-def test_legacy_aliases_still_resolve():
-    assert tracks.TRACKS is tracks.CHAPTERS
-    assert tracks.TRACKS["text"] == tracks.CHAPTERS["what"]
-    assert tracks.TRACKS["geo"] == tracks.CHAPTERS["where"]
-    assert tracks.track_of("p5_feel") == "what"
+def test_chapter_of():
+    assert tracks.chapter_of("p5_feel") == "what"
+    assert tracks.chapter_of("p2_textgps") == "where"
+    assert tracks.chapter_of("learn") is None
 
 
 def test_area_for():
