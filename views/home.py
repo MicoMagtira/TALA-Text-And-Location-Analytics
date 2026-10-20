@@ -57,7 +57,9 @@ tour = next((p for p in (VIDEO_DIR / f"tour_{i18n.current()}.webm",
                          VIDEO_DIR / "tour_en.webm") if p.exists()), None)
 if tour is not None:
     st.markdown(f"#### :material/play_circle: {ui._t('home.tour', 'Watch the 1-minute tour')}")
-    st.video(str(tour))
+    # The tours are VP9 WebM; st.video labels files video/mp4 by default, which
+    # Safari and Firefox refuse to play when the bytes are actually WebM.
+    st.video(str(tour), format="video/webm")
 
 # --- Data peek + pointer to the essay -----------------------------------------
 df = dl.active_df()

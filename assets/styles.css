@@ -374,6 +374,12 @@ div[data-testid="stHorizontalBlock"]:has([class*="st-key-tala-card-"]) div:has(>
 }
 [class*="st-key-tala-navbox"] a[data-testid="stPageLink-NavLink"]:hover { background: rgba(245, 216, 158, 0.1); }
 [class*="st-key-tala-navbox"] a[data-testid="stPageLink-NavLink"] p { font-size: 0.9rem; line-height: 1.25; }
+/* Step names run long in Cebuano/Ilocano/Hiligaynon: wrap them instead of
+   truncating with an ellipsis (Streamlit clamps page-link labels to one line). */
+[class*="st-key-tala-navbox"] a[data-testid="stPageLink-NavLink"] p,
+[class*="st-key-tala-navbox"] a[data-testid="stPageLink-NavLink"] span {
+  white-space: normal; overflow: visible; text-overflow: clip;
+}
 .tala-nav-chap { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0.5rem; margin: 0.9rem 0 0.15rem 0.5rem; }
 .tala-nav-name {
   font-family: "Courier New", ui-monospace, monospace; font-size: 0.72rem; font-weight: 700;
